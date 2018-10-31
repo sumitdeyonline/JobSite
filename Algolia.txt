@@ -1,0 +1,109 @@
+const functions = require('firebase-functions');
+const admin = require('firebase-admin');
+const algoliasearch = require('algoliasearch');
+
+
+const ALGOLIA_APP_ID = "";
+const ALGOLIA_ADMIN_KEY = "";
+const ALGOLIA_INDEX_NAME = "";
+
+admin.initializeApp(functions.config().firebase);
+
+
+exports.addFirestoreDataToAlgolia = functions.https.onRequest((req, res) => {
+	
+	var arr = [];
+	admin.firestore.collection("JobSite").get().then((docs) => {
+		docs.forEach((doc) => {
+			let jsite = doc.data();
+			jsite.objectID = doc.id;
+			
+			arr.push(jsite);
+			
+		})
+		var client = algoliasearch(ALGOLIA_APP_ID,ALGOLIA_ADMIN_KEY);
+		var index = client.initIndex(ALGOLIA_INDEX_NAME);
+		
+		index.savaObjects(arr, function (err, content) {
+			res.status(200).send(content);
+		})
+	
+	})
+
+})
+
+
+Update/Delete
+
+const functions = require('firebase-functions');
+const admin = require('firebase-admin');
+const algoliasearch = require('algoliasearch');
+
+
+const ALGOLIA_APP_ID = "";
+const ALGOLIA_ADMIN_KEY = "";
+const ALGOLIA_INDEX_NAME = "";
+
+admin.initializeApp(functions.config().firebase);
+
+
+const algoliasearch = require('algoliasearch');
+const algolia = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_ADMIN_KEY);
+
+exports.updateIndex = functions.database.ref('/JobSite/{jobId}').onWrite(event => {
+
+  const index = algolia.initIndex('JobSite');
+
+  const jobId = event.params.jobId
+  const data = event.data.val()
+
+
+  if (!data) {
+    return index.deleteObject(jobId, (err) => {
+      if (err) throw err
+      console.log('Job Removed from Algolia Index', jobId)
+    })
+    
+  }
+
+  data['objectID'] = jobId
+
+  return index.saveObject(data, (err, content) => {
+    if (err) throw err
+    console.log('Job Updated in Algolia Index', data.objectID)
+  })
+
+
+});
+
+
+Client TypeScript file
+
+import * as algoliasearch from 'algoliasearch'
+
+client: any;
+index: any
+const ALGOLIA_APP_ID = "";
+const ALGOLIA_API_KEY = "";
+
+searchQuery: string ="";
+jobs = [];
+
+constructor() {
+	this.client = algoliasearch(this.ALGOLIA_APP_ID, this.ALGOLIA_API_KEY,
+	  { protocol: 'https:' });
+	  
+	  this.index = this.client.initIndex("JobSite");
+	  
+	  this.index.search({
+	  	query: this.searchQuery
+	  }).then((data) => {
+	  	console.log(data.hits);
+	  	this.jobs = data.hits;
+	  })
+	  
+}
+
+<div *ngFor="let job of jobs">
+	{{job.title}}
+</div>
