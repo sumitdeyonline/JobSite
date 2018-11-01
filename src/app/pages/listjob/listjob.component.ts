@@ -51,8 +51,9 @@ export class ListjobComponent implements OnInit {
     //   console.log("List Service ..... 4444 ::::: "+this.PostJobc[1].JobCity);
     // });
 
-    this.PostJobc = this.postjob.getPostJobsAlgolia(this.keyword,this.location);
-
+     this.PostJobc = this.postjob.getPostJobsAlgolia(this.keyword,this.location);
+    //    console.log("List Service ..... 33333 ::::: "+this.PostJobc[1].JobTitle);
+    //    console.log("List Service ..... 4444 ::::: "+this.PostJobc[1].JobCity);
     // this.client = algoliasearch(this.ALGOLIA_APP_ID, this.ALGOLIA_API_KEY,
     //   { protocol: 'https:' });
     //   console.log("Test 1 ....1" );

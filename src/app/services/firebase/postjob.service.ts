@@ -125,7 +125,7 @@ export class PostjobService {
         }
         return this.jobs;
       })
-
+      return this.jobs;
   }
 
   // this.faqs = this.faqCollection.snapshotChanges().map(changes => {
