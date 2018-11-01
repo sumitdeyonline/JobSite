@@ -9,6 +9,9 @@ import { FIREBASE_CONFIG } from '../../global-config';
 import { formatDate } from '@angular/common';
 import { AuthService } from '../authentication/auth.service';
 
+import * as algoliasearch from 'algoliasearch';
+
+
 
 @Injectable()
 export class PostjobService {
@@ -19,6 +22,14 @@ export class PostjobService {
   pjCollection: AngularFirestoreCollection <PostJobc>;
   PostJobc: Observable<PostJobc[]>;
   pjDoc: AngularFirestoreDocument<PostJobc>;
+
+
+  client: any;
+  index: any;
+  ALGOLIA_APP_ID = "8I5VGLVBT1";
+  ALGOLIA_API_KEY = "378eba06830cc91d1dad1550dd4a5244";
+  //searchQuery: string ="sumitdey@yahoo.com" ;
+  jobs = [];
 
   constructor(private afs : AngularFirestore, private auth: AuthService) {
     this.pjCollection = this.afs.collection(FIREBASE_CONFIG.PostJob);
@@ -43,11 +54,11 @@ export class PostjobService {
     const end = keyword + '\uf8ff';
 
     this.pjCollection = this.afs.collection(FIREBASE_CONFIG.PostJob, ref =>
-      
+
        ref
         .orderBy('JobTitle')
         .startAt(keyword.toLowerCase()) //);
-        .endAt(end.toLowerCase()));       
+        .endAt(end.toLowerCase()));
 
           //ref.where('JobTitle','>=',keyword).orderBy(FIREBASE_CONFIG.OrderByPostJob,'asc'));
           // console.log("List Service ..... 4");
@@ -62,18 +73,70 @@ export class PostjobService {
       });
     }));
 
-    // this.faqs = this.faqCollection.snapshotChanges().map(changes => {
-    //   return changes.map(a => {
-    //     const data = a.payload.doc.data() as Faqc;
-    //     data.id = a.payload.doc.id;
-    //     console.log("List Service ..... 2");
-    //     return data;
-    //   });
-    // });
+
 
 
     return this.PostJobc;
   }
+
+  getPostJobsAlgolia(keyword, location) {
+
+
+    this.client = algoliasearch(this.ALGOLIA_APP_ID, this.ALGOLIA_API_KEY,
+      { protocol: 'https:' });
+      console.log("Test 1 ....1" );
+
+
+
+      this.index = this.client.initIndex("PostJob");
+      console.log("Test 1 ....2" );
+      //this.index.searchQuery
+
+      // this.index.search({
+      //   facetFilters: ["JobState=CA"]
+      // });
+      // this.index.searchForFacetValues({
+      //   facetName: 'JobState',
+      //   facetQuery: 'CA',
+      this.index.search({
+        //filters: "{JobState:CA}",
+        //filters:  'CA'
+        // searchfiltersarameters: {
+        //   filters: '{JobState:CA}'
+        // }
+        //facetFilters: "{JobState:CA}",
+        //searchParameters: '[JobState=CA]'
+        query: keyword,
+        //query: '{ JobState:CA }',
+        //attributesToRetrieve: ['JobTitle', 'JobDesc']
+
+        // restrictSearchableAttributes: [
+        //   'JobTitle',
+        //   'JobDesc'
+        // ]
+        //filters: 'JobState=CA'
+
+      }).then((data) => {
+
+        this.jobs = data.hits;
+        for(let i=0;i<this.jobs.length;i++) {
+          console.log("Algolia Job ::::::::: =>  "+this.jobs[i].JobState);
+          console.log("Algolia Job ::::::::: =>  "+this.jobs[i].JobTitle);
+        }
+        return this.jobs;
+      })
+
+  }
+
+  // this.faqs = this.faqCollection.snapshotChanges().map(changes => {
+  //   return changes.map(a => {
+  //     const data = a.payload.doc.data() as Faqc;
+  //     data.id = a.payload.doc.id;
+  //     console.log("List Service ..... 2");
+  //     return data;
+  //   });
+  // });
+
 
 
   addUpdatePostJobs(pjobc :  PostJobc,id: string) {
@@ -82,7 +145,7 @@ export class PostjobService {
     if ((id == null) || (id == '')) {
       pjobc.CreatedDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
       pjobc.CreatedBy = this.auth.userProfile.name;
-      //pjobc.JobTitle = 
+      //pjobc.JobTitle =
       // console.log ("Create Date ::: "+pjobc.CreatedDate);
       // console.log ("Created By ::: "+pjobc.CreatedBy);
       // console.log("NEW FORM ....Service");
