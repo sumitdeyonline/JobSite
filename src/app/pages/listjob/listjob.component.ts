@@ -26,7 +26,7 @@ export class ListjobComponent implements OnInit {
 
 
 
-  constructor(private route: ActivatedRoute, private postjob: PostjobService, private dformat: DateformatService) { 
+  constructor(private route: ActivatedRoute, private postjob: PostjobService, private dformat: DateformatService) {
     //this.PostJobc = null;
 
     this.route.queryParams.subscribe(params => {
@@ -44,50 +44,59 @@ export class ListjobComponent implements OnInit {
     //   //console.log("List Service ..... 4444 ::::: "+this.PostJobc[1].JobCity);
     // });
 
-    this.client = algoliasearch(this.ALGOLIA_APP_ID, this.ALGOLIA_API_KEY,
-      { protocol: 'https:' });
-      console.log("Test 1 ....1" );
+    // console.log("FireBase List : .....&&&&&&&&& :::::::-> 1 ");
+    // this.postjob.getPostJobsAlgolia(this.keyword,this.location).subscribe(PostJobc => {
+    //   this.PostJobc = PostJobc;
+    //   console.log("List Service ..... 33333 ::::: "+this.PostJobc[1].JobTitle);
+    //   console.log("List Service ..... 4444 ::::: "+this.PostJobc[1].JobCity);
+    // });
+
+    this.PostJobc = this.postjob.getPostJobsAlgolia(this.keyword,this.location);
+
+    // this.client = algoliasearch(this.ALGOLIA_APP_ID, this.ALGOLIA_API_KEY,
+    //   { protocol: 'https:' });
+    //   console.log("Test 1 ....1" );
 
 
 
-      this.index = this.client.initIndex("PostJob");
-      console.log("Test 1 ....2" );
-      //this.index.searchQuery
+    //   this.index = this.client.initIndex("PostJob");
+    //   console.log("Test 1 ....2" );
+    //   //this.index.searchQuery
 
-      // this.index.search({
-      //   facetFilters: ["JobState=CA"]
-      // });
-      // this.index.searchForFacetValues({
-      //   facetName: 'JobState',
-      //   facetQuery: 'CA',
-      this.index.search({
-        //filters: "{JobState:CA}",
-        //filters:  'CA'
-        // searchfiltersarameters: {
-        //   filters: '{JobState:CA}'
-        // }
-        //facetFilters: "{JobState:CA}",
-        //searchParameters: '[JobState=CA]'
-        query: this.keyword,
-        //query: '{ JobState:CA }',
-        //attributesToRetrieve: ['JobTitle', 'JobDesc']
+    //   // this.index.search({
+    //   //   facetFilters: ["JobState=CA"]
+    //   // });
+    //   // this.index.searchForFacetValues({
+    //   //   facetName: 'JobState',
+    //   //   facetQuery: 'CA',
+    //   this.index.search({
+    //     //filters: "{JobState:CA}",
+    //     //filters:  'CA'
+    //     // searchfiltersarameters: {
+    //     //   filters: '{JobState:CA}'
+    //     // }
+    //     //facetFilters: "{JobState:CA}",
+    //     //searchParameters: '[JobState=CA]'
+    //     query: this.keyword,
+    //     //query: '{ JobState:CA }',
+    //     //attributesToRetrieve: ['JobTitle', 'JobDesc']
 
-        // restrictSearchableAttributes: [
-        //   'JobTitle',
-        //   'JobDesc'
-        // ]        
-        //filters: 'JobState=CA'
-        
-      }).then((data) => {
-        
-        this.jobs = data.hits;
-        for(let i=0;i<this.jobs.length;i++) {
-          console.log("Algolia Job ::::::::: =>  "+this.jobs[i].JobState);
-          console.log("Algolia Job ::::::::: =>  "+this.jobs[i].JobTitle);
-        }
-        
-      })
-       
+    //     // restrictSearchableAttributes: [
+    //     //   'JobTitle',
+    //     //   'JobDesc'
+    //     // ]
+    //     //filters: 'JobState=CA'
+
+    //   }).then((data) => {
+
+    //     this.PostJobc = data.hits;
+    //     for(let i=0;i<this.PostJobc.length;i++) {
+    //       console.log("Algolia Job ::::::::: =>  "+this.PostJobc[i].JobState);
+    //       console.log("Algolia Job ::::::::: =>  "+this.PostJobc[i].JobTitle);
+    //     }
+
+    //   })
+
 
 
   }
