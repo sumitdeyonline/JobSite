@@ -89,23 +89,10 @@ export class PostjobService {
 
 
       this.index = this.client.initIndex("PostJob");
-      console.log("Test 1 ....2" );
-      //this.index.searchQuery
+      console.log("Test 1 ....2..2" );
 
-      // this.index.search({
-      //   facetFilters: ["JobState=CA"]
-      // });
-      // this.index.searchForFacetValues({
-      //   facetName: 'JobState',
-      //   facetQuery: 'CA',
       this.index.search({
-        //filters: "{JobState:CA}",
-        //filters:  'CA'
-        // searchfiltersarameters: {
-        //   filters: '{JobState:CA}'
-        // }
-        //facetFilters: "{JobState:CA}",
-        //searchParameters: '[JobState=CA]'
+
         query: keyword,
         //query: '{ JobState:CA }',
         //attributesToRetrieve: ['JobTitle', 'JobDesc']
@@ -116,8 +103,8 @@ export class PostjobService {
         // ]
         //filters: 'JobState=CA'
 
-      }).then((data) => {
-
+      })
+      .then((data) => {
         this.jobs = data.hits;
         for(let i=0;i<this.jobs.length;i++) {
           console.log("Algolia Job ::::::::: =>  "+this.jobs[i].JobState);

@@ -35,8 +35,9 @@ export class ListjobComponent implements OnInit {
       console.log("Keyword " + this.keyword);
       this.location = params['location'];
       console.log("Location " + this.location);
+      this.getPostJobsAlgolia(this.keyword,this.location);
     })
-
+ 
     //console.log("FireBase List : .....&&&&&&&&& :::::::-> 1 ");
     // this.postjob.getPostJobs(this.keyword,this.location).subscribe(PostJobc => {
     //   this.PostJobc = PostJobc;
@@ -51,7 +52,7 @@ export class ListjobComponent implements OnInit {
     //   console.log("List Service ..... 4444 ::::: "+this.PostJobc[1].JobCity);
     // });
 
-     this.PostJobc = this.postjob.getPostJobsAlgolia(this.keyword,this.location);
+     //this.PostJobc = this.getPostJobsAlgolia(this.keyword,this.location);
     //    console.log("List Service ..... 33333 ::::: "+this.PostJobc[1].JobTitle);
     //    console.log("List Service ..... 4444 ::::: "+this.PostJobc[1].JobCity);
     // this.client = algoliasearch(this.ALGOLIA_APP_ID, this.ALGOLIA_API_KEY,
@@ -104,8 +105,44 @@ export class ListjobComponent implements OnInit {
 
   ngOnInit() {
 
-
-
   }
+
+
+  getPostJobsAlgolia(keyword, location) {
+
+
+    this.client = algoliasearch(this.ALGOLIA_APP_ID, this.ALGOLIA_API_KEY,
+      { protocol: 'https:' });
+      //console.log("Test 1 ....1" );
+
+
+
+      this.index = this.client.initIndex("PostJob");
+      //console.log("Test 1 ....2..2" );
+
+      this.index.search({
+
+        query: keyword,
+        //query: '{ JobState:CA }',
+        //attributesToRetrieve: ['JobTitle', 'JobDesc']
+
+        // restrictSearchableAttributes: [
+        //   'JobTitle',
+        //   'JobDesc'
+        // ]
+        //filters: 'JobState=CA'
+
+      })
+      .then((data) => {
+        this.PostJobc = data.hits;
+        for(let i=0;i<this.PostJobc.length;i++) {
+          console.log("Algolia Job ::::::::: =>  "+this.PostJobc[i].JobState);
+          console.log("Algolia Job ::::::::: =>  "+this.PostJobc[i].JobTitle);
+        }
+        //return this.PostJobc;
+      })
+      //return this.PostJobc;
+  }
+
 
 }
