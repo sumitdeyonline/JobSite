@@ -4,6 +4,7 @@ import { PostjobService } from '../../services/firebase/postjob.service';
 import { PostJobc } from '../../services/firebase/postjob.model';
 import { DateformatService } from '../../services/dateformat/dateformat.service';
 import * as algoliasearch from 'algoliasearch';
+import {isNumeric} from 'rxjs/util/isNumeric';
 
 @Component({
   selector: 'listjob',
@@ -15,13 +16,14 @@ export class ListjobComponent implements OnInit {
   keyword: string;
   location: string;
   PostJobc: PostJobc[];
+  PostJobcFinal: PostJobc[] = [];
 
 
   client: any;
   index: any;
   ALGOLIA_APP_ID = "8I5VGLVBT1";
   ALGOLIA_API_KEY = "378eba06830cc91d1dad1550dd4a5244";
-  searchQuery: string ="sumitdey@yahoo.com" ;
+  //searchQuery: string ="sumitdey@yahoo.com" ;
   jobs = [];
 
 
@@ -29,15 +31,8 @@ export class ListjobComponent implements OnInit {
   constructor(private route: ActivatedRoute, private postjob: PostjobService, private dformat: DateformatService) {
     //this.PostJobc = null;
 
-    this.route.queryParams.subscribe(params => {
-      console.log(params);
-      this.keyword = params['keyword'];
-      console.log("Keyword " + this.keyword);
-      this.location = params['location'];
-      console.log("Location " + this.location);
-      this.getPostJobsAlgolia(this.keyword,this.location);
-    })
- 
+
+
     //console.log("FireBase List : .....&&&&&&&&& :::::::-> 1 ");
     // this.postjob.getPostJobs(this.keyword,this.location).subscribe(PostJobc => {
     //   this.PostJobc = PostJobc;
@@ -52,9 +47,8 @@ export class ListjobComponent implements OnInit {
     //   console.log("List Service ..... 4444 ::::: "+this.PostJobc[1].JobCity);
     // });
 
-     //this.PostJobc = this.getPostJobsAlgolia(this.keyword,this.location);
-    //    console.log("List Service ..... 33333 ::::: "+this.PostJobc[1].JobTitle);
-    //    console.log("List Service ..... 4444 ::::: "+this.PostJobc[1].JobCity);
+    //this.PostJobc = this.postjob.getPostJobsAlgolia(this.keyword,this.location);
+
     // this.client = algoliasearch(this.ALGOLIA_APP_ID, this.ALGOLIA_API_KEY,
     //   { protocol: 'https:' });
     //   console.log("Test 1 ....1" );
@@ -105,24 +99,52 @@ export class ListjobComponent implements OnInit {
 
   ngOnInit() {
 
-  }
+    this.route.queryParams.subscribe(params => {
+      console.log(params);
+      this.keyword = params['keyword'];
+      console.log("Keyword " + this.keyword);
+      this.location = params['location'];
+      console.log("Location " + this.location);
+      this.getPostJobsAlgolia(this.keyword,this.location);
 
+    })
+  }
 
   getPostJobsAlgolia(keyword, location) {
 
 
     this.client = algoliasearch(this.ALGOLIA_APP_ID, this.ALGOLIA_API_KEY,
       { protocol: 'https:' });
-      //console.log("Test 1 ....1" );
 
 
+      let searchQuery=keyword+' AND '+ location ;
+      console.log("Test 1 ....1 "+searchQuery);
 
       this.index = this.client.initIndex("PostJob");
-      //console.log("Test 1 ....2..2" );
+      console.log("Test 1 ....2" );
+
+      // this.index.setSettings({
+      //   searchableAttributes: [
+      //     'JobTitle',
+      //     'JobDesc',
+      //     'JobCountry',
+      //     'JobState',
+      //     'JobZip',
+      //     'JobCity'
+      //   ]
+      // });
 
       this.index.search({
-
-        query: keyword,
+        //filters: "{JobState:CA}",
+        //filters:  'CA'
+        // searchfiltersarameters: {
+        //   filters: '{JobState:CA}'
+        // }
+        //facetFilters: "{JobState:CA}",
+        //searchParameters: '[JobState=CA]'
+        query: keyword
+        //facetFilters:  ['JobCity:Livermore']
+        //filters: "JobState:'CA'"
         //query: '{ JobState:CA }',
         //attributesToRetrieve: ['JobTitle', 'JobDesc']
 
@@ -132,16 +154,46 @@ export class ListjobComponent implements OnInit {
         // ]
         //filters: 'JobState=CA'
 
-      })
-      .then((data) => {
+      }).then((data) => {
+        let j=0;
+        this.PostJobcFinal = [];
         this.PostJobc = data.hits;
         for(let i=0;i<this.PostJobc.length;i++) {
-          console.log("Algolia Job ::::::::: =>  "+this.PostJobc[i].JobState);
-          console.log("Algolia Job ::::::::: =>  "+this.PostJobc[i].JobTitle);
+          //console.log("Algolia Job ::::::::: =>  "+this.PostJobc[i].JobState);
+          //console.log("Algolia Job ::::::::: =>  "+this.PostJobc[i].JobTitle);
+          if (location.trim() != "") {
+            if (isNumeric(location)) {
+              console.log("This is number");
+              if (this.PostJobc[i].JobZip == location) {
+                this.PostJobcFinal[j] = this.PostJobc[i];
+                j++;
+              }
+
+            } else {
+              // console.log("This is not a number");
+              // console.log("City ::::: "+location.split(",")[0]);
+              // console.log("State ::::: "+location.split(",")[1]);
+
+              // console.log("City ::::: ...2"+this.PostJobc[i].JobCity);
+              // console.log("State :::::...2 "+this.PostJobc[i].JobState);
+
+              if ((location.split(",")[0].trim().toUpperCase() == this.PostJobc[i].JobCity.toUpperCase()) && (location.split(",")[1].trim().toUpperCase() == this.PostJobc[i].JobState.toUpperCase())) {
+                this.PostJobcFinal[j] = this.PostJobc[i];
+                j++;                
+              } else if (location.split(",")[0].trim().toUpperCase() == this.PostJobc[i].JobState.toUpperCase()) {
+                this.PostJobcFinal[j] = this.PostJobc[i];
+                j++; 
+              }
+            }
+          } else {
+            this.PostJobcFinal[j] = this.PostJobc[i];
+            j++;
+          }
+
         }
-        //return this.PostJobc;
+        //return this.jobs;
       })
-      //return this.PostJobc;
+
   }
 
 
