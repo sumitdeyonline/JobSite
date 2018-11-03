@@ -159,8 +159,8 @@ export class ListjobComponent implements OnInit {
         this.PostJobcFinal = [];
         this.PostJobc = data.hits;
         for(let i=0;i<this.PostJobc.length;i++) {
-          console.log("Algolia Job ::::::::: =>  "+this.PostJobc[i].JobState);
-          console.log("Algolia Job ::::::::: =>  "+this.PostJobc[i].JobTitle);
+          //console.log("Algolia Job ::::::::: =>  "+this.PostJobc[i].JobState);
+          //console.log("Algolia Job ::::::::: =>  "+this.PostJobc[i].JobTitle);
           if (location.trim() != "") {
             if (isNumeric(location)) {
               console.log("This is number");
@@ -170,7 +170,20 @@ export class ListjobComponent implements OnInit {
               }
 
             } else {
-              console.log("This is not a number");
+              // console.log("This is not a number");
+              // console.log("City ::::: "+location.split(",")[0]);
+              // console.log("State ::::: "+location.split(",")[1]);
+
+              // console.log("City ::::: ...2"+this.PostJobc[i].JobCity);
+              // console.log("State :::::...2 "+this.PostJobc[i].JobState);
+
+              if ((location.split(",")[0].trim().toUpperCase() == this.PostJobc[i].JobCity.toUpperCase()) && (location.split(",")[1].trim().toUpperCase() == this.PostJobc[i].JobState.toUpperCase())) {
+                this.PostJobcFinal[j] = this.PostJobc[i];
+                j++;                
+              } else if (location.split(",")[0].trim().toUpperCase() == this.PostJobc[i].JobState.toUpperCase()) {
+                this.PostJobcFinal[j] = this.PostJobc[i];
+                j++; 
+              }
             }
           } else {
             this.PostJobcFinal[j] = this.PostJobc[i];
