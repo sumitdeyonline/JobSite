@@ -5,6 +5,7 @@ import { PostJobc } from '../../services/firebase/postjob.model';
 import { DateformatService } from '../../services/dateformat/dateformat.service';
 import * as algoliasearch from 'algoliasearch';
 import {isNumeric} from 'rxjs/util/isNumeric';
+import { SEARCH_CONFIG } from '../../global-config';
 
 @Component({
   selector: 'listjob',
@@ -21,10 +22,10 @@ export class ListjobComponent implements OnInit {
 
   client: any;
   index: any;
-  ALGOLIA_APP_ID = "8I5VGLVBT1";
-  ALGOLIA_API_KEY = "378eba06830cc91d1dad1550dd4a5244";
+  // ALGOLIA_APP_ID = "8I5VGLVBT1";
+  // ALGOLIA_API_KEY = "378eba06830cc91d1dad1550dd4a5244";
   //searchQuery: string ="sumitdey@yahoo.com" ;
-  jobs = [];
+  //jobs = [];
 
 
 
@@ -113,15 +114,15 @@ export class ListjobComponent implements OnInit {
   getPostJobsAlgolia(keyword, location) {
 
 
-    this.client = algoliasearch(this.ALGOLIA_APP_ID, this.ALGOLIA_API_KEY,
-      { protocol: 'https:' });
+    this.client = algoliasearch(SEARCH_CONFIG.ALGOLIA_APP_ID, SEARCH_CONFIG.ALGOLIA_API_KEY,
+      { protocol: SEARCH_CONFIG.PROTOCOLS });
 
 
       let searchQuery=keyword+' AND '+ location ;
       console.log("Test 1 ....1 "+searchQuery);
 
-      this.index = this.client.initIndex("PostJob");
-      console.log("Test 1 ....2" );
+      this.index = this.client.initIndex(SEARCH_CONFIG.INDEX_NAME);
+
 
       // this.index.setSettings({
       //   searchableAttributes: [
@@ -158,10 +159,13 @@ export class ListjobComponent implements OnInit {
         let j=0;
         this.PostJobcFinal = [];
         this.PostJobc = data.hits;
+        
         for(let i=0;i<this.PostJobc.length;i++) {
           //console.log("Algolia Job ::::::::: =>  "+this.PostJobc[i].JobState);
           //console.log("Algolia Job ::::::::: =>  "+this.PostJobc[i].JobTitle);
+
           if (location.trim() != "") {
+
             if (isNumeric(location)) {
               console.log("This is number");
               if (this.PostJobc[i].JobZip == location) {
@@ -170,6 +174,7 @@ export class ListjobComponent implements OnInit {
               }
 
             } else {
+
               // console.log("This is not a number");
               // console.log("City ::::: "+location.split(",")[0]);
               // console.log("State ::::: "+location.split(",")[1]);
@@ -177,10 +182,17 @@ export class ListjobComponent implements OnInit {
               // console.log("City ::::: ...2"+this.PostJobc[i].JobCity);
               // console.log("State :::::...2 "+this.PostJobc[i].JobState);
 
-              if ((location.split(",")[0].trim().toUpperCase() == this.PostJobc[i].JobCity.toUpperCase()) && (location.split(",")[1].trim().toUpperCase() == this.PostJobc[i].JobState.toUpperCase())) {
+
+              //console.log("Test 1 ....5" + location.split(",")[0].trim().toUpperCase()); 
+              //console.log("Test 1 ....6" + location.split(",")[1].trim().toUpperCase());             
+              if ((location.split(",")[0].trim().toUpperCase() == this.PostJobc[i].JobCity.toUpperCase()) && (this.isNull(location.split(",")[1]).trim().toUpperCase() == this.PostJobc[i].JobState.toUpperCase())) {
                 this.PostJobcFinal[j] = this.PostJobc[i];
                 j++;                
               } else if (location.split(",")[0].trim().toUpperCase() == this.PostJobc[i].JobState.toUpperCase()) {
+                this.PostJobcFinal[j] = this.PostJobc[i];
+                j++; 
+              } 
+              else if (location.split(",")[0].trim().toUpperCase() == this.PostJobc[i].JobCity.toUpperCase()) {
                 this.PostJobcFinal[j] = this.PostJobc[i];
                 j++; 
               }
@@ -194,6 +206,11 @@ export class ListjobComponent implements OnInit {
         //return this.jobs;
       })
 
+  }
+
+  isNull(value) {
+    if (value == null) { return "" }
+    else { return value } 
   }
 
 

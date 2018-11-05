@@ -25,7 +25,11 @@ export const FIREBASE_CONFIG = {
 
 export const SEARCH_CONFIG = {
     Keyword: 'keyword',
-    Location: 'location'
+    Location: 'location',
+    ALGOLIA_APP_ID: '8I5VGLVBT1',
+    ALGOLIA_API_KEY: '378eba06830cc91d1dad1550dd4a5244',
+    INDEX_NAME: 'PostJob',
+    PROTOCOLS:'https:'
 }
 
 export const AUTH_CONFIG: AuthConfiguration = {

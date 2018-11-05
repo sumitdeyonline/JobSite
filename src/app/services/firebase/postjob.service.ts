@@ -10,6 +10,7 @@ import { formatDate } from '@angular/common';
 import { AuthService } from '../authentication/auth.service';
 
 import * as algoliasearch from 'algoliasearch';
+import { SEARCH_CONFIG } from '../../global-config';
 
 
 
@@ -26,8 +27,8 @@ export class PostjobService {
 
   client: any;
   index: any;
-  ALGOLIA_APP_ID = "8I5VGLVBT1";
-  ALGOLIA_API_KEY = "378eba06830cc91d1dad1550dd4a5244";
+  // ALGOLIA_APP_ID = "8I5VGLVBT1";
+  // ALGOLIA_API_KEY = "378eba06830cc91d1dad1550dd4a5244";
   //searchQuery: string ="sumitdey@yahoo.com" ;
   jobs = [];
 
@@ -82,13 +83,15 @@ export class PostjobService {
   getPostJobsAlgolia(keyword, location) {
 
 
-    this.client = algoliasearch(this.ALGOLIA_APP_ID, this.ALGOLIA_API_KEY,
-      { protocol: 'https:' });
-      console.log("Test 1 ....1" );
+    // this.client = algoliasearch(this.ALGOLIA_APP_ID, this.ALGOLIA_API_KEY,
+    //   { protocol: 'https:' });
+    //   console.log("Test 1 ....1" );
+    this.client = algoliasearch(SEARCH_CONFIG.ALGOLIA_APP_ID, SEARCH_CONFIG.ALGOLIA_API_KEY,
+      { protocol: SEARCH_CONFIG.PROTOCOLS });  
 
 
 
-      this.index = this.client.initIndex("PostJob");
+      this.index = this.client.initIndex(SEARCH_CONFIG.INDEX_NAME);
       console.log("Test 1 ....2..2" );
 
       this.index.search({
@@ -143,6 +146,7 @@ export class PostjobService {
       this.pjDoc = this.afs.doc(`${FIREBASE_CONFIG.PostJob}/${id}`);
       this.pjDoc.update(pjobc);
     }
+    
 
   }
 
