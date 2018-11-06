@@ -4,6 +4,9 @@ import { map, catchError } from 'rxjs/operators';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
 
+
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+
 import { PostJobc } from './postjob.model';
 import { FIREBASE_CONFIG } from '../../global-config';
 import { formatDate } from '@angular/common';
@@ -11,6 +14,7 @@ import { AuthService } from '../authentication/auth.service';
 
 import * as algoliasearch from 'algoliasearch';
 import { SEARCH_CONFIG } from '../../global-config';
+import { Http } from "@angular/http";
 
 
 
@@ -27,12 +31,13 @@ export class PostjobService {
 
   client: any;
   index: any;
+  private headers
   // ALGOLIA_APP_ID = "8I5VGLVBT1";
   // ALGOLIA_API_KEY = "378eba06830cc91d1dad1550dd4a5244";
   //searchQuery: string ="sumitdey@yahoo.com" ;
   jobs = [];
 
-  constructor(private afs : AngularFirestore, private auth: AuthService) {
+  constructor(private afs : AngularFirestore, private auth: AuthService, private http: Http) {
     this.pjCollection = this.afs.collection(FIREBASE_CONFIG.PostJob);
     //this.faqList = this.firebase.list('faq');
     //this.faqs = this.afs.collection('faq').valueChanges();
@@ -80,6 +85,7 @@ export class PostjobService {
     return this.PostJobc;
   }
 
+
   getPostJobsAlgolia(keyword, location) {
 
 
@@ -87,7 +93,7 @@ export class PostjobService {
     //   { protocol: 'https:' });
     //   console.log("Test 1 ....1" );
     this.client = algoliasearch(SEARCH_CONFIG.ALGOLIA_APP_ID, SEARCH_CONFIG.ALGOLIA_API_KEY,
-      { protocol: SEARCH_CONFIG.PROTOCOLS });  
+      { protocol: SEARCH_CONFIG.PROTOCOLS });
 
 
 
@@ -146,8 +152,40 @@ export class PostjobService {
       this.pjDoc = this.afs.doc(`${FIREBASE_CONFIG.PostJob}/${id}`);
       this.pjDoc.update(pjobc);
     }
-    
+    this.AlgoliaUpdate();
 
+  }
+
+  AlgoliaUpdate() {
+    //let params: URLSearchParams = new URLSearchParams();
+    //let headers = new Headers({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST, GET, PUT, OPTIONS, DELETE' });
+    //let headers = new Headers({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*');
+
+    // let headers: HttpHeaders = new HttpHeaders({
+    //   'Content-Type': 'application/json',
+    //   'Access-Control-Allow-Origin': '*'
+    // });
+    //let options = new RequestOptions({headers :headers})
+
+    console.log("Algolia update"+SEARCH_CONFIG.ALGOLIA_FUNCTION_URL);
+    // return this.http.post(SEARCH_CONFIG.ALGOLIA_FUNCTION_URL, {header: headers})
+    //           .toPromise()
+    //           .then( res => {
+    //             console.log("Good : "+res);
+    //           })
+    //           .catch(err => {
+    //             console.log("Error:::: "+err);
+    //           });
+
+    this.headers = new Headers();
+    this.headers.append('Content-Type', 'application/json');
+    this.headers.append('Access-Control-Allow-Origin', '*');
+              return this.http.get(SEARCH_CONFIG.ALGOLIA_FUNCTION_URL, { headers: this.headers })
+              .toPromise()
+              .then(response => response.json())
+              .catch(err => {
+                console.log("Error:::: "+err);
+              });
   }
 
 

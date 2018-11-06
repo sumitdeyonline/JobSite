@@ -19,14 +19,14 @@ export class PostjobComponent implements OnInit {
 
 
   PostJobForm: any;
-  //postjob = new PostJobc();
+  // postjob = new PostJobc();
   postjobMessage: string;
   postjobSucessMessage: string;
 
   id: any;
-  postJobList:[any];
+  postJobList: [any];
 
-  constructor(private _activeRoute:ActivatedRoute, private _auth: AuthService, fb: FormBuilder, private postjobService: PostjobService,
+  constructor(private _activeRoute: ActivatedRoute, private _auth: AuthService, fb: FormBuilder, private postjobService: PostjobService,
               private toastrservice: ToastrService,
               private router: Router,
               private datePipe: DatePipe) {
@@ -86,7 +86,7 @@ export class PostjobComponent implements OnInit {
   }
 
 
-  resetForm(postJobForm? : NgForm) {
+  resetForm(postJobForm?: NgForm) {
     if (postJobForm !=null)
     postJobForm.reset();
       this.postjobService.selectedPostJobc = {
