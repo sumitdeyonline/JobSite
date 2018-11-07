@@ -39,6 +39,8 @@ import { DatePipe } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
 import { JobdetailsComponent } from './pages/jobdetails/jobdetails.component';
 import { DateformatService } from './services/dateformat/dateformat.service';
+import { UploadResumeService } from './services/firebase/upload-resume.service';
+import { ResumeUploadComponent } from './pages/resume-upload/resume-upload.component';
 
 
 @NgModule({
@@ -52,7 +54,7 @@ import { DateformatService } from './services/dateformat/dateformat.service';
     NotfoundComponent,
     LoginComponent,
     LogComponent,
-    CallbackComponent, SignupComponent, SignupConfirmComponent, SearchheaderComponent, PostjobComponent, ListjobComponent, JobpoststatusComponent, JobdetailsComponent
+    CallbackComponent, SignupComponent, SignupConfirmComponent, SearchheaderComponent, PostjobComponent, ListjobComponent, JobpoststatusComponent, JobdetailsComponent, ResumeUploadComponent
   ],
 
   imports: [
@@ -70,6 +72,7 @@ import { DateformatService } from './services/dateformat/dateformat.service';
     AuthGuardService,
     ScopeGuardService,
     PostjobService,
+    UploadResumeService,
     AngularFirestore,
     ToastrService,
     DatePipe,
