@@ -28,6 +28,6 @@ export class ResumeUploadComponent implements OnInit {
 
     this.currentFileUpload = new FileUpload(file);
     this.resumeuploadService.pushFileToStorage(this.currentFileUpload, this.progress);
-  }
+  }  
 
 }

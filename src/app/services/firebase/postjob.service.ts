@@ -178,8 +178,16 @@ export class PostjobService {
     //           });
 
     this.headers = new Headers();
-    this.headers.append('Content-Type', 'application/json');
-    this.headers.append('Access-Control-Allow-Origin', '*');
+    // this.headers.append('Content-Type', 'application/json');
+    // this.headers.append('Access-Control-Allow-Origin', '*');
+
+    //var allowCrossDomain = function(req, res, next) {
+      this.headers.append('Access-Control-Allow-Origin', "http://localhost:4200");
+      this.headers.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+      this.headers.append('Access-Control-Allow-Headers', 'Content-Type');
+  //};
+
+
               return this.http.get(SEARCH_CONFIG.ALGOLIA_FUNCTION_URL, { headers: this.headers })
               .toPromise()
               .then(response => response.json())
