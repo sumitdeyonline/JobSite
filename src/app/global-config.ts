@@ -15,6 +15,7 @@ interface AuthConfiguration {
 export const FIREBASE_CONFIG = {
     URL: '/PostJob',
     PostJob: 'PostJob',
+    UserDetails: 'UserDetails',
     OrderByPostJob: 'JobTitle',
     AddedSucessfully: 'Added Successfully',
     UpdatedSucessfully: 'Updated Successfully',

@@ -69,7 +69,7 @@
       </li-->
     </ul>
     <ul class="nav navbar-nav">
-      <li><a routerLink="/resumeupload">Upload Resume</a></li>
+      <li><a routerLink="/resumeupload" *ngIf="auth.isAuthenticated()">Upload Resume</a></li>
       <li><a routerLink="/login" *ngIf="!auth.isAuthenticated()">Login</a></li>
       <li><a routerLink="/signup" *ngIf="!auth.isAuthenticated()">Signup</a></li>
       <li *ngIf="auth.isAuthenticated() && auth.userProfile" class="username">
