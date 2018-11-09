@@ -42,6 +42,7 @@ import { DateformatService } from './services/dateformat/dateformat.service';
 import { UploadResumeService } from './services/firebase/upload-resume.service';
 import { ResumeUploadComponent } from './pages/resume-upload/resume-upload.component';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { UserdetailsService } from './services/firebase/userdetails.service';
 
 
 @NgModule({
@@ -75,6 +76,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
     PostjobService,
     UploadResumeService,
     AngularFirestore,
+    UserdetailsService,
     ToastrService,
     DatePipe,
     DateformatService,

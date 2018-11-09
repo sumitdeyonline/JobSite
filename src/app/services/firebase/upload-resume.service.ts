@@ -27,23 +27,28 @@ export class UploadResumeService {
 
 
   private basePath = '/uploads';
+  private task: any;
   constructor(private db: AngularFireDatabase,  private auth: AuthService) { }
 
   pushFileToStorage(fileUpload: FileUpload, progress: { percentage: number }) {
 
+
     const storageRef = firebase.storage().ref();
- 
+
     if (this.auth.userProfile == null) {
-      console.log('Null -> File Name ', "Generic"+fileUpload.file.name);
+      console.log('Null -> File Name ', "Generic_"+fileUpload.file.name);
+      this.task =  storageRef.child(`${this.basePath}/${"Generic_"+fileUpload.file.name}`).put(fileUpload.file);
       //const uploadTask = storageRef.child(`${this.basePath}/${fileUpload.file.name}`).put(fileUpload.file);
     }
     else {
       console.log('Not Null -> File Name ', this.auth.userProfile.name+"_"+fileUpload.file.name);
+      this.task = storageRef.child(`${this.basePath}/${this.auth.userProfile.name+"_"+fileUpload.file.name}`).put(fileUpload.file);
       //const uploadTask = storageRef.child(`${this.basePath}/${fileUpload.file.name}`).put(fileUpload.file);
 
     }
 
-    const uploadTask = storageRef.child(`${this.basePath}/${fileUpload.file.name}`).put(fileUpload.file);
+    //const uploadTask = storageRef.child(`${this.basePath}/${fileUpload.file.name}`).put(fileUpload.file);
+    const uploadTask = this.task;
 
     uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
       (snapshot) => {
@@ -60,18 +65,18 @@ export class UploadResumeService {
       () => {
         // success
         uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
-          
+
           console.log('File available at', downloadURL);
           fileUpload.url = downloadURL;
           fileUpload.name = fileUpload.file.name;
-            
+
 
           this.saveFileData(fileUpload);
 
         });
 
       }
-      
+
     );
 
   }
