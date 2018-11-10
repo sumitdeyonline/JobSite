@@ -3,6 +3,7 @@ import { FormBuilder, Validators, NgForm, EmailValidator, FormGroup, FormControl
 import { Signup } from '../../services/authentication/signup';
 import { AuthService } from '../../services/authentication/auth.service';
 import { AUTH_CONFIG } from '../../global-config';
+import { UserdetailsService } from 'src/app/services/firebase/userdetails.service';
 
 @Component({
   selector: 'app-signup',
@@ -17,8 +18,8 @@ export class SignupComponent implements OnInit {
   signupSucessMessage: string='';
 
   error: any[]; // {"name":"BadRequestError","code":"user_exists","description":"The user already exists.","statusCode":400}
-  
-  constructor(private _auth: AuthService, fb: FormBuilder) { 
+
+  constructor(private _auth: AuthService, fb: FormBuilder, private udetails: UserdetailsService) {
 
     this.signupForm = fb.group({
       email: ['', Validators.required,Validators.email],
@@ -40,44 +41,45 @@ export class SignupComponent implements OnInit {
     this._auth.signUp(model).subscribe(
       model => {
           // refresh the list
-          //alert("User Addred"); 
-          this.signupSucessMessage = model.email+" has been Sucessfully Registered" 
+          //alert("User Addred");
+          this.signupSucessMessage = model.email+" has been Sucessfully Registered"
           console.log(this.signupSucessMessage);
-          //this.router.navigate(['/signupconfirm']);                 
+          this.udetails.addUpdateUserDetails(null, model.email);
+          //this.router.navigate(['/signupconfirm']);
           return true;
       },
       error => {
-        this.error = error; 
+        this.error = error;
         console.log("Message 2 "+error);
         //console.log("Message 1 "+error[1].name);
         //console.log("Message 2 "+error.description);
         //this.signupMessage = error; //   "This user already exists."
         this.signupMessage = "User already exists or password not satisfy minimum requrements"; //   "This user already exists."
       });
-      
-      
-      
+
+
+
       // {
       //     //alert("Error : "+error.description);
       //     console.error("Error Adding User" + error.description);
       //     this.signupMessage = "User Exists";
       //     //this.signupMessage = error.description;
       //     //return Observable.throw(error);
-      // });  
+      // });
     }
     resetForm(signupForm? : NgForm) {
       //this.signupError='';
       if (signupForm !=null)
       signupForm.reset();
       this.signupMessage ='';
-      this.signupSucessMessage ='';    
+      this.signupSucessMessage ='';
       //console.log("User Name "+SignupComponent.username+" Password "+SignupComponent.password+" Re Pass : "+SignupComponent.repassword);
       // SignupComponent.username='';
       // SignupComponent.password='';
       // SignupComponent.repassword='';
       // this.signup = new SignUp();
     }
-  
+
     onFocus(event) {
       this.signupMessage = '';
     }
@@ -90,7 +92,7 @@ export class SignupComponent implements OnInit {
         //console.log("FIELD LENGTH .."+fieldValue.length);
         return fieldValue.length;
       }
-  
+
     }
 
 }
