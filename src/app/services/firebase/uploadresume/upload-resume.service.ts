@@ -11,13 +11,14 @@ import 'firebase/storage';
 
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 
-import { PostJobc } from './postjob.model';
-import { FIREBASE_CONFIG } from '../../global-config';
+//import { PostJobc } from './postjob.model';
+//import { FIREBASE_CONFIG } from '../../global-config';
 import { formatDate } from '@angular/common';
-import { AuthService } from '../authentication/auth.service';
+import { AuthService } from '../../authentication/auth.service';
 
 
-import { SEARCH_CONFIG } from '../../global-config';
+
+//import { SEARCH_CONFIG } from '../../global-config';
 
 
 @Injectable({

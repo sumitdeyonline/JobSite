@@ -8,13 +8,15 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 
 import { PostJobc } from './postjob.model';
-import { FIREBASE_CONFIG } from '../../global-config';
+
 import { formatDate } from '@angular/common';
-import { AuthService } from '../authentication/auth.service';
+
 
 import * as algoliasearch from 'algoliasearch';
-import { SEARCH_CONFIG } from '../../global-config';
+
 import { Http } from "@angular/http";
+import { AuthService } from '../../authentication/auth.service';
+import { FIREBASE_CONFIG, SEARCH_CONFIG } from 'src/app/global-config';
 
 
 

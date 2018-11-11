@@ -8,13 +8,16 @@ import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 
 import { UserDetails } from './userdetails.model';
-import { FIREBASE_CONFIG } from '../../global-config';
+//import { FIREBASE_CONFIG } from '../../global-config';
 import { formatDate } from '@angular/common';
-import { AuthService } from '../authentication/auth.service';
+//import { AuthService } from '../authentication/auth.service';
 
 import * as algoliasearch from 'algoliasearch';
-import { SEARCH_CONFIG } from '../../global-config';
+
 import { Http } from '@angular/http';
+
+import { FIREBASE_CONFIG } from 'src/app/global-config';
+import { AuthService } from '../../authentication/auth.service';
 @Injectable({
   providedIn: 'root'
 })

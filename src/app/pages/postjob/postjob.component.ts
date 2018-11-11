@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { PostJobc } from '../../services/firebase/postjob.model';
+
 import { FormBuilder, NgForm } from '@angular/forms';
 import { AuthService } from '../../services/authentication/auth.service';
-import { PostjobService } from '../../services/firebase/postjob.service';
+
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 // import { ToastrService } from 'ngx-toastr';
 import {formatDate} from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { PostjobService } from 'src/app/services/firebase/postjob/postjob.service';
 
 @Component({
   selector: 'postjob',

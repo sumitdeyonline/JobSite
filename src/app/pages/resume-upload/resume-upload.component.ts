@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UploadResumeService } from 'src/app/services/firebase/upload-resume.service';
-import { FileUpload } from 'src/app/services/firebase/FileUpload';
+import { FileUpload } from 'src/app/services/firebase/uploadresume/FileUpload';
+import { UploadResumeService } from 'src/app/services/firebase/uploadresume/upload-resume.service';
+
 
 
 @Component({

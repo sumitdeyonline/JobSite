@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { PostjobService } from '../../services/firebase/postjob.service';
-import { PostJobc } from '../../services/firebase/postjob.model';
+//import { PostjobService } from '../../services/firebase/postjob.service';
+//import { PostJobc } from '../../services/firebase/postjob.model';
 import { DateformatService } from '../../services/dateformat/dateformat.service';
 import * as algoliasearch from 'algoliasearch';
 import {isNumeric} from 'rxjs/util/isNumeric';
 import { SEARCH_CONFIG } from '../../global-config';
+import { PostJobc } from 'src/app/services/firebase/postjob/postjob.model';
+import { PostjobService } from 'src/app/services/firebase/postjob/postjob.service';
 
 @Component({
   selector: 'listjob',

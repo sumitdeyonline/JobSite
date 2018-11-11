@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/authentication/auth.service';
-import { PostjobService } from '../../../services/firebase/postjob.service';
-import { PostJobc } from '../../../services/firebase/postjob.model';
+
 import { Router } from '@angular/router';
 import { DateformatService } from '../../../services/dateformat/dateformat.service';
+import { PostJobc } from 'src/app/services/firebase/postjob/postjob.model';
+import { PostjobService } from 'src/app/services/firebase/postjob/postjob.service';
 
 @Component({
   selector: 'jobpoststatus',

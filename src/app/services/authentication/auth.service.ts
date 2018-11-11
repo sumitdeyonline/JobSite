@@ -12,7 +12,8 @@ import { NotFoundError } from '../../common/exception/not-found-error';
 import { BadInput } from '../../common/exception/bad-input';
 import { AppError } from '../../common/exception/app-error';
 import { HttpErrorResponse } from '@angular/common/http';
-import { UserDetails } from '../firebase/userdetails.model';
+import { UserDetails } from '../firebase/userdetails/userdetails.model';
+//import { UserDetails } from '../firebase/userdetails.model';
 
 @Injectable({
   providedIn: 'root'

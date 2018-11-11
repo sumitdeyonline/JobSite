@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { PostJobc } from '../../services/firebase/postjob.model';
-import { PostjobService } from '../../services/firebase/postjob.service';
+import { PostJobc } from 'src/app/services/firebase/postjob/postjob.model';
+import { PostjobService } from 'src/app/services/firebase/postjob/postjob.service';
+//import { PostJobc } from '../../services/firebase/postjob.model';
+//import { PostjobService } from '../../services/firebase/postjob.service';
 
 @Component({
   selector: 'jobdetails',

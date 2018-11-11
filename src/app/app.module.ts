@@ -31,7 +31,7 @@ import { SearchheaderComponent } from './template/searchheader/searchheader.comp
 import { PostjobComponent } from './pages/postjob/postjob.component';
 import { AuthGuardService } from './services/authentication/auth-guard.service';
 import { ScopeGuardService } from './services/authentication/scope-guard.service';
-import { PostjobService } from './services/firebase/postjob.service';
+import { PostjobService } from './services/firebase/postjob/postjob.service';
 import { ListjobComponent } from './pages/listjob/listjob.component';
 import { ToastrService } from 'ngx-toastr';
 import { JobpoststatusComponent } from './pages/postjob/jobpoststatus/jobpoststatus.component';
@@ -39,10 +39,12 @@ import { DatePipe } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
 import { JobdetailsComponent } from './pages/jobdetails/jobdetails.component';
 import { DateformatService } from './services/dateformat/dateformat.service';
-import { UploadResumeService } from './services/firebase/upload-resume.service';
+
 import { ResumeUploadComponent } from './pages/resume-upload/resume-upload.component';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { UserdetailsService } from './services/firebase/userdetails.service';
+import { UploadResumeService } from './services/firebase/uploadresume/upload-resume.service';
+import { UserdetailsService } from './services/firebase/userdetails/userdetails.service';
+
 
 
 @NgModule({

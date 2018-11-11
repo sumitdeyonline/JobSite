@@ -3,7 +3,8 @@ import { FormBuilder, Validators, NgForm, EmailValidator, FormGroup, FormControl
 import { Signup } from '../../services/authentication/signup';
 import { AuthService } from '../../services/authentication/auth.service';
 import { AUTH_CONFIG } from '../../global-config';
-import { UserdetailsService } from 'src/app/services/firebase/userdetails.service';
+import { UserdetailsService } from 'src/app/services/firebase/userdetails/userdetails.service';
+
 
 @Component({
   selector: 'app-signup',
