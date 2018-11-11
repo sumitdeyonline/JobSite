@@ -1,7 +1,8 @@
 export interface UserDetails {
-  username? : string;
+  id?: string;
+  userName? : string;
   userRole? : string;
-  CreatedDate? : string;
+  createdDate? : string;
   LastModifiedBy? : string;
   LastModifiedDate? : string;
 }

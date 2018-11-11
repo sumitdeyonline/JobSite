@@ -55,7 +55,8 @@
           </a>
           <div class="dropdown-menu" >
 
-            <a class="dropdown-item" routerLink="/postjob" *ngIf="auth.isAuthenticated() && auth.isAdminRole()">Post Job</a>
+            <!--a class="dropdown-item" routerLink="/postjob" *ngIf="auth.isAuthenticated() && auth.isAdminRole()">Post Job</a-->
+            <a class="dropdown-item" routerLink="/postjob" *ngIf="auth.isAuthenticated() && (auth.isPostJobRole() || auth.isAdminRole())">Post Job</a>
             <!--a class="dropdown-item" href="recruiters.html">Post Job</a-->
             <a class="dropdown-item" href="recruiters.html">Recruiters Solution</a>
 

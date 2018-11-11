@@ -57,7 +57,7 @@ export class UserdetailsService {
       // const id = this.afs.createId();
       const  cDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
       const  uRole = "User";
-      const  udeatils: UserDetails = { username: uname, userRole: uRole, CreatedDate: cDate };
+      const  udeatils: UserDetails = { userName: uname, userRole: uRole, createdDate: cDate };
       console.log(udeatils);
       this.udCollection.add(udeatils);
       // this.adUserDetails( uname);

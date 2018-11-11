@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AUTH_CONFIG } from '../../global-config';
+import { AUTH_CONFIG, FIREBASE_CONFIG } from '../../global-config';
 import * as auth0 from 'auth0-js';
 import { Router } from '@angular/router';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { SESSION_CONFIG } from './auth.config';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 
 import {throwError as observableThrowError,  Observable, config } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -11,6 +12,7 @@ import { NotFoundError } from '../../common/exception/not-found-error';
 import { BadInput } from '../../common/exception/bad-input';
 import { AppError } from '../../common/exception/app-error';
 import { HttpErrorResponse } from '@angular/common/http';
+import { UserDetails } from '../firebase/userdetails.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +25,10 @@ export class AuthService {
   authResult: any;
   public auth0Error: string;
   private signUperror: string;
+  udCollection: AngularFirestoreCollection<UserDetails>;
+  userDetail: Observable<UserDetails[]>;
+  uDetail: UserDetails[];
+  isEmployeeRole: boolean = false;
 
   auth0 = new auth0.WebAuth({
     clientID: AUTH_CONFIG.clientID,    
@@ -36,8 +42,9 @@ export class AuthService {
     //redirectUri: 'http://localhost:4200/callback',
   });
 
-  constructor(private router: Router, private _http: Http) { 
+  constructor(private router: Router, private _http: Http, private afs : AngularFirestore) { 
     this.userProfile = JSON.parse(localStorage.getItem(SESSION_CONFIG.profile));
+    this.udCollection = this.afs.collection(FIREBASE_CONFIG.UserDetails);
   }
 
   public login(username, password) {
@@ -141,7 +148,26 @@ export class AuthService {
         self.userProfile = profile;
           //localStorage.setItem('profile', this.userProfile);
           localStorage.setItem(SESSION_CONFIG.profile, JSON.stringify(profile));
-          console.log("Profile Name "+profile.name);  
+          console.log("Profile Name "+profile.name); 
+          // Check for the employer Role
+ 
+          if (this.userProfile !=null) {
+            this.UserRole().subscribe(udetail=> {
+              this.uDetail = udetail;
+              if (this.uDetail[0] !=null) {
+                if (this.uDetail[0].userRole == "Employer") {
+                  console.log("Employer Role :::::: ");
+                  this.isEmployeeRole = true;
+                } else {
+                  console.log("Not a Employer Role :::::: ");
+                  this.isEmployeeRole = false;
+                }
+              }
+              //console.log("List Service ..... 33333 ::::: "+this.pjob[1].id);
+            }) 
+          }
+
+
           //console.log("profile "+profile.roles);      
       }
       cb(err, profile);
@@ -167,6 +193,45 @@ export class AuthService {
           return false;
       }
     }
+  }
+
+  public isPostJobRole() {
+    // if (this.userProfile !=null) {
+    //   this.UserRole().subscribe(udetail=> {
+    //     this.uDetail = udetail;
+    //     if (this.uDetail[0] !=null) {
+    //       if (this.uDetail[0].userRole == "Employer") {
+    //         //console.log("Employer Role :::::: ");
+    //         this.isEmployeeRole = true;
+    //       } else {
+    //         //console.log("Not a Employer Role :::::: ");
+    //         this.isEmployeeRole = false;
+    //       }
+    //     }
+    //     //console.log("List Service ..... 33333 ::::: "+this.pjob[1].id);
+    //   }) 
+    // }
+    return this.isEmployeeRole;
+  }
+  
+  UserRole() {
+    //console.log("UserName ::::: "+this.userProfile.name);
+    if (this.userProfile !=null) {
+      this.udCollection = this.afs.collection(FIREBASE_CONFIG.UserDetails, ref =>
+        ref.where('userName','==',this.userProfile.name)); //.orderBy('CreatedDate','desc'));
+          //console.log("List Service ..... 4");
+        this.userDetail = this.udCollection.snapshotChanges().pipe(map(changes => {
+        //console.log("List Service ..... 5");
+        return changes.map(a => {
+        //console.log("List Service ..... 6");
+          const data = a.payload.doc.data() as UserDetails;
+          data.id = a.payload.doc.id;
+          //console.log("List Service 11111 ..... 2");
+          return data;
+          });
+        }));
+    }
+    return this.userDetail;
   }
 
   signUp(signUpItems){

@@ -14,8 +14,10 @@ export class ScopeGuardService implements CanActivate  {
           this.router.navigate(['']);
           return false;
         }
-        return this.auth.isAdminRole();
+        //return this.auth.isAdminRole();
+        if (this.auth.isPostJobRole() || this.auth.isAdminRole())
+          return true;
+        else
+          return false;
   }
-
-
 }
