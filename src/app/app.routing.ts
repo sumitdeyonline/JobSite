@@ -10,7 +10,7 @@ import { ScopeGuardService as ScopeGuard } from './services/authentication/scope
 import { ListjobComponent } from './pages/listjob/listjob.component';
 import { JobpoststatusComponent } from './pages/postjob/jobpoststatus/jobpoststatus.component';
 import { JobdetailsComponent } from './pages/jobdetails/jobdetails.component';
-import { ResumeUploadComponent } from './pages/resume-upload/resume-upload.component';
+import { UserProfileComponent } from './pages/userprofile/userprofile.component';
 
 export const routing = RouterModule.forRoot([
 
@@ -56,8 +56,8 @@ export const routing = RouterModule.forRoot([
         component: SignupComponent
     },
     {
-        path: 'resumeupload',
-        component: ResumeUploadComponent
+        path: 'userprofile',
+        component: UserProfileComponent
     },    
     {
         path: '',

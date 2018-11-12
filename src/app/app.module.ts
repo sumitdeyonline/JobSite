@@ -40,10 +40,11 @@ import { ToastrModule } from 'ngx-toastr';
 import { JobdetailsComponent } from './pages/jobdetails/jobdetails.component';
 import { DateformatService } from './services/dateformat/dateformat.service';
 
-import { ResumeUploadComponent } from './pages/resume-upload/resume-upload.component';
+import { UserProfileComponent } from './pages/userprofile/userprofile.component';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { UploadResumeService } from './services/firebase/uploadresume/upload-resume.service';
 import { UserdetailsService } from './services/firebase/userdetails/userdetails.service';
+import { UserprofileService } from './services/firebase/userprofile/userprofile.service';
 
 
 
@@ -58,7 +59,7 @@ import { UserdetailsService } from './services/firebase/userdetails/userdetails.
     NotfoundComponent,
     LoginComponent,
     LogComponent,
-    CallbackComponent, SignupComponent, SignupConfirmComponent, SearchheaderComponent, PostjobComponent, ListjobComponent, JobpoststatusComponent, JobdetailsComponent, ResumeUploadComponent
+    CallbackComponent, SignupComponent, SignupConfirmComponent, SearchheaderComponent, PostjobComponent, ListjobComponent, JobpoststatusComponent, JobdetailsComponent, UserProfileComponent
   ],
 
   imports: [
@@ -79,6 +80,7 @@ import { UserdetailsService } from './services/firebase/userdetails/userdetails.
     UploadResumeService,
     AngularFirestore,
     UserdetailsService,
+    UserprofileService,
     ToastrService,
     DatePipe,
     DateformatService,

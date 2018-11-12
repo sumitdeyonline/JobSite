@@ -15,6 +15,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 //import { FIREBASE_CONFIG } from '../../global-config';
 import { formatDate } from '@angular/common';
 import { AuthService } from '../../authentication/auth.service';
+import { FIREBASE_CONFIG } from 'src/app/global-config';
 
 
 
@@ -27,9 +28,11 @@ import { AuthService } from '../../authentication/auth.service';
 export class UploadResumeService {
 
 
-  private basePath = '/uploads';
+  private basePath = FIREBASE_CONFIG.UploadPath; //'/uploads';
   private task: any;
   constructor(private db: AngularFireDatabase,  private auth: AuthService) { }
+
+
 
   pushFileToStorage(fileUpload: FileUpload, progress: { percentage: number }) {
 

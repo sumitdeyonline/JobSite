@@ -16,12 +16,14 @@ export const FIREBASE_CONFIG = {
     URL: '/PostJob',
     PostJob: 'PostJob',
     UserDetails: 'UserDetails',
+    UserProfile: 'UserProfile',
     OrderByPostJob: 'JobTitle',
     AddedSucessfully: 'Added Successfully',
     UpdatedSucessfully: 'Updated Successfully',
     DeletedSucessfully: 'Deleted Successfully',
     PostJobId: 'id',
-    NewUpdatePostJob: '/newupdatePostJob'
+    NewUpdatePostJob: '/newupdatePostJob',
+    UploadPath: '/uploads'
 }
 
 export const SEARCH_CONFIG = {

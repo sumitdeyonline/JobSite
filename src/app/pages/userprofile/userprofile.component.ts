@@ -5,11 +5,11 @@ import { UploadResumeService } from 'src/app/services/firebase/uploadresume/uplo
 
 
 @Component({
-  selector: 'resumeupload',
-  templateUrl: './resume-upload.component.html',
-  styleUrls: ['./resume-upload.component.css']
+  selector: 'userprofile',
+  templateUrl: './userprofile.component.html',
+  styleUrls: ['./userprofile.component.css']
 })
-export class ResumeUploadComponent implements OnInit {
+export class UserProfileComponent implements OnInit {
 
   selectedFiles: FileList;
   currentFileUpload: FileUpload;
