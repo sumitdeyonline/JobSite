@@ -16,30 +16,30 @@ export class UserprofileService {
   selectedUserProfile: UserProfile;
   upCollection: AngularFirestoreCollection <UserProfile>;
   UserProfilec: Observable<UserProfile[]>;
-  upDoc: AngularFirestoreDocument<UserProfile>;  
+  upDoc: AngularFirestoreDocument<UserProfile>;
 
-  uProfile = [];
+  userProfile = [];
 
-  constructor(private afs : AngularFirestore, private auth: AuthService, private http: Http) { 
+  constructor(private afs : AngularFirestore, private auth: AuthService, private http: Http) {
     this.upCollection = this.afs.collection(FIREBASE_CONFIG.UserProfile);
   }
 
-  addUpdateUserProfile(pprofile :  UserProfile,id: string) {
+  addUpdateUserProfile(uprofile :  UserProfile,id: string) {
 
 
     if ((id == null) || (id == '')) {
-      pprofile.CreatedDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
-      pprofile.Username = this.auth.userProfile.name;
+      uprofile.CreatedDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
+      uprofile.Username = this.auth.userProfile.name;
       //pjobc.JobTitle =
       // console.log ("Create Date ::: "+pjobc.CreatedDate);
       // console.log ("Created By ::: "+pjobc.CreatedBy);
       // console.log("NEW FORM ....Service");
-      this.upCollection.add(pprofile);
+      this.upCollection.add(uprofile);
     } else {
       console.log("UPDATE FORM ...." + id);
       //this.faqDoc = this.afs.doc(`faq/${faqc.id}`);
       this.upDoc = this.afs.doc(`${FIREBASE_CONFIG.PostJob}/${id}`);
-      this.upDoc.update(pprofile);
+      this.upDoc.update(uprofile);
     }
     //this.AlgoliaUpdate();
   }
