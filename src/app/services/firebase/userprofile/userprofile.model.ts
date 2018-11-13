@@ -2,6 +2,7 @@ export interface UserProfile {
 	id? : string;
 	FirstName? : string;
 	LastName? : string;
+	Sex? : string;
 	Email? : string;
 	HomePhone? : string;
 	CellPhone? : string;
