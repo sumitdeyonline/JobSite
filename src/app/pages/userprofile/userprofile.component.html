@@ -5,19 +5,51 @@
 
 
 <div class="container">
-    <div class="single">  
+    <div class="single">
         <div class="form-container">
             <h2>User Profile</h2>
 
 
             <form #f="ngForm" (ngSubmit)="userProfileSubmit(f)">
+
+
+
                 <div class="row">
-                <div class="form-group col-md-12">
-                    <label class="col-md-3 control-lable" for="FirstName">First Name</label>
-                    <div class="col-md-9">
+                    <div class="col-sm-2">
+                        <label style="font-weight: bold;" for="FirstName">First Name : </label>
+                    </div>
+                    <div class="col">
                         <input type="text" ngModel name="FirstName" #FirstName="ngModel" id="FirstName" [(ngModel)]="uProfile.selectedUserProfile.FirstName" class="form-control input-sm" required/>
                     </div>
-                </div>                            
+                    <div class="col-sm-2">
+                        <label style="font-weight: bold;" for="LastName">Last Name</label>
+                    </div>
+                    <div class="col">
+                        <input type="text" ngModel name="LastName" #LastName="ngModel" id="LastName" [(ngModel)]="uProfile.selectedUserProfile.LastName" class="form-control input-sm" required/>
+                     </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">&nbsp;
+                    </div>
+                </div>
+              <!--table>
+                <tr>
+                  <td><label for="FirstName">First Name</label></td>
+                  <td>
+                      <input type="text" ngModel name="FirstName" #FirstName="ngModel" id="FirstName" [(ngModel)]="uProfile.selectedUserProfile.FirstName" class="form-control input-sm" required/>
+                  </td>
+                </tr>
+
+              </table-->
+
+
+                <!--div class="row">
+                  <div class="form-group col-md-12">
+                      <label class="col-md-3 control-lable" for="FirstName">First Name</label>
+                      <div class="col-md-9">
+                          <input type="text" ngModel name="FirstName" #FirstName="ngModel" id="FirstName" [(ngModel)]="uProfile.selectedUserProfile.FirstName" class="form-control input-sm" required/>
+                      </div>
+                  </div>
                 </div>
 
 
@@ -30,9 +62,9 @@
 
                         </div>
                     </div>
-                </div>
+                </div-->
 
-                <div class="row">
+                <!--div class="row">
                         <div class="form-group col-md-12">
                             <label class="col-md-3 control-lable" for="Sex">Sex</label>
                             <div class="col-md-9" class="form-control input-sm">
@@ -55,7 +87,31 @@
                             <input type="text" ngModel name="Email" #Email="ngModel" id="Email" [(ngModel)]="uProfile.selectedUserProfile.Email" class="form-control input-sm" required/>
                         </div>
                     </div>
+                </div-->
+
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label style="font-weight: bold;" for="Sex">Sex</label>
+                    </div>
+                    <div class="col">
+
+                        <label class="radio-inline">
+                            <input type="radio" name="optradio" checked>Option 1
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="optradio">Option 2
+                        </label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label style="font-weight: bold;" for="Email">Email</label>
+                    </div>
+                    <div class="col">
+                        <input type="text" ngModel name="Email" #Email="ngModel" id="Email" [(ngModel)]="uProfile.selectedUserProfile.Email" class="form-control input-sm" required/>
+                     </div>
                 </div>
+
+
+
                 <div class="row">
                     <div class="form-group col-md-12">
                         <label class="col-md-3 control-lable" for="HomePhone">Home Phone</label>
@@ -172,7 +228,7 @@
                 </div>
             </div>
 
-                <div class="row">
+            <div class="row">
                 <div class="form-group col-md-12">
                     <label class="col-md-3 control-lable" for="Country">Country</label>
                     <div class="col-md-9">
@@ -234,7 +290,10 @@
                         <input type="text" ngModel name="PersonalWebsite" #PersonalWebsite="ngModel" id="PersonalWebsite" [(ngModel)]="uProfile.selectedUserProfile.PersonalWebsite" class="form-control input-sm"/>
                     </div>
                 </div>
-            </div>                        
+            </div>
+
+
+
 
 
             <div class="row">
@@ -259,7 +318,7 @@
                         <input type="text" ngModel name="DesiredPosition" #DesiredPosition="ngModel" id="DesiredPosition" [(ngModel)]="uProfile.selectedUserProfile.DesiredPosition" class="form-control input-sm"/>
                     </div>
                 </div>
-            </div>                           
+            </div>
 
             <div class="row">
                 <div class="form-group col-md-12">
@@ -297,7 +356,7 @@
 
                     </div>
                 </div>
-            </div>                          
+            </div>
 
             <div class="row">
                 <div class="form-group col-md-12">
@@ -352,7 +411,7 @@
                         <input type="text" ngModel name="instituteCity" #instituteCity="ngModel" id="instituteCity" [(ngModel)]="uProfile.selectedUserProfile.instituteCity" class="form-control input-sm"/>
                     </div>
                 </div>
-            </div>                          
+            </div>
             <div class="row">
                 <div class="form-group col-md-12">
                     <label class="col-md-3 control-lable" for="instituteCountry">Institute Country</label>
@@ -360,7 +419,7 @@
                         <input type="text" ngModel name="instituteCountry" #instituteCountry="ngModel" id="instituteCountry" [(ngModel)]="uProfile.selectedUserProfile.instituteCountry" class="form-control input-sm"/>
                     </div>
                 </div>
-            </div> 
+            </div>
             <div class="row">
                 <div class="form-group col-md-12">
                     <label class="col-md-3 control-lable" for="SkillSet">SkillSet</label>
@@ -368,7 +427,7 @@
                         <input type="text" ngModel name="SkillSet" #SkillSet="ngModel" id="SkillSet" [(ngModel)]="uProfile.selectedUserProfile.SkillSet" class="form-control input-sm"/>
                     </div>
                 </div>
-            </div> 
+            </div>
             <div class="row">
                 <div class="form-group col-md-12">
                     <label class="col-md-3 control-lable" for="Education">Education</label>
@@ -376,7 +435,7 @@
                         <input type="text" ngModel name="Education" #Education="ngModel" id="Education" [(ngModel)]="uProfile.selectedUserProfile.Education" class="form-control input-sm"/>
                     </div>
                 </div>
-            </div> 
+            </div>
             <div class="row">
                 <div class="form-group col-md-12">
                     <label class="col-md-3 control-lable" for="SalaryExpectation">Salary Expectation</label>
@@ -384,7 +443,7 @@
                         <input type="text" ngModel name="SalaryExpectation" #SalaryExpectation="ngModel" id="SalaryExpectation" [(ngModel)]="uProfile.selectedUserProfile.SalaryExpectation" class="form-control input-sm"/>
                     </div>
                 </div>
-            </div>                                                                              
+            </div>
             <div class="row">
                 <div class="form-actions floatRight">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="Submit" class="btn btn-primary btn-sm">
