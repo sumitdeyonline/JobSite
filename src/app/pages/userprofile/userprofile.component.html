@@ -13,7 +13,8 @@
             <form #f="ngForm" (ngSubmit)="userProfileSubmit(f)">
 
 
-
+                <h3 class="title" style="color: red;">Profile</h3>&nbsp;
+                
                 <div class="row">
                     <div class="col-sm-2">
                         <label style="font-weight: bold;" for="FirstName">First Name : </label>
@@ -96,10 +97,10 @@
                     <div class="col">
 
                         <label class="radio-inline">
-                            <input type="radio" name="optradio" checked>Option 1
-                        </label>
+                            <input type="radio" ngModel name="Sex" #Sex="ngModel" id="Sex" [(ngModel)]="uProfile.selectedUserProfile.Sex" value="Male">Male
+                        </label>&nbsp;&nbsp;&nbsp;&nbsp;
                         <label class="radio-inline">
-                            <input type="radio" name="optradio">Option 2
+                            <input type="radio" ngModel name="Sex" #Sex="ngModel" id="Sex" [(ngModel)]="uProfile.selectedUserProfile.Sex" value="Female">Female
                         </label>
                     </div>
                     <div class="col-sm-2">
@@ -110,9 +111,31 @@
                      </div>
                 </div>
 
-
+                <div class="row">
+                    <div class="col-sm-2">&nbsp;
+                    </div>
+                </div>
 
                 <div class="row">
+                    <div class="col-sm-2">
+                        <label style="font-weight: bold;"  for="HomePhone">Home Phone</label>
+                    </div>
+                    <div class="col">
+                        <input type="text" ngModel name="HomePhone" #HomePhone="ngModel" id="HomePhone" [(ngModel)]="uProfile.selectedUserProfile.HomePhone" class="form-control input-sm"/>
+                    </div>
+                    <div class="col-sm-2">
+                        <label style="font-weight: bold;" for="CellPhone">Cell Phone</label>
+                    </div>
+                    <div class="col">
+                        <input type="text" ngModel name="CellPhone" #CellPhone="ngModel" id="CellPhone" [(ngModel)]="uProfile.selectedUserProfile.CellPhone" class="form-control input-sm" required/>
+                     </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">&nbsp;
+                    </div>
+                </div>
+
+                <!--div class="row">
                     <div class="form-group col-md-12">
                         <label class="col-md-3 control-lable" for="HomePhone">Home Phone</label>
                         <div class="col-md-9">
@@ -127,9 +150,34 @@
                             <input type="text" ngModel name="CellPhone" #CellPhone="ngModel" id="CellPhone" [(ngModel)]="uProfile.selectedUserProfile.CellPhone" class="form-control input-sm" required/>
                         </div>
                     </div>
+                </div-->
+
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label style="font-weight: bold;" for="Address1">Address</label>
+                    </div>
+                    <div class="col">
+                        <input type="text" ngModel name="Address1" #Address1="ngModel" id="Address1" [(ngModel)]="uProfile.selectedUserProfile.Address1" class="form-control input-sm"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">&nbsp;
+                    </div>
                 </div>
 
                 <div class="row">
+                    <div class="col-sm-2">
+                        <label style="font-weight: bold;" for="Address2"></label>
+                    </div>
+                    <div class="col">
+                        <input type="text" ngModel name="Address2" #Address2="ngModel" id="Address2" [(ngModel)]="uProfile.selectedUserProfile.Address2" class="form-control input-sm"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">&nbsp;
+                    </div>
+                </div>
+                <!--div class="row">
                     <div class="form-group col-md-12">
                         <label class="col-md-3 control-lable" for="Address1">Address</label>
                         <div class="col-md-9">
@@ -140,167 +188,321 @@
 
                 <div class="row">
                     <div class="form-group col-md-12">
-                        <!--label class="col-md-3 control-lable" for="JobCity">City</label-->
+                        <label class="col-md-3 control-lable" for="JobCity">City</label>
                         <div class="col-md-9">
                             <input type="text" ngModel name="Address2" #Address2="ngModel" id="Address2" [(ngModel)]="uProfile.selectedUserProfile.Address2" class="form-control input-sm"/>
+                        </div>
+                    </div>
+                </div-->
+
+
+
+
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label style="font-weight: bold;" for="City">City</label>
+                    </div>
+                    <div class="col">
+                        <input type="text" ngModel name="City" #City="ngModel" id="City" [(ngModel)]="uProfile.selectedUserProfile.City" class="form-control input-sm"/>
+                    </div>
+                    <div class="col-sm-2">
+                        <label style="font-weight: bold;" for="State">State</label>
+                    </div>
+                    <div class="col">
+                        <select ngModel name="State" #State="ngModel" id="State" [(ngModel)]="uProfile.selectedUserProfile.State" class="form-control input-sm">
+                            <option>Select State</option>
+                            <option label="AL" value="AL">AL</option>
+                            <option label="AK" value="AK">AK</option>
+                            <option label="AZ" value="AZ">AZ</option>
+                            <option label="AR" value="AR">AR</option>
+                            <option label="CA" value="CA">CA</option>
+                            <option label="CO" value="CO">CO</option>
+                            <option label="CT" value="CT">CT</option>
+                            <option label="DE" value="DE">DE</option>
+                            <option label="DC" value="DC">DC</option>
+                            <option label="FL" value="FL">FL</option>
+                            <option label="GA" value="GA">GA</option>
+                            <option label="HI" value="HI">HI</option>
+                            <option label="ID" value="ID">ID</option>
+                            <option label="IL" value="IL">IL</option>
+                            <option label="IN" value="IN">IN</option>
+                            <option label="IA" value="IA">IA</option>
+                            <option label="KS" value="KS">KS</option>
+                            <option label="KY" value="KY">KY</option>
+                            <option label="LA" value="LA">LA</option>
+                            <option label="ME" value="ME">ME</option>
+                            <option label="MD" value="MD">MD</option>
+                            <option label="MA" value="MA">MA</option>
+                            <option label="MI" value="MI">MI</option>
+                            <option label="MN" value="MN">MN</option>
+                            <option label="MS" value="MS">MS</option>
+                            <option label="MO" value="MO">MO</option>
+                            <option label="MT" value="MT">MT</option>
+                            <option label="NE" value="NE">NE</option>
+                            <option label="NV" value="NV">NV</option>
+                            <option label="NH" value="NH">NH</option>
+                            <option label="NJ" value="NJ">NJ</option>
+                            <option label="NM" value="NM">NM</option>
+                            <option label="NY" value="NY">NY</option>
+                            <option label="NC" value="NC">NC</option>
+                            <option label="ND" value="ND">ND</option>
+                            <option label="OH" value="OH">OH</option>
+                            <option label="OK" value="OK">OK</option>
+                            <option label="OR" value="OR">OR</option>
+                            <option label="PA" value="PA">PA</option>
+                            <option label="RI" value="RI">RI</option>
+                            <option label="SC" value="SC">SC</option>
+                            <option label="SD" value="SD">SD</option>
+                            <option label="TN" value="TN">TN</option>
+                            <option label="TX" value="TX">TX</option>
+                            <option label="UT" value="UT">UT</option>
+                            <option label="VT" value="VT">VT</option>
+                            <option label="VA" value="VA">VA</option>
+                            <option label="WA" value="WA">WA</option>
+                            <option label="WV" value="WV">WV</option>
+                            <option label="WI" value="WI">WI</option>
+                            <option label="WY" value="WY">WY</option>
+                        </select>
+                            
+                     </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">&nbsp;
+                    </div>
+                </div>
+
+
+
+                <!--div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="col-md-3 control-lable" for="City">City</label>
+                        <div class="col-md-9">
+                            <input type="text" ngModel name="City" #City="ngModel" id="City" [(ngModel)]="uProfile.selectedUserProfile.City" class="form-control input-sm"/>
                         </div>
                     </div>
                 </div>
 
                 <div class="row">
-                <div class="form-group col-md-12">
-                    <label class="col-md-3 control-lable" for="City">City</label>
-                    <div class="col-md-9">
-                        <input type="text" ngModel name="City" #City="ngModel" id="City" [(ngModel)]="uProfile.selectedUserProfile.City" class="form-control input-sm"/>
+                    <div class="form-group col-md-12">
+                        <label class="col-md-3 control-lable" for="State">State</label>
+                        <div class="col-md-9">
+                             <select ngModel name="State" #State="ngModel" id="State" [(ngModel)]="uProfile.selectedUserProfile.State" class="form-control input-sm">
+                            <option>Select State</option>
+                            <option label="AL" value="AL">AL</option>
+                            <option label="AK" value="AK">AK</option>
+                            <option label="AZ" value="AZ">AZ</option>
+                            <option label="AR" value="AR">AR</option>
+                            <option label="CA" value="CA">CA</option>
+                            <option label="CO" value="CO">CO</option>
+                            <option label="CT" value="CT">CT</option>
+                            <option label="DE" value="DE">DE</option>
+                            <option label="DC" value="DC">DC</option>
+                            <option label="FL" value="FL">FL</option>
+                            <option label="GA" value="GA">GA</option>
+                            <option label="HI" value="HI">HI</option>
+                            <option label="ID" value="ID">ID</option>
+                            <option label="IL" value="IL">IL</option>
+                            <option label="IN" value="IN">IN</option>
+                            <option label="IA" value="IA">IA</option>
+                            <option label="KS" value="KS">KS</option>
+                            <option label="KY" value="KY">KY</option>
+                            <option label="LA" value="LA">LA</option>
+                            <option label="ME" value="ME">ME</option>
+                            <option label="MD" value="MD">MD</option>
+                            <option label="MA" value="MA">MA</option>
+                            <option label="MI" value="MI">MI</option>
+                            <option label="MN" value="MN">MN</option>
+                            <option label="MS" value="MS">MS</option>
+                            <option label="MO" value="MO">MO</option>
+                            <option label="MT" value="MT">MT</option>
+                            <option label="NE" value="NE">NE</option>
+                            <option label="NV" value="NV">NV</option>
+                            <option label="NH" value="NH">NH</option>
+                            <option label="NJ" value="NJ">NJ</option>
+                            <option label="NM" value="NM">NM</option>
+                            <option label="NY" value="NY">NY</option>
+                            <option label="NC" value="NC">NC</option>
+                            <option label="ND" value="ND">ND</option>
+                            <option label="OH" value="OH">OH</option>
+                            <option label="OK" value="OK">OK</option>
+                            <option label="OR" value="OR">OR</option>
+                            <option label="PA" value="PA">PA</option>
+                            <option label="RI" value="RI">RI</option>
+                            <option label="SC" value="SC">SC</option>
+                            <option label="SD" value="SD">SD</option>
+                            <option label="TN" value="TN">TN</option>
+                            <option label="TX" value="TX">TX</option>
+                            <option label="UT" value="UT">UT</option>
+                            <option label="VT" value="VT">VT</option>
+                            <option label="VA" value="VA">VA</option>
+                            <option label="WA" value="WA">WA</option>
+                            <option label="WV" value="WV">WV</option>
+                            <option label="WI" value="WI">WI</option>
+                            <option label="WY" value="WY">WY</option>
+                        </select>
+                        </div>
                     </div>
-                </div>
-            </div>
+                </div-->
 
-            <div class="row">
-                <div class="form-group col-md-12">
-                    <label class="col-md-3 control-lable" for="State">State</label>
-                    <div class="col-md-9">
-                        <!--input type="text" ngModel name="JobState" #JobState="ngModel" id="JobState" [(ngModel)]="postjobService.selectedPostJobc.JobState" class="form-control input-sm"/-->
-                        <select ngModel name="State" #State="ngModel" id="State" [(ngModel)]="uProfile.selectedUserProfile.State" class="form-control input-sm">
-                        <option>Select State</option>
-                        <option label="AL" value="AL">AL</option>
-                        <option label="AK" value="AK">AK</option>
-                        <option label="AZ" value="AZ">AZ</option>
-                        <option label="AR" value="AR">AR</option>
-                        <option label="CA" value="CA">CA</option>
-                        <option label="CO" value="CO">CO</option>
-                        <option label="CT" value="CT">CT</option>
-                        <option label="DE" value="DE">DE</option>
-                        <option label="DC" value="DC">DC</option>
-                        <option label="FL" value="FL">FL</option>
-                        <option label="GA" value="GA">GA</option>
-                        <option label="HI" value="HI">HI</option>
-                        <option label="ID" value="ID">ID</option>
-                        <option label="IL" value="IL">IL</option>
-                        <option label="IN" value="IN">IN</option>
-                        <option label="IA" value="IA">IA</option>
-                        <option label="KS" value="KS">KS</option>
-                        <option label="KY" value="KY">KY</option>
-                        <option label="LA" value="LA">LA</option>
-                        <option label="ME" value="ME">ME</option>
-                        <option label="MD" value="MD">MD</option>
-                        <option label="MA" value="MA">MA</option>
-                        <option label="MI" value="MI">MI</option>
-                        <option label="MN" value="MN">MN</option>
-                        <option label="MS" value="MS">MS</option>
-                        <option label="MO" value="MO">MO</option>
-                        <option label="MT" value="MT">MT</option>
-                        <option label="NE" value="NE">NE</option>
-                        <option label="NV" value="NV">NV</option>
-                        <option label="NH" value="NH">NH</option>
-                        <option label="NJ" value="NJ">NJ</option>
-                        <option label="NM" value="NM">NM</option>
-                        <option label="NY" value="NY">NY</option>
-                        <option label="NC" value="NC">NC</option>
-                        <option label="ND" value="ND">ND</option>
-                        <option label="OH" value="OH">OH</option>
-                        <option label="OK" value="OK">OK</option>
-                        <option label="OR" value="OR">OR</option>
-                        <option label="PA" value="PA">PA</option>
-                        <option label="RI" value="RI">RI</option>
-                        <option label="SC" value="SC">SC</option>
-                        <option label="SD" value="SD">SD</option>
-                        <option label="TN" value="TN">TN</option>
-                        <option label="TX" value="TX">TX</option>
-                        <option label="UT" value="UT">UT</option>
-                        <option label="VT" value="VT">VT</option>
-                        <option label="VA" value="VA">VA</option>
-                        <option label="WA" value="WA">WA</option>
-                        <option label="WV" value="WV">WV</option>
-                        <option label="WI" value="WI">WI</option>
-                        <option label="WY" value="WY">WY</option>
-                    </select>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label style="font-weight: bold;" for="ZipCode">Zip</label>
                     </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="form-group col-md-12">
-                    <label class="col-md-3 control-lable" for="ZipCode">Zip</label>
-                    <div class="col-md-9">
+                    <div class="col">
                         <input type="text" ngModel name="ZipCode" #ZipCode="ngModel" id="ZipCode" [(ngModel)]="uProfile.selectedUserProfile.ZipCode" class="form-control input-sm"/>
                     </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="form-group col-md-12">
-                    <label class="col-md-3 control-lable" for="Country">Country</label>
-                    <div class="col-md-9">
+                    <div class="col-sm-2">
+                        <label style="font-weight: bold;" for="Country">Country</label>
+                    </div>
+                    <div class="col">
                         <select ngModel name="Country" #Country="ngModel" id="Country" [(ngModel)]="uProfile.selectedUserProfile.Country" class="form-control input-sm">
                             <option>Select Country</option>
-                            <!--option>Japan</option>
-                            <option>Kenya</option>
-                            <option>Dubai</option>
-                            <option>Italy</option>
-                            <option>Greece</option>
-                            <option>Iceland</option>
-                            <option>China</option>
-                            <option>Doha</option>
-                            <option>Irland</option>
-                            <option>Srilanka</option>
-                            <option>Russia</option>
-                            <option>Hong Kong</option>
-                            <option>Germany</option>
-                            <option>Canada</option>
-                            <option>Mexico</option>
-                            <option>Nepal</option>
-                            <option>Norway</option>
-                            <option>Oman</option>
-                            <option>Pakistan</option>
-                            <option>Kuwait</option>
-                            <option>Indonesia</option>
-                            <option>Spain</option>
-                            <option>Thailand</option>
-                            <option>Saudi Arabia</option>
-                            <option>Poland</option-->
                             <option>USA</option>
-                        </select>
-
+                        </select>                        
+                     </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">&nbsp;
                     </div>
                 </div>
-            </div>
 
 
-            <div class="row">
-                <div class="form-group col-md-12">
-                    <label class="col-md-3 control-lable" for="FaceBookURL">Facebook URL</label>
-                    <div class="col-md-9">
+                <!--div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="col-md-3 control-lable" for="ZipCode">Zip</label>
+                        <div class="col-md-9">
+                            <input type="text" ngModel name="ZipCode" #ZipCode="ngModel" id="ZipCode" [(ngModel)]="uProfile.selectedUserProfile.ZipCode" class="form-control input-sm"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="col-md-3 control-lable" for="Country">Country</label>
+                        <div class="col-md-9">
+                            <select ngModel name="Country" #Country="ngModel" id="Country" [(ngModel)]="uProfile.selectedUserProfile.Country" class="form-control input-sm">
+                                <option>Select Country</option>
+                                <option>Japan</option>
+                                <option>Kenya</option>
+                                <option>Dubai</option>
+                                <option>Italy</option>
+                                <option>Greece</option>
+                                <option>Iceland</option>
+                                <option>China</option>
+                                <option>Doha</option>
+                                <option>Irland</option>
+                                <option>Srilanka</option>
+                                <option>Russia</option>
+                                <option>Hong Kong</option>
+                                <option>Germany</option>
+                                <option>Canada</option>
+                                <option>Mexico</option>
+                                <option>Nepal</option>
+                                <option>Norway</option>
+                                <option>Oman</option>
+                                <option>Pakistan</option>
+                                <option>Kuwait</option>
+                                <option>Indonesia</option>
+                                <option>Spain</option>
+                                <option>Thailand</option>
+                                <option>Saudi Arabia</option>
+                                <option>Poland</option>
+                                <option>USA</option>
+                            </select>
+
+                        </div>
+                    </div>
+                </div-->
+
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label style="font-weight: bold;"  for="FaceBookURL">Facebook URL</label>
+                    </div>
+                    <div class="col">
                         <input type="text" ngModel name="FaceBookURL" #FaceBookURL="ngModel" id="FaceBookURL" [(ngModel)]="uProfile.selectedUserProfile.FaceBookURL" class="form-control input-sm"/>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-md-12">
-                    <label class="col-md-3 control-lable" for="LinkedinURL">Linkedin URL</label>
-                    <div class="col-md-9">
+                    <div class="col-sm-2">
+                        <label style="font-weight: bold;" for="LinkedinURL">Linkedin URL</label>
+                    </div>
+                    <div class="col">
                         <input type="text" ngModel name="LinkedinURL" #LinkedinURL="ngModel" id="LinkedinURL" [(ngModel)]="uProfile.selectedUserProfile.LinkedinURL" class="form-control input-sm"/>
+                     </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">&nbsp;
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-md-12">
-                    <label class="col-md-3 control-lable" for="PersonalWebsite">Personal Website</label>
-                    <div class="col-md-9">
+
+                <!--div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="col-md-3 control-lable" for="FaceBookURL">Facebook URL</label>
+                        <div class="col-md-9">
+                            <input type="text" ngModel name="FaceBookURL" #FaceBookURL="ngModel" id="FaceBookURL" [(ngModel)]="uProfile.selectedUserProfile.FaceBookURL" class="form-control input-sm"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="col-md-3 control-lable" for="LinkedinURL">Linkedin URL</label>
+                        <div class="col-md-9">
+                            <input type="text" ngModel name="LinkedinURL" #LinkedinURL="ngModel" id="LinkedinURL" [(ngModel)]="uProfile.selectedUserProfile.LinkedinURL" class="form-control input-sm"/>
+                        </div>
+                    </div>
+                </div-->
+
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label style="font-weight: bold;" for="PersonalWebsite">Personal Website</label>
+                    </div>
+                    <div class="col">
                         <input type="text" ngModel name="PersonalWebsite" #PersonalWebsite="ngModel" id="PersonalWebsite" [(ngModel)]="uProfile.selectedUserProfile.PersonalWebsite" class="form-control input-sm"/>
                     </div>
                 </div>
-            </div>
+                <div class="row">
+                    <div class="col-sm-2">&nbsp;
+                    </div>
+                </div>
+                <!--div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="col-md-3 control-lable" for="PersonalWebsite">Personal Website</label>
+                        <div class="col-md-9">
+                            <input type="text" ngModel name="PersonalWebsite" #PersonalWebsite="ngModel" id="PersonalWebsite" [(ngModel)]="uProfile.selectedUserProfile.PersonalWebsite" class="form-control input-sm"/>
+                        </div>
+                    </div>
+                </div-->
+
+                <hr/>                
+                <h3 class="title" style="color: red;">Job Looking</h3>&nbsp;
 
 
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label style="font-weight: bold;" for="EmploymentType">Employment Type</label>
+                    </div>
+                    <div class="col">
+                        <select ngModel name="EmploymentType" #EmploymentType="ngModel" id="EmploymentType" [(ngModel)]="uProfile.selectedUserProfile.EmploymentType" class="form-control input-sm">
+                            <option>Select Employment Type</option>
+                            <option>Part Time</option>
+                            <option>Full Time</option>
+                        </select>                </div>
+                    <div class="col-sm-2">
+                        <label style="font-weight: bold;" for="DesiredPosition">Desired Position</label>
+                    </div>
+                    <div class="col">
+                        <input type="text" ngModel name="DesiredPosition" #DesiredPosition="ngModel" id="DesiredPosition" [(ngModel)]="uProfile.selectedUserProfile.DesiredPosition" class="form-control input-sm"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">&nbsp;
+                    </div>
+                </div>
 
 
-
-            <div class="row">
+            <!--div class="row">
                 <div class="form-group col-md-12">
                     <label class="col-md-3 control-lable" for="EmploymentType">Employment Type</label>
                     <div class="col-md-9">
-                        <!--input type="text" ngModel name="EmploymentTypes" #EmploymentTypes="ngModel" id="EmploymentTypes" [(ngModel)]="postjobService.selectedPostJobc.EmploymentTypes" class="form-control input-sm"/-->
+                        <input type="text" ngModel name="EmploymentTypes" #EmploymentTypes="ngModel" id="EmploymentTypes" [(ngModel)]="postjobService.selectedPostJobc.EmploymentTypes" class="form-control input-sm"/>
                         <select ngModel name="EmploymentType" #EmploymentType="ngModel" id="EmploymentType" [(ngModel)]="uProfile.selectedUserProfile.EmploymentType" class="form-control input-sm">
                             <option>Select Employment Type</option>
                             <option>Part Time</option>
@@ -318,23 +520,38 @@
                         <input type="text" ngModel name="DesiredPosition" #DesiredPosition="ngModel" id="DesiredPosition" [(ngModel)]="uProfile.selectedUserProfile.DesiredPosition" class="form-control input-sm"/>
                     </div>
                 </div>
-            </div>
+            </div-->
 
-            <div class="row">
+
+
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label style="font-weight: bold;" for="DesiredSalary">Desired Salary</label>
+                    </div>
+                    <div class="col">
+                        <input type="text" ngModel name="DesiredSalary" #DesiredSalary="ngModel" id="DesiredSalary" [(ngModel)]="uProfile.selectedUserProfile.DesiredSalary" class="form-control input-sm"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">&nbsp;
+                    </div>
+                </div>
+
+            <!--div class="row">
                 <div class="form-group col-md-12">
                     <label class="col-md-3 control-lable" for="DesiredSalary">Desired Salary</label>
                     <div class="col-md-9">
                         <input type="text" ngModel name="DesiredSalary" #DesiredSalary="ngModel" id="DesiredSalary" [(ngModel)]="uProfile.selectedUserProfile.DesiredSalary" class="form-control input-sm"/>
                     </div>
                 </div>
-            </div>
+            </div-->
 
 
-            <div class="row">
+            <!--div class="row">
                 <div class="form-group col-md-12">
                     <label class="col-md-3 control-lable" for="IsRelocate">Relocate ?</label>
                     <div class="col-md-9">
-                        <!--input type="text" ngModel name="isTeleComute" #isTeleComute="ngModel" id="isTeleComute" [(ngModel)]="postjobService.selectedPostJobc.isTeleComute" class="form-control input-sm"/-->
+                        <input type="text" ngModel name="isTeleComute" #isTeleComute="ngModel" id="isTeleComute" [(ngModel)]="postjobService.selectedPostJobc.isTeleComute" class="form-control input-sm"/>
                         <select ngModel name="IsRelocate" #IsRelocate="ngModel" id="IsRelocate" [(ngModel)]="uProfile.selectedUserProfile.IsRelocate" class="form-control input-sm">
                             <option value="false">No</option>
                             <option value="true">Yes</option>
@@ -348,7 +565,7 @@
                 <div class="form-group col-md-12">
                     <label class="col-md-3 control-lable" for="IsTravel">Travell ?</label>
                     <div class="col-md-9">
-                        <!--input type="text" ngModel name="isTeleComute" #isTeleComute="ngModel" id="isTeleComute" [(ngModel)]="postjobService.selectedPostJobc.isTeleComute" class="form-control input-sm"/-->
+                        <input type="text" ngModel name="isTeleComute" #isTeleComute="ngModel" id="isTeleComute" [(ngModel)]="postjobService.selectedPostJobc.isTeleComute" class="form-control input-sm"/>
                         <select ngModel name="IsTravel" #IsTravel="ngModel" id="IsTravel" [(ngModel)]="uProfile.selectedUserProfile.IsTravel" class="form-control input-sm">
                             <option value="false">No</option>
                             <option value="true">Yes</option>
@@ -356,9 +573,59 @@
 
                     </div>
                 </div>
-            </div>
+            </div-->
+
+
 
             <div class="row">
+                <div class="col-sm-2">
+                    <label style="font-weight: bold;" for="IsRelocate">Relocate ?</label>
+                </div>
+                <div class="col">
+                    <select ngModel name="IsRelocate" #IsRelocate="ngModel" id="IsRelocate" [(ngModel)]="uProfile.selectedUserProfile.IsRelocate" class="form-control input-sm">
+                        <option value="false">No</option>
+                        <option value="true">Yes</option>
+                    </select>              
+                </div>
+                <div class="col-sm-2">
+                    <label style="font-weight: bold;" for="IsTravel">Travell ?</label>
+                </div>
+                <div class="col">
+                    <select ngModel name="IsTravel" #IsTravel="ngModel" id="IsTravel" [(ngModel)]="uProfile.selectedUserProfile.IsTravel" class="form-control input-sm">
+                        <option value="false">No</option>
+                        <option value="true">Yes</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">&nbsp;
+                </div>
+            </div>
+
+            <hr/>                
+            <h3 class="title" style="color: red;">Professional Experience</h3>&nbsp;
+
+
+            <div class="row">
+                <div class="col-sm-2">
+                    <label style="font-weight: bold;" for="YearsofExperince">Years of Experience</label>
+                </div>
+                <div class="col">
+                    <input type="text" ngModel name="YearsofExperince" #YearsofExperince="ngModel" id="YearsofExperince" [(ngModel)]="uProfile.selectedUserProfile.YearsofExperince" class="form-control input-sm"/>            
+                </div>
+                <div class="col-sm-2">
+                    <label style="font-weight: bold;" for="WorkAuthorization">Work Authorization</label>
+                </div>
+                <div class="col">
+                    <input type="text" ngModel name="WorkAuthorization" #WorkAuthorization="ngModel" id="WorkAuthorization" [(ngModel)]="uProfile.selectedUserProfile.WorkAuthorization" class="form-control input-sm"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">&nbsp;
+                </div>
+            </div>
+
+            <!--div class="row">
                 <div class="form-group col-md-12">
                     <label class="col-md-3 control-lable" for="YearsofExperince">Years of Experience</label>
                     <div class="col-md-9">
@@ -374,18 +641,72 @@
                         <input type="text" ngModel name="WorkAuthorization" #WorkAuthorization="ngModel" id="WorkAuthorization" [(ngModel)]="uProfile.selectedUserProfile.WorkAuthorization" class="form-control input-sm"/>
                     </div>
                 </div>
-            </div>
+            </div-->
+
+
 
             <div class="row">
+                <div class="col-sm-2">
+                    <label style="font-weight: bold;" for="SecurityClearance">Security Clearance</label>                    
+                </div>
+                <div class="col">
+                    <select ngModel name="SecurityClearance" #SecurityClearance="ngModel" id="SecurityClearance" [(ngModel)]="uProfile.selectedUserProfile.SecurityClearance" class="form-control input-sm">
+                        <option value="false">No</option>
+                        <option value="true">Yes</option>
+                    </select>                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">&nbsp;
+                </div>
+            </div>
+
+            <!--div class="row">
                 <div class="form-group col-md-12">
                     <label class="col-md-3 control-lable" for="SecurityClearance">Security Clearance</label>
                     <div class="col-md-9">
                         <input type="text" ngModel name="SecurityClearance" #SecurityClearance="ngModel" id="SecurityClearance" [(ngModel)]="uProfile.selectedUserProfile.SecurityClearance" class="form-control input-sm"/>
                     </div>
                 </div>
+            </div-->
+
+            <div class="row">
+                <div class="col-sm-2">
+                    <label style="font-weight: bold;" for="CoverLetter">Cover Letter</label>
+                </div>
+                <div class="col">
+                    <textarea cols="77" rows="4" ngModel name="CoverLetter" #CoverLetter="ngModel" id="CoverLetter" [(ngModel)]="uProfile.selectedUserProfile.CoverLetter" class="form-control input-sm" required></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">&nbsp;
+                </div>
             </div>
 
             <div class="row">
+                <div class="col-sm-2">
+                    <label style="font-weight: bold;">Resume Upload</label>
+                </div>
+                <div class="col">
+                    <div *ngIf="currentFileUpload" class="progress">
+                        <div class="progress-bar progress-bar-info progress-bar-striped"
+                                    role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
+                                    aria-valuemin="0" aria-valuemax="100"
+                                    [ngStyle]="{width:progress.percentage+'%'}">
+                                    {{progress.percentage}}%</div>
+                    </div>
+                    <label class="btn btn-default"> <input type="file" (change)="selectFile($event)"> 
+                    </label>&nbsp;&nbsp;&nbsp;
+                    <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">Upload</button>  
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">&nbsp;
+                </div>
+            </div>
+
+
+            <!--div class="row">
                 <div class="form-group col-md-12">
                     <label class="col-md-3 control-lable" for="CoverLetter">Cover Letter</label>
                     <div class="col-md-9">
@@ -393,10 +714,54 @@
 
                     </div>
                 </div>
+            </div-->
+
+            <hr/>                
+            <h3 class="title" style="color: red;">Education</h3>&nbsp;
+
+            <!--div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3 control-lable" for="Education">Education</label>
+                    <div class="col-md-9">
+                        <input type="text" ngModel name="Education" #Education="ngModel" id="Education" [(ngModel)]="uProfile.selectedUserProfile.Education" class="form-control input-sm"/>
+                    </div>
+                </div>
+            </div-->
+
+            <div class="row">
+                <div class="col-sm-2">
+                    <label style="font-weight: bold;" for="Education">Education</label>                
+                </div>
+                <div class="col">
+                    <input type="text" ngModel name="Education" #Education="ngModel" id="Education" [(ngModel)]="uProfile.selectedUserProfile.Education" class="form-control input-sm"/>                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">&nbsp;
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-2">
+                    <label style="font-weight: bold;" for="institute">Institute</label>
+                </div>
+                <div class="col">
+                    <input type="text" ngModel name="institute" #institute="ngModel" id="institute" [(ngModel)]="uProfile.selectedUserProfile.institute" class="form-control input-sm"/>          
+                </div>
+                <div class="col-sm-2">
+                    <label style="font-weight: bold;" for="instituteCity">Institute City</label>
+                </div>
+                <div class="col">
+                    <input type="text" ngModel name="instituteCity" #instituteCity="ngModel" id="instituteCity" [(ngModel)]="uProfile.selectedUserProfile.instituteCity" class="form-control input-sm"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">&nbsp;
+                </div>
             </div>
 
 
-            <div class="row">
+            <!--div class="row">
                 <div class="form-group col-md-12">
                     <label class="col-md-3 control-lable" for="institute">Institute</label>
                     <div class="col-md-9">
@@ -411,39 +776,74 @@
                         <input type="text" ngModel name="instituteCity" #instituteCity="ngModel" id="instituteCity" [(ngModel)]="uProfile.selectedUserProfile.instituteCity" class="form-control input-sm"/>
                     </div>
                 </div>
+            </div-->
+
+            <div class="row">
+                <div class="col-sm-2">
+                    <label style="font-weight: bold;" for="instituteCountry">Institute Country</label>
+                </div>
+                <div class="col">
+                    <input type="text" ngModel name="instituteCountry" #instituteCountry="ngModel" id="instituteCountry" [(ngModel)]="uProfile.selectedUserProfile.instituteCountry" class="form-control input-sm"/>
+                </div>
             </div>
             <div class="row">
+                <div class="col-sm-2">&nbsp;
+                </div>
+            </div>
+            <!--div class="row">
                 <div class="form-group col-md-12">
                     <label class="col-md-3 control-lable" for="instituteCountry">Institute Country</label>
                     <div class="col-md-9">
                         <input type="text" ngModel name="instituteCountry" #instituteCountry="ngModel" id="instituteCountry" [(ngModel)]="uProfile.selectedUserProfile.instituteCountry" class="form-control input-sm"/>
                     </div>
                 </div>
+            </div-->
+
+            <hr/>                
+            <h3 class="title" style="color: red;">Skills and Salary</h3>&nbsp;
+
+            <div class="row">
+                <div class="col-sm-2">
+                    <label style="font-weight: bold;" for="SkillSet">SkillSet</label>
+                </div>
+                <div class="col">
+                    <input type="text" ngModel name="SkillSet" #SkillSet="ngModel" id="SkillSet" [(ngModel)]="uProfile.selectedUserProfile.SkillSet" class="form-control input-sm"/>
+                </div>
             </div>
             <div class="row">
+                <div class="col-sm-2">&nbsp;
+                </div>
+            </div>            
+
+            <!--div class="row">
                 <div class="form-group col-md-12">
                     <label class="col-md-3 control-lable" for="SkillSet">SkillSet</label>
                     <div class="col-md-9">
                         <input type="text" ngModel name="SkillSet" #SkillSet="ngModel" id="SkillSet" [(ngModel)]="uProfile.selectedUserProfile.SkillSet" class="form-control input-sm"/>
                     </div>
                 </div>
-            </div>
+            </div-->
             <div class="row">
-                <div class="form-group col-md-12">
-                    <label class="col-md-3 control-lable" for="Education">Education</label>
-                    <div class="col-md-9">
-                        <input type="text" ngModel name="Education" #Education="ngModel" id="Education" [(ngModel)]="uProfile.selectedUserProfile.Education" class="form-control input-sm"/>
-                    </div>
+                <div class="col-sm-2">
+                    <label style="font-weight: bold;" for="SalaryExpectation">Salary Expectation</label>
+                </div>
+                <div class="col">
+                    <input type="text" ngModel name="SalaryExpectation" #SalaryExpectation="ngModel" id="SalaryExpectation" [(ngModel)]="uProfile.selectedUserProfile.SalaryExpectation" class="form-control input-sm"/>
                 </div>
             </div>
             <div class="row">
+                <div class="col-sm-2">&nbsp;
+                </div>
+            </div> 
+
+            <!--div class="row">
                 <div class="form-group col-md-12">
                     <label class="col-md-3 control-lable" for="SalaryExpectation">Salary Expectation</label>
                     <div class="col-md-9">
                         <input type="text" ngModel name="SalaryExpectation" #SalaryExpectation="ngModel" id="SalaryExpectation" [(ngModel)]="uProfile.selectedUserProfile.SalaryExpectation" class="form-control input-sm"/>
                     </div>
                 </div>
-            </div>
+            </div-->
             <div class="row">
                 <div class="form-actions floatRight">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="Submit" class="btn btn-primary btn-sm">
