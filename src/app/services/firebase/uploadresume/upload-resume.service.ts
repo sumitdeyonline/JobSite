@@ -30,6 +30,9 @@ export class UploadResumeService {
 
   private basePath = FIREBASE_CONFIG.UploadPath; //'/uploads';
   private task: any;
+  downloadURL: any;
+  fileName: any;
+  fUpload: FileUpload;
   constructor(private db: AngularFireDatabase,  private auth: AuthService) { }
 
 
@@ -71,9 +74,15 @@ export class UploadResumeService {
         uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
 
           console.log('File available at', downloadURL);
+          console.log('File Key::::::::: => ', fileUpload.key);
           fileUpload.url = downloadURL;
           fileUpload.name = fileUpload.file.name;
 
+
+          this.downloadURL = downloadURL;
+          this.fileName =  fileUpload.file.name;
+          //this.fUpload.name = fileUpload.file.name;
+          //this.fUpload.url = downloadURL;
 
           this.saveFileData(fileUpload);
 

@@ -14,7 +14,7 @@
 
 
                 <h3 class="title" style="color: red;">Profile</h3>&nbsp;
-                
+
                 <div class="row">
                     <div class="col-sm-2">
                         <label style="font-weight: bold;" for="FirstName">First Name : </label>
@@ -263,7 +263,7 @@
                             <option label="WI" value="WI">WI</option>
                             <option label="WY" value="WY">WY</option>
                         </select>
-                            
+
                      </div>
                 </div>
                 <div class="row">
@@ -358,7 +358,7 @@
                         <select ngModel name="Country" #Country="ngModel" id="Country" [(ngModel)]="uProfile.selectedUserProfile.Country" class="form-control input-sm">
                             <option>Select Country</option>
                             <option>USA</option>
-                        </select>                        
+                        </select>
                      </div>
                 </div>
                 <div class="row">
@@ -471,7 +471,7 @@
                     </div>
                 </div-->
 
-                <hr/>                
+                <hr/>
                 <h3 class="title" style="color: red;">Job Looking</h3>&nbsp;
 
 
@@ -585,7 +585,7 @@
                     <select ngModel name="IsRelocate" #IsRelocate="ngModel" id="IsRelocate" [(ngModel)]="uProfile.selectedUserProfile.IsRelocate" class="form-control input-sm">
                         <option value="false">No</option>
                         <option value="true">Yes</option>
-                    </select>              
+                    </select>
                 </div>
                 <div class="col-sm-2">
                     <label style="font-weight: bold;" for="IsTravel">Travell ?</label>
@@ -602,7 +602,7 @@
                 </div>
             </div>
 
-            <hr/>                
+            <hr/>
             <h3 class="title" style="color: red;">Professional Experience</h3>&nbsp;
 
 
@@ -611,7 +611,7 @@
                     <label style="font-weight: bold;" for="YearsofExperince">Years of Experience</label>
                 </div>
                 <div class="col">
-                    <input type="text" ngModel name="YearsofExperince" #YearsofExperince="ngModel" id="YearsofExperince" [(ngModel)]="uProfile.selectedUserProfile.YearsofExperince" class="form-control input-sm"/>            
+                    <input type="text" ngModel name="YearsofExperince" #YearsofExperince="ngModel" id="YearsofExperince" [(ngModel)]="uProfile.selectedUserProfile.YearsofExperince" class="form-control input-sm"/>
                 </div>
                 <div class="col-sm-2">
                     <label style="font-weight: bold;" for="WorkAuthorization">Work Authorization</label>
@@ -647,13 +647,13 @@
 
             <div class="row">
                 <div class="col-sm-2">
-                    <label style="font-weight: bold;" for="SecurityClearance">Security Clearance</label>                    
+                    <label style="font-weight: bold;" for="SecurityClearance">Security Clearance</label>
                 </div>
                 <div class="col">
                     <select ngModel name="SecurityClearance" #SecurityClearance="ngModel" id="SecurityClearance" [(ngModel)]="uProfile.selectedUserProfile.SecurityClearance" class="form-control input-sm">
                         <option value="false">No</option>
                         <option value="true">Yes</option>
-                    </select>                    
+                    </select>
                 </div>
             </div>
             <div class="row">
@@ -695,13 +695,17 @@
                                     [ngStyle]="{width:progress.percentage+'%'}">
                                     {{progress.percentage}}%</div>
                     </div>
-                    <label class="btn btn-default"> <input type="file" (change)="selectFile($event)"> 
+                    <label class="btn btn-default"> <input type="file" (change)="selectFile($event)">
                     </label>&nbsp;&nbsp;&nbsp;
-                    <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">Upload</button>  
+                    <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">Upload</button>
+                    &nbsp; <a href="{{rUploadService.downloadURL}}" [hidden]="!fileUploadEnabled">{{rUploadService.fileName}}</a>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-2">&nbsp;
+                    <!--a href="{{fileUpload.url}}">{{fileUpload.name}}</a>
+                    <button-- (click)='deleteFileUpload(fileUpload)' class="btn btn-danger btn-xs" style="float: right">Delete</button-->
+
                 </div>
             </div>
 
@@ -716,7 +720,7 @@
                 </div>
             </div-->
 
-            <hr/>                
+            <hr/>
             <h3 class="title" style="color: red;">Education</h3>&nbsp;
 
             <!--div class="row">
@@ -730,10 +734,10 @@
 
             <div class="row">
                 <div class="col-sm-2">
-                    <label style="font-weight: bold;" for="Education">Education</label>                
+                    <label style="font-weight: bold;" for="Education">Education</label>
                 </div>
                 <div class="col">
-                    <input type="text" ngModel name="Education" #Education="ngModel" id="Education" [(ngModel)]="uProfile.selectedUserProfile.Education" class="form-control input-sm"/>                    
+                    <input type="text" ngModel name="Education" #Education="ngModel" id="Education" [(ngModel)]="uProfile.selectedUserProfile.Education" class="form-control input-sm"/>
                 </div>
             </div>
             <div class="row">
@@ -746,7 +750,7 @@
                     <label style="font-weight: bold;" for="institute">Institute</label>
                 </div>
                 <div class="col">
-                    <input type="text" ngModel name="institute" #institute="ngModel" id="institute" [(ngModel)]="uProfile.selectedUserProfile.institute" class="form-control input-sm"/>          
+                    <input type="text" ngModel name="institute" #institute="ngModel" id="institute" [(ngModel)]="uProfile.selectedUserProfile.institute" class="form-control input-sm"/>
                 </div>
                 <div class="col-sm-2">
                     <label style="font-weight: bold;" for="instituteCity">Institute City</label>
@@ -799,21 +803,21 @@
                 </div>
             </div-->
 
-            <hr/>                
-            <h3 class="title" style="color: red;">Skills and Salary</h3>&nbsp;
+            <hr/>
+            <h3 class="title" style="color: red;">Skillset</h3>&nbsp;
 
             <div class="row">
                 <div class="col-sm-2">
                     <label style="font-weight: bold;" for="SkillSet">SkillSet</label>
                 </div>
                 <div class="col">
-                    <input type="text" ngModel name="SkillSet" #SkillSet="ngModel" id="SkillSet" [(ngModel)]="uProfile.selectedUserProfile.SkillSet" class="form-control input-sm"/>
+                    <textarea cols="77" rows="4" ngModel name="SkillSet" #SkillSet="ngModel" id="SkillSet" [(ngModel)]="uProfile.selectedUserProfile.SkillSet" class="form-control input-sm"></textarea>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-2">&nbsp;
                 </div>
-            </div>            
+            </div>
 
             <!--div class="row">
                 <div class="form-group col-md-12">
@@ -823,7 +827,7 @@
                     </div>
                 </div>
             </div-->
-            <div class="row">
+            <!--div class="row">
                 <div class="col-sm-2">
                     <label style="font-weight: bold;" for="SalaryExpectation">Salary Expectation</label>
                 </div>
@@ -834,9 +838,9 @@
             <div class="row">
                 <div class="col-sm-2">&nbsp;
                 </div>
-            </div> 
+            </div>
 
-            <!--div class="row">
+            <div class="row">
                 <div class="form-group col-md-12">
                     <label class="col-md-3 control-lable" for="SalaryExpectation">Salary Expectation</label>
                     <div class="col-md-9">
