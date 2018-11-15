@@ -49,7 +49,8 @@ export class UploadResumeService {
     }
     else {
       console.log('Not Null -> File Name ', this.auth.userProfile.name+"_"+fileUpload.file.name);
-      this.task = storageRef.child(`${this.basePath}/${this.auth.userProfile.name+"_"+fileUpload.file.name}`).put(fileUpload.file);
+      //this.task = storageRef.child(`${this.basePath}/${this.auth.userProfile.name+"_"+fileUpload.file.name}`).put(fileUpload.file);
+      this.task = storageRef.child(`${this.basePath}/${this.auth.userProfile.name}`).put(fileUpload.file);
       //const uploadTask = storageRef.child(`${this.basePath}/${fileUpload.file.name}`).put(fileUpload.file);
 
     }
@@ -102,8 +103,10 @@ export class UploadResumeService {
 
   getFileUploads(numberItems): AngularFireList<FileUpload> {
     return this.db.list(this.basePath, ref =>
+
+      //ref.key(numberItems));
       ref.limitToLast(numberItems));
-  }
+    }
 
   deleteFileUpload(fileUpload: FileUpload) {
     this.deleteFileDatabase(fileUpload.key)

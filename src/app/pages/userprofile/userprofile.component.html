@@ -698,7 +698,8 @@
                     <label class="btn btn-default"> <input type="file" (change)="selectFile($event)">
                     </label>&nbsp;&nbsp;&nbsp;
                     <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">Upload</button>
-                    &nbsp; <a href="{{rUploadService.downloadURL}}" [hidden]="!fileUploadEnabled">{{rUploadService.fileName}}</a>
+                    <!--a href="{{rUploadService.downloadURL}}" [hidden]="!fileUploadEnabled" target="_blank">{{rUploadService.fileName}}</a-->
+                    &nbsp; <a href="{{rUploadService.downloadURL}}" [hidden]="!fileUploadEnabled" target="_blank">Resume</a>
                 </div>
             </div>
             <div class="row">

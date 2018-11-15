@@ -23,8 +23,8 @@ export interface UserProfile {
 	YearsofExperince? : string;
 	WorkAuthorization? : string;
 	SecurityClearance? : string;
-  ResumeID? : string;
-  ResumeFileName? : string;
+    ResumeID? : string;
+    ResumeFileName? : string;
 	ResumeURL? : string;
 	CoverLetter? : string;
 	institute? : string;

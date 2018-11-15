@@ -85,7 +85,7 @@ export class UserProfileComponent implements OnInit {
   upload() {
     const file = this.selectedFiles.item(0);
     this.selectedFiles = undefined;
-
+    this.fileUploadEnabled = true;
 
     this.currentFileUpload = new FileUpload(file);
     this.rUploadService.pushFileToStorage(this.currentFileUpload, this.progress);
@@ -99,14 +99,19 @@ export class UserProfileComponent implements OnInit {
 
   getFiles() {
     this.fileUploadEnabled = true; // Enabled File Download
-    this.rUploadService.getFileUploads(6).snapshotChanges().pipe(
+    this.rUploadService.getFileUploads(100).snapshotChanges().pipe(
       map(changes =>
         changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
       )
     ).subscribe(fileUploads => {
       this.fileUploads = fileUploads;
-      console.log("File Key :::::::: " +this.fileUploads[0].key);
-      console.log("File Name :::::::: " +this.fileUploads[0].url);
+      console.log("File Upload Leanth =============================== "+this.fileUploads.length)
+      for(let i=0;i<this.fileUploads.length; i++){
+        console.log("File Key :::::::: " +this.fileUploads[i].key);
+        console.log("File URL :::::::: " +this.fileUploads[i].url);
+        console.log("File Name :::::::: " +this.fileUploads[i].name);
+      }
+
     });
 
   }
