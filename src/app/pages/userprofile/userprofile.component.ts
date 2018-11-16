@@ -5,6 +5,9 @@ import { FormBuilder, NgForm } from '@angular/forms';
 import { DatePipe, formatDate } from '@angular/common';
 import { UserprofileService } from 'src/app/services/firebase/userprofile/userprofile.service';
 import { map } from 'rxjs/operators';
+//import { exists } from 'fs';
+import { AuthService } from 'src/app/services/authentication/auth.service';
+import { FIREBASE_CONFIG } from 'src/app/global-config';
 
 
 
@@ -20,10 +23,11 @@ export class UserProfileComponent implements OnInit {
   currentFileUpload: FileUpload;
   progress: { percentage: number } = { percentage: 0 };
   fileUploads: any[];
-
+  uPloadFileKey: String;
   fileUploadEnabled: boolean = false;
+  uProfileMessage: String ='';
 
-  constructor(private rUploadService: UploadResumeService, private uProfile: UserprofileService) {
+  constructor(private rUploadService: UploadResumeService, private uProfile: UserprofileService, private auth: AuthService) {
 
     if ((this.id == null) || (this.id == '')) {
       console.log("NEW FORM ....");
@@ -37,6 +41,35 @@ export class UserProfileComponent implements OnInit {
   }
 
   userProfileSubmit(uprofileForm: NgForm) {
+    //this.getFilesWithDownloadURL(this.rUploadService.downloadURL);
+    this.rUploadService.getFileUploads(FIREBASE_CONFIG.TotalFile).snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+      )
+    ).subscribe(fileUploads => {
+      this.fileUploads = fileUploads;
+      console.log("File Upload Leanth =============================== "+this.fileUploads.length)
+      for(let i=0;i<this.fileUploads.length; i++){
+
+        if (this.rUploadService.downloadURL == this.fileUploads[i].url) {
+          this.uPloadFileKey = this.fileUploads[i].key;
+          console.log("File Key :::::::: " +this.fileUploads[i].key);
+          console.log("File URL :::::::: " +this.fileUploads[i].url);
+          console.log("File Name :::::::: " +this.fileUploads[i].name);
+          this.userProfileAddUpdate(uprofileForm);
+          break;
+        }
+
+      }
+
+    });
+
+    //this.uProfile.addUpdateUserProfile(uprofileForm.value,null);
+  }
+
+
+  userProfileAddUpdate(uprofileForm: NgForm) {
+
     console.log ('First Name  ::: '+ uprofileForm.value.FirstName);
     console.log ('LastName  ::: '+ uprofileForm.value.LastName);
     console.log ('Sex  ::: '+ uprofileForm.value.Sex);
@@ -69,14 +102,24 @@ export class UserProfileComponent implements OnInit {
     console.log ('File Name   ::: '+ this.rUploadService.fileName);
     console.log ('File URL   ::: '+ this.rUploadService.downloadURL);
 
-
-    this.getFiles();
-
+    this.fileUploadEnabled = true; // Enabled File Download
 
     uprofileForm.value.CreatedDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
-    //this.uProfile.addUpdateUserProfile(uprofileForm.value,null);
-  }
+    uprofileForm.value.ResumeID = this.uPloadFileKey;
+    uprofileForm.value.ResumeFileName = this.rUploadService.fileName;
+    uprofileForm.value.ResumeURL = this.rUploadService.downloadURL;
+    uprofileForm.value.UserID = this.auth.userProfile.name;
+    uprofileForm.value.Username = this.auth.userProfile.nickname;
 
+    console.log ('CreatedDate  ::: '+ uprofileForm.value.CreatedDate);
+    console.log ('ResumeID  ::: '+ uprofileForm.value.ResumeID);
+    console.log ('ResumeFileName  ::: '+ uprofileForm.value.ResumeFileName);
+    console.log ('ResumeURL  ::: '+ uprofileForm.value.ResumeURL);
+    console.log ('UserID  ::: '+ uprofileForm.value.UserID);
+    console.log ('Username  ::: '+ uprofileForm.value.Username);
+    this.uProfile.addUpdateUserProfile(uprofileForm.value, null);
+
+  }
 
   selectFile(event) {
     this.selectedFiles = event.target.files;
@@ -97,9 +140,9 @@ export class UserProfileComponent implements OnInit {
   }
 
 
-  getFiles() {
-    this.fileUploadEnabled = true; // Enabled File Download
-    this.rUploadService.getFileUploads(100).snapshotChanges().pipe(
+  getFilesWithDownloadURL(dUrl: String) {
+    //this.fileUploadEnabled = true; // Enabled File Download
+    this.rUploadService.getFileUploads(100000000).snapshotChanges().pipe(
       map(changes =>
         changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
       )
@@ -107,9 +150,15 @@ export class UserProfileComponent implements OnInit {
       this.fileUploads = fileUploads;
       console.log("File Upload Leanth =============================== "+this.fileUploads.length)
       for(let i=0;i<this.fileUploads.length; i++){
-        console.log("File Key :::::::: " +this.fileUploads[i].key);
-        console.log("File URL :::::::: " +this.fileUploads[i].url);
-        console.log("File Name :::::::: " +this.fileUploads[i].name);
+
+        if (dUrl == this.fileUploads[i].url) {
+          this.uPloadFileKey = this.fileUploads[i].key;
+          console.log("File Key :::::::: " +this.fileUploads[i].key);
+          console.log("File URL :::::::: " +this.fileUploads[i].url);
+          console.log("File Name :::::::: " +this.fileUploads[i].name);
+          break;
+        }
+
       }
 
     });

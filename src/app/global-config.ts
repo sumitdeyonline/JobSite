@@ -23,7 +23,8 @@ export const FIREBASE_CONFIG = {
     DeletedSucessfully: 'Deleted Successfully',
     PostJobId: 'id',
     NewUpdatePostJob: '/newupdatePostJob',
-    UploadPath: '/uploads'
+    UploadPath: '/uploads',
+    TotalFile: '100000000'
 }
 
 export const SEARCH_CONFIG = {

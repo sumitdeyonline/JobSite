@@ -10,7 +10,7 @@
             <h2>User Profile</h2>
 
 
-            <form #f="ngForm" (ngSubmit)="userProfileSubmit(f)">
+            <form #userProfile="ngForm" (ngSubmit)="userProfileSubmit(userProfile)">
 
 
                 <h3 class="title" style="color: red;">Profile</h3>&nbsp;
@@ -21,6 +21,11 @@
                     </div>
                     <div class="col">
                         <input type="text" ngModel name="FirstName" #FirstName="ngModel" id="FirstName" [(ngModel)]="uProfile.selectedUserProfile.FirstName" class="form-control input-sm" required/>
+
+                        <div style="color: red;" *ngIf="FirstName.invalid && (FirstName.dirty || FirstName.touched)">
+                            Please Enter Name
+                        </div>
+
                     </div>
                     <div class="col-sm-2">
                         <label style="font-weight: bold;" for="LastName">Last Name</label>
@@ -108,6 +113,9 @@
                     </div>
                     <div class="col">
                         <input type="text" ngModel name="Email" #Email="ngModel" id="Email" [(ngModel)]="uProfile.selectedUserProfile.Email" class="form-control input-sm" required/>
+                        <div style="color: red;" *ngIf="Email.errors?.Email && Email.dirty">
+                            Please Enter a valid Email
+                        </div> 
                      </div>
                 </div>
 
@@ -157,7 +165,7 @@
                         <label style="font-weight: bold;" for="Address1">Address</label>
                     </div>
                     <div class="col">
-                        <input type="text" ngModel name="Address1" #Address1="ngModel" id="Address1" [(ngModel)]="uProfile.selectedUserProfile.Address1" class="form-control input-sm"/>
+                        <input type="text" ngModel name="Address1" #Address1="ngModel" id="Address1" [(ngModel)]="uProfile.selectedUserProfile.Address1" class="form-control input-sm" required/>
                     </div>
                 </div>
                 <div class="row">
@@ -203,13 +211,13 @@
                         <label style="font-weight: bold;" for="City">City</label>
                     </div>
                     <div class="col">
-                        <input type="text" ngModel name="City" #City="ngModel" id="City" [(ngModel)]="uProfile.selectedUserProfile.City" class="form-control input-sm"/>
+                        <input type="text" ngModel name="City" #City="ngModel" id="City" [(ngModel)]="uProfile.selectedUserProfile.City" class="form-control input-sm" required/>
                     </div>
                     <div class="col-sm-2">
                         <label style="font-weight: bold;" for="State">State</label>
                     </div>
                     <div class="col">
-                        <select ngModel name="State" #State="ngModel" id="State" [(ngModel)]="uProfile.selectedUserProfile.State" class="form-control input-sm">
+                        <select ngModel name="State" #State="ngModel" id="State" [(ngModel)]="uProfile.selectedUserProfile.State" class="form-control input-sm" required>
                             <option>Select State</option>
                             <option label="AL" value="AL">AL</option>
                             <option label="AK" value="AK">AK</option>
@@ -349,13 +357,13 @@
                         <label style="font-weight: bold;" for="ZipCode">Zip</label>
                     </div>
                     <div class="col">
-                        <input type="text" ngModel name="ZipCode" #ZipCode="ngModel" id="ZipCode" [(ngModel)]="uProfile.selectedUserProfile.ZipCode" class="form-control input-sm"/>
+                        <input type="text" ngModel name="ZipCode" #ZipCode="ngModel" id="ZipCode" [(ngModel)]="uProfile.selectedUserProfile.ZipCode" class="form-control input-sm" required/>
                     </div>
                     <div class="col-sm-2">
                         <label style="font-weight: bold;" for="Country">Country</label>
                     </div>
                     <div class="col">
-                        <select ngModel name="Country" #Country="ngModel" id="Country" [(ngModel)]="uProfile.selectedUserProfile.Country" class="form-control input-sm">
+                        <select ngModel name="Country" #Country="ngModel" id="Country" [(ngModel)]="uProfile.selectedUserProfile.Country" class="form-control input-sm" required>
                             <option>Select Country</option>
                             <option>USA</option>
                         </select>
@@ -675,7 +683,7 @@
                     <label style="font-weight: bold;" for="CoverLetter">Cover Letter</label>
                 </div>
                 <div class="col">
-                    <textarea cols="77" rows="4" ngModel name="CoverLetter" #CoverLetter="ngModel" id="CoverLetter" [(ngModel)]="uProfile.selectedUserProfile.CoverLetter" class="form-control input-sm" required></textarea>
+                    <textarea cols="77" rows="4" ngModel name="CoverLetter" #CoverLetter="ngModel" id="CoverLetter" [(ngModel)]="uProfile.selectedUserProfile.CoverLetter" class="form-control input-sm"></textarea>
                 </div>
             </div>
             <div class="row">
@@ -695,7 +703,7 @@
                                     [ngStyle]="{width:progress.percentage+'%'}">
                                     {{progress.percentage}}%</div>
                     </div>
-                    <label class="btn btn-default"> <input type="file" (change)="selectFile($event)">
+                    <label class="btn btn-default"> <input type="file" (change)="selectFile($event)" required>
                     </label>&nbsp;&nbsp;&nbsp;
                     <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">Upload</button>
                     <!--a href="{{rUploadService.downloadURL}}" [hidden]="!fileUploadEnabled" target="_blank">{{rUploadService.fileName}}</a-->
@@ -851,7 +859,7 @@
             </div-->
             <div class="row">
                 <div class="form-actions floatRight">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="Submit" class="btn btn-primary btn-sm">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="Submit" class="btn btn-primary btn-sm" [disabled]="!userProfile.valid">
                 </div>
             </div>
             </form>
