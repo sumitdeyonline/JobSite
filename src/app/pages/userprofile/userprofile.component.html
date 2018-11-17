@@ -23,7 +23,7 @@
                         <input type="text" ngModel name="FirstName" #FirstName="ngModel" id="FirstName" [(ngModel)]="uProfile.selectedUserProfile.FirstName" class="form-control input-sm" required/>
 
                         <div style="color: red;" *ngIf="FirstName.invalid && (FirstName.dirty || FirstName.touched)">
-                            Please Enter Name
+                            Please Enter First Name
                         </div>
 
                     </div>
@@ -32,6 +32,9 @@
                     </div>
                     <div class="col">
                         <input type="text" ngModel name="LastName" #LastName="ngModel" id="LastName" [(ngModel)]="uProfile.selectedUserProfile.LastName" class="form-control input-sm" required/>
+                        <div style="color: red;" *ngIf="LastName.invalid && (LastName.dirty || LastName.touched)">
+                          Please Enter Last Name
+                      </div>
                      </div>
                 </div>
                 <div class="row">
@@ -102,20 +105,22 @@
                     <div class="col">
 
                         <label class="radio-inline">
-                            <input type="radio" ngModel name="Sex" #Sex="ngModel" id="Sex" [(ngModel)]="uProfile.selectedUserProfile.Sex" value="Male">Male
+                            <input type="radio" ngModel name="Sex" #Sex="ngModel" id="Sex" [(ngModel)]="uProfile.selectedUserProfile.Sex" value="Male" required>Male
                         </label>&nbsp;&nbsp;&nbsp;&nbsp;
                         <label class="radio-inline">
-                            <input type="radio" ngModel name="Sex" #Sex="ngModel" id="Sex" [(ngModel)]="uProfile.selectedUserProfile.Sex" value="Female">Female
+                            <input type="radio" ngModel name="Sex" #Sex="ngModel" id="Sex" [(ngModel)]="uProfile.selectedUserProfile.Sex" value="Female" required>Female
                         </label>
+                        <div style="color: red;" *ngIf="Sex.invalid && (LastName.dirty || LastName.touched)">
+                          Gendar Required
+                        </div>
                     </div>
                     <div class="col-sm-2">
                         <label style="font-weight: bold;" for="Email">Email</label>
                     </div>
                     <div class="col">
-                        <input type="text" ngModel name="Email" #Email="ngModel" id="Email" [(ngModel)]="uProfile.selectedUserProfile.Email" class="form-control input-sm" required/>
-                        <div style="color: red;" *ngIf="Email.errors?.Email && Email.dirty">
-                            Please Enter a valid Email
-                        </div> 
+                        <input type="text" ngModel name="Email" #Email="ngModel" id="Email" [(ngModel)]="uProfile.selectedUserProfile.Email" class="form-control input-sm" required email/>
+                        <div style="color: red;"*ngIf="Email.errors.required && (Email.dirty  || Email.touched)">Email is required</div>
+                        <!--div style="color: red;" *ngIf="Email.errors.email && (Email.dirty  || Email.touched)">Email must be a valid email address</div-->
                      </div>
                 </div>
 
