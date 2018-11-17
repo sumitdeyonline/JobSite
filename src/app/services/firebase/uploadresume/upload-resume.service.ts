@@ -48,7 +48,7 @@ export class UploadResumeService {
       //const uploadTask = storageRef.child(`${this.basePath}/${fileUpload.file.name}`).put(fileUpload.file);
     }
     else {
-      console.log('Not Null -> File Name ', this.auth.userProfile.name+"_"+fileUpload.file.name);
+      console.log('Not Null -> File Name ', this.auth.userProfile.name+"."+fileUpload.file.name.substring(fileUpload.file.name.length - 3,fileUpload.file.name.length));
       //this.task = storageRef.child(`${this.basePath}/${this.auth.userProfile.name+"_"+fileUpload.file.name}`).put(fileUpload.file);
       this.task = storageRef.child(`${this.basePath}/${this.auth.userProfile.name}`).put(fileUpload.file);
       //const uploadTask = storageRef.child(`${this.basePath}/${fileUpload.file.name}`).put(fileUpload.file);

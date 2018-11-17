@@ -26,6 +26,7 @@ export interface UserProfile {
     ResumeID? : string;
     ResumeFileName? : string;
 	ResumeURL? : string;
+	ResumeExt? :string;
 	CoverLetter? : string;
 	institute? : string;
 	instituteCity? : string;

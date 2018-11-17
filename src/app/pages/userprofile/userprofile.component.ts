@@ -41,8 +41,9 @@ export class UserProfileComponent implements OnInit {
   }
 
   userProfileSubmit(uprofileForm: NgForm) {
+    console.log("Start Saveing ");
     //this.getFilesWithDownloadURL(this.rUploadService.downloadURL);
-    this.rUploadService.getFileUploads(FIREBASE_CONFIG.TotalFile).snapshotChanges().pipe(
+    this.rUploadService.getFileUploads(Number(FIREBASE_CONFIG.TotalFile)).snapshotChanges().pipe(
       map(changes =>
         changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
       )
@@ -77,28 +78,82 @@ export class UserProfileComponent implements OnInit {
     console.log ('HomePhone  ::: '+ uprofileForm.value.HomePhone);
     console.log ('CellPhone  ::: '+ uprofileForm.value.CellPhone);
     console.log ('Address1  ::: '+ uprofileForm.value.Address1);
+    if (uprofileForm.value.Address2 == undefined) {
+      uprofileForm.value.Address2 = "";
+    }
     console.log ('Address2  ::: '+ uprofileForm.value.Address2);
     console.log ('City  ::: '+ uprofileForm.value.City);
     console.log ('State  ::: '+ uprofileForm.value.State);
+    if (uprofileForm.value.FaceBookURL == undefined) {
+      uprofileForm.value.FaceBookURL = "";
+    }
     console.log ('FaceBookURL  ::: '+ uprofileForm.value.FaceBookURL);
+    if (uprofileForm.value.LinkedinURL == undefined) {
+      uprofileForm.value.LinkedinURL = "";
+    }
     console.log ('LinkedinURL  ::: '+ uprofileForm.value.LinkedinURL);
+    if (uprofileForm.value.PersonalWebsite == undefined) {
+      uprofileForm.value.PersonalWebsite = "";
+    }    
     console.log ('PersonalWebsite  ::: '+ uprofileForm.value.PersonalWebsite);
+    if (uprofileForm.value.EmploymentType == undefined) {
+      uprofileForm.value.EmploymentType = "";
+    } 
     console.log ('EmploymentType  ::: '+ uprofileForm.value.EmploymentType);
+    if (uprofileForm.value.DesiredPosition == undefined) {
+      uprofileForm.value.DesiredPosition = "";
+    }     
     console.log ('DesiredPosition  ::: '+ uprofileForm.value.DesiredPosition);
+    if (uprofileForm.value.DesiredSalary == undefined) {
+      uprofileForm.value.DesiredSalary = "";
+    }
     console.log ('DesiredSalary  ::: '+ uprofileForm.value.DesiredSalary);
+    if (uprofileForm.value.IsRelocate == undefined) {
+      uprofileForm.value.IsRelocate = false;
+    } 
     console.log ('IsRelocate  ::: '+ uprofileForm.value.IsRelocate);
+    if (uprofileForm.value.IsTravel == undefined) {
+      uprofileForm.value.IsTravel = false;
+    }    
     console.log ('IsTravel  ::: '+ uprofileForm.value.IsTravel);
+    if (uprofileForm.value.YearsofExperince == undefined) {
+      uprofileForm.value.YearsofExperince = "";
+    }    
     console.log ('YearsofExperince  ::: '+ uprofileForm.value.YearsofExperince);
+    if (uprofileForm.value.WorkAuthorization == undefined) {
+      uprofileForm.value.WorkAuthorization = "";
+    }      
     console.log ('WorkAuthorization  ::: '+ uprofileForm.value.WorkAuthorization);
+    if (uprofileForm.value.SecurityClearance == undefined) {
+      uprofileForm.value.SecurityClearance = "";
+    }     
     console.log ('SecurityClearance  ::: '+ uprofileForm.value.SecurityClearance);
-
+    if (uprofileForm.value.CoverLetter == undefined) {
+      uprofileForm.value.CoverLetter = "";
+    } 
     console.log ('CoverLetter  ::: '+ uprofileForm.value.CoverLetter);
+    if (uprofileForm.value.institute == undefined) {
+      uprofileForm.value.institute = "";
+    }     
     console.log ('institute  ::: '+ uprofileForm.value.institute);
+    if (uprofileForm.value.instituteCity == undefined) {
+      uprofileForm.value.instituteCity = "";
+    }     
     console.log ('instituteCity  ::: '+ uprofileForm.value.instituteCity);
+    if (uprofileForm.value.instituteCountry == undefined) {
+      uprofileForm.value.instituteCountry = "";
+    }  
     console.log ('instituteCountry  ::: '+ uprofileForm.value.instituteCountry);
+    if (uprofileForm.value.SkillSet == undefined) {
+      uprofileForm.value.SkillSet = "";
+    } 
     console.log ('SkillSet  ::: '+ uprofileForm.value.SkillSet);
+    if (uprofileForm.value.Education == undefined) {
+      uprofileForm.value.Education = "";
+    }     
     console.log ('Education  ::: '+ uprofileForm.value.Education);
     //console.log ('SalaryExpectation  ::: '+ uprofileForm.value.SalaryExpectation);
+
     console.log ('File Name   ::: '+ this.rUploadService.fileName);
     console.log ('File URL   ::: '+ this.rUploadService.downloadURL);
 
@@ -108,16 +163,18 @@ export class UserProfileComponent implements OnInit {
     uprofileForm.value.ResumeID = this.uPloadFileKey;
     uprofileForm.value.ResumeFileName = this.rUploadService.fileName;
     uprofileForm.value.ResumeURL = this.rUploadService.downloadURL;
+    uprofileForm.value.ResumeExt = this.rUploadService.fileName.substring(this.rUploadService.fileName.length - 3,this.rUploadService.fileName.length);
     uprofileForm.value.UserID = this.auth.userProfile.name;
     uprofileForm.value.Username = this.auth.userProfile.nickname;
 
     console.log ('CreatedDate  ::: '+ uprofileForm.value.CreatedDate);
     console.log ('ResumeID  ::: '+ uprofileForm.value.ResumeID);
-    console.log ('ResumeFileName  ::: '+ uprofileForm.value.ResumeFileName);
+    console.log ('ResumeFileName  ::: '+ uprofileForm.value.ResumeFileName+' Extertion '+uprofileForm.value.ResumeFileName.substring(uprofileForm.value.ResumeFileName.length - 3,uprofileForm.value.ResumeFileName.length));
     console.log ('ResumeURL  ::: '+ uprofileForm.value.ResumeURL);
+    console.log ('ResumeExt  ::: '+ uprofileForm.value.ResumeExt);
     console.log ('UserID  ::: '+ uprofileForm.value.UserID);
     console.log ('Username  ::: '+ uprofileForm.value.Username);
-    this.uProfile.addUpdateUserProfile(uprofileForm.value, null);
+    //this.uProfile.addUpdateUserProfile(uprofileForm.value, null);
 
   }
 
