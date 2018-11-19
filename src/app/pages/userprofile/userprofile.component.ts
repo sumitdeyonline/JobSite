@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 //import { exists } from 'fs';
 import { AuthService } from 'src/app/services/authentication/auth.service';
 import { FIREBASE_CONFIG } from 'src/app/global-config';
+import { UserProfile } from 'src/app/services/firebase/userprofile/userprofile.model';
 
 
 
@@ -26,22 +27,44 @@ export class UserProfileComponent implements OnInit {
   uPloadFileKey: String;
   fileUploadEnabled: boolean = false;
   uProfileMessage: String ='';
+  userProfile: UserProfile[];
 
   constructor(private rUploadService: UploadResumeService, private uProfile: UserprofileService, private auth: AuthService) {
 
-    if ((this.id == null) || (this.id == '')) {
-      console.log("NEW FORM ....");
-      this.resetForm();
-    } else {
-      console.log("UPDATE FORM ....");
-    }
+
+
+
   }
 
   ngOnInit() {
+    this.resetForm();
+    this.uProfile.getUserDetails(this.auth.userProfile.name).subscribe(uprop=> {
+      this.userProfile = uprop;
+      console.log("TEEESSSTTTTTTTTTT ");
+      if (this.userProfile.length == 0) {
+        console.log("NEW FORM ....");
+
+      } else {
+        console.log("Edit FORM .... FOR "+this.userProfile.length);
+      }
+ 
+    })
+
+    // if ((this.id == null) || (this.id == '')) {
+    //   console.log("NEW FORM ....");
+    //   this.resetForm();
+    // } else {
+    //   console.log("UPDATE FORM ....");
+    // }
+
   }
 
   userProfileSubmit(uprofileForm: NgForm) {
     console.log("Start Saveing ");
+
+
+
+
     //this.getFilesWithDownloadURL(this.rUploadService.downloadURL);
     this.rUploadService.getFileUploads(Number(FIREBASE_CONFIG.TotalFile)).snapshotChanges().pipe(
       map(changes =>
@@ -163,18 +186,20 @@ export class UserProfileComponent implements OnInit {
     uprofileForm.value.ResumeID = this.uPloadFileKey;
     uprofileForm.value.ResumeFileName = this.rUploadService.fileName;
     uprofileForm.value.ResumeURL = this.rUploadService.downloadURL;
-    uprofileForm.value.ResumeExt = this.rUploadService.fileName.substring(this.rUploadService.fileName.length - 3,this.rUploadService.fileName.length);
+    uprofileForm.value.ResumeExt = this.rUploadService.fileName.substring(this.rUploadService.fileName.lastIndexOf(".")+1,this.rUploadService.fileName.length);
     uprofileForm.value.UserID = this.auth.userProfile.name;
     uprofileForm.value.Username = this.auth.userProfile.nickname;
 
     console.log ('CreatedDate  ::: '+ uprofileForm.value.CreatedDate);
     console.log ('ResumeID  ::: '+ uprofileForm.value.ResumeID);
-    console.log ('ResumeFileName  ::: '+ uprofileForm.value.ResumeFileName+' Extertion '+uprofileForm.value.ResumeFileName.substring(uprofileForm.value.ResumeFileName.length - 3,uprofileForm.value.ResumeFileName.length));
+    //console.log ('ResumeFileName  ::: '+ uprofileForm.value.ResumeFileName+' Extertion '+uprofileForm.value.ResumeFileName.substring(uprofileForm.value.ResumeFileName.length - 3,uprofileForm.value.ResumeFileName.length));
+    console.log ('ResumeFileName  ::: '+ uprofileForm.value.ResumeFileName+' Extertion '+uprofileForm.value.ResumeFileName.substring(uprofileForm.value.ResumeFileName.lastIndexOf(".")+1,uprofileForm.value.ResumeFileName.length));
+    
     console.log ('ResumeURL  ::: '+ uprofileForm.value.ResumeURL);
     console.log ('ResumeExt  ::: '+ uprofileForm.value.ResumeExt);
     console.log ('UserID  ::: '+ uprofileForm.value.UserID);
     console.log ('Username  ::: '+ uprofileForm.value.Username);
-    //this.uProfile.addUpdateUserProfile(uprofileForm.value, null);
+    this.uProfile.addUpdateUserProfile(uprofileForm.value, null);
 
   }
 
@@ -184,11 +209,29 @@ export class UserProfileComponent implements OnInit {
 
   upload() {
     const file = this.selectedFiles.item(0);
-    this.selectedFiles = undefined;
-    this.fileUploadEnabled = true;
+    console.log("this.selectedFiles.item(0) :::::: => "+this.selectedFiles.item(0).name);
+    if (this.validateFile(this.selectedFiles.item(0).name)) {
+      this.selectedFiles = undefined;
+      this.fileUploadEnabled = true;
+  
+      this.currentFileUpload = new FileUpload(file);
+      this.rUploadService.pushFileToStorage(this.currentFileUpload, this.progress);
+    } else {
+      this.selectedFiles = undefined;
+      this.fileUploadEnabled = false;      
+    }
 
-    this.currentFileUpload = new FileUpload(file);
-    this.rUploadService.pushFileToStorage(this.currentFileUpload, this.progress);
+
+  }
+
+  validateFile(fileName: string) {
+    let ext = fileName.substring(fileName.lastIndexOf('.')+1);
+    console.log("EXTESTION :::::::$$$&&&&&&& "+ext);
+    if ((ext.toLowerCase() == 'doc') || (ext.toLowerCase() == 'docx') || (ext.toLowerCase() == 'pdf') || (ext.toLowerCase() == 'ppt') || (ext.toLowerCase() == 'pptx')) {
+      return true;
+    } else {
+      return false;
+    }
 
   }
 
