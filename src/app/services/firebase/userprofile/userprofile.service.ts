@@ -46,19 +46,19 @@ export class UserprofileService {
 
 
   getUserDetails(user) {
-    console.log("List Service ..... 3"+user);
+    console.log("List Service ..... 3 "+user);
 
 
     this.upCollection = this.afs.collection(FIREBASE_CONFIG.UserProfile, ref =>
           ref.where('Username','==',user));
-          //console.log("List Service ..... 4");
+          console.log("List Service ..... 4");
     this.UserProfilec = this.upCollection.snapshotChanges().pipe(map(changes => {
-      //console.log("List Service ..... 5");
+      console.log("List Service ..... 5");
       return changes.map(a => {
-        //console.log("List Service ..... 6");
+        console.log("List Service ..... 6");
         const data = a.payload.doc.data() as UserProfile;
         data.id = a.payload.doc.id;
-        //console.log("List Service 11111 ..... 2");
+        console.log("List Service 11111 ..... 2");
         return data;
       });
     }));
@@ -67,6 +67,6 @@ export class UserprofileService {
   }
 
 
-  
-  
+
+
 }

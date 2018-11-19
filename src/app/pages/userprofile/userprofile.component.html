@@ -20,7 +20,7 @@
                         <label style="font-weight: bold;" for="FirstName">First Name : </label>
                     </div>
                     <div class="col">
-                        <input type="text" ngModel name="FirstName" #FirstName="ngModel" id="FirstName" [(ngModel)]="uProfile.selectedUserProfile.FirstName" class="form-control input-sm" required/>
+                        <input type="text" ngModel name="FirstName" #FirstName="ngModel" id="FirstName" [ngModel]="uProfile.selectedUserProfile?.FirstName" (ngModelChange)="uProfile.selectedUserProfile.FirstName" class="form-control input-sm" required/>
 
                         <div style="color: red;" *ngIf="FirstName.invalid && (FirstName.dirty || FirstName.touched)">
                             Please Enter First Name
@@ -31,7 +31,7 @@
                         <label style="font-weight: bold;" for="LastName">Last Name</label>
                     </div>
                     <div class="col">
-                        <input type="text" ngModel name="LastName" #LastName="ngModel" id="LastName" [(ngModel)]="uProfile.selectedUserProfile.LastName" class="form-control input-sm" required/>
+                        <input type="text" ngModel name="LastName" #LastName="ngModel" id="LastName" [ngModel]="uProfile.selectedUserProfile?.LastName" (ngModelChange)="uProfile.selectedUserProfile.LastName" class="form-control input-sm" required/>
                         <div style="color: red;" *ngIf="LastName.invalid && (LastName.dirty || LastName.touched)">
                           Please Enter Last Name
                         </div>
@@ -50,10 +50,10 @@
                     <div class="col">
 
                         <label class="radio-inline">
-                            <input type="radio" ngModel name="Sex" #Sex="ngModel" id="Sex" [(ngModel)]="uProfile.selectedUserProfile.Sex" value="Male" required>Male
+                            <input type="radio" ngModel name="Sex" #Sex="ngModel" id="Sex" [ngModel]="uProfile.selectedUserProfile?.Sex" (ngModelChange)="uProfile.selectedUserProfile.Sex" value="Male" required>Male
                         </label>&nbsp;&nbsp;&nbsp;&nbsp;
                         <label class="radio-inline">
-                            <input type="radio" ngModel name="Sex" #Sex="ngModel" id="Sex" [(ngModel)]="uProfile.selectedUserProfile.Sex" value="Female" required>Female
+                            <input type="radio" ngModel name="Sex" #Sex="ngModel" id="Sex" [ngModel]="uProfile.selectedUserProfile?.Sex" (ngModelChange)="uProfile.selectedUserProfile.Sex" value="Female" required>Female
                         </label>
                         <div style="color: red;" *ngIf="Sex.invalid && (Sex.dirty || Sex.touched)">
                           Gendar Required
@@ -93,7 +93,7 @@
                         <input type="text" ngModel name="CellPhone" #CellPhone="ngModel" id="CellPhone" [(ngModel)]="uProfile.selectedUserProfile.CellPhone" class="form-control input-sm" required/>
                         <div style="color: red;" *ngIf="CellPhone.invalid && (CellPhone.dirty || CellPhone.touched)">
                             Please Enter Cell Phone
-                        </div>                        
+                        </div>
                      </div>
                 </div>
                 <div class="row">
@@ -110,7 +110,7 @@
                         <input type="text" ngModel name="Address1" #Address1="ngModel" id="Address1" [(ngModel)]="uProfile.selectedUserProfile.Address1" class="form-control input-sm" required/>
                         <div style="color: red;" *ngIf="Address1.invalid && (Address1.dirty || Address1.touched)">
                             Please Enter Address
-                        </div>                         
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -141,7 +141,7 @@
                         <input type="text" ngModel name="City" #City="ngModel" id="City" [(ngModel)]="uProfile.selectedUserProfile.City" class="form-control input-sm" required/>
                         <div style="color: red;" *ngIf="City.invalid && (City.dirty || City.touched)">
                             Please Enter City
-                        </div>                         
+                        </div>
                     </div>
                     <div class="col-sm-2">
                         <label style="font-weight: bold;" for="State">State</label>
@@ -203,7 +203,7 @@
                         </select>
                         <div style="color: red;" *ngIf="State.invalid && (State.dirty || State.touched)">
                             Please Enter State
-                        </div> 
+                        </div>
                      </div>
                 </div>
                 <div class="row">
@@ -221,7 +221,7 @@
                         <input type="number" ngModel name="ZipCode" #ZipCode="ngModel" id="ZipCode" [(ngModel)]="uProfile.selectedUserProfile.ZipCode" class="form-control input-sm" required/>
                         <div style="color: red;" *ngIf="ZipCode.invalid && (ZipCode.dirty || ZipCode.touched)">
                             Please Enter valid Zip Code
-                        </div>                         
+                        </div>
                     </div>
                     <div class="col-sm-2">
                         <label style="font-weight: bold;" for="Country">Country</label>
@@ -233,7 +233,7 @@
                         </select>
                         <div style="color: red;" *ngIf="Country.invalid && (Country.dirty || Country.touched)">
                             Please Enter Country
-                        </div>                          
+                        </div>
                      </div>
                 </div>
                 <div class="row">
@@ -374,10 +374,12 @@
                     <label style="font-weight: bold;" for="SecurityClearance">Security Clearance</label>
                 </div>
                 <div class="col">
-                    <select ngModel name="SecurityClearance" #SecurityClearance="ngModel" id="SecurityClearance" [(ngModel)]="uProfile.selectedUserProfile.SecurityClearance" class="form-control input-sm">
+                    <input type="checkbox" ngModel name="SecurityClearance" #SecurityClearance="ngModel" id="SecurityClearance" [(ngModel)]="uProfile.selectedUserProfile.SecurityClearance" checked data-toggle="toggle" data-onstyle="primary">
+
+                    <!--select ngModel name="SecurityClearance" #SecurityClearance="ngModel" id="SecurityClearance" [(ngModel)]="uProfile.selectedUserProfile.SecurityClearance" class="form-control input-sm">
                         <option value="false">No</option>
                         <option value="true">Yes</option>
-                    </select>
+                    </select-->
                 </div>
             </div>
             <div class="row">
@@ -418,7 +420,7 @@
                     &nbsp; <a href="{{rUploadService.downloadURL}}" [hidden]="!fileUploadEnabled" target="_blank">Resume</a>
                     <div style="color: green;" *ngIf="!fileUploadEnabled">
                         Please Upload Resume(.doc, .docx, .pdf, .ppt, .pptx)
-                    </div>                      
+                    </div>
                 </div>
             </div>
             <div class="row">
