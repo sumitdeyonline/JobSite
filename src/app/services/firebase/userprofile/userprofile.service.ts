@@ -39,6 +39,7 @@ export class UserprofileService {
       console.log("UPDATE FORM ...." + id);
       //this.faqDoc = this.afs.doc(`faq/${faqc.id}`);
       this.upDoc = this.afs.doc(`${FIREBASE_CONFIG.PostJob}/${id}`);
+      //this.upDoc = this.afs.doc(`${FIREBASE_CONFIG.PostJob}/${id}`);
       this.upDoc.update(uprofile);
     }
     //this.AlgoliaUpdate();
