@@ -44,9 +44,10 @@ export class UserProfileComponent implements OnInit {
         this.isUpdate = false;
 
       } else {
-        console.log("Edit FORM .... FOR "+this.userProfile.length);
+        console.log("Edit FORM .... FOR "+this.userProfile.length+" ::::: ID :::::: => "+this.userProfile[0].id);
         this.fileUploadEnabled = true;
         this.isUpdate = true;
+        this.uProfile.selectedUserProfile.id = this.userProfile[0].id;
         this.uProfile.selectedUserProfile.FirstName = this.userProfile[0].FirstName;
         this.uProfile.selectedUserProfile.LastName = this.userProfile[0].LastName;
         this.uProfile.selectedUserProfile.Sex = this.userProfile[0].Sex;
@@ -114,7 +115,7 @@ export class UserProfileComponent implements OnInit {
     console.log("Start Saveing ");
 
     if (this.isUpdate) {
-      this.userProfileAddUpdate(uprofileForm, this.uProfile.selectedUserProfile.Username);
+      this.userProfileAddUpdate(uprofileForm, this.uProfile.selectedUserProfile.id);
     } else {
 
       this.rUploadService.getFileUploads(Number(FIREBASE_CONFIG.TotalFile)).snapshotChanges().pipe(
@@ -148,7 +149,7 @@ export class UserProfileComponent implements OnInit {
   }
 
 
-  userProfileAddUpdate(uprofileForm: NgForm, username: string) {
+  userProfileAddUpdate(uprofileForm: NgForm, userid: string) {
 
     console.log ('First Name  ::: '+ uprofileForm.value.FirstName);
     console.log ('LastName  ::: '+ uprofileForm.value.LastName);
@@ -238,7 +239,7 @@ export class UserProfileComponent implements OnInit {
 
     this.fileUploadEnabled = true; // Enabled File Download
 
-    if (username == null){
+    if (userid == null){
       uprofileForm.value.CreatedDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
       uprofileForm.value.ResumeID = this.uPloadFileKey;
       uprofileForm.value.ResumeFileName = this.rUploadService.fileName;
@@ -258,20 +259,40 @@ export class UserProfileComponent implements OnInit {
       console.log ('Username  ::: '+ uprofileForm.value.Username);
       this.uProfile.addUpdateUserProfile(uprofileForm.value, null);
     } else {
-      uprofileForm.value.ResumeID = this.uPloadFileKey;
-      uprofileForm.value.ResumeFileName = this.rUploadService.fileName;
-      uprofileForm.value.ResumeURL = this.rUploadService.downloadURL;
-      uprofileForm.value.ResumeExt = this.rUploadService.fileName.substring(this.rUploadService.fileName.lastIndexOf(".")+1); 
+      uprofileForm.value.ModifiedDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
+      if (this.uPloadFileKey !=null)
+        uprofileForm.value.ResumeID = this.uPloadFileKey;
+      else {
+        uprofileForm.value.ResumeID = this.uProfile.selectedUserProfile.ResumeID;
+      }
+      if (this.rUploadService.fileName !=null) {
+        uprofileForm.value.ResumeFileName = this.rUploadService.fileName;
+        
+      } else {
+        uprofileForm.value.ResumeFileName = this.uProfile.selectedUserProfile.ResumeFileName;
+      }
+      
+      if (this.rUploadService.downloadURL !=null)
+        uprofileForm.value.ResumeURL = this.rUploadService.downloadURL;
+      else 
+        uprofileForm.value.ResumeURL = this.uProfile.selectedUserProfile.ResumeURL;
+
+      if (this.rUploadService.fileName !=null)
+        uprofileForm.value.ResumeExt = this.rUploadService.fileName.substring(this.rUploadService.fileName.lastIndexOf(".")+1);
+      else 
+        uprofileForm.value.ResumeExt =  this.uProfile.selectedUserProfile.ResumeExt;
       console.log ('CreatedDate  ::: '+ uprofileForm.value.CreatedDate);
+      if (uprofileForm.value.ResumeID == null) {
+        uprofileForm.value.ResumeID
+      }
       console.log ('ResumeID  ::: '+ uprofileForm.value.ResumeID);
       //console.log ('ResumeFileName  ::: '+ uprofileForm.value.ResumeFileName+' Extertion '+uprofileForm.value.ResumeFileName.substring(uprofileForm.value.ResumeFileName.length - 3,uprofileForm.value.ResumeFileName.length));
-      console.log ('ResumeFileName  ::: '+ uprofileForm.value.ResumeFileName+' Extertion '+uprofileForm.value.ResumeFileName.substring(uprofileForm.value.ResumeFileName.lastIndexOf(".")+1));
   
       console.log ('ResumeURL  ::: '+ uprofileForm.value.ResumeURL);
       console.log ('ResumeExt  ::: '+ uprofileForm.value.ResumeExt);
       console.log ('UserID  ::: '+ uprofileForm.value.UserID);
-      console.log ('Username  ::: '+ uprofileForm.value.Username);
-      this.uProfile.addUpdateUserProfile(uprofileForm.value, username);           
+      console.log ('Resume File Name  ::: '+ this.uProfile.selectedUserProfile.ResumeFileName);
+      this.uProfile.addUpdateUserProfile(uprofileForm.value, userid);           
     }
 
 
@@ -282,7 +303,7 @@ export class UserProfileComponent implements OnInit {
     this.selectedFiles = event.target.files;
   }
 
-  upload() {
+  upload(uprofileForm: NgForm) {
     const file = this.selectedFiles.item(0);
     console.log("this.selectedFiles.item(0) :::::: => "+this.selectedFiles.item(0).name);
     if (this.validateFile(this.selectedFiles.item(0).name)) {
@@ -291,6 +312,9 @@ export class UserProfileComponent implements OnInit {
 
       this.currentFileUpload = new FileUpload(file);
       this.rUploadService.pushFileToStorage(this.currentFileUpload, this.progress);
+      if (this.isUpdate) {
+        this.userProfileAddUpdate(uprofileForm, this.uProfile.selectedUserProfile.id);
+      }
     } else {
       this.selectedFiles = undefined;
       this.fileUploadEnabled = false;
