@@ -30,7 +30,6 @@ export class UserProfileComponent implements OnInit {
   userProfile: UserProfile[];
   isUpdate: boolean = false;
 
-
   constructor(private rUploadService: UploadResumeService, private uProfile: UserprofileService, private auth: AuthService) {
 
 
@@ -42,55 +41,11 @@ export class UserProfileComponent implements OnInit {
 
         console.log("NEW FORM ....");
         this.isUpdate = false;
-
       } else {
         console.log("Edit FORM .... FOR "+this.userProfile.length+" ::::: ID :::::: => "+this.userProfile[0].id);
         this.fileUploadEnabled = true;
         this.isUpdate = true;
-        this.uProfile.selectedUserProfile.id = this.userProfile[0].id;
-        this.uProfile.selectedUserProfile.FirstName = this.userProfile[0].FirstName;
-        this.uProfile.selectedUserProfile.LastName = this.userProfile[0].LastName;
-        this.uProfile.selectedUserProfile.Sex = this.userProfile[0].Sex;
-        this.uProfile.selectedUserProfile.Email = this.userProfile[0].Email;
-        this.uProfile.selectedUserProfile.HomePhone = this.userProfile[0].HomePhone;
-        this.uProfile.selectedUserProfile.CellPhone = this.userProfile[0].CellPhone;
-        this.uProfile.selectedUserProfile.Address1 = this.userProfile[0].Address1;
-        this.uProfile.selectedUserProfile.Address2 = this.userProfile[0].Address2;
-        this.uProfile.selectedUserProfile.City = this.userProfile[0].City;
-        this.uProfile.selectedUserProfile.State = this.userProfile[0].State;
-        this.uProfile.selectedUserProfile.ZipCode = this.userProfile[0].ZipCode;
-        this.uProfile.selectedUserProfile.Country = this.userProfile[0].Country;
-        this.uProfile.selectedUserProfile.FaceBookURL = this.userProfile[0].FaceBookURL;
-        this.uProfile.selectedUserProfile.LinkedinURL = this.userProfile[0].LinkedinURL;
-
-        this.uProfile.selectedUserProfile.PersonalWebsite = this.userProfile[0].PersonalWebsite;
-        this.uProfile.selectedUserProfile.EmploymentType = this.userProfile[0].EmploymentType;
-        this.uProfile.selectedUserProfile.DesiredPosition = this.userProfile[0].DesiredPosition;
-        this.uProfile.selectedUserProfile.DesiredSalary = this.userProfile[0].DesiredSalary;
-        this.uProfile.selectedUserProfile.IsRelocate = this.userProfile[0].IsRelocate;
-        this.uProfile.selectedUserProfile.IsTravel = this.userProfile[0].IsTravel;
-        this.uProfile.selectedUserProfile.YearsofExperince = this.userProfile[0].YearsofExperince;
-        this.uProfile.selectedUserProfile.WorkAuthorization = this.userProfile[0].WorkAuthorization;
-        this.uProfile.selectedUserProfile.SecurityClearance = this.userProfile[0].SecurityClearance;
-        this.uProfile.selectedUserProfile.ResumeID = this.userProfile[0].ResumeID;
-        this.uProfile.selectedUserProfile.ResumeFileName = this.userProfile[0].ResumeFileName;
-        this.uProfile.selectedUserProfile.ResumeURL = this.userProfile[0].ResumeURL;
-        this.uProfile.selectedUserProfile.ResumeExt = this.userProfile[0].ResumeExt;
-        this.uProfile.selectedUserProfile.CoverLetter = this.userProfile[0].CoverLetter;
-        this.uProfile.selectedUserProfile.institute = this.userProfile[0].institute;
-        this.uProfile.selectedUserProfile.instituteCity = this.userProfile[0].instituteCity;
-        this.uProfile.selectedUserProfile.instituteCountry = this.userProfile[0].instituteCountry;
-        this.uProfile.selectedUserProfile.SkillSet = this.userProfile[0].SkillSet;
-        this.uProfile.selectedUserProfile.Education = this.userProfile[0].Education;
-        this.uProfile.selectedUserProfile.SalaryExpectation = this.userProfile[0].SalaryExpectation;
-        this.uProfile.selectedUserProfile.UserID = this.userProfile[0].UserID;
-        this.uProfile.selectedUserProfile.Username = this.userProfile[0].Username;
-        this.uProfile.selectedUserProfile.CreatedDate = this.userProfile[0].CreatedDate;
-        this.uProfile.selectedUserProfile.ModifiedDate = this.userProfile[0].ModifiedDate;
-                       
-        
-
-        
+        this.getFieldForUpdate();
       }
 
     })
@@ -126,7 +81,7 @@ export class UserProfileComponent implements OnInit {
         this.fileUploads = fileUploads;
         console.log("File Upload Leanth =============================== "+this.fileUploads.length)
         for(let i=0;i<this.fileUploads.length; i++){
-  
+
           if (this.rUploadService.downloadURL == this.fileUploads[i].url) {
             this.uPloadFileKey = this.fileUploads[i].key;
             console.log("File Key :::::::: " +this.fileUploads[i].key);
@@ -135,10 +90,11 @@ export class UserProfileComponent implements OnInit {
             this.userProfileAddUpdate(uprofileForm, null);
             break;
           }
-  
+
         }
-  
+
       });
+
     }
 
 
@@ -247,12 +203,12 @@ export class UserProfileComponent implements OnInit {
       uprofileForm.value.ResumeExt = this.rUploadService.fileName.substring(this.rUploadService.fileName.lastIndexOf(".")+1);
       uprofileForm.value.UserID = this.auth.userProfile.name;
       uprofileForm.value.Username = this.auth.userProfile.nickname;
-  
+
       console.log ('CreatedDate  ::: '+ uprofileForm.value.CreatedDate);
       console.log ('ResumeID  ::: '+ uprofileForm.value.ResumeID);
       //console.log ('ResumeFileName  ::: '+ uprofileForm.value.ResumeFileName+' Extertion '+uprofileForm.value.ResumeFileName.substring(uprofileForm.value.ResumeFileName.length - 3,uprofileForm.value.ResumeFileName.length));
       console.log ('ResumeFileName  ::: '+ uprofileForm.value.ResumeFileName+' Extertion '+uprofileForm.value.ResumeFileName.substring(uprofileForm.value.ResumeFileName.lastIndexOf(".")+1));
-  
+
       console.log ('ResumeURL  ::: '+ uprofileForm.value.ResumeURL);
       console.log ('ResumeExt  ::: '+ uprofileForm.value.ResumeExt);
       console.log ('UserID  ::: '+ uprofileForm.value.UserID);
@@ -267,19 +223,19 @@ export class UserProfileComponent implements OnInit {
       }
       if (this.rUploadService.fileName !=null) {
         uprofileForm.value.ResumeFileName = this.rUploadService.fileName;
-        
+
       } else {
         uprofileForm.value.ResumeFileName = this.uProfile.selectedUserProfile.ResumeFileName;
       }
-      
+
       if (this.rUploadService.downloadURL !=null)
         uprofileForm.value.ResumeURL = this.rUploadService.downloadURL;
-      else 
+      else
         uprofileForm.value.ResumeURL = this.uProfile.selectedUserProfile.ResumeURL;
 
       if (this.rUploadService.fileName !=null)
         uprofileForm.value.ResumeExt = this.rUploadService.fileName.substring(this.rUploadService.fileName.lastIndexOf(".")+1);
-      else 
+      else
         uprofileForm.value.ResumeExt =  this.uProfile.selectedUserProfile.ResumeExt;
       console.log ('CreatedDate  ::: '+ uprofileForm.value.CreatedDate);
       if (uprofileForm.value.ResumeID == null) {
@@ -287,14 +243,13 @@ export class UserProfileComponent implements OnInit {
       }
       console.log ('ResumeID  ::: '+ uprofileForm.value.ResumeID);
       //console.log ('ResumeFileName  ::: '+ uprofileForm.value.ResumeFileName+' Extertion '+uprofileForm.value.ResumeFileName.substring(uprofileForm.value.ResumeFileName.length - 3,uprofileForm.value.ResumeFileName.length));
-  
+
       console.log ('ResumeURL  ::: '+ uprofileForm.value.ResumeURL);
       console.log ('ResumeExt  ::: '+ uprofileForm.value.ResumeExt);
       console.log ('UserID  ::: '+ uprofileForm.value.UserID);
       console.log ('Resume File Name  ::: '+ this.uProfile.selectedUserProfile.ResumeFileName);
-      this.uProfile.addUpdateUserProfile(uprofileForm.value, userid);           
+      this.uProfile.addUpdateUserProfile(uprofileForm.value, userid);
     }
-
 
 
   }
@@ -303,25 +258,25 @@ export class UserProfileComponent implements OnInit {
     this.selectedFiles = event.target.files;
   }
 
-  upload(uprofileForm: NgForm) {
-    const file = this.selectedFiles.item(0);
-    console.log("this.selectedFiles.item(0) :::::: => "+this.selectedFiles.item(0).name);
-    if (this.validateFile(this.selectedFiles.item(0).name)) {
-      this.selectedFiles = undefined;
-      this.fileUploadEnabled = true;
+  // upload() {
+  //   const file = this.selectedFiles.item(0);
+  //   console.log("this.selectedFiles.item(0) :::::: => "+this.selectedFiles.item(0).name);
+  //   if (this.validateFile(this.selectedFiles.item(0).name)) {
+  //     this.selectedFiles = undefined;
+  //     this.fileUploadEnabled = true;
 
-      this.currentFileUpload = new FileUpload(file);
-      this.rUploadService.pushFileToStorage(this.currentFileUpload, this.progress);
-      if (this.isUpdate) {
-        this.userProfileAddUpdate(uprofileForm, this.uProfile.selectedUserProfile.id);
-      }
-    } else {
-      this.selectedFiles = undefined;
-      this.fileUploadEnabled = false;
-    }
+  //     this.currentFileUpload = new FileUpload(file);
+  //     this.rUploadService.pushFileToStorage(this.currentFileUpload, this.progress);
+  //     if (this.isUpdate) {
+  //       // this.userProfileAddUpdate(uprofileForm, this.uProfile.selectedUserProfile.id);
+  //     }
+  //   } else {
+  //     this.selectedFiles = undefined;
+  //     this.fileUploadEnabled = false;
+  //   }
 
 
-  }
+  // }
 
   validateFile(fileName: string) {
     let ext = fileName.substring(fileName.lastIndexOf('.')+1);
@@ -374,6 +329,51 @@ export class UserProfileComponent implements OnInit {
         // category: '',
         // details: ''
       }
+
+  }
+
+  getFieldForUpdate() {
+    this.uProfile.selectedUserProfile.id = this.userProfile[0].id;
+    this.uProfile.selectedUserProfile.FirstName = this.userProfile[0].FirstName;
+    this.uProfile.selectedUserProfile.LastName = this.userProfile[0].LastName;
+    this.uProfile.selectedUserProfile.Sex = this.userProfile[0].Sex;
+
+    this.uProfile.selectedUserProfile.Email = this.userProfile[0].Email;
+    this.uProfile.selectedUserProfile.HomePhone = this.userProfile[0].HomePhone;
+    this.uProfile.selectedUserProfile.CellPhone = this.userProfile[0].CellPhone;
+    this.uProfile.selectedUserProfile.Address1 = this.userProfile[0].Address1;
+    this.uProfile.selectedUserProfile.Address2 = this.userProfile[0].Address2;
+    this.uProfile.selectedUserProfile.City = this.userProfile[0].City;
+    this.uProfile.selectedUserProfile.State = this.userProfile[0].State;
+    this.uProfile.selectedUserProfile.ZipCode = this.userProfile[0].ZipCode;
+    this.uProfile.selectedUserProfile.Country = this.userProfile[0].Country;
+    this.uProfile.selectedUserProfile.FaceBookURL = this.userProfile[0].FaceBookURL;
+    this.uProfile.selectedUserProfile.LinkedinURL = this.userProfile[0].LinkedinURL;
+    this.uProfile.selectedUserProfile.PersonalWebsite = this.userProfile[0].PersonalWebsite;
+    this.uProfile.selectedUserProfile.EmploymentType = this.userProfile[0].EmploymentType;
+    this.uProfile.selectedUserProfile.DesiredPosition = this.userProfile[0].DesiredPosition;
+    this.uProfile.selectedUserProfile.DesiredSalary = this.userProfile[0].DesiredSalary;
+    this.uProfile.selectedUserProfile.IsRelocate = this.userProfile[0].IsRelocate;
+    this.uProfile.selectedUserProfile.IsTravel = this.userProfile[0].IsTravel;
+    this.uProfile.selectedUserProfile.YearsofExperince = this.userProfile[0].YearsofExperince;
+    this.uProfile.selectedUserProfile.WorkAuthorization = this.userProfile[0].WorkAuthorization;
+    this.uProfile.selectedUserProfile.SecurityClearance = this.userProfile[0].SecurityClearance;
+    this.uProfile.selectedUserProfile.ResumeID = this.userProfile[0].ResumeID;
+    this.uProfile.selectedUserProfile.ResumeFileName = this.userProfile[0].ResumeFileName;
+    this.uProfile.selectedUserProfile.ResumeURL = this.userProfile[0].ResumeURL;
+    this.uProfile.selectedUserProfile.ResumeExt = this.userProfile[0].ResumeExt;
+    this.uProfile.selectedUserProfile.CoverLetter = this.userProfile[0].CoverLetter;
+
+    this.uProfile.selectedUserProfile.institute = this.userProfile[0].institute;
+    this.uProfile.selectedUserProfile.instituteCity = this.userProfile[0].instituteCity;
+    this.uProfile.selectedUserProfile.instituteCountry = this.userProfile[0].instituteCountry;
+    this.uProfile.selectedUserProfile.SkillSet = this.userProfile[0].SkillSet;
+    this.uProfile.selectedUserProfile.Education = this.userProfile[0].Education;
+    this.uProfile.selectedUserProfile.SalaryExpectation = this.userProfile[0].SalaryExpectation;
+    this.uProfile.selectedUserProfile.UserID = this.userProfile[0].UserID;
+    this.uProfile.selectedUserProfile.Username = this.userProfile[0].Username;
+    this.uProfile.selectedUserProfile.CreatedDate = this.userProfile[0].CreatedDate;
+    this.uProfile.selectedUserProfile.ModifiedDate = this.userProfile[0].ModifiedDate;
 
   }
 

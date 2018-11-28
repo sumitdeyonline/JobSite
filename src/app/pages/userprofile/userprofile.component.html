@@ -288,7 +288,7 @@
                             <option>Select Employment Type</option>
                             <option>Part Time</option>
                             <option>Full Time</option>
-                        </select>                
+                        </select>
                     </div>
                     <div class="col-sm-2">
                         <label style="font-weight: bold;" for="DesiredPosition">Desired Position</label>
@@ -402,7 +402,8 @@
                 </div>
             </div>
 
-            <div class="row">
+            <uploadresume></uploadresume>
+            <!--div class="row">
                 <div class="col-sm-2">
                     <label style="font-weight: bold;">Resume Upload</label>
                 </div>
@@ -417,14 +418,15 @@
                     <label class="btn btn-default"> <input type="file" name="fileUpload" (change)="selectFile($event)">
                     </label>&nbsp;&nbsp;&nbsp;
                     <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload(userProfile)">Upload</button>
-                    <!--a href="{{rUploadService.downloadURL}}" [hidden]="!fileUploadEnabled" target="_blank">{{rUploadService.fileName}}</a-->
+
                     &nbsp; <a href="{{rUploadService.downloadURL}}" [hidden]="!fileUploadEnabled && isUpdate" target="_blank">Resume1</a>
                     &nbsp; <a href="{{uProfile.selectedUserProfile?.ResumeURL}}" [hidden]="!fileUploadEnabled && !isUpdate" target="_blank">Resume</a>
                     <div style="color: green;" *ngIf="!fileUploadEnabled">
                         Please Upload Resume(.doc, .docx, .pdf, .ppt, .pptx)
                     </div>
                 </div>
-            </div>
+            </div-->
+
             <div class="row">
                 <div class="col-sm-2">&nbsp;
                     <!--a href="{{fileUpload.url}}">{{fileUpload.name}}</a>

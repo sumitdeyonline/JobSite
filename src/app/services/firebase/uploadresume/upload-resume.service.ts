@@ -5,6 +5,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs';
 import { FileUpload } from './fileupload';
+import { UploadResume } from './uploadresume.model';
 import * as firebase from 'firebase/app';
 import 'firebase/storage';
 
@@ -27,17 +28,25 @@ import { FIREBASE_CONFIG } from 'src/app/global-config';
 })
 export class UploadResumeService {
 
+  selectedUploadResume: UploadResume;
+  urCollection: AngularFirestoreCollection <UploadResume>;
+  UploadResumec: Observable<UploadResume[]>;
+  upDoc: AngularFirestoreDocument<UploadResume>;
+
+  uploadResume: Array<UploadResume> = [];
 
   private basePath = FIREBASE_CONFIG.UploadPath; //'/uploads';
   private task: any;
   downloadURL: any;
   fileName: any;
   fUpload: FileUpload;
-  constructor(private db: AngularFireDatabase,  private auth: AuthService) { }
+  constructor(private db: AngularFireDatabase, private afs : AngularFirestore, private auth: AuthService) {
+    this.urCollection = this.afs.collection(FIREBASE_CONFIG.UploadResume);
+  }
 
 
 
-  pushFileToStorage(fileUpload: FileUpload, progress: { percentage: number }) {
+  pushFileToStorage(fileUpload: FileUpload, progress: { percentage: number }, id: string) {
 
 
     const storageRef = firebase.storage().ref();
@@ -55,6 +64,9 @@ export class UploadResumeService {
       //this.task = storageRef.child(`${this.basePath}/${this.auth.userProfile.name+"_"+fileUpload.file.name}`).put(fileUpload.file);
       this.task = storageRef.child(`${this.basePath}/${filename}`).put(fileUpload.file);
       //const uploadTask = storageRef.child(`${this.basePath}/${fileUpload.file.name}`).put(fileUpload.file);
+
+
+
 
     }
 
@@ -89,6 +101,36 @@ export class UploadResumeService {
           //this.fUpload.url = downloadURL;
 
           this.saveFileData(fileUpload);
+          if (id == null) {
+            console.log("It's a new upload");
+            let uResume = {} as UploadResume;
+            uResume.ResumeFileName = this.fileName;
+            uResume.UserID =  this.auth.userProfile.name;
+            uResume.Username =  this.auth.userProfile.name;
+            uResume.ResumeURL =  this.downloadURL;
+            uResume.ResumeID =  "";
+            uResume.ResumeExt =  this.fileName.substring(this.fileName.lastIndexOf(".")+1,this.fileName.length);
+            uResume.CreatedDate =  formatDate(new Date(), 'MM/dd/yyyy', 'en');
+            //this.selectedUploadResume = new uploadResume[];
+            // this.uploadResume.ResumeFileName  =   this.fileName;
+            // this.selectedUploadResume.ResumeURL  =   this.downloadURL;
+            console.log("It's a new upload -- Download URL ::: "+uResume.ResumeURL);
+            console.log("It's a new upload -- Download URL ::: "+uResume.ResumeFileName);
+            console.log("It's a new upload -- Download URL ::: "+uResume.ResumeExt);
+            console.log("It's a new upload -- Download URL ::: "+uResume.CreatedDate);
+            // this.selectedUploadResume.ResumeExt = this.fileName.substring(this.fileName.lastIndexOf(".")+1,this.fileName.length);
+            // this.selectedUploadResume.ModifiedDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
+            this.addUpdateUserResume(uResume, id);
+            this.selectedUploadResume = uResume;
+          } else {
+            console.log("It's not a new upload");
+          }
+          //console.log('IDDDDDDDDDDDDDDDDDDDDD ::: ', this.selectedUploadResume.id);
+          // this.selectedUploadResume.ResumeFileName  =   this.fileName;
+          // this.selectedUploadResume.ResumeURL  =   this.downloadURL;
+          // this.selectedUploadResume.ResumeExt = this.fileName.substring(this.fileName.lastIndexOf(".")+1,this.fileName.length);
+          // this.selectedUploadResume.ModifiedDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
+          // this.addUpdateUserResume(this.selectedUploadResume, this.selectedUploadResume.id);
 
         });
 
@@ -126,6 +168,51 @@ export class UploadResumeService {
   private deleteFileStorage(name: string) {
     const storageRef = firebase.storage().ref();
     storageRef.child(`${this.basePath}/${name}`).delete();
+  }
+
+
+  getResumeDetails(user) {
+    console.log("Resume Details "+user);
+
+
+    this.urCollection = this.afs.collection(FIREBASE_CONFIG.UploadResume, ref =>
+          ref.where('Username','==',user));
+          console.log("List Service ..... 4");
+    this.UploadResumec = this.urCollection.snapshotChanges().pipe(map(changes => {
+      console.log("List Service ..... 5");
+      return changes.map(a => {
+        console.log("List Service ..... 6");
+        const data = a.payload.doc.data() as UploadResume;
+        data.id = a.payload.doc.id;
+        console.log("List Service 11111 ..... 2");
+        return data;
+      });
+    }));
+
+    return this.UploadResumec;
+  }
+
+  addUpdateUserResume(uResume: UploadResume, id: string) {
+
+    console.log("New Form ::: ------------->" + id);
+    if ((id == null) || (id == '')) {
+      uResume.CreatedDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
+      uResume.Username = this.auth.userProfile.name;
+      uResume.UserID = this.auth.userProfile.name;
+      //pjobc.JobTitle =
+      // console.log ("Create Date ::: "+pjobc.CreatedDate);
+      // console.log ("Created By ::: "+pjobc.CreatedBy);
+      // console.log("NEW FORM ....Service");
+      this.urCollection.add(uResume);
+    } else {
+      console.log("UPDATE FORM ...." + id);
+      //this.faqDoc = this.afs.doc(`faq/${faqc.id}`);
+
+
+      this.upDoc = this.afs.doc(`${FIREBASE_CONFIG.UploadResume}/${id}`);
+      this.upDoc.update(uResume);
+    }
+    //this.AlgoliaUpdate();
   }
 
 

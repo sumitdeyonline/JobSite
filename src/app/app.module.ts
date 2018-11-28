@@ -45,6 +45,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { UploadResumeService } from './services/firebase/uploadresume/upload-resume.service';
 import { UserdetailsService } from './services/firebase/userdetails/userdetails.service';
 import { UserprofileService } from './services/firebase/userprofile/userprofile.service';
+import { UploadresumeComponent } from './pages/uploadresume/uploadresume.component';
 
 
 
@@ -59,7 +60,7 @@ import { UserprofileService } from './services/firebase/userprofile/userprofile.
     NotfoundComponent,
     LoginComponent,
     LogComponent,
-    CallbackComponent, SignupComponent, SignupConfirmComponent, SearchheaderComponent, PostjobComponent, ListjobComponent, JobpoststatusComponent, JobdetailsComponent, UserProfileComponent
+    CallbackComponent, SignupComponent, SignupConfirmComponent, SearchheaderComponent, PostjobComponent, ListjobComponent, JobpoststatusComponent, JobdetailsComponent, UserProfileComponent, UploadresumeComponent
   ],
 
   imports: [
