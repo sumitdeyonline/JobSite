@@ -35,8 +35,9 @@ export class UploadresumeComponent implements OnInit {
 
       } else {
         console.log("Edit FORM .... FOR "+this.uResume.length);
-        console.log('IDDDDDDDDDDDDDDDDDDDDD ::: ', this.rUploadService.selectedUploadResume.id);
+        //console.log('IDDDDDDDDDDDDDDDDDDDDD ::: ', this.rUploadService.selectedUploadResume.id);
         this.isUpdate = true;
+        this.rUploadService.selectedUploadResume = {} as UploadResume;
         this.rUploadService.selectedUploadResume.Username = this.uResume[0].Username;
         this.rUploadService.selectedUploadResume.UserID = this.uResume[0].UserID;
         this.rUploadService.selectedUploadResume.id = this.uResume[0].id;
@@ -56,6 +57,11 @@ export class UploadresumeComponent implements OnInit {
 
   selectFile(event) {
     this.selectedFiles = event.target.files;
+    if (this.validateFile(this.selectedFiles.item(0).name)) {
+      this.resumeUploadEnabled = true;
+    } else {
+      this.resumeUploadEnabled = false;
+    }
   }
 
   upload() {

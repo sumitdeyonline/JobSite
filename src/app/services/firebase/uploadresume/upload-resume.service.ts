@@ -101,15 +101,16 @@ export class UploadResumeService {
           //this.fUpload.url = downloadURL;
 
           this.saveFileData(fileUpload);
+          let uResume = {} as UploadResume;
+          uResume.ResumeFileName = this.fileName;
+          uResume.UserID =  this.auth.userProfile.name;
+          uResume.Username =  this.auth.userProfile.name;
+          uResume.ResumeURL =  this.downloadURL;
+          uResume.ResumeID =  "";
+          uResume.ResumeExt =  this.fileName.substring(this.fileName.lastIndexOf(".")+1,this.fileName.length);
           if (id == null) {
             console.log("It's a new upload");
-            let uResume = {} as UploadResume;
-            uResume.ResumeFileName = this.fileName;
-            uResume.UserID =  this.auth.userProfile.name;
-            uResume.Username =  this.auth.userProfile.name;
-            uResume.ResumeURL =  this.downloadURL;
-            uResume.ResumeID =  "";
-            uResume.ResumeExt =  this.fileName.substring(this.fileName.lastIndexOf(".")+1,this.fileName.length);
+
             uResume.CreatedDate =  formatDate(new Date(), 'MM/dd/yyyy', 'en');
             //this.selectedUploadResume = new uploadResume[];
             // this.uploadResume.ResumeFileName  =   this.fileName;
@@ -120,11 +121,13 @@ export class UploadResumeService {
             console.log("It's a new upload -- Download URL ::: "+uResume.CreatedDate);
             // this.selectedUploadResume.ResumeExt = this.fileName.substring(this.fileName.lastIndexOf(".")+1,this.fileName.length);
             // this.selectedUploadResume.ModifiedDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
-            this.addUpdateUserResume(uResume, id);
-            this.selectedUploadResume = uResume;
+
           } else {
-            console.log("It's not a new upload");
+            console.log("It's a update >>><<<< "+id);
+            uResume.ModifiedDate =  formatDate(new Date(), 'MM/dd/yyyy', 'en');
           }
+          this.addUpdateUserResume(uResume, id);
+          this.selectedUploadResume = uResume;
           //console.log('IDDDDDDDDDDDDDDDDDDDDD ::: ', this.selectedUploadResume.id);
           // this.selectedUploadResume.ResumeFileName  =   this.fileName;
           // this.selectedUploadResume.ResumeURL  =   this.downloadURL;
