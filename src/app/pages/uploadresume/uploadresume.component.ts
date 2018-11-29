@@ -19,6 +19,7 @@ export class UploadresumeComponent implements OnInit {
   uPloadFileKey: String;
   resumeUploadEnabled: boolean = false;
   isUpdate: boolean = false;
+  isNewUpload: boolean = false;
   uResume: UploadResume [];
 
 
@@ -31,6 +32,7 @@ export class UploadresumeComponent implements OnInit {
       console.log("Resume Upload");
       if (this.uResume.length == 0) {
         this.isUpdate = false;
+        this.isNewUpload = false;
         console.log("NEW FORM ....11111");
 
       } else {
@@ -44,6 +46,7 @@ export class UploadresumeComponent implements OnInit {
         this.rUploadService.selectedUploadResume.ResumeFileName = this.uResume[0].ResumeFileName;
         this.rUploadService.selectedUploadResume.ResumeURL = this.uResume[0].ResumeURL;
         this.rUploadService.selectedUploadResume.ResumeExt = this.uResume[0].ResumeExt;
+        this.isNewUpload = true;
 
         // this.getFieldForUpdate();
       }
@@ -78,9 +81,11 @@ export class UploadresumeComponent implements OnInit {
         this.rUploadService.pushFileToStorage(this.currentFileUpload, this.progress, this.rUploadService.selectedUploadResume.id);
       }
 
-
+      this.isNewUpload = true;
+      console.log("isNewUpload   ======= > "+this.isNewUpload);
       // this.rUploadService.addUpdateUserResume(this.rUploadService.selectedUploadResume, this.rUploadService.selectedUploadResume.id);
     } else {
+      this.isNewUpload = false;
       this.selectedFiles = undefined;
       this.resumeUploadEnabled = false;
     }

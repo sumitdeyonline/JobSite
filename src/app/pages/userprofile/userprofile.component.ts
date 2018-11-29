@@ -22,10 +22,8 @@ export class UserProfileComponent implements OnInit {
   id: any;
   selectedFiles: FileList;
   currentFileUpload: FileUpload;
-  progress: { percentage: number } = { percentage: 0 };
   fileUploads: any[];
   uPloadFileKey: String;
-  fileUploadEnabled: boolean = false;
   uProfileMessage: String ='';
   userProfile: UserProfile[];
   isUpdate: boolean = false;
@@ -43,7 +41,7 @@ export class UserProfileComponent implements OnInit {
         this.isUpdate = false;
       } else {
         console.log("Edit FORM .... FOR "+this.userProfile.length+" ::::: ID :::::: => "+this.userProfile[0].id);
-        this.fileUploadEnabled = true;
+        //this.fileUploadEnabled = true;
         this.isUpdate = true;
         this.getFieldForUpdate();
       }
@@ -193,7 +191,7 @@ export class UserProfileComponent implements OnInit {
     console.log ('File Name   ::: '+ this.rUploadService.fileName);
     console.log ('File URL   ::: '+ this.rUploadService.downloadURL);
 
-    this.fileUploadEnabled = true; // Enabled File Download
+    // this.fileUploadEnabled = true; // Enabled File Download
 
     if (userid == null){
       uprofileForm.value.CreatedDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');

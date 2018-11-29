@@ -15,7 +15,7 @@
       <button class="btn btn-success" [disabled]="!selectedFiles || !resumeUploadEnabled" (click)="upload()">Upload</button>
       <!--a href="{{rUploadService.downloadURL}}" [hidden]="!resumeUploadEnabled" target="_blank">{{rUploadService.fileName}}</a-->
       &nbsp; <!--a href="{{rUploadService.downloadURL}}" [hidden]="!resumeUploadEnabled" target="_blank">Resume1</a-->
-      &nbsp; <a href="{{rUploadService.selectedUploadResume?.ResumeURL}}" [hidden]="!resumeUploadEnabled && !isUpdate" target="_blank">Resume</a>
+      &nbsp; <a href="{{rUploadService.selectedUploadResume?.ResumeURL}}" [hidden]="!isNewUpload" target="_blank">Resume</a>
       <div style="color: green;" *ngIf="!resumeUploadEnabled">
           Please Upload Resume(.doc, .docx, .pdf, .ppt, .pptx)
       </div>
