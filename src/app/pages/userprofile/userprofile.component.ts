@@ -4,6 +4,7 @@ import { UploadResumeService } from 'src/app/services/firebase/uploadresume/uplo
 import { FormBuilder, NgForm } from '@angular/forms';
 import { DatePipe, formatDate } from '@angular/common';
 import { UserprofileService } from 'src/app/services/firebase/userprofile/userprofile.service';
+
 import { map } from 'rxjs/operators';
 //import { exists } from 'fs';
 import { AuthService } from 'src/app/services/authentication/auth.service';
@@ -27,6 +28,8 @@ export class UserProfileComponent implements OnInit {
   uProfileMessage: String ='';
   userProfile: UserProfile[];
   isUpdate: boolean = false;
+  isUpdateProfile: boolean = false;
+  editProfileText: string ="Edit Profile";
 
   constructor(private rUploadService: UploadResumeService, private uProfile: UserprofileService, private auth: AuthService) {
 
@@ -39,10 +42,12 @@ export class UserProfileComponent implements OnInit {
 
         console.log("NEW FORM ....");
         this.isUpdate = false;
+        this.isUpdateProfile = true;
       } else {
         console.log("Edit FORM .... FOR "+this.userProfile.length+" ::::: ID :::::: => "+this.userProfile[0].id);
         //this.fileUploadEnabled = true;
         this.isUpdate = true;
+        this.isUpdateProfile = false;
         this.getFieldForUpdate();
       }
 
@@ -64,11 +69,35 @@ export class UserProfileComponent implements OnInit {
 
   }
 
+
+  EnableEdit() {
+    if (!this.isUpdateProfile){
+      this.editProfileText = "Cancel";
+      this.isUpdateProfile = true;
+    }
+
+    else {
+      this.editProfileText ="Edit Profile";
+      this.isUpdateProfile = false;
+      console.log("Befire UserProfile .......*******>>>>>>");
+      this.resetForm();
+      //this.getFieldForUpdate();
+      this.uProfile.getUserDetails(this.auth.userProfile.name).subscribe(uprop=> {
+        this.userProfile = uprop;
+        this.getFieldForUpdate();
+      })
+      //this.router.navigate(["userprofile"]);
+    }
+
+
+  }
+
   userProfileSubmit(uprofileForm: NgForm) {
     console.log("Start Saveing ");
 
     if (this.isUpdate) {
       this.userProfileAddUpdate(uprofileForm, this.uProfile.selectedUserProfile.id);
+      this.EnableEdit();
     } else {
 
       this.rUploadService.getFileUploads(Number(FIREBASE_CONFIG.TotalFile)).snapshotChanges().pipe(
@@ -86,6 +115,7 @@ export class UserProfileComponent implements OnInit {
             console.log("File URL :::::::: " +this.fileUploads[i].url);
             console.log("File Name :::::::: " +this.fileUploads[i].name);
             this.userProfileAddUpdate(uprofileForm, null);
+            this.EnableEdit();
             break;
           }
 
