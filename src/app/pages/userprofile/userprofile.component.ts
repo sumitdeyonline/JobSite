@@ -4,7 +4,7 @@ import { UploadResumeService } from 'src/app/services/firebase/uploadresume/uplo
 import { FormBuilder, NgForm } from '@angular/forms';
 import { DatePipe, formatDate } from '@angular/common';
 import { UserprofileService } from 'src/app/services/firebase/userprofile/userprofile.service';
-
+import { Country } from 'src/app/services/firebase/userprofile/country.model';
 import { map } from 'rxjs/operators';
 //import { exists } from 'fs';
 import { AuthService } from 'src/app/services/authentication/auth.service';
@@ -30,6 +30,7 @@ export class UserProfileComponent implements OnInit {
   isUpdate: boolean = false;
   isUpdateProfile: boolean = false;
   editProfileText: string ="Edit Profile";
+  countries: Country[];
 
   constructor(private rUploadService: UploadResumeService, private uProfile: UserprofileService, private auth: AuthService) {
 
@@ -37,6 +38,8 @@ export class UserProfileComponent implements OnInit {
     this.uProfile.getUserDetails(this.auth.userProfile.name).subscribe(uprop=> {
       this.userProfile = uprop;
       this.resetForm();
+      //this.countries = ['USA', 'Canada', 'Uk'];
+      this.getCountry();
       console.log("TEEESSSTTTTTTTTTT ");
       if (this.userProfile.length == 0) {
 
@@ -69,6 +72,13 @@ export class UserProfileComponent implements OnInit {
 
   }
 
+
+  getCountry() {
+    this.uProfile.getCountry().subscribe(cprop => {
+      this.countries = cprop;
+      console.log("Country :::::::: => "+this.countries.length);
+    })
+  }
 
   EnableEdit() {
     if (!this.isUpdateProfile){

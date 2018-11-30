@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { AuthService } from '../../authentication/auth.service';
 import { FIREBASE_CONFIG } from 'src/app/global-config';
 import { UserProfile } from './userprofile.model';
+import { Country } from './country.model';
 import { Http } from '@angular/http';
 import { formatDate } from '@angular/common';
 
@@ -18,10 +19,16 @@ export class UserprofileService {
   UserProfilec: Observable<UserProfile[]>;
   upDoc: AngularFirestoreDocument<UserProfile>;
 
+  countryCollection: AngularFirestoreCollection <Country>;
+  countryProfilec: Observable<Country[]>;
+  cDoc: AngularFirestoreDocument<Country>;
+
+
   userProfile = [];
 
   constructor(private afs : AngularFirestore, private auth: AuthService, private http: Http) {
     this.upCollection = this.afs.collection(FIREBASE_CONFIG.UserProfile);
+    this.countryCollection = this.afs.collection(FIREBASE_CONFIG.Country);
   }
 
   addUpdateUserProfile(uprofile :  UserProfile,id: string) {
@@ -67,6 +74,24 @@ export class UserprofileService {
   }
 
 
+  getCountry() {
+
+    console.log("Country Name  ..... 0");
+    this.countryCollection = this.afs.collection(FIREBASE_CONFIG.Country, ref1 =>  ref1.orderBy('CountryName','asc'));
+          console.log("Country Name  ..... 1");
+    this.countryProfilec = this.countryCollection.snapshotChanges().pipe(map(changes => {
+      console.log("Country Name  ..... 2");
+      return changes.map(a => {
+        console.log("Country Name  ..... 3");;
+        const data = a.payload.doc.data() as Country;
+        data.id = a.payload.doc.id;
+        //console.log("Country Name  ..... 4" +data.id);
+        return data;
+      });
+    }));
+
+    return this.countryProfilec;
+  }
 
 
 }
