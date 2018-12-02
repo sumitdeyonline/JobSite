@@ -5,6 +5,7 @@ import { FormBuilder, NgForm } from '@angular/forms';
 import { DatePipe, formatDate } from '@angular/common';
 import { UserprofileService } from 'src/app/services/firebase/userprofile/userprofile.service';
 import { Country } from 'src/app/services/firebase/userprofile/country.model';
+import { State } from 'src/app/services/firebase/userprofile/state.model';
 import { map } from 'rxjs/operators';
 //import { exists } from 'fs';
 import { AuthService } from 'src/app/services/authentication/auth.service';
@@ -31,6 +32,7 @@ export class UserProfileComponent implements OnInit {
   isUpdateProfile: boolean = false;
   editProfileText: string ="Edit Profile";
   countries: Country[];
+  state: State[];
 
   constructor(private rUploadService: UploadResumeService, private uProfile: UserprofileService, private auth: AuthService) {
 
@@ -52,6 +54,7 @@ export class UserProfileComponent implements OnInit {
         this.isUpdate = true;
         this.isUpdateProfile = false;
         this.getFieldForUpdate();
+        this.getState(this.userProfile[0].Country);
       }
 
     })
@@ -77,6 +80,13 @@ export class UserProfileComponent implements OnInit {
     this.uProfile.getCountry().subscribe(cprop => {
       this.countries = cprop;
       console.log("Country :::::::: => "+this.countries.length);
+    })
+  }
+
+  getState(country) {
+    this.uProfile.getStateDetails(country).subscribe(sprop => {
+      this.state = sprop;
+      console.log("Country :::::::: => "+this.state.length);
     })
   }
 
@@ -109,6 +119,9 @@ export class UserProfileComponent implements OnInit {
       this.userProfileAddUpdate(uprofileForm, this.uProfile.selectedUserProfile.id);
       this.EnableEdit();
     } else {
+      // New Entry
+      // this.userProfileAddUpdate(uprofileForm, null);
+      // this.EnableEdit();
 
       this.rUploadService.getFileUploads(Number(FIREBASE_CONFIG.TotalFile)).snapshotChanges().pipe(
         map(changes =>

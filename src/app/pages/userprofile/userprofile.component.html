@@ -134,22 +134,33 @@
 
 
                 <div class="row">
+
+
                     <div class="col-sm-2">
-                        <label style="font-weight: bold;" for="City">City</label>
+                            <label style="font-weight: bold;" for="Country">Country</label>
                     </div>
                     <div class="col">
-                        <input type="text" ngModel name="City" [disabled]="!isUpdateProfile" #City="ngModel" id="City" [ngModel]="uProfile.selectedUserProfile?.City" (ngModelChange)="uProfile.selectedUserProfile.City" class="form-control input-sm" required/>
-                        <div style="color: red;" *ngIf="City.invalid && (City.dirty || City.touched)">
-                            Please Enter City
+                        <select ngModel name="Country" [disabled]="!isUpdateProfile" #Country="ngModel" id="Country" [ngModel]="uProfile.selectedUserProfile?.Country" (ngModelChange)="uProfile.selectedUserProfile.Country" class="form-control input-sm" (change)="getState($event.target.value)" required>
+                            <option >Select Country</option>
+                            <option [value]="country.CountryName" *ngFor="let country of countries">{{country.CountryName}}</option>
+                            <!--option>USA</option-->
+                        </select>
+                        <div style="color: red;" *ngIf="Country.invalid && (Country.dirty || Country.touched)">
+                            Please Enter Country
                         </div>
                     </div>
+
+
+
+
                     <div class="col-sm-2">
                         <label style="font-weight: bold;" for="State">State</label>
                     </div>
                     <div class="col">
                         <select ngModel name="State" [disabled]="!isUpdateProfile" #State="ngModel" id="State" [ngModel]="uProfile.selectedUserProfile?.State" (ngModelChange)="uProfile.selectedUserProfile.State" class="form-control input-sm" required>
                             <option>Select State</option>
-                            <option label="AL" value="AL">AL</option>
+                            <option [value]="st.StateName" *ngFor="let st of state">{{st.StateDisplayName}}</option>
+                            <!--option label="AL" value="AL">AL</option>
                             <option label="AK" value="AK">AK</option>
                             <option label="AZ" value="AZ">AZ</option>
                             <option label="AR" value="AR">AR</option>
@@ -199,7 +210,7 @@
                             <option label="WA" value="WA">WA</option>
                             <option label="WV" value="WV">WV</option>
                             <option label="WI" value="WI">WI</option>
-                            <option label="WY" value="WY">WY</option>
+                            <option label="WY" value="WY">WY</option-->
                         </select>
                         <div style="color: red;" *ngIf="State.invalid && (State.dirty || State.touched)">
                             Please Enter State
@@ -214,6 +225,17 @@
 
 
                 <div class="row">
+
+                    <div class="col-sm-2">
+                        <label style="font-weight: bold;" for="City">City</label>
+                    </div>
+                    <div class="col">
+                        <input type="text" ngModel name="City" [disabled]="!isUpdateProfile" #City="ngModel" id="City" [ngModel]="uProfile.selectedUserProfile?.City" (ngModelChange)="uProfile.selectedUserProfile.City" class="form-control input-sm" required/>
+                        <div style="color: red;" *ngIf="City.invalid && (City.dirty || City.touched)">
+                            Please Enter City
+                        </div>
+                    </div>
+
                     <div class="col-sm-2">
                         <label style="font-weight: bold;" for="ZipCode">Zip</label>
                     </div>
@@ -223,19 +245,12 @@
                             Please Enter valid Zip Code
                         </div>
                     </div>
-                    <div class="col-sm-2">
-                        <label style="font-weight: bold;" for="Country">Country</label>
-                    </div>
-                    <div class="col">
-                        <select ngModel name="Country" [disabled]="!isUpdateProfile" #Country="ngModel" id="Country" [ngModel]="uProfile.selectedUserProfile?.Country" (ngModelChange)="uProfile.selectedUserProfile.Country" class="form-control input-sm" required>
-                            <option >Select Country</option>
-                            <option [value]="country.CountryName" *ngFor="let country of countries">{{country.CountryName}}</option>
-                            <!--option>USA</option-->
-                        </select>
-                        <div style="color: red;" *ngIf="Country.invalid && (Country.dirty || Country.touched)">
-                            Please Enter Country
-                        </div>
-                     </div>
+
+
+
+
+
+
                 </div>
                 <div class="row">
                     <div class="col-sm-2">&nbsp;

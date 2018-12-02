@@ -6,6 +6,7 @@ import { AuthService } from '../../authentication/auth.service';
 import { FIREBASE_CONFIG } from 'src/app/global-config';
 import { UserProfile } from './userprofile.model';
 import { Country } from './country.model';
+import { State } from './state.model';
 import { Http } from '@angular/http';
 import { formatDate } from '@angular/common';
 
@@ -21,14 +22,17 @@ export class UserprofileService {
 
   countryCollection: AngularFirestoreCollection <Country>;
   countryProfilec: Observable<Country[]>;
-  cDoc: AngularFirestoreDocument<Country>;
+  //cDoc: AngularFirestoreDocument<Country>;
 
+  stateCollection: AngularFirestoreCollection <State>;
+  stateProfilec: Observable<State[]>;
 
   userProfile = [];
 
   constructor(private afs : AngularFirestore, private auth: AuthService, private http: Http) {
     this.upCollection = this.afs.collection(FIREBASE_CONFIG.UserProfile);
     this.countryCollection = this.afs.collection(FIREBASE_CONFIG.Country);
+    this.stateCollection = this.afs.collection(FIREBASE_CONFIG.State);
   }
 
   addUpdateUserProfile(uprofile :  UserProfile,id: string) {
@@ -93,5 +97,25 @@ export class UserprofileService {
     return this.countryProfilec;
   }
 
+  getStateDetails(country) {
+    console.log("Country Name "+country);
+
+
+    this.stateCollection = this.afs.collection(FIREBASE_CONFIG.State, ref =>
+          ref.where('CountryName','==',country));
+          //console.log("List Service ..... 4");
+    this.stateProfilec = this.stateCollection.snapshotChanges().pipe(map(changes => {
+      //console.log("List Service ..... 5");
+      return changes.map(a => {
+        //console.log("List Service ..... 6");
+        const data = a.payload.doc.data() as State;
+        data.id = a.payload.doc.id;
+        //console.log("List Service 11111 ..... 2");
+        return data;
+      });
+    }));
+
+    return this.stateProfilec;
+  }
 
 }
