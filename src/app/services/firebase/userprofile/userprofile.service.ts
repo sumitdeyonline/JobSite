@@ -80,13 +80,13 @@ export class UserprofileService {
 
   getCountry() {
 
-    console.log("Country Name  ..... 0");
+    //console.log("Country Name  ..... 0");
     this.countryCollection = this.afs.collection(FIREBASE_CONFIG.Country, ref1 =>  ref1.orderBy('CountryName','asc'));
-          console.log("Country Name  ..... 1");
+         // console.log("Country Name  ..... 1");
     this.countryProfilec = this.countryCollection.snapshotChanges().pipe(map(changes => {
-      console.log("Country Name  ..... 2");
+      //console.log("Country Name  ..... 2");
       return changes.map(a => {
-        console.log("Country Name  ..... 3");;
+        //console.log("Country Name  ..... 3");;
         const data = a.payload.doc.data() as Country;
         data.id = a.payload.doc.id;
         //console.log("Country Name  ..... 4" +data.id);

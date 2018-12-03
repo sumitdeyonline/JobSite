@@ -120,31 +120,31 @@ export class UserProfileComponent implements OnInit {
       this.EnableEdit();
     } else {
       // New Entry
-      // this.userProfileAddUpdate(uprofileForm, null);
-      // this.EnableEdit();
+       this.userProfileAddUpdate(uprofileForm, null);
+       this.EnableEdit();
 
-      this.rUploadService.getFileUploads(Number(FIREBASE_CONFIG.TotalFile)).snapshotChanges().pipe(
-        map(changes =>
-          changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
-        )
-      ).subscribe(fileUploads => {
-        this.fileUploads = fileUploads;
-        console.log("File Upload Leanth =============================== "+this.fileUploads.length)
-        for(let i=0;i<this.fileUploads.length; i++){
+      // this.rUploadService.getFileUploads(Number(FIREBASE_CONFIG.TotalFile)).snapshotChanges().pipe(
+      //   map(changes =>
+      //     changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+      //   )
+      // ).subscribe(fileUploads => {
+      //   this.fileUploads = fileUploads;
+      //   console.log("File Upload Leanth =============================== "+this.fileUploads.length)
+      //   for(let i=0;i<this.fileUploads.length; i++){
 
-          if (this.rUploadService.downloadURL == this.fileUploads[i].url) {
-            this.uPloadFileKey = this.fileUploads[i].key;
-            console.log("File Key :::::::: " +this.fileUploads[i].key);
-            console.log("File URL :::::::: " +this.fileUploads[i].url);
-            console.log("File Name :::::::: " +this.fileUploads[i].name);
-            this.userProfileAddUpdate(uprofileForm, null);
-            this.EnableEdit();
-            break;
-          }
+      //     if (this.rUploadService.downloadURL == this.fileUploads[i].url) {
+      //       this.uPloadFileKey = this.fileUploads[i].key;
+      //       console.log("File Key :::::::: " +this.fileUploads[i].key);
+      //       console.log("File URL :::::::: " +this.fileUploads[i].url);
+      //       console.log("File Name :::::::: " +this.fileUploads[i].name);
+      //       this.userProfileAddUpdate(uprofileForm, null);
+      //       this.EnableEdit();
+      //       break;
+      //     }
 
-        }
+      //   }
 
-      });
+      // });
 
     }
 
@@ -248,57 +248,57 @@ export class UserProfileComponent implements OnInit {
 
     if (userid == null){
       uprofileForm.value.CreatedDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
-      uprofileForm.value.ResumeID = this.uPloadFileKey;
-      uprofileForm.value.ResumeFileName = this.rUploadService.fileName;
-      uprofileForm.value.ResumeURL = this.rUploadService.downloadURL;
-      uprofileForm.value.ResumeExt = this.rUploadService.fileName.substring(this.rUploadService.fileName.lastIndexOf(".")+1);
+      // uprofileForm.value.ResumeID = this.uPloadFileKey;
+      // uprofileForm.value.ResumeFileName = this.rUploadService.fileName;
+      //uprofileForm.value.ResumeURL = this.rUploadService.downloadURL;
+      //uprofileForm.value.ResumeExt = this.rUploadService.fileName.substring(this.rUploadService.fileName.lastIndexOf(".")+1);
       uprofileForm.value.UserID = this.auth.userProfile.name;
       uprofileForm.value.Username = this.auth.userProfile.nickname;
 
       console.log ('CreatedDate  ::: '+ uprofileForm.value.CreatedDate);
-      console.log ('ResumeID  ::: '+ uprofileForm.value.ResumeID);
+      //console.log ('ResumeID  ::: '+ uprofileForm.value.ResumeID);
       //console.log ('ResumeFileName  ::: '+ uprofileForm.value.ResumeFileName+' Extertion '+uprofileForm.value.ResumeFileName.substring(uprofileForm.value.ResumeFileName.length - 3,uprofileForm.value.ResumeFileName.length));
-      console.log ('ResumeFileName  ::: '+ uprofileForm.value.ResumeFileName+' Extertion '+uprofileForm.value.ResumeFileName.substring(uprofileForm.value.ResumeFileName.lastIndexOf(".")+1));
+      //console.log ('ResumeFileName  ::: '+ uprofileForm.value.ResumeFileName+' Extertion '+uprofileForm.value.ResumeFileName.substring(uprofileForm.value.ResumeFileName.lastIndexOf(".")+1));
 
-      console.log ('ResumeURL  ::: '+ uprofileForm.value.ResumeURL);
-      console.log ('ResumeExt  ::: '+ uprofileForm.value.ResumeExt);
+       //console.log ('ResumeURL  ::: '+ uprofileForm.value.ResumeURL);
+       //console.log ('ResumeExt  ::: '+ uprofileForm.value.ResumeExt);
       console.log ('UserID  ::: '+ uprofileForm.value.UserID);
       console.log ('Username  ::: '+ uprofileForm.value.Username);
       this.uProfile.addUpdateUserProfile(uprofileForm.value, null);
     } else {
       uprofileForm.value.ModifiedDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
-      if (this.uPloadFileKey !=null)
-        uprofileForm.value.ResumeID = this.uPloadFileKey;
-      else {
-        uprofileForm.value.ResumeID = this.uProfile.selectedUserProfile.ResumeID;
-      }
-      if (this.rUploadService.fileName !=null) {
-        uprofileForm.value.ResumeFileName = this.rUploadService.fileName;
+      // if (this.uPloadFileKey !=null)
+      //   uprofileForm.value.ResumeID = this.uPloadFileKey;
+      // else {
+      //   uprofileForm.value.ResumeID = this.uProfile.selectedUserProfile.ResumeID;
+      // }
+      // if (this.rUploadService.fileName !=null) {
+      //   uprofileForm.value.ResumeFileName = this.rUploadService.fileName;
 
-      } else {
-        uprofileForm.value.ResumeFileName = this.uProfile.selectedUserProfile.ResumeFileName;
-      }
+      // } else {
+      //   uprofileForm.value.ResumeFileName = this.uProfile.selectedUserProfile.ResumeFileName;
+      // }
 
-      if (this.rUploadService.downloadURL !=null)
-        uprofileForm.value.ResumeURL = this.rUploadService.downloadURL;
-      else
-        uprofileForm.value.ResumeURL = this.uProfile.selectedUserProfile.ResumeURL;
+      // if (this.rUploadService.downloadURL !=null)
+      //   uprofileForm.value.ResumeURL = this.rUploadService.downloadURL;
+      // else
+      //   uprofileForm.value.ResumeURL = this.uProfile.selectedUserProfile.ResumeURL;
 
-      if (this.rUploadService.fileName !=null)
-        uprofileForm.value.ResumeExt = this.rUploadService.fileName.substring(this.rUploadService.fileName.lastIndexOf(".")+1);
-      else
-        uprofileForm.value.ResumeExt =  this.uProfile.selectedUserProfile.ResumeExt;
+      // if (this.rUploadService.fileName !=null)
+      //   uprofileForm.value.ResumeExt = this.rUploadService.fileName.substring(this.rUploadService.fileName.lastIndexOf(".")+1);
+      // else
+      //   uprofileForm.value.ResumeExt =  this.uProfile.selectedUserProfile.ResumeExt;
       console.log ('CreatedDate  ::: '+ uprofileForm.value.CreatedDate);
-      if (uprofileForm.value.ResumeID == null) {
-        uprofileForm.value.ResumeID
-      }
-      console.log ('ResumeID  ::: '+ uprofileForm.value.ResumeID);
+      // if (uprofileForm.value.ResumeID == null) {
+      //   uprofileForm.value.ResumeID
+      // }
+      //console.log ('ResumeID  ::: '+ uprofileForm.value.ResumeID); 
       //console.log ('ResumeFileName  ::: '+ uprofileForm.value.ResumeFileName+' Extertion '+uprofileForm.value.ResumeFileName.substring(uprofileForm.value.ResumeFileName.length - 3,uprofileForm.value.ResumeFileName.length));
 
-      console.log ('ResumeURL  ::: '+ uprofileForm.value.ResumeURL);
-      console.log ('ResumeExt  ::: '+ uprofileForm.value.ResumeExt);
+      // console.log ('ResumeURL  ::: '+ uprofileForm.value.ResumeURL);
+      // console.log ('ResumeExt  ::: '+ uprofileForm.value.ResumeExt);
       console.log ('UserID  ::: '+ uprofileForm.value.UserID);
-      console.log ('Resume File Name  ::: '+ this.uProfile.selectedUserProfile.ResumeFileName);
+      // console.log ('Resume File Name  ::: '+ this.uProfile.selectedUserProfile.ResumeFileName);
       this.uProfile.addUpdateUserProfile(uprofileForm.value, userid);
     }
 
@@ -409,10 +409,10 @@ export class UserProfileComponent implements OnInit {
     this.uProfile.selectedUserProfile.YearsofExperince = this.userProfile[0].YearsofExperince;
     this.uProfile.selectedUserProfile.WorkAuthorization = this.userProfile[0].WorkAuthorization;
     this.uProfile.selectedUserProfile.SecurityClearance = this.userProfile[0].SecurityClearance;
-    this.uProfile.selectedUserProfile.ResumeID = this.userProfile[0].ResumeID;
-    this.uProfile.selectedUserProfile.ResumeFileName = this.userProfile[0].ResumeFileName;
-    this.uProfile.selectedUserProfile.ResumeURL = this.userProfile[0].ResumeURL;
-    this.uProfile.selectedUserProfile.ResumeExt = this.userProfile[0].ResumeExt;
+    // this.uProfile.selectedUserProfile.ResumeID = this.userProfile[0].ResumeID;
+    // this.uProfile.selectedUserProfile.ResumeFileName = this.userProfile[0].ResumeFileName;
+    // this.uProfile.selectedUserProfile.ResumeURL = this.userProfile[0].ResumeURL;
+    // this.uProfile.selectedUserProfile.ResumeExt = this.userProfile[0].ResumeExt;
     this.uProfile.selectedUserProfile.CoverLetter = this.userProfile[0].CoverLetter;
 
     this.uProfile.selectedUserProfile.institute = this.userProfile[0].institute;
