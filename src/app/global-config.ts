@@ -48,14 +48,14 @@ export const AUTH_CONFIG: AuthConfiguration = {
     //domain: 'sumitdey.auth0.com',
 
     // You may need to change this!
-    callbackURL: 'http://macgain.com/dist/callback',  // production
-    //callbackURL: 'http://localhost:4200/callback',
+    //callbackURL: 'http://macgain.com/dist/callback',  // production
+    callbackURL: 'http://localhost:4200/callback',
 
     audience: 'https://macgain.auth0.com/userinfo',
 
 
-    redirectUri: 'http://macgain.com/dist/',       // production
-    //redirectUri: 'http://localhost:4200/',
+    //redirectUri: 'http://macgain.com/dist/',       // production
+    redirectUri: 'http://localhost:4200/',
 
 
     responseType: 'token id_token',

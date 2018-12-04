@@ -11,6 +11,7 @@ import { ListjobComponent } from './pages/listjob/listjob.component';
 import { JobpoststatusComponent } from './pages/postjob/jobpoststatus/jobpoststatus.component';
 import { JobdetailsComponent } from './pages/jobdetails/jobdetails.component';
 import { UserProfileComponent } from './pages/userprofile/userprofile.component';
+import { ResumesearchComponent } from './pages/resumesearch/resumesearch.component';
 
 export const routing = RouterModule.forRoot([
 
@@ -34,11 +35,18 @@ export const routing = RouterModule.forRoot([
 
     },
     {
-      path: 'jobpoststatus',
-      component: JobpoststatusComponent,
-      canActivate: [ScopeGuard] ,
-      data: { expectedScopes: ['write:messages']}
+        path: 'jobpoststatus',
+        component: JobpoststatusComponent,
+        canActivate: [ScopeGuard] ,
+        data: { expectedScopes: ['write:messages']}
     },
+    {
+        path: 'resumesearch',
+        component: ResumesearchComponent,
+        canActivate: [ScopeGuard] ,
+        data: { expectedScopes: ['write:messages']}
+    },
+    
     {
         path: 'jobdetails/:id',
         component: JobdetailsComponent,
