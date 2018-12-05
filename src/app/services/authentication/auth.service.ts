@@ -29,13 +29,14 @@ export class AuthService {
   udCollection: AngularFirestoreCollection<UserDetails>;
   userDetail: Observable<UserDetails[]>;
   uDetail: UserDetails[];
-  isEmployeeRole: boolean = false;
+  isEmployerPostJobRole: boolean = false;
+  isEmployerResumeSearchRole: boolean = false;
 
   auth0 = new auth0.WebAuth({
-    clientID: AUTH_CONFIG.clientID,    
-    domain: AUTH_CONFIG.domain, 
-    responseType: AUTH_CONFIG.responseType,   
-    audience: AUTH_CONFIG.audience,  
+    clientID: AUTH_CONFIG.clientID,
+    domain: AUTH_CONFIG.domain,
+    responseType: AUTH_CONFIG.responseType,
+    audience: AUTH_CONFIG.audience,
     redirectUri: AUTH_CONFIG.redirectUri,
     callbackURL: AUTH_CONFIG.callbackURL,
     scope: AUTH_CONFIG.scope,
@@ -43,7 +44,7 @@ export class AuthService {
     //redirectUri: 'http://localhost:4200/callback',
   });
 
-  constructor(private router: Router, private _http: Http, private afs : AngularFirestore) { 
+  constructor(private router: Router, private _http: Http, private afs : AngularFirestore) {
     this.userProfile = JSON.parse(localStorage.getItem(SESSION_CONFIG.profile));
     this.udCollection = this.afs.collection(FIREBASE_CONFIG.UserDetails);
   }
@@ -53,7 +54,7 @@ export class AuthService {
     //this.auth0.authorize();
     console.log("Login Componenet ******* 1 Username : "+username);
     //this.auth0.client.login({
-    this.auth0.redirect.loginWithCredentials({   
+    this.auth0.redirect.loginWithCredentials({
       connection: AUTH_CONFIG.connection,
       responseType: AUTH_CONFIG.responseType, // 'token'
       username: username,
@@ -67,7 +68,7 @@ export class AuthService {
         this.authResult = authResult;
         //this.handleAuthentication();
       }
-      else 
+      else
         console.log("err.description :::::"+ err.description);
       if (err) alert("something went wrong: " + err);
     });
@@ -85,7 +86,7 @@ export class AuthService {
         this.setProfile((err, profile) => {
           this.userProfile = profile;
           //console.log("Profile "+profile);
-        });        
+        });
         this.router.navigate(['']);
       } else if (err) {
         alert("Login Error " +err);
@@ -142,34 +143,42 @@ export class AuthService {
     if (!accessToken) {
       throw new Error('Access token must exist to fetch profile');
     }
-  
+
     const self = this;
     this.auth0.client.userInfo(accessToken, (err, profile) => {
       if (profile) {
         self.userProfile = profile;
           //localStorage.setItem('profile', this.userProfile);
           localStorage.setItem(SESSION_CONFIG.profile, JSON.stringify(profile));
-          console.log("Profile Name "+profile.name); 
+          console.log("Profile Name "+profile.name);
           // Check for the employer Role
- 
+
           if (this.userProfile !=null) {
             this.UserRole().subscribe(udetail=> {
               this.uDetail = udetail;
               if (this.uDetail[0] !=null) {
-                if (this.uDetail[0].userRole == "Employer") {
-                  console.log("Employer Role :::::: ");
-                  this.isEmployeeRole = true;
-                } else {
-                  console.log("Not a Employer Role :::::: ");
-                  this.isEmployeeRole = false;
+                if (this.uDetail[0].userRole == FIREBASE_CONFIG.EmployerPostJob) {
+                  console.log("Employer Post Job :::::: ");
+                  this.isEmployerPostJobRole = true;
+                } else if (this.uDetail[0].userRole == FIREBASE_CONFIG.EmployerResumeSearch) {
+                  console.log("Employer Resume Search :::::: ");
+                  this.isEmployerResumeSearchRole = true;
+                } else if (this.uDetail[0].userRole == FIREBASE_CONFIG.EmployerPowerUser) {
+                  console.log("Employer Resume Search :::::: ");
+                  this.isEmployerPostJobRole = true;
+                  this.isEmployerResumeSearchRole = true;
+                }else {
+                  console.log("User Role :::::: ");
+                  this.isEmployerPostJobRole = false;
+                  this.isEmployerResumeSearchRole = false;
                 }
               }
               //console.log("List Service ..... 33333 ::::: "+this.pjob[1].id);
-            }) 
+            })
           }
 
 
-          //console.log("profile "+profile.roles);      
+          //console.log("profile "+profile.roles);
       }
       cb(err, profile);
     });
@@ -190,7 +199,7 @@ export class AuthService {
       if (localStorage.getItem(SESSION_CONFIG.profile).indexOf('admin') !=null) {
         if (localStorage.getItem(SESSION_CONFIG.profile).indexOf('admin') > -1)
           return true;
-        else 
+        else
           return false;
       }
     }
@@ -210,12 +219,16 @@ export class AuthService {
     //       }
     //     }
     //     //console.log("List Service ..... 33333 ::::: "+this.pjob[1].id);
-    //   }) 
+    //   })
     // }
-    console.log("Employer Role ::::::: => "+this.isEmployeeRole)
-    return this.isEmployeeRole;
+    console.log("Employer Role ::::::: => "+this.isEmployerPostJobRole);
+    return this.isEmployerPostJobRole;
   }
-  
+
+  public isResumeSearchRole() {
+    return this.isEmployerResumeSearchRole;
+  }
+
   UserRole() {
     //console.log("UserName ::::: "+this.userProfile.name);
     if (this.userProfile !=null) {
@@ -242,38 +255,38 @@ export class AuthService {
 		let body = JSON.stringify(signUpItems);
 		//console.log("JSON :::: "+body);
         //let headers = new Headers();
-        //headers.append('Content-Type','application/json');		
-		// return this._http.post(AUTH_CONFIG.sighupURL, body, optionsHeader )	
+        //headers.append('Content-Type','application/json');
+		// return this._http.post(AUTH_CONFIG.sighupURL, body, optionsHeader )
     //   .map((res: Response) => res.json());
-    return this._http.post(AUTH_CONFIG.sighupURL, body, optionsHeader ).pipe(	
-      map((res: Response) => res.json(), error => this.signUperror = error));  
+    return this._http.post(AUTH_CONFIG.sighupURL, body, optionsHeader ).pipe(
+      map((res: Response) => res.json(), error => this.signUperror = error));
 
 
-      //.catch(response => response.json()); 
-      //.catch(this.errorHandle); 
+      //.catch(response => response.json());
+      //.catch(this.errorHandle);
 	}
 
   forgotPassword(semail) {
 		let header = new Headers({ 'Content-Type': 'application/json' });
 		let optionsHeader = new RequestOptions({ headers: header });
 
-    let body: 
+    let body:
     { client_id: 'YOUR_CLIENT_ID',
       email: 'semail',
       connection: 'Username-Password-Authentication' },
       json: true ;
- 
+
       /*request(options, function (error, response, body) {
         if (error) throw new Error(error);
-      return this._http.post(AUTH_CONFIG.sighupURL, body, optionsHeader ).pipe(	
-        map((res: Response) => res.json(), error => this.signUperror = error));       
- 
+      return this._http.post(AUTH_CONFIG.sighupURL, body, optionsHeader ).pipe(
+        map((res: Response) => res.json(), error => this.signUperror = error));
+
    console.log(body);*/
 
   }
 
 
-  
+
   errorHandle(error: HttpErrorResponse) {
     console.log("ERROR : error.message "+error.ok+ "Text : "+error.error);
     return observableThrowError(error.message);
@@ -281,11 +294,11 @@ export class AuthService {
 
   private handleError(error: Response) {
     console.log("EROORRRRRRRRRRRRRR......");
-    let errorVal = { logdetails: error, logdate: (new Date).toString(), errorType: 'General', category: 'Home', createdBy: 'Sumit'  }    
+    let errorVal = { logdetails: error, logdate: (new Date).toString(), errorType: 'General', category: 'Home', createdBy: 'Sumit'  }
     console.log("errorVal  ::::: "+error);
     /*this.logservice.createLogg(errorVal)
       .map(response => response.json())
-      .catch(this.handleError);   
+      .catch(this.handleError);
     */
       //console.log("errorVal HHHHHHH   ::::: ");
     //let service: LogService
@@ -295,9 +308,9 @@ export class AuthService {
     if (error.status === 404) {
       return observableThrowError(new NotFoundError());
     }
-  
+
     return observableThrowError(new AppError(error));
-  }  
+  }
 
 
 }

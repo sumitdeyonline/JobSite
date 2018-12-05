@@ -27,7 +27,10 @@ export const FIREBASE_CONFIG = {
     PostJobId: 'id',
     NewUpdatePostJob: '/newupdatePostJob',
     UploadPath: '/uploads',
-    TotalFile: '10000000'
+    TotalFile: '10000000',
+    EmployerPostJob: 'EmployerPostJob',
+    EmployerResumeSearch: 'EmployerResumeSearch',
+    EmployerPowerUser: 'EmployerPowerUser'
 }
 
 export const SEARCH_CONFIG = {

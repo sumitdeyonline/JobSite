@@ -62,14 +62,14 @@ export class UserprofileService {
 
     this.upCollection = this.afs.collection(FIREBASE_CONFIG.UserProfile, ref =>
           ref.where('Username','==',user));
-          console.log("List Service ..... 4");
+          // console.log("List Service ..... 4");
     this.UserProfilec = this.upCollection.snapshotChanges().pipe(map(changes => {
-      console.log("List Service ..... 5");
+      // console.log("List Service ..... 5");
       return changes.map(a => {
-        console.log("List Service ..... 6");
+        // console.log("List Service ..... 6");
         const data = a.payload.doc.data() as UserProfile;
         data.id = a.payload.doc.id;
-        console.log("List Service 11111 ..... 2");
+        // console.log("List Service 11111 ..... 2");
         return data;
       });
     }));
@@ -80,16 +80,16 @@ export class UserprofileService {
 
   getCountry() {
 
-    //console.log("Country Name  ..... 0");
+    // console.log("Country Name  ..... 0");
     this.countryCollection = this.afs.collection(FIREBASE_CONFIG.Country, ref1 =>  ref1.orderBy('CountryName','asc'));
          // console.log("Country Name  ..... 1");
     this.countryProfilec = this.countryCollection.snapshotChanges().pipe(map(changes => {
-      //console.log("Country Name  ..... 2");
+      // console.log("Country Name  ..... 2");
       return changes.map(a => {
-        //console.log("Country Name  ..... 3");;
+        // console.log("Country Name  ..... 3");;
         const data = a.payload.doc.data() as Country;
         data.id = a.payload.doc.id;
-        //console.log("Country Name  ..... 4" +data.id);
+        // console.log("Country Name  ..... 4" +data.id);
         return data;
       });
     }));
@@ -103,14 +103,14 @@ export class UserprofileService {
 
     this.stateCollection = this.afs.collection(FIREBASE_CONFIG.State, ref =>
           ref.where('CountryName','==',country));
-          //console.log("List Service ..... 4");
+          // console.log("List Service ..... 4");
     this.stateProfilec = this.stateCollection.snapshotChanges().pipe(map(changes => {
-      //console.log("List Service ..... 5");
+      // console.log("List Service ..... 5");
       return changes.map(a => {
-        //console.log("List Service ..... 6");
+        // console.log("List Service ..... 6");
         const data = a.payload.doc.data() as State;
         data.id = a.payload.doc.id;
-        //console.log("List Service 11111 ..... 2");
+        // console.log("List Service 11111 ..... 2");
         return data;
       });
     }));
