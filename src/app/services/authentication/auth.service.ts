@@ -221,7 +221,7 @@ export class AuthService {
     //     //console.log("List Service ..... 33333 ::::: "+this.pjob[1].id);
     //   })
     // }
-    console.log("Employer Role ::::::: => "+this.isEmployerPostJobRole);
+    //console.log("Employer Role ::::::: => "+this.isEmployerPostJobRole);
     return this.isEmployerPostJobRole;
   }
 
