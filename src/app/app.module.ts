@@ -47,6 +47,7 @@ import { UserdetailsService } from './services/firebase/userdetails/userdetails.
 import { UserprofileService } from './services/firebase/userprofile/userprofile.service';
 import { UploadresumeComponent } from './pages/uploadresume/uploadresume.component';
 import { ResumesearchComponent } from './pages/resumesearch/resumesearch.component';
+import { ResumedetailsComponent } from './pages/resumesearch/resumedetails/resumedetails.component';
 
 
 
@@ -61,7 +62,7 @@ import { ResumesearchComponent } from './pages/resumesearch/resumesearch.compone
     NotfoundComponent,
     LoginComponent,
     LogComponent,
-    CallbackComponent, SignupComponent, SignupConfirmComponent, SearchheaderComponent, PostjobComponent, ListjobComponent, JobpoststatusComponent, JobdetailsComponent, UserProfileComponent, UploadresumeComponent, ResumesearchComponent
+    CallbackComponent, SignupComponent, SignupConfirmComponent, SearchheaderComponent, PostjobComponent, ListjobComponent, JobpoststatusComponent, JobdetailsComponent, UserProfileComponent, UploadresumeComponent, ResumesearchComponent, ResumedetailsComponent
   ],
 
   imports: [

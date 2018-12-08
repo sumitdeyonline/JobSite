@@ -44,7 +44,7 @@
                       <div class="row">
 
                           <div class="col">
-                              <input type="text" id="ResumeSearch"  class="form-control input-sm" required/>
+                              <input type="text" ngModel name="ResumeSearch" #ResumeSearch="ngModel" id="ResumeSearch"  class="form-control input-sm" required/>
                           </div>
 
                           <div class="col">
@@ -60,13 +60,13 @@
 
                     <h2>Search Result</h2>
                     <!--div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab"-->
-                    <div class="tab_grid" *ngFor="let pj of PostJobcFinal">
+                    <div class="tab_grid" *ngFor="let rp of UserProfile">
                         <div class="jobs-item with-thumb">
-                          <div class="thumb"><a routerLink="/jobdetails"><img src="assets/images/a2.jpg" class="img-responsive" alt=""/></a></div>
+                          <div class="thumb"><a [routerLink]="['/resumedetails',rp.objectID]"><img src="assets/images/a2.jpg" class="img-responsive" alt=""/></a></div>
                           <div class="jobs_right">
-                          <div class="date">{{ pj.CreatedDate.substring(3,5) }} <span>{{ dformat.monthNumToSigName(pj.CreatedDate.substring(0,2)) }}</span></div>
-                          <div class="date_desc"><h6 class="title"><a routerLink="/jobdetails">{{ pj.JobTitle }}</a></h6>
-                            <span class="meta">{{ pj.JobCity }}, {{ pj.JobState }}</span>
+                          <div class="date">{{rp.City}} <span>{{rp.State}}</span></div>
+                          <div class="date_desc"><h6 class="title"><a [routerLink]="['/resumedetails',rp.objectID]">{{rp.FirstName}}&nbsp;{{rp.LastName}}</a></h6>
+                            <span class="meta">Email : {{rp.Email}} Cell Phone : {{rp.CellPhone}}</span>
                           </div>
                           <div class="clearfix"> </div>
                                       <ul class="top-btns">
@@ -74,29 +74,12 @@
                             <li><a href="#" class="fa fa-star"></a></li>
                             <li><a href="#" class="fa fa-link"></a></li>
                           </ul>
-                          <p class="description">{{ pj.JobDesc }} <a [routerLink]="['/jobdetails',pj.id]" class="read-more">Read More</a></p>
+                          <p class="description">{{rp.SkillSet}} <!--a [routerLink]="['/jobdetails',pj.id]" class="read-more">Read More</a--></p>
                                   </div>
                         <div class="clearfix"> </div>
                       </div>
                     </div>
 
-                    <div class="jobs-item with-thumb">
-                        <div class="thumb"><a href="jobs_single.html"><img src="images/a2.jpg" class="img-responsive" alt=""/></a></div>
-                        <div class="jobs_right">
-                            <div class="date">30 <span>Jul</span></div>
-                            <div class="date_desc"><h6 class="title"><a href="jobs_single.html">Front-end Developer</a></h6>
-                              <span class="meta">Envato, Sydney, AU</span>
-                            </div>
-                            <div class="clearfix"> </div>
-                            <ul class="top-btns">
-                                <li><a href="#" class="fa fa-plus toggle"></a></li>
-                                <li><a href="#" class="fa fa-star"></a></li>
-                                <li><a href="#" class="fa fa-link"></a></li>
-                            </ul>
-                            <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, maxime, excepturi, mollitia, voluptatibus similique aliquid a dolores autem laudantium sapiente ad enim ipsa modi laborum accusantium deleniti neque architecto vitae. <a href="jobs_single.html" class="read-more">Read More</a></p>
-                        </div>
-                        <div class="clearfix"> </div>
-                    </div>
                  
 
 

@@ -38,5 +38,6 @@ export interface UserProfile {
 	Username? : string;
 	CreatedDate? : string;
 	ModifiedDate? : string;
+	objectID? : string;
 }
 

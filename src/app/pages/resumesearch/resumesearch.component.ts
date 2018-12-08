@@ -15,6 +15,7 @@ import { NgForm } from '@angular/forms';
 })
 export class ResumesearchComponent implements OnInit {
 
+
   UserProfile: UserProfile[];
   //UserProfileFinal: UserProfile[] = [];
 
@@ -27,8 +28,9 @@ export class ResumesearchComponent implements OnInit {
   }
 
 
-  getResumeSearchAlgolia(profileSearchForm: NgForm) {
+  getResumeSearchAlgolia(searchResume: NgForm) {
 
+    console.log("Search Parameter ::::: "+searchResume.value.ResumeSearch);
     this.client = algoliasearch(SEARCH_CONFIG.ALGOLIA_APP_ID, SEARCH_CONFIG.ALGOLIA_API_KEY,
       { protocol: SEARCH_CONFIG.PROTOCOLS });
 
@@ -37,7 +39,7 @@ export class ResumesearchComponent implements OnInit {
 
 
       this.index.search({
-        query: profileSearchForm.value.ResumeSearch
+        query: searchResume.value.ResumeSearch
 
       }).then((data) => {
 
