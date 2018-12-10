@@ -25,7 +25,7 @@ export class UserdetailsService {
 
   selectedUserDetails: UserDetails;
   udCollection: AngularFirestoreCollection<UserDetails>;
-  userDetail: Observable<UserDetails[]>;
+  userDetailc: Observable<UserDetails[]>;
   udDoc: AngularFirestoreDocument<UserDetails>;
 
 
@@ -40,7 +40,7 @@ export class UserdetailsService {
   constructor(private afs : AngularFirestore, private auth: AuthService, private http: Http) {
     this.udCollection = this.afs.collection(FIREBASE_CONFIG.UserDetails);
      // this.udCollection = this.afs.collection<UserDetails>('userDetail');
-    this.userDetail = this.udCollection.valueChanges();
+    this.userDetailc = this.udCollection.valueChanges();
     // this.userDetail =
   }
 
@@ -82,5 +82,27 @@ export class UserdetailsService {
     }
 
   }
+
+  getUserDetails(user) {
+    console.log("List Service ..... 3 "+user);
+
+
+    this.udCollection = this.afs.collection(FIREBASE_CONFIG.UserDetails, ref =>
+          ref.where('Username','==',user));
+          // console.log("List Service ..... 4");
+    this.userDetailc = this.udCollection.snapshotChanges().pipe(map(changes => {
+      // console.log("List Service ..... 5");
+      return changes.map(a => {
+        // console.log("List Service ..... 6");
+        const data = a.payload.doc.data() as UserDetails;
+        data.id = a.payload.doc.id;
+        // console.log("List Service 11111 ..... 2");
+        return data;
+      });
+    }));
+
+    return this.userDetailc;
+  }
+  
 
 }

@@ -56,6 +56,13 @@ export class UserprofileService {
   }
 
 
+  getUserProfileById(id) {
+    console.log("List Service ..... 3 ::::::=> "+id);
+
+    return this.afs.doc(`${FIREBASE_CONFIG.UserProfile}/${id}`).valueChanges()
+
+  }
+
   getUserDetails(user) {
     console.log("List Service ..... 3 "+user);
 

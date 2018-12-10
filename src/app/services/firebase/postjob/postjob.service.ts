@@ -37,7 +37,7 @@ export class PostjobService {
   // ALGOLIA_APP_ID = "8I5VGLVBT1";
   // ALGOLIA_API_KEY = "378eba06830cc91d1dad1550dd4a5244";
   //searchQuery: string ="sumitdey@yahoo.com" ;
-  jobs = [];
+  jobs = []; 
 
   constructor(private afs : AngularFirestore, private auth: AuthService, private http: Http) {
     this.pjCollection = this.afs.collection(FIREBASE_CONFIG.PostJob);
