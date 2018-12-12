@@ -41,6 +41,7 @@ export class UserprofileService {
     if ((id == null) || (id == '')) {
       uprofile.CreatedDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
       uprofile.Username = this.auth.userProfile.name;
+      uprofile.isSearchable = true;
       //pjobc.JobTitle =
       // console.log ("Create Date ::: "+pjobc.CreatedDate);
       // console.log ("Created By ::: "+pjobc.CreatedBy);

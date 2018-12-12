@@ -143,6 +143,7 @@ export class PostjobService {
     if ((id == null) || (id == '')) {
       pjobc.CreatedDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
       pjobc.CreatedBy = this.auth.userProfile.name;
+      pjobc.isSearchable = true;
       //pjobc.JobTitle =
       // console.log ("Create Date ::: "+pjobc.CreatedDate);
       // console.log ("Created By ::: "+pjobc.CreatedBy);

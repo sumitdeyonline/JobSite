@@ -36,6 +36,7 @@ export interface UserProfile {
 	SalaryExpectation? : string;
 	UserID? : string;
 	Username? : string;
+	isSearchable? : boolean;
 	CreatedDate? : string;
 	ModifiedDate? : string;
 	objectID? : string;

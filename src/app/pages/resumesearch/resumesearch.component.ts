@@ -31,6 +31,7 @@ export class ResumesearchComponent implements OnInit {
   getResumeSearchAlgolia(searchResume: NgForm) {
 
     console.log("Search Parameter ::::: "+searchResume.value.ResumeSearch);
+    const filter = 'isSearchable:true';
     this.client = algoliasearch(SEARCH_CONFIG.ALGOLIA_APP_ID, SEARCH_CONFIG.ALGOLIA_API_KEY,
       { protocol: SEARCH_CONFIG.PROTOCOLS });
 
@@ -39,10 +40,12 @@ export class ResumesearchComponent implements OnInit {
 
 
       this.index.search({
-        query: searchResume.value.ResumeSearch
+        query: searchResume.value.ResumeSearch,
+        filters: filter
 
+        
       }).then((data) => {
-
+        console.log(data);
         //let j=0;
         //this.UserProfileFinal = [];
         this.UserProfile = data.hits;        
@@ -50,6 +53,22 @@ export class ResumesearchComponent implements OnInit {
 
       })
 
+
+    //   this.companyIndex.search({
+    //     query: this.whatSearchQuery,
+    //     filters: 'category:Hotel'
+
+    // }, function searchDone(err, content) {
+    //     if (err) {
+    //         console.error(err);
+    //         return;
+    //     }
+    //     for (var h in content.hits) {
+    //         console.log(
+    //             `Hit(${content.hits[h].objectID}): ${content.hits[h].toString()}`
+    //         );
+    //     }
+    // });}
 
 
 

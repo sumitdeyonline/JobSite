@@ -15,6 +15,7 @@ export interface PostJobc {
     Compensation? : string;
     TravelRequirements? : string;
     isTeleComute? : boolean;
+    isSearchable? : boolean;
     CreatedBy? : string;
     CreatedDate? : string;
     LastModifiedBy? : string;
