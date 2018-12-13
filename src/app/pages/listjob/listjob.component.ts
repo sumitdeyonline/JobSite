@@ -119,94 +119,123 @@ export class ListjobComponent implements OnInit {
     this.client = algoliasearch(SEARCH_CONFIG.ALGOLIA_APP_ID, SEARCH_CONFIG.ALGOLIA_API_KEY,
       { protocol: SEARCH_CONFIG.PROTOCOLS });
 
-
-      let searchQuery=keyword+' AND '+ location ;
-      console.log("Test 1 ....1 "+searchQuery);
-
+      let filter = '', state='', city='';
+      this.PostJobc = [];
       this.index = this.client.initIndex(SEARCH_CONFIG.INDEX_NAME);
 
+      console.log(" keyword :::: "+keyword+"location :::: "+location);
+      if ((keyword.trim() != "") || (location.trim() != "")) {
+        if (location.trim() != "") {
 
-      // this.index.setSettings({
-      //   searchableAttributes: [
-      //     'JobTitle',
-      //     'JobDesc',
-      //     'JobCountry',
-      //     'JobState',
-      //     'JobZip',
-      //     'JobCity'
-      //   ]
-      // });
-
-      this.index.search({
-        //filters: "{JobState:CA}",
-        //filters:  'CA'
-        // searchfiltersarameters: {
-        //   filters: '{JobState:CA}'
-        // }
-        //facetFilters: "{JobState:CA}",
-        //searchParameters: '[JobState=CA]'
-        query: keyword
-        //facetFilters:  ['JobCity:Livermore']
-        //filters: "JobState:'CA'"
-        //query: '{ JobState:CA }',
-        //attributesToRetrieve: ['JobTitle', 'JobDesc']
-
-        // restrictSearchableAttributes: [
-        //   'JobTitle',
-        //   'JobDesc'
-        // ]
-        //filters: 'JobState=CA'
-
-      }).then((data) => {
-        let j=0;
-        this.PostJobcFinal = [];
-        this.PostJobc = data.hits;
-        
-        for(let i=0;i<this.PostJobc.length;i++) {
-          //console.log("Algolia Job ::::::::: =>  "+this.PostJobc[i].JobState);
-          //console.log("Algolia Job ::::::::: =>  "+this.PostJobc[i].JobTitle);
-
-          if (location.trim() != "") {
-
-            if (isNumeric(location)) {
-              console.log("This is number");
-              if (this.PostJobc[i].JobZip == location) {
-                this.PostJobcFinal[j] = this.PostJobc[i];
-                j++;
-              }
-
-            } else {
-
-              // console.log("This is not a number");
-              // console.log("City ::::: "+location.split(",")[0]);
-              // console.log("State ::::: "+location.split(",")[1]);
-
-              // console.log("City ::::: ...2"+this.PostJobc[i].JobCity);
-              // console.log("State :::::...2 "+this.PostJobc[i].JobState);
-
-
-              //console.log("Test 1 ....5" + location.split(",")[0].trim().toUpperCase()); 
-              //console.log("Test 1 ....6" + location.split(",")[1].trim().toUpperCase());             
-              if ((location.split(",")[0].trim().toUpperCase() == this.PostJobc[i].JobCity.toUpperCase()) && (this.isNull(location.split(",")[1]).trim().toUpperCase() == this.PostJobc[i].JobState.toUpperCase())) {
-                this.PostJobcFinal[j] = this.PostJobc[i];
-                j++;                
-              } else if (location.split(",")[0].trim().toUpperCase() == this.PostJobc[i].JobState.toUpperCase()) {
-                this.PostJobcFinal[j] = this.PostJobc[i];
-                j++; 
-              } 
-              else if (location.split(",")[0].trim().toUpperCase() == this.PostJobc[i].JobCity.toUpperCase()) {
-                this.PostJobcFinal[j] = this.PostJobc[i];
-                j++; 
-              }
-            }
+          if (isNumeric(location)) {
+            console.log("This is number");
+            filter = 'JobZip:'+location;
+  
           } else {
-            this.PostJobcFinal[j] = this.PostJobc[i];
-            j++;
-          }
+             
+            if (location.indexOf(",") > -1) {
+              state = this.isNull(location.split(",")[1].trim());
+              city = this.isNull(location.split(",")[0].trim());
+            } else {
+              city = this.isNull(location.trim());
+            }
 
+  
+            if ((state !="") && (city !="")) {
+              filter = 'JobCity:'+city+' AND JobState:'+state;
+            } else if ((state == "") && (city !="")) {
+              filter = 'JobCity:'+city;
+            } else if ((state != "") && (city =="")){
+              filter = 'JobState:'+state;
+            } else {
+              filter ='';
+            }
+  
+          }
+        } else {
+          filter ='';
         }
-        //return this.jobs;
-      })
+      
+
+
+
+      console.log("Filter :::::: => "+filter);
+
+      if (filter == '') {
+        this.index.search({
+          query: keyword
+  
+        }).then((data) => {
+          //let j=0;
+          //this.PostJobcFinal = [];
+          this.PostJobc = data.hits;
+  
+        });
+      } else  {
+
+        this.index.search({
+          query: keyword,
+          filters: filter
+        }).then((data) => {
+          //let j=0;
+          //this.PostJobcFinal = [];
+          this.PostJobc = data.hits;
+  
+        });        
+
+      }
+    }
+
+
+
+  //   for(let i=0;i<this.PostJobc.length;i++) {
+  //     //console.log("Algolia Job ::::::::: =>  "+this.PostJobc[i].JobState);
+  //     //console.log("Algolia Job ::::::::: =>  "+this.PostJobc[i].JobTitle);
+
+  //     if (location.trim() != "") {
+
+  //       if (isNumeric(location)) {
+  //         console.log("This is number");
+  //         if (this.PostJobc[i].JobZip == location) {
+  //           this.PostJobcFinal[j] = this.PostJobc[i];
+  //           j++;
+  //         }
+
+  //       } else {
+
+  //         // console.log("This is not a number");
+  //         // console.log("City ::::: "+location.split(",")[0]);
+  //         // console.log("State ::::: "+location.split(",")[1]);
+
+  //         // console.log("City ::::: ...2"+this.PostJobc[i].JobCity);
+  //         // console.log("State :::::...2 "+this.PostJobc[i].JobState);
+
+
+  //         //console.log("Test 1 ....5" + location.split(",")[0].trim().toUpperCase()); 
+  //         //console.log("Test 1 ....6" + location.split(",")[1].trim().toUpperCase());             
+  //         if ((location.split(",")[0].trim().toUpperCase() == this.PostJobc[i].JobCity.toUpperCase()) && (this.isNull(location.split(",")[1]).trim().toUpperCase() == this.PostJobc[i].JobState.toUpperCase())) {
+  //           this.PostJobcFinal[j] = this.PostJobc[i];
+  //           j++;                
+  //         } else if (location.split(",")[0].trim().toUpperCase() == this.PostJobc[i].JobState.toUpperCase()) {
+  //           this.PostJobcFinal[j] = this.PostJobc[i];
+  //           j++; 
+  //         } 
+  //         else if (location.split(",")[0].trim().toUpperCase() == this.PostJobc[i].JobCity.toUpperCase()) {
+  //           this.PostJobcFinal[j] = this.PostJobc[i];
+  //           j++; 
+  //         }
+  //       }
+  //     } else {
+  //       this.PostJobcFinal[j] = this.PostJobc[i];
+  //       j++;
+  //     }
+
+  //   }
+  //   //return this.jobs;
+  // })
+
+
+
 
   }
 
