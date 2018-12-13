@@ -19,7 +19,7 @@ export class ListjobComponent implements OnInit {
   keyword: string;
   location: string;
   PostJobc: PostJobc[];
-  PostJobcFinal: PostJobc[] = [];
+  // PostJobcFinal: PostJobc[] = [];
 
 
   client: any;
