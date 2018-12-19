@@ -48,6 +48,7 @@ import { UserprofileService } from './services/firebase/userprofile/userprofile.
 import { UploadresumeComponent } from './pages/uploadresume/uploadresume.component';
 import { ResumesearchComponent } from './pages/resumesearch/resumesearch.component';
 import { ResumedetailsComponent } from './pages/resumesearch/resumedetails/resumedetails.component';
+import { ContentfulService } from './services/contentful/contentful.service';
 
 
 
@@ -87,7 +88,8 @@ import { ResumedetailsComponent } from './pages/resumesearch/resumedetails/resum
     ToastrService,
     DatePipe,
     DateformatService,
-    AngularFireDatabase
+    AngularFireDatabase,
+    ContentfulService
   ],
   bootstrap: [AppComponent],
 })

@@ -11,6 +11,13 @@ interface AuthConfiguration {
     forgetPasswordURL: string
 }
 
+export const CONTENT_CONFIG = {
+    url: 'https://cdn.contentful.com/spaces/',
+    Authorization: 'Bearer 05300429693296150805e8fe5f4f93d6214159d7ee5c448a57e0e0b8029479a1',
+    CntentType: 'application/json',
+    space: 'c9x3vp5xw3hj',
+    accessToken: '54e7e99e96b023eb827a72c64402fd36fd0e7887659f65a81ee3a9e66ae55d06',    
+}
 
 export const FIREBASE_CONFIG = {
     URL: '/PostJob',
@@ -41,7 +48,7 @@ export const SEARCH_CONFIG = {
     INDEX_NAME: 'PostJob',
     INDEX_NAME_PROFILE: 'UserProfile',    
     PROTOCOLS:'https:',
-    ALGOLIA_FUNCTION_URL: 'https://us-central1-jobsite-c8333.cloudfunctions.net/addFirestoreDataToAlgolia'
+    ALGOLIA_FUNCTION_URL: 'https://us-central1-jobsite-c8333.cloudfunctions.net/addFirestorePostJobDataToAlgolia'
 }
 
 export const AUTH_CONFIG: AuthConfiguration = {

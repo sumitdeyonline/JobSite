@@ -10,12 +10,18 @@ import {formatDate} from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { PostjobService } from 'src/app/services/firebase/postjob/postjob.service';
 
+
+
+
+
 @Component({
   selector: 'postjob',
   templateUrl: './postjob.component.html',
   styleUrls: ['./postjob.component.css']
 })
 export class PostjobComponent implements OnInit {
+
+
 
 
 
