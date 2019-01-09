@@ -49,6 +49,7 @@ import { UploadresumeComponent } from './pages/uploadresume/uploadresume.compone
 import { ResumesearchComponent } from './pages/resumesearch/resumesearch.component';
 import { ResumedetailsComponent } from './pages/resumesearch/resumedetails/resumedetails.component';
 import { ContentfulService } from './services/contentful/contentful.service';
+import { MiddleimageComponent } from './pages/home/middleimage/middleimage.component';
 
 
 
@@ -63,7 +64,7 @@ import { ContentfulService } from './services/contentful/contentful.service';
     NotfoundComponent,
     LoginComponent,
     LogComponent,
-    CallbackComponent, SignupComponent, SignupConfirmComponent, SearchheaderComponent, PostjobComponent, ListjobComponent, JobpoststatusComponent, JobdetailsComponent, UserProfileComponent, UploadresumeComponent, ResumesearchComponent, ResumedetailsComponent
+    CallbackComponent, SignupComponent, SignupConfirmComponent, SearchheaderComponent, PostjobComponent, ListjobComponent, JobpoststatusComponent, JobdetailsComponent, UserProfileComponent, UploadresumeComponent, ResumesearchComponent, ResumedetailsComponent, MiddleimageComponent
   ],
 
   imports: [

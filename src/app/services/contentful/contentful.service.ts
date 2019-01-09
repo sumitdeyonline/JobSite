@@ -19,11 +19,13 @@ export class ContentfulService {
   });*/
   private headers;
   //constructor(private http: Http,private url: string, private space: string, private accessToken: string, private contenttypeId: string, private contentId: string) { 
-  constructor(private space: string, private accessToken: string) { 
+  constructor() { 
   }
   private cdaClient = createClient({
-    space: this.space,
-    accessToken: this.accessToken
+    // space: this.space,
+    // accessToken: this.accessToken
+    space: 'c9x3vp5xw3hj',
+    accessToken: 'cac67210ab3dcd35af8516e76d25f4288f057b4c12de71d1e40dc3d63704ed7e'    
   });
   /*logContent(contentId) {
     this.cdaClient.getEntry(contentId)
@@ -34,7 +36,7 @@ export class ContentfulService {
     //this.assignHeaderVariable();
   }
   getAllContent(fields?: string,query?: object, contenttypeId?: string): Promise<Entry<any>[]> {
-    console.log("Content Ful Service ........")
+    console.log("Content Ful Service ........11111")
 
     //query =  this.contentId;
     return this.cdaClient.getEntries(Object.assign({

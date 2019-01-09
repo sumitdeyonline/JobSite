@@ -13,10 +13,23 @@ interface AuthConfiguration {
 
 export const CONTENT_CONFIG = {
     url: 'https://cdn.contentful.com/spaces/',
-    Authorization: 'Bearer 05300429693296150805e8fe5f4f93d6214159d7ee5c448a57e0e0b8029479a1',
+    //Authorization: 'Bearer 05300429693296150805e8fe5f4f93d6214159d7ee5c448a57e0e0b8029479a1',
     CntentType: 'application/json',
     space: 'c9x3vp5xw3hj',
-    accessToken: '54e7e99e96b023eb827a72c64402fd36fd0e7887659f65a81ee3a9e66ae55d06',    
+    accessToken: 'cac67210ab3dcd35af8516e76d25f4288f057b4c12de71d1e40dc3d63704ed7e', 
+
+    PageBlockSectionFields: 'fields.mainHeader,fields.pageText,fields.pageImageUrl',
+    //PageBlockSectionFields: 'fields.mainHeader,fields.bodyTextHomePage,fields.homePageImageUrl,fields.homePageImageUrlCaption,fields.moreUrl',
+    PageBlockSectionFieldsDetailsFields: 'fields.mainHeader,fields.bodyTextDetails,fields.detailPageImage,fields.detailPageImageCaption',    
+
+    publishQueryString: {'fields.showField': true},
+    //imageQueryString: {'fields.showField': true, 'fields.pageName':'HOME', 'fields.pageBlockName':'IMAGESECTION'}, 
+    imageQueryString: {'fields.pageName':'HOME', 'fields.pageBlockName':'IMAGESECTION'},       
+
+    contentTypeIds: {
+        PageBlockSection:'pageBlockSection'
+      }
+
 }
 
 export const FIREBASE_CONFIG = {
