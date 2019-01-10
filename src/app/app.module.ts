@@ -50,6 +50,7 @@ import { ResumesearchComponent } from './pages/resumesearch/resumesearch.compone
 import { ResumedetailsComponent } from './pages/resumesearch/resumedetails/resumedetails.component';
 import { ContentfulService } from './services/contentful/contentful.service';
 import { MiddleimageComponent } from './pages/home/middleimage/middleimage.component';
+import { MdToHtmlPipe } from './services/contentful/md-to-html.pipe';
 
 
 
@@ -64,6 +65,7 @@ import { MiddleimageComponent } from './pages/home/middleimage/middleimage.compo
     NotfoundComponent,
     LoginComponent,
     LogComponent,
+    MdToHtmlPipe,
     CallbackComponent, SignupComponent, SignupConfirmComponent, SearchheaderComponent, PostjobComponent, ListjobComponent, JobpoststatusComponent, JobdetailsComponent, UserProfileComponent, UploadresumeComponent, ResumesearchComponent, ResumedetailsComponent, MiddleimageComponent
   ],
 

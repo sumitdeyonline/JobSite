@@ -10,5 +10,5 @@
   <div class="col_3">
       <a href="single.html"><img src="assets/images/a1.jpg" class="img-responsive" alt=""/></a>
   </div-->
-  <p>{{ jimg.fields.pageText }}</p>
+  <div [innerHTML]="jimg.fields.pageText | mdToHtml"></div>
 </div>
