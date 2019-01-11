@@ -51,6 +51,7 @@ import { ResumedetailsComponent } from './pages/resumesearch/resumedetails/resum
 import { ContentfulService } from './services/contentful/contentful.service';
 import { MiddleimageComponent } from './pages/home/middleimage/middleimage.component';
 import { MdToHtmlPipe } from './services/contentful/md-to-html.pipe';
+import { TechNewsComponent } from './pages/tech-news/tech-news.component';
 
 
 
@@ -66,7 +67,7 @@ import { MdToHtmlPipe } from './services/contentful/md-to-html.pipe';
     LoginComponent,
     LogComponent,
     MdToHtmlPipe,
-    CallbackComponent, SignupComponent, SignupConfirmComponent, SearchheaderComponent, PostjobComponent, ListjobComponent, JobpoststatusComponent, JobdetailsComponent, UserProfileComponent, UploadresumeComponent, ResumesearchComponent, ResumedetailsComponent, MiddleimageComponent
+    CallbackComponent, SignupComponent, SignupConfirmComponent, SearchheaderComponent, PostjobComponent, ListjobComponent, JobpoststatusComponent, JobdetailsComponent, UserProfileComponent, UploadresumeComponent, ResumesearchComponent, ResumedetailsComponent, MiddleimageComponent, TechNewsComponent
   ],
 
   imports: [

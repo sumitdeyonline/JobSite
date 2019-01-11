@@ -18,13 +18,14 @@ export const CONTENT_CONFIG = {
     space: 'c9x3vp5xw3hj',
     accessToken: 'cac67210ab3dcd35af8516e76d25f4288f057b4c12de71d1e40dc3d63704ed7e', 
 
-    PageBlockSectionFields: 'fields.mainHeader,fields.pageText,fields.pageImageUrl',
+    PageBlockSectionFields: 'fields.mainHeader,fields.subHeader,fields.pageText,fields.pageImageUrl,fields.imageUrlCaption',
     //PageBlockSectionFields: 'fields.mainHeader,fields.bodyTextHomePage,fields.homePageImageUrl,fields.homePageImageUrlCaption,fields.moreUrl',
-    PageBlockSectionFieldsDetailsFields: 'fields.mainHeader,fields.bodyTextDetails,fields.detailPageImage,fields.detailPageImageCaption',    
+    PageBlockSectionFieldsDetailsFields: 'fields.mainHeader,fields.subHeader,fields.detailText,fields.detailPageImageUrl,fields.detailPageImageCaption',    
 
-    publishQueryString: {'fields.showField': true},
+    publishQueryString: {'fields.publishOnThePage': true},
     //imageQueryString: {'fields.showField': true, 'fields.pageName':'HOME', 'fields.pageBlockName':'IMAGESECTION'}, 
-    imageQueryString: {'fields.pageName':'HOME', 'fields.pageBlockName':'IMAGESECTION'},       
+    imageQueryString: {'fields.pageName':'HOME', 'fields.pageBlockName':'IMAGESECTION'},    
+    techNewsQueryString: {'fields.pageName':'HOME', 'fields.pageBlockName':'TECHNEWS'},        
 
     contentTypeIds: {
         PageBlockSection:'pageBlockSection'
