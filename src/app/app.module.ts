@@ -53,6 +53,7 @@ import { MiddleimageComponent } from './pages/home/middleimage/middleimage.compo
 import { MdToHtmlPipe } from './services/contentful/md-to-html.pipe';
 import { TechNewsComponent } from './pages/tech-news/tech-news.component';
 import { TechNewsDetailsComponent } from './pages/tech-news/tech-news-details/tech-news-details.component';
+import { AdvertisementComponent } from './pages/advertisement/advertisement.component';
 
 
 
@@ -68,7 +69,7 @@ import { TechNewsDetailsComponent } from './pages/tech-news/tech-news-details/te
     LoginComponent,
     LogComponent,
     MdToHtmlPipe,
-    CallbackComponent, SignupComponent, SignupConfirmComponent, SearchheaderComponent, PostjobComponent, ListjobComponent, JobpoststatusComponent, JobdetailsComponent, UserProfileComponent, UploadresumeComponent, ResumesearchComponent, ResumedetailsComponent, MiddleimageComponent, TechNewsComponent, TechNewsDetailsComponent
+    CallbackComponent, SignupComponent, SignupConfirmComponent, SearchheaderComponent, PostjobComponent, ListjobComponent, JobpoststatusComponent, JobdetailsComponent, UserProfileComponent, UploadresumeComponent, ResumesearchComponent, ResumedetailsComponent, MiddleimageComponent, TechNewsComponent, TechNewsDetailsComponent, AdvertisementComponent
   ],
 
   imports: [
