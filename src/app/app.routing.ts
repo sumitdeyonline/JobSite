@@ -13,6 +13,7 @@ import { JobdetailsComponent } from './pages/jobdetails/jobdetails.component';
 import { UserProfileComponent } from './pages/userprofile/userprofile.component';
 import { ResumesearchComponent } from './pages/resumesearch/resumesearch.component';
 import { ResumedetailsComponent } from './pages/resumesearch/resumedetails/resumedetails.component';
+import { TechNewsDetailsComponent } from './pages/tech-news/tech-news-details/tech-news-details.component';
 
 export const routing = RouterModule.forRoot([
 
@@ -51,20 +52,24 @@ export const routing = RouterModule.forRoot([
         path: 'resumedetails/:id',
         component: ResumedetailsComponent,
         canActivate: [ScopeGuard] ,
-        data: { expectedScopes: ['write:messages']}    
-      },    
+        data: { expectedScopes: ['write:messages']}
+      },
     {
         path: 'jobdetails/:id',
         component: JobdetailsComponent,
         canActivate: [ScopeGuard] ,
-        data: { expectedScopes: ['write:messages']}    
+        data: { expectedScopes: ['write:messages']}
       },
-    
 
+      {
+        path: 'technewsdetails/:id',
+        component: TechNewsDetailsComponent
+      },
     {
         path: 'listjob',
         component: ListjobComponent
     },
+
     {
         path: 'signup',
         component: SignupComponent
@@ -72,7 +77,7 @@ export const routing = RouterModule.forRoot([
     {
         path: 'userprofile',
         component: UserProfileComponent
-    },    
+    },
     {
         path: '',
         component: HomeComponent

@@ -1,0 +1,8 @@
+<a [routerLink]="['']" class="read-more">Home</a>
+<div *ngFor="let tnews of techNewsDetails">
+  <b>{{tnews.fields.subHeader}}</b>
+  <br>
+  <img src="{{ tnews.fields.detailPageImageUrl}}"/>
+  <br>
+  <div [innerHTML]="tnews.fields.detailText | mdToHtml"></div>
+</div>

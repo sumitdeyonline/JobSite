@@ -16,16 +16,17 @@ export const CONTENT_CONFIG = {
     //Authorization: 'Bearer 05300429693296150805e8fe5f4f93d6214159d7ee5c448a57e0e0b8029479a1',
     CntentType: 'application/json',
     space: 'c9x3vp5xw3hj',
-    accessToken: 'cac67210ab3dcd35af8516e76d25f4288f057b4c12de71d1e40dc3d63704ed7e', 
+    accessToken: 'cac67210ab3dcd35af8516e76d25f4288f057b4c12de71d1e40dc3d63704ed7e',
 
-    PageBlockSectionFields: 'fields.mainHeader,fields.subHeader,fields.pageText,fields.pageImageUrl,fields.imageUrlCaption',
+    PageBlockSectionFields: 'fields.mainHeader,fields.subHeader,fields.pageText,fields.pageImageUrl,fields.imageUrlCaption,fields.detailPageUrl',
     //PageBlockSectionFields: 'fields.mainHeader,fields.bodyTextHomePage,fields.homePageImageUrl,fields.homePageImageUrlCaption,fields.moreUrl',
-    PageBlockSectionFieldsDetailsFields: 'fields.mainHeader,fields.subHeader,fields.detailText,fields.detailPageImageUrl,fields.detailPageImageCaption',    
+    PageBlockSectionFieldsDetailsFields: 'fields.mainHeader,fields.subHeader,fields.detailText,fields.detailPageImageUrl,fields.detailPageImageCaption',
 
     publishQueryString: {'fields.publishOnThePage': true},
-    //imageQueryString: {'fields.showField': true, 'fields.pageName':'HOME', 'fields.pageBlockName':'IMAGESECTION'}, 
-    imageQueryString: {'fields.pageName':'HOME', 'fields.pageBlockName':'IMAGESECTION'},    
-    techNewsQueryString: {'fields.pageName':'HOME', 'fields.pageBlockName':'TECHNEWS'},        
+    //imageQueryString: {'fields.showField': true, 'fields.pageName':'HOME', 'fields.pageBlockName':'IMAGESECTION'},
+    imageQueryString: {'fields.pageName':'HOME', 'fields.pageBlockName':'IMAGESECTION'},
+    techNewsQueryString: {'fields.pageName':'HOME', 'fields.pageBlockName':'TECHNEWS'},
+    advertiseQueryString: {'fields.pageName':'HOME', 'fields.pageBlockName':'ADVERTISE'},
 
     contentTypeIds: {
         PageBlockSection:'pageBlockSection'
@@ -60,7 +61,7 @@ export const SEARCH_CONFIG = {
     ALGOLIA_APP_ID: '8I5VGLVBT1',
     ALGOLIA_API_KEY: '378eba06830cc91d1dad1550dd4a5244',
     INDEX_NAME: 'PostJob',
-    INDEX_NAME_PROFILE: 'UserProfile',    
+    INDEX_NAME_PROFILE: 'UserProfile',
     PROTOCOLS:'https:',
     ALGOLIA_FUNCTION_URL: 'https://us-central1-jobsite-c8333.cloudfunctions.net/addFirestorePostJobDataToAlgolia'
 }

@@ -18,14 +18,14 @@ export class ContentfulService {
     accessToken: CONTENT_CONFIG.accessToken
   });*/
   private headers;
-  //constructor(private http: Http,private url: string, private space: string, private accessToken: string, private contenttypeId: string, private contentId: string) { 
-  constructor() { 
+  //constructor(private http: Http,private url: string, private space: string, private accessToken: string, private contenttypeId: string, private contentId: string) {
+  constructor() {
   }
   private cdaClient = createClient({
     // space: this.space,
     // accessToken: this.accessToken
     space: 'c9x3vp5xw3hj',
-    accessToken: 'cac67210ab3dcd35af8516e76d25f4288f057b4c12de71d1e40dc3d63704ed7e'    
+    accessToken: 'cac67210ab3dcd35af8516e76d25f4288f057b4c12de71d1e40dc3d63704ed7e'
   });
   /*logContent(contentId) {
     this.cdaClient.getEntry(contentId)
@@ -40,28 +40,40 @@ export class ContentfulService {
 
     //query =  this.contentId;
     return this.cdaClient.getEntries(Object.assign({
-      select: fields,      
+      select: fields,
       content_type: contenttypeId
     }, query))
     .then(res => res.items);
   }
-  
+
   getAllContentOrderBy(fields?: string,query?: object, contenttypeId?: string, orderBy?: string): Promise<Entry<any>[]> {
     console.log("Content Ful Service ........")
     //query =  this.contentId;
     return this.cdaClient.getEntries(Object.assign({
-      select: fields,      
+      select: fields,
       content_type: contenttypeId,
       order: orderBy
     }, query))
     .then(res => res.items);
   }
 
+  getAllContentByID(fields?: string, contentID?: string, contenttypeId?: string): Promise<Entry<any>[]> {
+    console.log("Content Ful Service ........11111")
+
+    //query =  this.contentId;
+    return this.cdaClient.getEntries(Object.assign({
+      select: fields,
+      content_type: contenttypeId
+    },  {'sys.id': contentID}))
+    .then(res => res.items);
+  }
+
+
   /*getAll() {
     let contentURL = this.url + this.space + "/entries?content_type="+this.contenttypeId;
     console.log("Content Ful URL >>>> ........"+contentURL);
     this.assignHeaderVariable();
-    return this.http.get(contentURL, { headers: this.headers })    
+    return this.http.get(contentURL, { headers: this.headers })
         .map(response => response.json())
         .catch(this.handleError);
   }*/
@@ -81,7 +93,7 @@ return this.cdaClient.getEntries({'sys.id': '<entry-id>'}).then((response) => {
   /*private assignHeaderVariable() {
     //var aToken = "Bearer "+this.accessOktatoken;
     this.headers = new Headers();
-    
+
     this.headers.append("Authorization", CONTENT_CONFIG.Authorization); //"H195LByGb9y1WzDAXY3i63D-G_6220eKW2WOisAc"
     this.headers.append("Content-type", CONTENT_CONFIG.CntentType); //"0oaiy2wgm8BVVKBga0x7"
 
@@ -89,12 +101,12 @@ return this.cdaClient.getEntries({'sys.id': '<entry-id>'}).then((response) => {
 
   /*private handleError(error: Response) {
     console.log("EROORRRRRRRRRRRRRR......");
-    let errorVal = { logdetails: error, logdate: (new Date).toString(), errorType: 'General', category: 'Home', createdBy: 'Sumit'  }    
+    let errorVal = { logdetails: error, logdate: (new Date).toString(), errorType: 'General', category: 'Home', createdBy: 'Sumit'  }
     console.log("errorVal  ::::: "+errorVal);
     this.logservice.createLogg(errorVal)
       .map(response => response.json())
-      .catch(this.handleError);   
-    
+      .catch(this.handleError);
+
       //console.log("errorVal HHHHHHH   ::::: ");
     //let service: LogService
     if (error.status === 400) {
