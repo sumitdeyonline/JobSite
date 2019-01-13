@@ -24,9 +24,9 @@ export const CONTENT_CONFIG = {
 
     publishQueryString: {'fields.publishOnThePage': true},
     //imageQueryString: {'fields.showField': true, 'fields.pageName':'HOME', 'fields.pageBlockName':'IMAGESECTION'},
-    imageQueryString: {'fields.pageName':'HOME', 'fields.pageBlockName':'IMAGESECTION'},
-    techNewsQueryString: {'fields.pageName':'HOME', 'fields.pageBlockName':'TECHNEWS'},
-    advertiseQueryString: {'fields.pageName':'HOME', 'fields.pageBlockName':'ADVERTISE'},
+    imageQueryString: {'fields.pageName':'HOME', 'fields.pageBlockName':'IMAGESECTION', 'fields.publishOnThePage':true},
+    techNewsQueryString: {'fields.pageName':'HOME', 'fields.pageBlockName':'TECHNEWS', 'fields.publishOnThePage':true},
+    advertiseQueryString: {'fields.pageName':'HOME', 'fields.pageBlockName':'ADVERTISE', 'fields.publishOnThePage':true},
 
     contentTypeIds: {
         PageBlockSection:'pageBlockSection'

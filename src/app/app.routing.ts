@@ -56,9 +56,9 @@ export const routing = RouterModule.forRoot([
       },
     {
         path: 'jobdetails/:id',
-        component: JobdetailsComponent,
-        canActivate: [ScopeGuard] ,
-        data: { expectedScopes: ['write:messages']}
+        component: JobdetailsComponent
+        // canActivate: [ScopeGuard] ,
+        // data: { expectedScopes: ['write:messages']}
       },
 
       {

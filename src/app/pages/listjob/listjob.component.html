@@ -31,13 +31,14 @@
               <div id="myTabContent" class="tab-content">
 
                       <h2>Search Result</h2>
+
                       <!--div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab"-->
                       <div class="tab_grid" *ngFor="let pj of PostJobc">
                           <div class="jobs-item with-thumb">
-                            <div class="thumb"><a routerLink="/jobdetails"><img src="assets/images/a2.jpg" class="img-responsive" alt=""/></a></div>
+                            <div class="thumb"><a [routerLink]="['/jobdetails',pj.objectID]" ><img src="assets/images/a2.jpg" class="img-responsive" alt=""/></a></div>
                             <div class="jobs_right">
                             <div class="date">{{ pj.CreatedDate.substring(3,5) }} <span>{{ dformat.monthNumToSigName(pj.CreatedDate.substring(0,2)) }}</span></div>
-                            <div class="date_desc"><h6 class="title"><a routerLink="/jobdetails">{{ pj.JobTitle }}</a></h6>
+                            <div class="date_desc"><h6 class="title"><a [routerLink]="['/jobdetails',pj.objectID]" >{{ pj.JobTitle }}</a></h6>
                               <span class="meta">{{ pj.JobCity }}, {{ pj.JobState }}</span>
                             </div>
                             <div class="clearfix"> </div>
@@ -46,7 +47,7 @@
                               <li><a href="#" class="fa fa-star"></a></li>
                               <li><a href="#" class="fa fa-link"></a></li>
                             </ul>
-                            <p class="description">{{ pj.JobDesc }} <a [routerLink]="['/jobdetails',pj.id]" class="read-more">Read More</a></p>
+                            <p class="description">{{ pj.JobDesc }} <a [routerLink]="['/jobdetails',pj.objectID]" class="read-more">Read More</a></p>
                                     </div>
                           <div class="clearfix"> </div>
                         </div>
