@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ListJob } from './listjob';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../services/authentication/auth.service';

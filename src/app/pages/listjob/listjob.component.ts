@@ -9,6 +9,7 @@ import { SEARCH_CONFIG } from '../../global-config';
 import { PostJobc } from 'src/app/services/firebase/postjob/postjob.model';
 import { PostjobService } from 'src/app/services/firebase/postjob/postjob.service';
 
+
 @Component({
   selector: 'listjob',
   templateUrl: './listjob.component.html',
@@ -20,7 +21,7 @@ export class ListjobComponent implements OnInit {
   location: string;
   PostJobc: PostJobc[];
   // PostJobcFinal: PostJobc[] = [];
-
+  // listjob = new ListJob();
 
   client: any;
   index: any;
@@ -32,6 +33,8 @@ export class ListjobComponent implements OnInit {
 
 
   constructor(private route: ActivatedRoute, private postjob: PostjobService, private dformat: DateformatService) {
+
+
     //this.PostJobc = null;
 
 
@@ -109,7 +112,8 @@ export class ListjobComponent implements OnInit {
       this.location = params['location'];
       console.log("Location " + this.location);
       this.getPostJobsAlgolia(this.keyword,this.location);
-
+      // this.listjob.keyword = this.keyword;
+      // this.listjob.location = this.location;
     })
   }
 
