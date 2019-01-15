@@ -34,6 +34,7 @@ export class UserProfileComponent implements OnInit {
   countries: Country[];
   state: State[];
 
+
   constructor(private rUploadService: UploadResumeService, private uProfile: UserprofileService, private auth: AuthService) {
 
 
@@ -58,6 +59,7 @@ export class UserProfileComponent implements OnInit {
       }
 
     })
+
 
 
   }

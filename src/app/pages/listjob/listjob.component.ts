@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 //import { PostjobService } from '../../services/firebase/postjob.service';
 //import { PostJobc } from '../../services/firebase/postjob.model';
 import { DateformatService } from '../../services/dateformat/dateformat.service';
@@ -13,16 +13,18 @@ import { PostjobService } from 'src/app/services/firebase/postjob/postjob.servic
 @Component({
   selector: 'listjob',
   templateUrl: './listjob.component.html',
-  styleUrls: ['./listjob.component.css']
+  styleUrls: ['./listjob.component.css'],
+
 })
 export class ListjobComponent implements OnInit {
 
-  keyword: string;
-  location: string;
+
+
   PostJobc: PostJobc[];
   // PostJobcFinal: PostJobc[] = [];
   // listjob = new ListJob();
-
+  keyword: string;
+  location: string;
   client: any;
   index: any;
   // ALGOLIA_APP_ID = "8I5VGLVBT1";
@@ -32,7 +34,7 @@ export class ListjobComponent implements OnInit {
 
 
 
-  constructor(private route: ActivatedRoute, private postjob: PostjobService, private dformat: DateformatService) {
+  constructor(private router: Router, private route: ActivatedRoute, private postjob: PostjobService, private dformat: DateformatService) {
 
 
     //this.PostJobc = null;
@@ -99,12 +101,6 @@ export class ListjobComponent implements OnInit {
 
     //   })
 
-
-
-  }
-
-  ngOnInit() {
-
     this.route.queryParams.subscribe(params => {
       console.log(params);
       this.keyword = params['keyword'];
@@ -115,7 +111,16 @@ export class ListjobComponent implements OnInit {
       // this.listjob.keyword = this.keyword;
       // this.listjob.location = this.location;
     })
+
   }
+
+  ngOnInit() {
+
+
+  }
+
+
+
 
   getPostJobsAlgolia(keyword, location) {
 
@@ -134,9 +139,9 @@ export class ListjobComponent implements OnInit {
           if (isNumeric(location)) {
             console.log("This is number");
             filter = 'JobZip:'+location;
-  
+
           } else {
-             
+
             if (location.indexOf(",") > -1) {
               state = this.isNull(location.split(",")[1].trim());
               city = this.isNull(location.split(",")[0].trim());
@@ -144,7 +149,7 @@ export class ListjobComponent implements OnInit {
               city = this.isNull(location.trim());
             }
 
-  
+
             if ((state !="") && (city !="")) {
               filter = 'JobCity:'+city+' AND JobState:'+state;
             } else if ((state == "") && (city !="")) {
@@ -154,12 +159,12 @@ export class ListjobComponent implements OnInit {
             } else {
               filter ='';
             }
-  
+
           }
         } else {
           filter ='';
         }
-      
+
 
 
 
@@ -168,12 +173,12 @@ export class ListjobComponent implements OnInit {
       if (filter == '') {
         this.index.search({
           query: keyword
-  
+
         }).then((data) => {
           //let j=0;
           //this.PostJobcFinal = [];
           this.PostJobc = data.hits;
-  
+
         });
       } else  {
 
@@ -184,11 +189,13 @@ export class ListjobComponent implements OnInit {
           //let j=0;
           //this.PostJobcFinal = [];
           this.PostJobc = data.hits;
-  
-        });        
+
+        });
 
       }
     }
+
+
 
 
 
@@ -215,18 +222,18 @@ export class ListjobComponent implements OnInit {
   //         // console.log("State :::::...2 "+this.PostJobc[i].JobState);
 
 
-  //         //console.log("Test 1 ....5" + location.split(",")[0].trim().toUpperCase()); 
-  //         //console.log("Test 1 ....6" + location.split(",")[1].trim().toUpperCase());             
+  //         //console.log("Test 1 ....5" + location.split(",")[0].trim().toUpperCase());
+  //         //console.log("Test 1 ....6" + location.split(",")[1].trim().toUpperCase());
   //         if ((location.split(",")[0].trim().toUpperCase() == this.PostJobc[i].JobCity.toUpperCase()) && (this.isNull(location.split(",")[1]).trim().toUpperCase() == this.PostJobc[i].JobState.toUpperCase())) {
   //           this.PostJobcFinal[j] = this.PostJobc[i];
-  //           j++;                
+  //           j++;
   //         } else if (location.split(",")[0].trim().toUpperCase() == this.PostJobc[i].JobState.toUpperCase()) {
   //           this.PostJobcFinal[j] = this.PostJobc[i];
-  //           j++; 
-  //         } 
+  //           j++;
+  //         }
   //         else if (location.split(",")[0].trim().toUpperCase() == this.PostJobc[i].JobCity.toUpperCase()) {
   //           this.PostJobcFinal[j] = this.PostJobc[i];
-  //           j++; 
+  //           j++;
   //         }
   //       }
   //     } else {
@@ -243,9 +250,17 @@ export class ListjobComponent implements OnInit {
 
   }
 
+
+  jobDetails(jobid) {
+    console.log("Job ID::::: +"jobid);
+    // console.log("Search Componenet ******* "+jobsearchComponent.keyword+" Location "+jobsearchComponent.location);
+     this.router.navigate(['/jobdetails',jobid], { queryParams: {  keyword: this.keyword, 'location': this.location}, 'queryParamsHandling': 'merge' });
+  }
+
+
   isNull(value) {
     if (value == null) { return "" }
-    else { return value } 
+    else { return value }
   }
 
 

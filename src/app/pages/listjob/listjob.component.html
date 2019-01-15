@@ -1,4 +1,4 @@
-<searchheader></searchheader>
+<searchheader [keyword]="keyword" [location]= "location"></searchheader>
 
 <div class="container">
 
@@ -47,7 +47,10 @@
                               <li><a href="#" class="fa fa-star"></a></li>
                               <li><a href="#" class="fa fa-link"></a></li>
                             </ul>
-                            <p class="description">{{ pj.JobDesc }} <a [routerLink]="['/jobdetails',pj.objectID]" class="read-more">Read More</a></p>
+                            <p class="description">{{ pj.JobDesc }} <!--a [routerLink]="['/jobdetails',pj.objectID]" class="read-more"-->
+                              <button (click)="jobDetails(pj.objectID)">Read More</button>
+                              <!--a href="#" onclick="jobDetails('pj.objectID')" class="read-more">Read More</a-->
+                            </p>
                                     </div>
                           <div class="clearfix"> </div>
                         </div>
