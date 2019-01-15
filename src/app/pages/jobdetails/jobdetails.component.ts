@@ -16,8 +16,7 @@ export class JobdetailsComponent implements OnInit {
   public pjob: PostJobc;
   keyword: string;
   location: string;
-  keyword: string;
-  location: string;
+
 
   constructor(private _activeRoute:ActivatedRoute, private postservice: PostjobService) { 
 
