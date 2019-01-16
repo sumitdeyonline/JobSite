@@ -18,6 +18,8 @@ export class SearchheaderComponent implements OnInit {
   @Input() keyword: string;
   @Input() location: string;
 
+  
+
   title = '';
   form;
   error='';
@@ -36,6 +38,9 @@ export class SearchheaderComponent implements OnInit {
   }
 
   searchjob(jobsearchComponent) {
+    
+    if (jobsearchComponent.keyword === undefined) { jobsearchComponent.keyword =""; }
+    if (jobsearchComponent.location === undefined) { jobsearchComponent.location =""; }
     console.log("Search Componenet ******* "+jobsearchComponent.keyword+" Location "+jobsearchComponent.location);
     this.router.navigate(['/listjob'], { queryParams: {  keyword: jobsearchComponent.keyword, 'location': jobsearchComponent.location}, 'queryParamsHandling': 'merge' });
 

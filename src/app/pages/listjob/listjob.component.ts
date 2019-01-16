@@ -133,7 +133,7 @@ export class ListjobComponent implements OnInit {
       this.index = this.client.initIndex(SEARCH_CONFIG.INDEX_NAME);
 
       console.log(" keyword :::: "+keyword+"location :::: "+location);
-      if ((keyword.trim() != "") || (location.trim() != "")) {
+      if ((keyword.trim() != "") || (location.trim() != ""))) {
         if (location.trim() != "") {
 
           if (isNumeric(location)) {
@@ -254,7 +254,8 @@ export class ListjobComponent implements OnInit {
   jobDetails(jobid) {
     console.log("Job ID::::: +",jobid);
     // console.log("Search Componenet ******* "+jobsearchComponent.keyword+" Location "+jobsearchComponent.location);
-     this.router.navigate(['/jobdetails',jobid], { queryParams: {  keyword: this.keyword, 'location': this.location}, 'queryParamsHandling': 'merge' });
+    // this.router.navigate(['/jobdetails',jobid], { queryParams: {  keyword: this.keyword, 'location': this.location}, 'queryParamsHandling': 'merge' });
+     this.router.navigate(['/jobdetails',jobid], { queryParams: {  keyword: this.keyword, 'location': this.location}, 'queryParamsHandling': 'merge' });     
   }
 
 

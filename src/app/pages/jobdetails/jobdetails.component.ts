@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PostJobc } from 'src/app/services/firebase/postjob/postjob.model';
 import { PostjobService } from 'src/app/services/firebase/postjob/postjob.service';
 //import { PostJobc } from '../../services/firebase/postjob.model';
@@ -18,7 +18,7 @@ export class JobdetailsComponent implements OnInit {
   location: string;
 
 
-  constructor(private _activeRoute:ActivatedRoute, private postservice: PostjobService) { 
+  constructor(private router: Router,private _activeRoute:ActivatedRoute, private postservice: PostjobService) { 
 
     this._activeRoute.queryParams.subscribe(params => {
       console.log(params);
@@ -44,6 +44,13 @@ export class JobdetailsComponent implements OnInit {
       console.log("List Service ..... 33333 ::::: "+this.pjob.JobTitle);
     })    
 
+  }
+
+  jobList() {
+
+    // console.log("Search Componenet ******* "+jobsearchComponent.keyword+" Location "+jobsearchComponent.location);
+    // this.router.navigate(['/jobdetails',jobid], { queryParams: {  keyword: this.keyword, 'location': this.location}, 'queryParamsHandling': 'merge' });
+     this.router.navigate(['/listjob'], { queryParams: {  keyword: this.keyword, 'location': this.location}, 'queryParamsHandling': 'merge' });     
   }
 
 }
