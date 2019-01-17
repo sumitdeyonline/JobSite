@@ -133,7 +133,7 @@ export class ListjobComponent implements OnInit {
       this.index = this.client.initIndex(SEARCH_CONFIG.INDEX_NAME);
 
       console.log(" keyword :::: "+keyword+"location :::: "+location);
-      if ((keyword.trim() != "") || (location.trim() != ""))) {
+      if ((keyword.trim() != "") || (location.trim() != "")) {
         if (location.trim() != "") {
 
           if (isNumeric(location)) {
