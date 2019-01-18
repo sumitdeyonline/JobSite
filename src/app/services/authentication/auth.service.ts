@@ -74,7 +74,7 @@ export class AuthService {
     });
   };
 
-  public resetPassword(username) {
+  public resetPassword(username) {  // Reset Password
     this.auth0.angularAuth0.changePassword({
       connection: AUTH_CONFIG.connection,
       responseType: 'token',
