@@ -13,6 +13,13 @@ import { createClient, Entry  } from '../../../../node_modules/contentful';
 })
 export class ContentfulService {
 
+
+  // private sp: string = "'" + CONTENT_CONFIG.space + "'";
+  // private at:string = "'" + CONTENT_CONFIG.accessToken + "'";
+
+
+
+
   /*private cdaClient = createClient({
     space: CONTENT_CONFIG.space,
     accessToken: CONTENT_CONFIG.accessToken
@@ -20,12 +27,20 @@ export class ContentfulService {
   private headers;
   //constructor(private http: Http,private url: string, private space: string, private accessToken: string, private contenttypeId: string, private contentId: string) {
   constructor() {
+  // console.log("Space ...... "+ this.sp);
+  // console.log("Access Token ...... "+ this.at);
   }
   private cdaClient = createClient({
     // space: this.space,
     // accessToken: this.accessToken
     space: 'c9x3vp5xw3hj',
     accessToken: 'cac67210ab3dcd35af8516e76d25f4288f057b4c12de71d1e40dc3d63704ed7e'
+
+
+
+    // space: this.sp,
+    // accessToken: this.at
+
   });
   /*logContent(contentId) {
     this.cdaClient.getEntry(contentId)
@@ -58,7 +73,7 @@ export class ContentfulService {
   }
 
   getAllContentByID(fields?: string, contentID?: string, contenttypeId?: string): Promise<Entry<any>[]> {
-    console.log("Content Ful Service ........11111")
+    //console.log("Content Ful Service ........11111")
 
     //query =  this.contentId;
     return this.cdaClient.getEntries(Object.assign({
