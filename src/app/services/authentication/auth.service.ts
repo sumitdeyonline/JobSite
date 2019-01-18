@@ -74,6 +74,23 @@ export class AuthService {
     });
   };
 
+  public resetPassword(username) {
+    this.auth0.angularAuth0.changePassword({
+      connection: AUTH_CONFIG.connection,
+      responseType: 'token',
+      email: username,
+  }, function(err, authResult) {
+    console.log("authResult :::::::: -> "+authResult);
+    if (authResult !== null) {
+      this.authResult = authResult;
+      //this.handleAuthentication();
+    }
+    else
+      console.log("err.description :::::"+ err.description);
+    if (err) alert("something went wrong: " + err);    
+  });    
+  }
+
   public handleAuthentication(): void {
     this.auth0.parseHash((err, authResult) => {
       //console.log("HanleAuth :::::: => Home Page");

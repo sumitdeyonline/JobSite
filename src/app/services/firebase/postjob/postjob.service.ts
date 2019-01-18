@@ -29,9 +29,9 @@ export class PostjobService {
 
 // Algolia Search
 
-ALGOLIA_APP_ID = "8I5VGLVBT1";
-ALGOLIA_ADMIN_KEY = "48b207b10886fb32395d5b3ad97f338f";
-ALGOLIA_INDEX_NAME_POST_JOB = "PostJob";
+// ALGOLIA_APP_ID = "8I5VGLVBT1";
+// ALGOLIA_ADMIN_KEY = "48b207b10886fb32395d5b3ad97f338f";
+// ALGOLIA_INDEX_NAME_POST_JOB = "PostJob";
 
   //selectedPostJob: PostJobc;
 
