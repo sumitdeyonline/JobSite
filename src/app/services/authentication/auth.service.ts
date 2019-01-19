@@ -72,23 +72,32 @@ export class AuthService {
         console.log("err.description :::::"+ err.description);
       if (err) alert("something went wrong: " + err);
     });
-  };
+  }
 
-  public resetPassword(username) {  // Reset Password
-    this.auth0.angularAuth0.changePassword({
+  public resetPassword(username) {
+    console.log("Reset Password Section .... ");
+    this.auth0.changePassword({
       connection: AUTH_CONFIG.connection,
       responseType: 'token',
       email: username,
   }, function(err, authResult) {
     console.log("authResult :::::::: -> "+authResult);
     if (authResult !== null) {
-      this.authResult = authResult;
+      //return authResult;
+      //this.authResult = (string) authResult;
+      this.setvalue();
+      //alert(authResult);
       //this.handleAuthentication();
     }
     else
       console.log("err.description :::::"+ err.description);
-    if (err) alert("something went wrong: " + err);    
-  });    
+    if (err) alert("something went wrong: " + err);
+  });
+  }
+
+  private setValue() {
+    //this.authResult = val;
+    console.log("Val -> ");
   }
 
   public handleAuthentication(): void {
@@ -328,6 +337,9 @@ export class AuthService {
 
     return observableThrowError(new AppError(error));
   }
+
+
+
 
 
 }

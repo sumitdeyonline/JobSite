@@ -14,6 +14,7 @@ import { UserProfileComponent } from './pages/userprofile/userprofile.component'
 import { ResumesearchComponent } from './pages/resumesearch/resumesearch.component';
 import { ResumedetailsComponent } from './pages/resumesearch/resumedetails/resumedetails.component';
 import { TechNewsDetailsComponent } from './pages/tech-news/tech-news-details/tech-news-details.component';
+import { ResetpasswordComponent } from './pages/login/resetpassword/resetpassword.component';
 
 export const routing = RouterModule.forRoot([
 
@@ -65,27 +66,30 @@ export const routing = RouterModule.forRoot([
         path: 'technewsdetails/:id',
         component: TechNewsDetailsComponent
       },
-    {
-        path: 'listjob',
-        component: ListjobComponent
-    },
-
-    {
-        path: 'signup',
-        component: SignupComponent
-    },
-    {
-        path: 'userprofile',
-        component: UserProfileComponent
-    },
-    {
-        path: '',
-        component: HomeComponent
-    },
-    {
-        path: '**',
-        component: NotfoundComponent
-    }
+      {
+          path: 'listjob',
+          component: ListjobComponent
+      },
+      {
+        path: 'resetpassword',
+        component: ResetpasswordComponent
+      },
+      {
+          path: 'signup',
+          component: SignupComponent
+      },
+      {
+          path: 'userprofile',
+          component: UserProfileComponent
+      },
+      {
+          path: '',
+          component: HomeComponent
+      },
+      {
+          path: '**',
+          component: NotfoundComponent
+      }
 
 
 ]);
