@@ -84,9 +84,10 @@ export class AuthService {
     console.log("authResult :::::::: -> "+authResult);
     if (authResult !== null) {
       //return authResult;
-      //this.authResult = (string) authResult;
-      this.setvalue();
-      //alert(authResult);
+      //this.authResult = ""+authResult+"";
+      //console.log("authResult :::::::: -> "+""+authResult+"");
+      //this.setvalue();
+      alert(authResult);
       //this.handleAuthentication();
     }
     else
