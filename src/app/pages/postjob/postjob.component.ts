@@ -37,6 +37,7 @@ export class PostjobComponent implements OnInit {
   postJobList: [any];
   countries: Country[];
   state: State[];
+  isPermanent: boolean = false;
 
   constructor(private _activeRoute: ActivatedRoute, private _auth: AuthService, fb: FormBuilder, private postjobService: PostjobService,
               private toastrservice: ToastrService,
@@ -114,6 +115,9 @@ export class PostjobComponent implements OnInit {
     })
   }
 
+  isEmploymentType() {
+    this.isPermanent = !this.isPermanent;
+  }
 
   resetForm(postJobForm?: NgForm) {
     if (postJobForm !=null)

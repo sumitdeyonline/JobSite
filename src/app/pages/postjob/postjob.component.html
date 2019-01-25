@@ -90,7 +90,7 @@
                                     <select ngModel name="JobCountry" #JobCountry="ngModel" id="JobCountry" [ngModel]="postjobService.selectedPostJobc?.JobCountry" class="form-control input-sm" (change)="getState($event.target.value)" >
                                         <option>Select Country</option>
                                         <option [value]="country.CountryName" *ngFor="let country of countries">{{country.CountryName}}</option>
-                                        <!--option>Japan</option>
+                                        <!--option>Japan</option>  
                                         <option>Kenya</option>
                                         <option>Dubai</option>
                                         <option>Italy</option>
@@ -127,9 +127,11 @@
                                   <label class="col-md-3 control-lable" for="JobState">State</label>
                                   <div class="col-md-9">
                                       <!--input type="text" ngModel name="JobState" #JobState="ngModel" id="JobState" [(ngModel)]="postjobService.selectedPostJobc.JobState" class="form-control input-sm"/-->
-                                      <select ngModel name="JobState" #JobState="ngModel" id="JobState" [(ngModel)]="postjobService.selectedPostJobc.JobState" class="form-control input-sm">
+                                      <!--select ngModel name="JobState" #JobState="ngModel" id="JobState" [(ngModel)]="postjobService.selectedPostJobc.JobState" class="form-control input-sm"-->
+                                      <select ngModel name="JobState" #JobState="ngModel" id="JobState" [ngModel]="postjobService.selectedPostJobc?.JobState" class="form-control input-sm">
                                         <option>Select State</option>
-                                        <option label="AL" value="AL">AL</option>
+                                        <option [value]="st.StateName" *ngFor="let st of state">{{st.StateDisplayName}}</option>
+                                        <!--option label="AL" value="AL">AL</option>
                                         <option label="AK" value="AK">AK</option>
                                         <option label="AZ" value="AZ">AZ</option>
                                         <option label="AR" value="AR">AR</option>
@@ -179,7 +181,7 @@
                                         <option label="WA" value="WA">WA</option>
                                         <option label="WV" value="WV">WV</option>
                                         <option label="WI" value="WI">WI</option>
-                                        <option label="WY" value="WY">WY</option>                                      
+                                        <option label="WY" value="WY">WY</option-->                                      
                                     </select>
                                   </div>
                               </div>
