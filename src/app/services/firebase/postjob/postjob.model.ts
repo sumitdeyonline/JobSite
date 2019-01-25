@@ -13,6 +13,7 @@ export interface PostJobc {
     EmploymentTypes? : string;
     JobPayRate? : string;
     Compensation? : string;
+    JobLength? : string;
     TravelRequirements? : string;
     isTeleComute? : boolean;
     isSearchable? : boolean;

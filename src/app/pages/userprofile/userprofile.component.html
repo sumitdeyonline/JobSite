@@ -1,4 +1,3 @@
-
 <searchheader></searchheader>
 
 
@@ -434,7 +433,6 @@
                     <label class="btn btn-default"> <input type="file" name="fileUpload" (change)="selectFile($event)">
                     </label>&nbsp;&nbsp;&nbsp;
                     <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload(userProfile)">Upload</button>
-
                     &nbsp; <a href="{{rUploadService.downloadURL}}" [hidden]="!fileUploadEnabled && isUpdate" target="_blank">Resume1</a>
                     &nbsp; <a href="{{uProfile.selectedUserProfile?.ResumeURL}}" [hidden]="!fileUploadEnabled && !isUpdate" target="_blank">Resume</a>
                     <div style="color: green;" *ngIf="!fileUploadEnabled">
@@ -531,4 +529,3 @@
         </div>
     </div>
 </div>
-

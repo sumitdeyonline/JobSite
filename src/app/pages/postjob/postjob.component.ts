@@ -37,14 +37,14 @@ export class PostjobComponent implements OnInit {
   postJobList: [any];
   countries: Country[];
   state: State[];
-  isPermanent: boolean = false;
+  isJobLength: boolean = false;
 
   constructor(private _activeRoute: ActivatedRoute, private _auth: AuthService, fb: FormBuilder, private postjobService: PostjobService,
               private toastrservice: ToastrService,
               private uProfile: UserprofileService,
               private router: Router,
               private datePipe: DatePipe) {
-        
+
         this.getCountry();
     // this.PostJobForm = fb.group({
     //   // email: ['', Validators.required,Validators.email],
@@ -111,12 +111,16 @@ export class PostjobComponent implements OnInit {
   getState(country) {
     this.uProfile.getStateDetails(country).subscribe(sprop => {
       this.state = sprop;
-      console.log("Country :::::::: => "+this.state.length);
+      console.log("State :::::::: => "+this.state.length);
     })
   }
 
-  isEmploymentType() {
-    this.isPermanent = !this.isPermanent;
+  isPayrate(empprate) {
+     if (empprate == 'Hourly')
+      this.isJobLength = true;
+    else 
+      this.isJobLength = false;
+
   }
 
   resetForm(postJobForm?: NgForm) {
