@@ -9,6 +9,9 @@ import { DatePipe } from '@angular/common';
 import {formatDate} from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { PostjobService } from 'src/app/services/firebase/postjob/postjob.service';
+import { UserprofileService } from 'src/app/services/firebase/userprofile/userprofile.service';
+import { Country } from 'src/app/services/firebase/userprofile/country.model';
+import { State } from 'src/app/services/firebase/userprofile/state.model';
 
 
 
@@ -32,11 +35,16 @@ export class PostjobComponent implements OnInit {
 
   id: any;
   postJobList: [any];
+  countries: Country[];
+  state: State[];
 
   constructor(private _activeRoute: ActivatedRoute, private _auth: AuthService, fb: FormBuilder, private postjobService: PostjobService,
               private toastrservice: ToastrService,
+              private uProfile: UserprofileService,
               private router: Router,
               private datePipe: DatePipe) {
+        
+        this.getCountry();
     // this.PostJobForm = fb.group({
     //   // email: ['', Validators.required,Validators.email],
     //   // password: ['', Validators.required,Validators.minLength(5)],
@@ -90,6 +98,20 @@ export class PostjobComponent implements OnInit {
 
     this.router.navigate(["jobpoststatus"]);
     //this.router.navigate([FIREBASE_CONFIG.FaqURL]);
+  }
+
+  getCountry() {
+    this.uProfile.getCountry().subscribe(cprop => {
+      this.countries = cprop;
+      console.log("Country :::::::: => "+this.countries.length);
+    })
+  }
+
+  getState(country) {
+    this.uProfile.getStateDetails(country).subscribe(sprop => {
+      this.state = sprop;
+      console.log("Country :::::::: => "+this.state.length);
+    })
   }
 
 

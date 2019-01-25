@@ -86,8 +86,10 @@
                             <div class="form-group col-md-12">
                                 <label class="col-md-3 control-lable" for="JobCountry">Country</label>
                                 <div class="col-md-9">
-                                    <select ngModel name="JobCountry" #JobCountry="ngModel" id="JobCountry" [(ngModel)]="postjobService.selectedPostJobc.JobCountry" class="form-control input-sm">
+                                    <!--select ngModel name="JobCountry" #JobCountry="ngModel" id="JobCountry" [(ngModel)]="postjobService.selectedPostJobc.JobCountry" class="form-control input-sm"-->
+                                    <select ngModel name="JobCountry" #JobCountry="ngModel" id="JobCountry" [ngModel]="postjobService.selectedPostJobc?.JobCountry" class="form-control input-sm" (change)="getState($event.target.value)" >
                                         <option>Select Country</option>
+                                        <option [value]="country.CountryName" *ngFor="let country of countries">{{country.CountryName}}</option>
                                         <!--option>Japan</option>
                                         <option>Kenya</option>
                                         <option>Dubai</option>
@@ -112,8 +114,8 @@
                                         <option>Spain</option>
                                         <option>Thailand</option>
                                         <option>Saudi Arabia</option>
-                                        <option>Poland</option-->
-                                        <option>USA</option>
+                                        <option>Poland</option>
+                                        <option>USA</option-->
                                     </select>
 
                                 </div>
