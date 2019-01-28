@@ -32,7 +32,7 @@
 
                       <h2>More Jobs Posted</h2>
                       <!--div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab"-->
-                      <div class="tab_grid" *ngFor="let pj of pjob">
+                      <div class="tab_grid" *ngFor="let pj of pagedItems">
                           <div class="jobs-item with-thumb">
                             <div class="thumb"><a routerLink="/jobdetails"><img src="assets/images/a2.jpg" class="img-responsive" alt=""/></a></div>
                             <div class="jobs_right">
@@ -42,16 +42,37 @@
                             </div>
                             <div class="clearfix"> </div>
                                         <ul class="top-btns">
-                              <li><a href="#" class="fa fa-plus toggle"></a></li>
+                              <!--li><a href="#" class="fa fa-plus toggle"></a></li>
                               <li><a href="#" class="fa fa-star"></a></li>
-                              <li><a href="#" class="fa fa-link"></a></li>
+                              <li><a href="#" class="fa fa-link"></a></li-->
+                              <li><a [routerLink]="['/postjob',pj.id]" class="fa fa-edit"></a></li>                                
+                              <li><a (click)="onDelete(pj)" class="fa fa-trash"></a></li>
+
+                              
                             </ul>
-                            <p class="description">{{ pj.JobDesc }} <a [routerLink]="['/jobdetails',pj.id]" class="read-more">Read More</a></p>
+                            <p class="description">{{ pj.JobDesc.substring(0,length) }}... <a [routerLink]="['/postjob',pj.id]" class="read-more">Update..</a></p>
                                     </div>
                           <div class="clearfix"> </div>
                         </div>
                       </div>
 
+                      <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                <a (click)="setPage(1)">&laquo;</a>
+                            </li>
+                            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                <a (click)="setPage(pager.currentPage - 1)">&#8249;</a>
+                            </li>
+                            <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                                <a (click)="setPage(page)">{{page}}</a>
+                            </li>
+                            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                <a (click)="setPage(pager.currentPage + 1)">&#8250;</a>
+                            </li>
+                            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                <a (click)="setPage(pager.totalPages)">&raquo;</a>
+                            </li>
+                        </ul>  
 
                       <!--/div-->
 

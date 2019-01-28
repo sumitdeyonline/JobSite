@@ -59,7 +59,7 @@ export class PostjobComponent implements OnInit {
     console.log("Date :::::::: "+formatDate(new Date(), 'MM/dd/yyyy', 'en'));
 
     this._activeRoute.paramMap.subscribe(params => {
-      this.id = params.get("PostJobID");
+      this.id = params.get("id");
       console.log("Key Value :::::::: "+this.id);
     });
 
@@ -77,6 +77,10 @@ export class PostjobComponent implements OnInit {
     console.log ("Datatat ::: "+postJobForm.value.JobTitle);
     postJobForm.value.CreatedDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
     console.log ("Datatat ::: "+postJobForm.value.CreatedDate);
+    if (postJobForm.value.JobLength === undefined) {
+      postJobForm.value.JobLength = null;
+    }
+
     this.postjobService.addUpdatePostJobs(postJobForm.value,this.id);
     //console.log("$Key VALUE :::::: "+postJobForm.value.$key);
 

@@ -38,6 +38,13 @@ export const routing = RouterModule.forRoot([
 
     },
     {
+        path: 'postjob/:id',
+        component: PostjobComponent,
+        canActivate: [ScopeGuard] ,
+        data: { expectedScopes: ['write:messages']}
+
+    },    
+    {
         path: 'jobpoststatus',
         component: JobpoststatusComponent,
         canActivate: [ScopeGuard] ,

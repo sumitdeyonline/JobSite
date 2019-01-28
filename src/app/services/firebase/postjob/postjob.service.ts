@@ -324,8 +324,8 @@ export class PostjobService {
 
   }
 
-  deletePostJob(faqc :  PostJobc) {
-    this.pjDoc = this.afs.doc(`${FIREBASE_CONFIG.PostJob}/${faqc.id}`);
+  deletePostJob(postc :  PostJobc) {
+    this.pjDoc = this.afs.doc(`${FIREBASE_CONFIG.PostJob}/${postc.id}`);
     this.pjDoc.delete();
   }
 

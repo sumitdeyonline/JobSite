@@ -55,6 +55,8 @@ import { TechNewsComponent } from './pages/tech-news/tech-news.component';
 import { TechNewsDetailsComponent } from './pages/tech-news/tech-news-details/tech-news-details.component';
 import { AdvertisementComponent } from './pages/advertisement/advertisement.component';
 import { ResetpasswordComponent } from './pages/login/resetpassword/resetpassword.component';
+import { PagerService } from './services/common/pager.service';
+
 
 
 
@@ -96,7 +98,8 @@ import { ResetpasswordComponent } from './pages/login/resetpassword/resetpasswor
     DatePipe,
     DateformatService,
     AngularFireDatabase,
-    ContentfulService
+    ContentfulService,
+    PagerService
   ],
   bootstrap: [AppComponent],
 })

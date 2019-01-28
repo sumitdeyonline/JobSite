@@ -63,7 +63,10 @@ export const SEARCH_CONFIG = {
     INDEX_NAME: 'PostJob',
     INDEX_NAME_PROFILE: 'UserProfile',
     PROTOCOLS:'https:',
-    ALGOLIA_FUNCTION_URL: 'https://us-central1-jobsite-c8333.cloudfunctions.net/addFirestorePostJobDataToAlgolia'
+    ALGOLIA_FUNCTION_URL: 'https://us-central1-jobsite-c8333.cloudfunctions.net/addFirestorePostJobDataToAlgolia',
+    LIST_JOB_DESC_WIDTH: 120,
+    PAGE_SIZE: 5,
+    CURRENT_PAGE: 1
 }
 
 export const AUTH_CONFIG: AuthConfiguration = {

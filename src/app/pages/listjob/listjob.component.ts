@@ -8,7 +8,9 @@ import {isNumeric} from 'rxjs/util/isNumeric';
 import { SEARCH_CONFIG } from '../../global-config';
 import { PostJobc } from 'src/app/services/firebase/postjob/postjob.model';
 import { PostjobService } from 'src/app/services/firebase/postjob/postjob.service';
-
+import { PagerService } from 'src/app/services/common/pager.service';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map'
 
 @Component({
   selector: 'listjob',
@@ -27,14 +29,22 @@ export class ListjobComponent implements OnInit {
   location: string;
   client: any;
   index: any;
+
+  length: any = SEARCH_CONFIG.LIST_JOB_DESC_WIDTH;
+
   // ALGOLIA_APP_ID = "8I5VGLVBT1";
   // ALGOLIA_API_KEY = "378eba06830cc91d1dad1550dd4a5244";
   //searchQuery: string ="sumitdey@yahoo.com" ;
   //jobs = [];
 
+    // pager object
+    pager: any = {};
+
+    // paged items
+    pagedItems: any[];
 
 
-  constructor(private router: Router, private route: ActivatedRoute, private postjob: PostjobService, private dformat: DateformatService) {
+  constructor(private router: Router, private route: ActivatedRoute, private postjob: PostjobService, private dformat: DateformatService, private pagerService: PagerService) {
 
 
     //this.PostJobc = null;
@@ -108,6 +118,7 @@ export class ListjobComponent implements OnInit {
       this.location = params['location'];
       console.log("Location " + this.location);
       this.getPostJobsAlgolia(this.keyword,this.location);
+
       // this.listjob.keyword = this.keyword;
       // this.listjob.location = this.location;
     })
@@ -178,7 +189,7 @@ export class ListjobComponent implements OnInit {
           //let j=0;
           //this.PostJobcFinal = [];
           this.PostJobc = data.hits;
-
+          this.setPage(1);
         });
       } else  {
 
@@ -189,6 +200,7 @@ export class ListjobComponent implements OnInit {
           //let j=0;
           //this.PostJobcFinal = [];
           this.PostJobc = data.hits;
+          this.setPage(1);
 
         });
 
@@ -245,11 +257,17 @@ export class ListjobComponent implements OnInit {
   //   //return this.jobs;
   // })
 
-
-
-
   }
 
+  setPage(page: number) {
+    console.log("Page Count");
+    // get pager object from service
+    this.pager = this.pagerService.getPager(this.PostJobc.length, page);
+    //console.log("Page Count...1  ::: "+this.pager.length);
+    // get current page of items
+    this.pagedItems = this.PostJobc.slice(this.pager.startIndex, this.pager.endIndex + 1);
+    //console.log("Page Count...1  ::: "+this.pagedItems.length);
+  }
 
   jobDetails(jobid) {
     console.log("Job ID::::: +",jobid);
