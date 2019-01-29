@@ -12,7 +12,7 @@ import { PostjobService } from 'src/app/services/firebase/postjob/postjob.servic
 import { UserprofileService } from 'src/app/services/firebase/userprofile/userprofile.service';
 import { Country } from 'src/app/services/firebase/userprofile/country.model';
 import { State } from 'src/app/services/firebase/userprofile/state.model';
-
+import { PostJobc } from 'src/app/services/firebase/postjob/postjob.model';
 
 
 
@@ -32,6 +32,7 @@ export class PostjobComponent implements OnInit {
   // postjob = new PostJobc();
   postjobMessage: string;
   postjobSucessMessage: string;
+  postJob:  PostJobc[];
 
   id: any;
   postJobList: [any];
@@ -68,6 +69,9 @@ export class PostjobComponent implements OnInit {
       this.resetForm();
     } else {
       console.log("UPDATE FORM ....");
+      // this.postjobService.getPostJobsById(this.id).subscribe(postJob=> {
+      //   this.postJob = postJob;
+      // })
     }
 
   }

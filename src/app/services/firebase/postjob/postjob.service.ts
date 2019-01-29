@@ -40,6 +40,7 @@ export class PostjobService {
   PostJobc: Observable<PostJobc[]>;
   pjDoc: AngularFirestoreDocument<PostJobc>;
 
+  
 
   client: any;
   index: any;
@@ -291,6 +292,7 @@ export class PostjobService {
   getPostJobsById(id) {
     console.log("List Service ..... 3 ::::::=> "+id);
 
+    //this.pjDoc = this.afs.doc(`${FIREBASE_CONFIG.PostJob}/${id}`).valueChanges()
     return this.afs.doc(`${FIREBASE_CONFIG.PostJob}/${id}`).valueChanges()
 
     // this.pjCollection = this.afs.collection(FIREBASE_CONFIG.PostJob, ref =>
