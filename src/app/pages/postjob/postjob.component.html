@@ -27,7 +27,7 @@
                         <label style="font-weight: bold;" for="JobTitle">Job Title</label>
                     </div>
                     <div class="col">
-                        <input type="text" ngModel name="JobTitle" #JobTitle="ngModel" id="JobTitle" [(ngModel)]="postjobService.selectedPostJobc.JobTitle" class="form-control input-sm" required/>
+                        <input type="text" ngModel name="JobTitle" #JobTitle="ngModel" id="JobTitle" [ngModel]="postjobService.selectedPostJobc?.JobTitle" (ngModelChange)="postjobService.selectedPostJobc.JobTitle" class="form-control input-sm" required/>
                         <div style="color: red;" *ngIf="JobTitle.invalid && (JobTitle.dirty || JobTitle.touched)">
                             Please Enter Job Title
                         </div>

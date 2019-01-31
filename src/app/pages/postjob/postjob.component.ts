@@ -32,8 +32,8 @@ export class PostjobComponent implements OnInit {
   // postjob = new PostJobc();
   postjobMessage: string;
   postjobSucessMessage: string;
-  postJob:  PostJobc[];
-
+  postJob:  PostJobc;
+  //public pjob: PostJobc;
   id: any;
   postJobList: [any];
   countries: Country[];
@@ -53,10 +53,6 @@ export class PostjobComponent implements OnInit {
     //   // repassword: ['',Validators.required,Validators.minLength(5)]
     // })
 
-  }
-
-  ngOnInit() {
-    // let dateFormat = require('mm/dd/yyyy');
     console.log("Date :::::::: "+formatDate(new Date(), 'MM/dd/yyyy', 'en'));
 
     this._activeRoute.paramMap.subscribe(params => {
@@ -69,10 +65,20 @@ export class PostjobComponent implements OnInit {
       this.resetForm();
     } else {
       console.log("UPDATE FORM ....");
-      // this.postjobService.getPostJobsById(this.id).subscribe(postJob=> {
-      //   this.postJob = postJob;
-      // })
+      
+      this.postjobService.getPostJobsById(this.id).subscribe(postJob=> {
+        console.log("UPDATE FORM ....111111111122222");
+        this.postJob = postJob;
+        this.getFieldForUpdate();
+      })
     }
+
+
+  }
+
+  ngOnInit() {
+    // let dateFormat = require('mm/dd/yyyy');
+
 
   }
 
@@ -143,4 +149,13 @@ export class PostjobComponent implements OnInit {
       }
 
   }
+
+  getFieldForUpdate() {
+    this.postjobService.selectedPostJobc.id = this.postJob[0].id;
+    this.postjobService.selectedPostJobc.JobTitle = this.postJob[0].JobTitle;
+    console.log("Job ID :::: "+this.postjobService.selectedPostJobc.id);
+    console.log("Job Title :::: "+this.postjobService.selectedPostJobc.JobTitle);
+
+  }
+
 }
