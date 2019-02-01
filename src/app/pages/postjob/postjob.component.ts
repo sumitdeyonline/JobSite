@@ -151,10 +151,10 @@ export class PostjobComponent implements OnInit {
   }
 
   getFieldForUpdate() {
-    this.postjobService.selectedPostJobc.id = this.postJob[0].id;
-    this.postjobService.selectedPostJobc.JobTitle = this.postJob[0].JobTitle;
-    console.log("Job ID :::: "+this.postjobService.selectedPostJobc.id);
-    console.log("Job Title :::: "+this.postjobService.selectedPostJobc.JobTitle);
+    //this.postjobService.selectedPostJobc.id = this.id;
+    this.postjobService.selectedPostJobc.JobTitle = this.postJob.JobTitle;
+    console.log("Job ID :::: "+this.id);
+    console.log("Job Title :::: "+this.postJob.JobTitle);
 
   }
 
