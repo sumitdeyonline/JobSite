@@ -59,10 +59,9 @@ export class PostjobComponent implements OnInit {
       this.id = params.get("id");
       console.log("Key Value :::::::: "+this.id);
     });
-
+    this.resetForm();
     if ((this.id == null) || (this.id == '')) {
       console.log("NEW FORM ....");
-      this.resetForm();
     } else {
       console.log("UPDATE FORM ....");
       
@@ -70,6 +69,8 @@ export class PostjobComponent implements OnInit {
         console.log("UPDATE FORM ....111111111122222");
         this.postJob = postJob;
         this.getFieldForUpdate();
+        this.getState(this.postJob.JobCountry);
+        this.isPayrate(this.postJob.JobPayRate);
       })
     }
 
@@ -90,6 +91,11 @@ export class PostjobComponent implements OnInit {
     if (postJobForm.value.JobLength === undefined) {
       postJobForm.value.JobLength = null;
     }
+
+    if (postJobForm.value.JobPayRate != 'Hourly') {
+      postJobForm.value.JobLength = null;
+    }
+
 
     this.postjobService.addUpdatePostJobs(postJobForm.value,this.id);
     //console.log("$Key VALUE :::::: "+postJobForm.value.$key);
@@ -132,8 +138,11 @@ export class PostjobComponent implements OnInit {
   isPayrate(empprate) {
      if (empprate == 'Hourly')
       this.isJobLength = true;
-    else 
+    else {
       this.isJobLength = false;
+
+    }
+
 
   }
 
@@ -151,11 +160,29 @@ export class PostjobComponent implements OnInit {
   }
 
   getFieldForUpdate() {
-    //this.postjobService.selectedPostJobc.id = this.id;
+    this.postjobService.selectedPostJobc.id = this.id;
     this.postjobService.selectedPostJobc.JobTitle = this.postJob.JobTitle;
-    console.log("Job ID :::: "+this.id);
-    console.log("Job Title :::: "+this.postJob.JobTitle);
-
+    this.postjobService.selectedPostJobc.JobDesc = this.postJob.JobDesc;
+    this.postjobService.selectedPostJobc.Skills = this.postJob.Skills;
+    this.postjobService.selectedPostJobc.ApplyToEmail = this.postJob.ApplyToEmail;
+    this.postjobService.selectedPostJobc.CCToEmail = this.postJob.CCToEmail;
+    this.postjobService.selectedPostJobc.ApplyToURL = this.postJob.ApplyToURL;
+    this.postjobService.selectedPostJobc.JobCity = this.postJob.JobCity;
+    this.postjobService.selectedPostJobc.JobState = this.postJob.JobState;
+    this.postjobService.selectedPostJobc.JobCountry = this.postJob.JobCountry;
+    this.postjobService.selectedPostJobc.JobZip = this.postJob.JobZip;     
+    
+    this.postjobService.selectedPostJobc.EmploymentTypes = this.postJob.EmploymentTypes; 
+    this.postjobService.selectedPostJobc.JobPayRate = this.postJob.JobPayRate; 
+    this.postjobService.selectedPostJobc.Compensation = this.postJob.Compensation; 
+    this.postjobService.selectedPostJobc.JobLength = this.postJob.JobLength; 
+    this.postjobService.selectedPostJobc.TravelRequirements = this.postJob.TravelRequirements; 
+    this.postjobService.selectedPostJobc.isTeleComute = this.postJob.isTeleComute; 
+    this.postjobService.selectedPostJobc.isSearchable = this.postJob.isSearchable; 
+    this.postjobService.selectedPostJobc.CreatedBy = this.postJob.CreatedBy; 
+    this.postjobService.selectedPostJobc.CreatedDate = this.postJob.CreatedDate; 
+    this.postjobService.selectedPostJobc.LastModifiedBy = this.postJob.LastModifiedBy; 
+    this.postjobService.selectedPostJobc.LastModifiedDate = this.postJob.LastModifiedDate;     
   }
 
 }
