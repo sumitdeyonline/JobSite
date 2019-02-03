@@ -17,6 +17,7 @@ import { PostJobc } from 'src/app/services/firebase/postjob/postjob.model';
 
 
 
+
 @Component({
   selector: 'postjob',
   templateUrl: './postjob.component.html',
@@ -86,8 +87,8 @@ export class PostjobComponent implements OnInit {
   JobPostSubmit(postJobForm : NgForm) {
 
     console.log ("Datatat ::: "+postJobForm.value.JobTitle);
-    postJobForm.value.CreatedDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
-    console.log ("Datatat ::: "+postJobForm.value.CreatedDate);
+    // postJobForm.value.CreatedDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
+    // console.log ("Datatat ::: "+postJobForm.value.CreatedDate);
     if (postJobForm.value.JobLength === undefined) {
       postJobForm.value.JobLength = null;
     }
@@ -159,6 +160,10 @@ export class PostjobComponent implements OnInit {
 
   }
 
+
+
+
+  
   getFieldForUpdate() {
     this.postjobService.selectedPostJobc.id = this.id;
     this.postjobService.selectedPostJobc.JobTitle = this.postJob.JobTitle;
@@ -179,8 +184,11 @@ export class PostjobComponent implements OnInit {
     this.postjobService.selectedPostJobc.TravelRequirements = this.postJob.TravelRequirements; 
     this.postjobService.selectedPostJobc.isTeleComute = this.postJob.isTeleComute; 
     this.postjobService.selectedPostJobc.isSearchable = this.postJob.isSearchable; 
-    this.postjobService.selectedPostJobc.CreatedBy = this.postJob.CreatedBy; 
-    this.postjobService.selectedPostJobc.CreatedDate = this.postJob.CreatedDate; 
+
+    if ((this.id == null) || (this.id == '')) {
+      this.postjobService.selectedPostJobc.CreatedBy = this.postJob.CreatedBy; 
+      this.postjobService.selectedPostJobc.CreatedDate = this.postJob.CreatedDate;             
+    }
     this.postjobService.selectedPostJobc.LastModifiedBy = this.postJob.LastModifiedBy; 
     this.postjobService.selectedPostJobc.LastModifiedDate = this.postJob.LastModifiedDate;     
   }

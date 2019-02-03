@@ -7,6 +7,9 @@ import { PostJobc } from 'src/app/services/firebase/postjob/postjob.model';
 import { PostjobService } from 'src/app/services/firebase/postjob/postjob.service';
 import { SEARCH_CONFIG } from 'src/app/global-config';
 import { PagerService } from 'src/app/services/common/pager.service';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
+import { DialogComponent } from '../../jobdetails/dialog/dialog.component';
+
 
 @Component({
   selector: 'jobpoststatus',
@@ -28,6 +31,8 @@ export class JobpoststatusComponent implements OnInit {
     'Oct', 'Nov', 'Dec'
     ];
 
+  fileNameDialogRef: MatDialogRef<DialogComponent>;
+
   pjob: PostJobc[];
 
   length: any = SEARCH_CONFIG.LIST_JOB_DESC_WIDTH;
@@ -37,7 +42,12 @@ export class JobpoststatusComponent implements OnInit {
   // paged items
   pagedItems: any[];
 
-  constructor(private auth: AuthService, private postservice: PostjobService, private router: Router, private dformat: DateformatService, private pagerService: PagerService) { }
+  constructor(private auth: AuthService, 
+      private postservice: PostjobService, 
+      private router: Router, 
+      private dformat: DateformatService, 
+      private dialog: MatDialog,
+      private pagerService: PagerService) { }
 
   ngOnInit() {
 
@@ -70,7 +80,18 @@ export class JobpoststatusComponent implements OnInit {
 
   onDelete(pjob) {
     console.log("Pst Job ID :::: "+pjob.id);
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.data = pjob.id;
+      // dialogConfig.height = "4";
+      // dialogConfig.width ="3";
+      this.dialog.open(DialogComponent, dialogConfig);
+    //  dialogConfig.disableClose = false;
+    //  dialogConfig.autoFocus = true;
+
+    //this.fileNameDialogRef = this.dialog.open(DialogComponent); 
+    //this.fileNameDialogRef = this.dialog.open(DialogComponent, dialogConfig);  
     //this.postservice.deletePostJob(pjob);
   }
+
 
 }

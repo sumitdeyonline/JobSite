@@ -43,7 +43,9 @@
                         <label style="font-weight: bold;" for="JobDesc">Job Description</label>
                     </div>
                     <div class="col">
-                        <textarea cols="77" rows="4" ngModel name="JobDesc" #JobDesc="ngModel" id="JobDesc" [ngModel]="postjobService.selectedPostJobc?.JobDesc" (ngModelChange)="postjobService.selectedPostJobc.JobDesc" class="form-control input-sm" required></textarea>
+                        <!--app-ngx-editor height="100px" minHeight="50px" [placeholder]="'Enter text here...'" [spellcheck]="true" [ngModel]="postjobService.selectedPostJobc?.JobDesc"></app-ngx-editor-->
+                        <app-ngx-editor [placeholder]="'Enter description here...'" height="300px" minHeight="50px" [spellcheck]="true" ngModel name="JobDesc" #JobDesc="ngModel" id="JobDesc" [ngModel]="postjobService.selectedPostJobc?.JobDesc" (ngModelChange)="postjobService.selectedPostJobc.JobDesc" required></app-ngx-editor>
+                        <!--textarea cols="77" rows="4" ngModel name="JobDesc" #JobDesc="ngModel" id="JobDesc" [ngModel]="postjobService.selectedPostJobc?.JobDesc" (ngModelChange)="postjobService.selectedPostJobc.JobDesc" class="form-control input-sm" required></textarea-->
                         <div style="color: red;" *ngIf="JobDesc.invalid && (JobDesc.dirty || JobDesc.touched)">
                             Please Enter Job Description
                         </div>
@@ -59,7 +61,8 @@
                         <label style="font-weight: bold;" for="Skills">Skills</label>
                     </div>
                     <div class="col">
-                        <textarea cols="77" rows="4" ngModel name="Skills" #Skills="ngModel" id="Skills" [ngModel]="postjobService.selectedPostJobc?.Skills" (ngModelChange)="postjobService.selectedPostJobc.Skills" class="form-control input-sm" required></textarea>
+                        <app-ngx-editor [placeholder]="'Enter Skill here...'" height="300px" minHeight="50px" [spellcheck]="true" ngModel name="Skills" #Skills="ngModel" id="Skills" [ngModel]="postjobService.selectedPostJobc?.Skills" (ngModelChange)="postjobService.selectedPostJobc.Skills" required></app-ngx-editor>
+                        <!--textarea cols="77" rows="4" ngModel name="Skills" #Skills="ngModel" id="Skills" [ngModel]="postjobService.selectedPostJobc?.Skills" (ngModelChange)="postjobService.selectedPostJobc.Skills" class="form-control input-sm" required></textarea-->
                         <div style="color: red;" *ngIf="Skills.invalid && (Skills.dirty || Skills.touched)">
                             Please Enter Job Skills
                         </div>

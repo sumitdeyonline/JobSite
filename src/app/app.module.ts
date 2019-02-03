@@ -57,7 +57,11 @@ import { AdvertisementComponent } from './pages/advertisement/advertisement.comp
 import { ResetpasswordComponent } from './pages/login/resetpassword/resetpassword.component';
 import { PagerService } from './services/common/pager.service';
 
-
+import { MatDialogModule } from '@angular/material';
+import { DialogComponent } from './pages/jobdetails/dialog/dialog.component';
+import { NgxEditorModule } from 'ngx-editor';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { HttpClientModule, HttpClient }    from '@angular/common/http';
 
 
 @NgModule({
@@ -72,8 +76,26 @@ import { PagerService } from './services/common/pager.service';
     LoginComponent,
     LogComponent,
     MdToHtmlPipe,
-    CallbackComponent, SignupComponent, SignupConfirmComponent, SearchheaderComponent, PostjobComponent, ListjobComponent, JobpoststatusComponent, JobdetailsComponent, UserProfileComponent, UploadresumeComponent, ResumesearchComponent, ResumedetailsComponent, MiddleimageComponent, TechNewsComponent, TechNewsDetailsComponent, AdvertisementComponent, ResetpasswordComponent
+    CallbackComponent, 
+    SignupComponent, 
+    SignupConfirmComponent, 
+    SearchheaderComponent, 
+    PostjobComponent, 
+    ListjobComponent, 
+    JobpoststatusComponent, 
+    JobdetailsComponent, 
+    UserProfileComponent, 
+    UploadresumeComponent, 
+    ResumesearchComponent, 
+    ResumedetailsComponent, 
+    MiddleimageComponent, 
+    TechNewsComponent, 
+    TechNewsDetailsComponent, 
+    AdvertisementComponent, 
+    ResetpasswordComponent, 
+    DialogComponent
   ],
+  entryComponents: [DialogComponent],
 
   imports: [
     BrowserModule,
@@ -83,6 +105,11 @@ import { PagerService } from './services/common/pager.service';
     HttpModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    MatDialogModule,
+    NgxEditorModule,
+    AngularFontAwesomeModule,
+    HttpClientModule,
+    HttpModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule
   ],
@@ -99,7 +126,8 @@ import { PagerService } from './services/common/pager.service';
     DateformatService,
     AngularFireDatabase,
     ContentfulService,
-    PagerService
+    PagerService,
+    HttpClient
   ],
   bootstrap: [AppComponent],
 })

@@ -1,3 +1,5 @@
+import { Timestamp } from "@google-cloud/firestore";
+
 export interface PostJobc {
     id? : string;
     JobTitle? : string;
@@ -17,8 +19,8 @@ export interface PostJobc {
     TravelRequirements? : string;
     isTeleComute? : boolean;
     isSearchable? : boolean;
+    CreatedDate? : Date;
     CreatedBy? : string;
-    CreatedDate? : string;
     LastModifiedBy? : string;
-    LastModifiedDate? : string;
+    LastModifiedDate? : Date;
   }

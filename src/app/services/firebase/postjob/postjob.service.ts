@@ -150,9 +150,14 @@ export class PostjobService {
 
   addUpdatePostJobs(pjobc :  PostJobc,id: string) {
 
-
+    //pjobc.LastModifiedDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
+    pjobc.LastModifiedDate = new Date();
+    pjobc.LastModifiedBy = this.auth.userProfile.name;
     if ((id == null) || (id == '')) {
-      pjobc.CreatedDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
+      //pjobc.CreatedDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
+      pjobc.CreatedDate = new Date();
+
+
       pjobc.CreatedBy = this.auth.userProfile.name;
       pjobc.isSearchable = true;
       //pjobc.JobTitle =
@@ -162,6 +167,7 @@ export class PostjobService {
       this.pjCollection.add(pjobc);
     } else {
       console.log("UPDATE FORM ...." + id);
+      
       //this.faqDoc = this.afs.doc(`faq/${faqc.id}`);
       this.pjDoc = this.afs.doc(`${FIREBASE_CONFIG.PostJob}/${id}`);
       this.pjDoc.update(pjobc);
@@ -261,7 +267,7 @@ export class PostjobService {
 
 
     this.pjCollection = this.afs.collection(FIREBASE_CONFIG.PostJob, ref =>
-          ref.where('CreatedBy','==',user).orderBy('CreatedDate','desc'));
+          ref.where('CreatedBy','==',user).orderBy('LastModifiedDate','desc'));
           //console.log("List Service ..... 4");
     this.PostJobc = this.pjCollection.snapshotChanges().pipe(map(changes => {
       //console.log("List Service ..... 5");
@@ -333,6 +339,12 @@ export class PostjobService {
     this.pjDoc = this.afs.doc(`${FIREBASE_CONFIG.PostJob}/${postc.id}`);
     this.pjDoc.delete();
   }
+
+  deletePostJobWithID(id) {
+    this.pjDoc = this.afs.doc(`${FIREBASE_CONFIG.PostJob}/${id}`);
+    this.pjDoc.delete();
+  }
+
 
   // OLD
 
