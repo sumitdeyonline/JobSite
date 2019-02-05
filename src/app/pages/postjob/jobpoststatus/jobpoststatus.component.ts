@@ -53,11 +53,20 @@ export class JobpoststatusComponent implements OnInit {
 
     this.postservice.getPostJobsByUser(this.auth.userProfile.name).subscribe(pjob=> {
       this.pjob = pjob;
+      //console.log("Last Updated ::: "+ Math.round(Math.abs(new Date().getTime() - this.pjob[3].LastModifiedDate.toDate().getTime())/(24*60*60*1000));
+      console.log("Last Updated ::: "+ this.getDateDiff(this.pjob[3].LastModifiedDate));
+      
+      // Math.round(Math.abs(new Date().getTime() - this.pjob[0].LastModifiedDate.toDate().getTime())/(24*60*60*1000)
       this.setPage(1);
       //console.log("List Service ..... 33333 ::::: "+this.pjob[1].id);
     })
   }
 
+
+  getDateDiff(dateIput) {
+    return Math.round(Math.abs(new Date().getTime() - dateIput.toDate().getTime())/(24*60*60*1000);
+    //return Math.round(Math.abs(new Date().getTime() - this.pjob[3].LastModifiedDate.toDate().getTime())/(24*60*60*1000);
+  }
   /*monthNumToSigName(monthnum) {
     // console.log("Months :::: "+monthnum);
     // console.log("Months ::::....1 "+ this.months[monthnum - 1]);

@@ -2881,6 +2881,13 @@ hr {
 
 }
 
+.companyName {
+    font-size: 15px!important;
+    font-weight: 400;
+    color: #0A208C;
+    font-weight:bold;
+}
+
 
 /* Pagination */
 

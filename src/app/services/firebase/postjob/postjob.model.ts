@@ -5,6 +5,7 @@ export interface PostJobc {
     JobTitle? : string;
     JobDesc? : string;
     Skills? : string;
+    Company?: string;
     ApplyToEmail? : string;
     CCToEmail? : string;
     ApplyToURL? : string;

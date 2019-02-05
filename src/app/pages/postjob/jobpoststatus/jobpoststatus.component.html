@@ -40,20 +40,22 @@
                             <!--div class="date">{{ pj.CreatedDate.toDate() | date:'MM-dd-yyyy' }} <span>{{ dformat.monthNumToSigName(pj.CreatedDate.substring(0,2)) }}</span></div-->
                             <div class="date">{{ pj.LastModifiedDate.toDate() | date:'dd' }} <span>{{ dformat.monthNumToSigName(pj.LastModifiedDate.toDate() | date:'MM') }}</span></div>
                             <div class="date_desc"><h6 class="title"><a [routerLink]="['/postjob',pj.id]">{{ pj.JobTitle }}</a></h6>
-                              <span class="meta">{{ pj.JobCity }}, {{ pj.JobState }}</span>
+                              <i class="fa fa-building-o" aria-hidden="true"></i>&nbsp;<span class="companyName">{{ pj.Company.substring(0,19) }}</span><span class="companyName" *ngIf="pj.Company.length>19">...</span>
+                              &nbsp;&nbsp;<i class="fa fa-location-arrow" aria-hidden="true"></i>&nbsp;<span class="meta"><b>{{ pj.JobCity }}, {{ pj.JobState }}</b></span>
+                              &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;<span class="meta">{{ getDateDiff(pj.LastModifiedDate) }}&nbsp;days ago</span>
                             </div>
                             <div class="clearfix"> </div>
                              <ul class="top-btns">
                               <!--li><a href="#" class="fa fa-plus toggle"></a></li>
                               <li><a href="#" class="fa fa-star"></a></li>
                               <li><a href="#" class="fa fa-link"></a></li-->
-                              <li><a [routerLink]="['/postjob',pj.id]" class="fa fa-edit"></a></li>                                
+                              <li><a [routerLink]="['/postjob',pj.id]" class="fa fa-edit"></a></li>
                               <li><a (click)="onDelete(pj)" class="fa fa-trash"></a></li>
 
-                              
+
                             </ul>
                             <!--p class="description">{{ pj.JobDesc.substring(0,length) }}... <a [routerLink]="['/postjob',pj.id]" class="read-more">Update..</a></p-->
-                            <div [innerHTML]="pj.JobDesc.substring(0,length) "></div><a [routerLink]="['/postjob',pj.id]" class="read-more">Update..</a>
+                            <div [innerHTML]="pj.JobDesc.substring(0,length)"></div><!--a [routerLink]="['/postjob',pj.id]" class="read-more">Update..</a-->
                             </div>
                           <div class="clearfix"> </div>
                         </div>
@@ -75,7 +77,7 @@
                             <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
                                 <a (click)="setPage(pager.totalPages)">&raquo;</a>
                             </li>
-                        </ul>  
+                        </ul>
 
                       <!--/div-->
 

@@ -169,6 +169,7 @@ export class PostjobComponent implements OnInit {
     this.postjobService.selectedPostJobc.JobTitle = this.postJob.JobTitle;
     this.postjobService.selectedPostJobc.JobDesc = this.postJob.JobDesc;
     this.postjobService.selectedPostJobc.Skills = this.postJob.Skills;
+    this.postjobService.selectedPostJobc.Company = this.postJob.Company;
     this.postjobService.selectedPostJobc.ApplyToEmail = this.postJob.ApplyToEmail;
     this.postjobService.selectedPostJobc.CCToEmail = this.postJob.CCToEmail;
     this.postjobService.selectedPostJobc.ApplyToURL = this.postJob.ApplyToURL;
