@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/authentication/auth.service';
+import * as algoliasearch from 'algoliasearch';
 
 import { Router } from '@angular/router';
 import { DateformatService } from '../../../services/dateformat/dateformat.service';
@@ -54,7 +55,7 @@ export class JobpoststatusComponent implements OnInit {
     this.postservice.getPostJobsByUser(this.auth.userProfile.name).subscribe(pjob=> {
       this.pjob = pjob;
       //console.log("Last Updated ::: "+ Math.round(Math.abs(new Date().getTime() - this.pjob[3].LastModifiedDate.toDate().getTime())/(24*60*60*1000));
-      console.log("Last Updated ::: "+ this.getDateDiff(this.pjob[3].LastModifiedDate));
+      // console.log("Last Updated ::: "+ this.getDateDiff(this.pjob[3].LastModifiedDate));
       
       // Math.round(Math.abs(new Date().getTime() - this.pjob[0].LastModifiedDate.toDate().getTime())/(24*60*60*1000)
       this.setPage(1);
@@ -64,7 +65,7 @@ export class JobpoststatusComponent implements OnInit {
 
 
   getDateDiff(dateIput) {
-    return Math.round(Math.abs(new Date().getTime() - dateIput.toDate().getTime())/(24*60*60*1000);
+    return Math.round(Math.abs(new Date().getTime() - dateIput.toDate().getTime())/(24*60*60*1000));
     //return Math.round(Math.abs(new Date().getTime() - this.pjob[3].LastModifiedDate.toDate().getTime())/(24*60*60*1000);
   }
   /*monthNumToSigName(monthnum) {

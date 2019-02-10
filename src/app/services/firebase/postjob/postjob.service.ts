@@ -343,6 +343,25 @@ export class PostjobService {
   deletePostJobWithID(id) {
     this.pjDoc = this.afs.doc(`${FIREBASE_CONFIG.PostJob}/${id}`);
     this.pjDoc.delete();
+
+    // Algolia Update
+
+    this.client = algoliasearch(SEARCH_CONFIG.ALGOLIA_APP_ID, SEARCH_CONFIG.ALGOLIA_API_KEY,
+      { protocol: SEARCH_CONFIG.PROTOCOLS });
+
+
+      console.log("Delete Index :::: "+id);
+      this.index = this.client.initIndex(SEARCH_CONFIG.INDEX_NAME);
+
+
+      this.index.deleteObject(id, function(err, content) {
+        if (err) throw err;
+      
+        console.log(content);
+      });    
+
+      //this.index.deleteObject(id);
+
   }
 
 
