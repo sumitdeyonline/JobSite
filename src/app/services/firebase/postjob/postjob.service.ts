@@ -109,9 +109,8 @@ export class PostjobService {
       { protocol: SEARCH_CONFIG.PROTOCOLS });
 
 
-
       this.index = this.client.initIndex(SEARCH_CONFIG.INDEX_NAME);
-      console.log("Test 1 ....2..2" );
+      //console.log("Test 1 ....2..2" );
 
       this.index.search({
 
@@ -165,14 +164,76 @@ export class PostjobService {
       // console.log ("Created By ::: "+pjobc.CreatedBy);
       // console.log("NEW FORM ....Service");
       this.pjCollection.add(pjobc);
+
+
+      this.client = algoliasearch(SEARCH_CONFIG.ALGOLIA_APP_ID, SEARCH_CONFIG.ALGOLIA_API_KEY,
+        { protocol: SEARCH_CONFIG.PROTOCOLS });
+  
+  
+
+        this.index = this.client.initIndex(SEARCH_CONFIG.INDEX_NAME);
+   
+        this.index.saveObjects(pjobc, function (err, content) {
+          console.log("Add Content :::::: "+content);
+        })
+      
+
+
     } else {
       console.log("UPDATE FORM ...." + id);
       
       //this.faqDoc = this.afs.doc(`faq/${faqc.id}`);
       this.pjDoc = this.afs.doc(`${FIREBASE_CONFIG.PostJob}/${id}`);
       this.pjDoc.update(pjobc);
+
+      this.client = algoliasearch(SEARCH_CONFIG.ALGOLIA_APP_ID, SEARCH_CONFIG.ALGOLIA_API_KEY,
+        { protocol: SEARCH_CONFIG.PROTOCOLS });
+  
+  
+        // var objects = [{
+        //   firstname: 'Jimmie',
+        //   lastname: 'Barninger',
+        //   objectID: id
+        // }];
+
+        var objects = [{
+          JobTitle:pjobc.JobTitle,
+          Company:pjobc.Company,
+          JobDesc:pjobc.JobDesc,
+          Skills:pjobc.Skills,
+          ApplyToEmail:pjobc.ApplyToEmail,
+          CCToEmail:pjobc.CCToEmail,
+          ApplyToURL:pjobc.ApplyToURL,
+          JobCity:pjobc.JobCity,
+          JobCountry:pjobc.JobCountry,
+          JobState:pjobc.JobState,
+          JobZip:pjobc.JobZip,
+          EmploymentTypes:pjobc.EmploymentTypes,
+          JobPayRate:pjobc.JobPayRate,
+          Compensation:pjobc.Compensation,
+          JobLength:pjobc.JobLength,
+          TravelRequirements:pjobc.TravelRequirements,
+          isTeleComute:pjobc.isTeleComute,
+          LastModifiedDate:pjobc.LastModifiedDate,
+          LastModifiedBy:pjobc.LastModifiedBy,
+          objectID: id
+        }];
+       
+
+        this.index = this.client.initIndex(SEARCH_CONFIG.INDEX_NAME);
+        pjobc.objectID = id;
+        console.log("Content ::::::: "+objects);
+
+        this.index.saveObjects(objects, function (err, content) {
+          if (err) throw err;
+          console.log("Add Content :::::: "+content);
+        });    
+        // this.index.addObjects(objects, function(err, content) {
+        //   console.log(content);
+        // });
+
     }
-    this.AlgoliaUpdate();
+    //this.AlgoliaUpdate();
 
   }
 
@@ -356,8 +417,7 @@ export class PostjobService {
 
       this.index.deleteObject(id, function(err, content) {
         if (err) throw err;
-      
-        console.log(content);
+        console.log("Delete Content :::::: "+content);
       });    
 
       //this.index.deleteObject(id);

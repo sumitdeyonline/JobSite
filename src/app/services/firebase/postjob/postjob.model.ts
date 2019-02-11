@@ -2,6 +2,7 @@ import { Timestamp } from "@google-cloud/firestore";
 
 export interface PostJobc {
     id? : string;
+    objectID? : string;
     JobTitle? : string;
     JobDesc? : string;
     Skills? : string;
