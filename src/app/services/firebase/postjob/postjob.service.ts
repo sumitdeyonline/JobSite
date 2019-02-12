@@ -171,6 +171,9 @@ export class PostjobService {
       this.pjCollection.add(pjobc).then((entry) => {
 
         console.log("Entry ISSSSS "+entry.id);
+        this.AlgoliaObjectUpdate('new',pjobc,entry.id);
+
+
       });
       //console.log("Return Value :::: "+retVal);
 
@@ -193,10 +196,16 @@ export class PostjobService {
 
       //this.faqDoc = this.afs.doc(`faq/${faqc.id}`);
       this.pjDoc = this.afs.doc(`${FIREBASE_CONFIG.PostJob}/${id}`);
-      this.pjDoc.update(pjobc);
+      this.pjDoc.update(pjobc).then((entry) => {
 
-      this.client = algoliasearch(SEARCH_CONFIG.ALGOLIA_APP_ID, SEARCH_CONFIG.ALGOLIA_API_KEY,
-        { protocol: SEARCH_CONFIG.PROTOCOLS });
+        //console.log("Entry ISSSSS "+entry.id);
+        this.AlgoliaObjectUpdate('edit',pjobc,id);
+
+
+      });
+
+      // this.client = algoliasearch(SEARCH_CONFIG.ALGOLIA_APP_ID, SEARCH_CONFIG.ALGOLIA_API_KEY,
+      //   { protocol: SEARCH_CONFIG.PROTOCOLS });
 
 
         // var objects = [{
@@ -205,45 +214,97 @@ export class PostjobService {
         //   objectID: id
         // }];
 
-        var objects = [{
-          id: id,
-          objectID: id,
-          JobTitle:pjobc.JobTitle,
-          Company:pjobc.Company,
-          JobDesc:pjobc.JobDesc,
-          Skills:pjobc.Skills,
-          // ApplyToEmail:pjobc.ApplyToEmail,
-          // CCToEmail:pjobc.CCToEmail,
-          // ApplyToURL:pjobc.ApplyToURL,
-          JobCity:pjobc.JobCity,
-          JobCountry:pjobc.JobCountry,
-          JobState:pjobc.JobState,
-          JobZip:pjobc.JobZip,
-          EmploymentTypes:pjobc.EmploymentTypes,
-          JobPayRate:pjobc.JobPayRate,
-          Compensation:pjobc.Compensation,
-          JobLength:pjobc.JobLength,
-          TravelRequirements:pjobc.TravelRequirements,
-          isTeleComute:pjobc.isTeleComute,
-          LastModifiedDate:pjobc.LastModifiedDate,
-          LastModifiedBy:pjobc.LastModifiedBy
-        }];
 
 
-        this.index = this.client.initIndex(SEARCH_CONFIG.INDEX_NAME);
-        pjobc.objectID = id;
-        console.log("Content ::::::: "+objects);
 
-        this.index.saveObjects(objects, function (err, content) {
-          if (err) throw err;
-          console.log("Add Content :::::: "+content);
-        });
+        // this.index = this.client.initIndex(SEARCH_CONFIG.INDEX_NAME);
+        // pjobc.objectID = id;
+        // console.log("Content ::::::: "+objects);
+
+        // this.index.saveObjects(objects, function (err, content) {
+        //   if (err) throw err;
+        //   console.log("Add Content :::::: "+content);
+        // });
         // this.index.addObjects(objects, function(err, content) {
         //   console.log(content);
         // });
 
     }
     //this.AlgoliaUpdate();
+
+  }
+
+
+  AlgoliaObjectUpdate(tranType, pjobc, id) {
+    console.log("Algolia Update Object..... :::::: ");
+    let objects;
+    if (tranType == 'new') {
+      objects = [{
+        id: id,
+        objectID: id,
+        JobTitle:pjobc.JobTitle,
+        Company:pjobc.Company,
+        JobDesc:pjobc.JobDesc,
+        Skills:pjobc.Skills,
+        // ApplyToEmail:pjobc.ApplyToEmail,
+        // CCToEmail:pjobc.CCToEmail,
+        // ApplyToURL:pjobc.ApplyToURL,
+        JobCity:pjobc.JobCity,
+        JobCountry:pjobc.JobCountry,
+        JobState:pjobc.JobState,
+        JobZip:pjobc.JobZip,
+        EmploymentTypes:pjobc.EmploymentTypes,
+        JobPayRate:pjobc.JobPayRate,
+        Compensation:pjobc.Compensation,
+        JobLength:pjobc.JobLength,
+        TravelRequirements:pjobc.TravelRequirements,
+        isTeleComute:pjobc.isTeleComute,
+        CreatedDate : pjobc.CreatedDate,
+        CreatedBy : pjobc.CreatedBy,    
+        LastModifiedDate:pjobc.LastModifiedDate,
+        LastModifiedBy:pjobc.LastModifiedBy
+      }];
+    } else if (tranType == 'edit'){
+      objects = [{
+        id: id,
+        objectID: id,
+        JobTitle:pjobc.JobTitle,
+        Company:pjobc.Company,
+        JobDesc:pjobc.JobDesc,
+        Skills:pjobc.Skills,
+        // ApplyToEmail:pjobc.ApplyToEmail,
+        // CCToEmail:pjobc.CCToEmail,
+        // ApplyToURL:pjobc.ApplyToURL,
+        JobCity:pjobc.JobCity,
+        JobCountry:pjobc.JobCountry,
+        JobState:pjobc.JobState,
+        JobZip:pjobc.JobZip,
+        EmploymentTypes:pjobc.EmploymentTypes,
+        JobPayRate:pjobc.JobPayRate,
+        Compensation:pjobc.Compensation,
+        JobLength:pjobc.JobLength,
+        TravelRequirements:pjobc.TravelRequirements,
+        isTeleComute:pjobc.isTeleComute,
+        // CreatedDate : pjobc.CreatedDate,
+        // CreatedBy : pjobc.CreatedBy,    
+        LastModifiedDate:pjobc.LastModifiedDate,
+        LastModifiedBy:pjobc.LastModifiedBy
+      }];      
+    }
+
+
+    this.client = algoliasearch(SEARCH_CONFIG.ALGOLIA_APP_ID, SEARCH_CONFIG.ALGOLIA_API_KEY,
+      { protocol: SEARCH_CONFIG.PROTOCOLS });
+
+      this.index = this.client.initIndex(SEARCH_CONFIG.INDEX_NAME);
+      // pjobc.objectID = id;
+      // console.log("Content ::::::: "+objects);
+
+      this.index.saveObjects(objects, function (err, content) {
+        if (err) throw err;
+        console.log("Add Content :::::: "+content);
+      });
+
 
   }
 
