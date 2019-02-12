@@ -40,7 +40,7 @@ export class PostjobService {
   PostJobc: Observable<PostJobc[]>;
   pjDoc: AngularFirestoreDocument<PostJobc>;
   pjobDoc: AngularFirestoreDocument<PostJobc>;
-  
+
 
   client: any;
   index: any;
@@ -48,7 +48,7 @@ export class PostjobService {
   // ALGOLIA_APP_ID = "8I5VGLVBT1";
   // ALGOLIA_API_KEY = "378eba06830cc91d1dad1550dd4a5244";
   //searchQuery: string ="sumitdey@yahoo.com" ;
-  jobs = []; 
+  jobs = [];
 
   constructor(private afs : AngularFirestore, private auth: AuthService, private http: Http) {
     this.pjCollection = this.afs.collection(FIREBASE_CONFIG.PostJob);
@@ -163,33 +163,42 @@ export class PostjobService {
       // console.log ("Create Date ::: "+pjobc.CreatedDate);
       // console.log ("Created By ::: "+pjobc.CreatedBy);
       // console.log("NEW FORM ....Service");
-      this.pjCollection.add(pjobc);
+
+      // Generate New ID
+      var idBefore =  this.afs.createId();
+      console.log("ID Created :::: "+idBefore);
+
+      this.pjCollection.add(pjobc).then((entry) => {
+
+        console.log("Entry ISSSSS "+entry.id);
+      });
+      //console.log("Return Value :::: "+retVal);
 
 
-      this.client = algoliasearch(SEARCH_CONFIG.ALGOLIA_APP_ID, SEARCH_CONFIG.ALGOLIA_API_KEY,
-        { protocol: SEARCH_CONFIG.PROTOCOLS });
-  
-  
+      // this.client = algoliasearch(SEARCH_CONFIG.ALGOLIA_APP_ID, SEARCH_CONFIG.ALGOLIA_API_KEY,
+      //   { protocol: SEARCH_CONFIG.PROTOCOLS });
 
-        this.index = this.client.initIndex(SEARCH_CONFIG.INDEX_NAME);
-   
-        this.index.saveObjects(pjobc, function (err, content) {
-          console.log("Add Content :::::: "+content);
-        })
-      
+
+
+      //   this.index = this.client.initIndex(SEARCH_CONFIG.INDEX_NAME);
+
+      //   this.index.saveObjects(pjobc, function (err, content) {
+      //     console.log("Add Content :::::: "+content);
+      //   })
+
 
 
     } else {
       console.log("UPDATE FORM ...." + id);
-      
+
       //this.faqDoc = this.afs.doc(`faq/${faqc.id}`);
       this.pjDoc = this.afs.doc(`${FIREBASE_CONFIG.PostJob}/${id}`);
       this.pjDoc.update(pjobc);
 
       this.client = algoliasearch(SEARCH_CONFIG.ALGOLIA_APP_ID, SEARCH_CONFIG.ALGOLIA_API_KEY,
         { protocol: SEARCH_CONFIG.PROTOCOLS });
-  
-  
+
+
         // var objects = [{
         //   firstname: 'Jimmie',
         //   lastname: 'Barninger',
@@ -197,13 +206,15 @@ export class PostjobService {
         // }];
 
         var objects = [{
+          id: id,
+          objectID: id,
           JobTitle:pjobc.JobTitle,
           Company:pjobc.Company,
           JobDesc:pjobc.JobDesc,
           Skills:pjobc.Skills,
-          ApplyToEmail:pjobc.ApplyToEmail,
-          CCToEmail:pjobc.CCToEmail,
-          ApplyToURL:pjobc.ApplyToURL,
+          // ApplyToEmail:pjobc.ApplyToEmail,
+          // CCToEmail:pjobc.CCToEmail,
+          // ApplyToURL:pjobc.ApplyToURL,
           JobCity:pjobc.JobCity,
           JobCountry:pjobc.JobCountry,
           JobState:pjobc.JobState,
@@ -215,10 +226,9 @@ export class PostjobService {
           TravelRequirements:pjobc.TravelRequirements,
           isTeleComute:pjobc.isTeleComute,
           LastModifiedDate:pjobc.LastModifiedDate,
-          LastModifiedBy:pjobc.LastModifiedBy,
-          objectID: id
+          LastModifiedBy:pjobc.LastModifiedBy
         }];
-       
+
 
         this.index = this.client.initIndex(SEARCH_CONFIG.INDEX_NAME);
         pjobc.objectID = id;
@@ -227,7 +237,7 @@ export class PostjobService {
         this.index.saveObjects(objects, function (err, content) {
           if (err) throw err;
           console.log("Add Content :::::: "+content);
-        });    
+        });
         // this.index.addObjects(objects, function(err, content) {
         //   console.log(content);
         // });
@@ -248,9 +258,9 @@ export class PostjobService {
     //     docs.forEach((doc) => {
     //       let jsite = doc.data();
     //       jsite.objectID = doc.id;
-    
+
     //       arr.push(jsite);
-    
+
     //     })
     //     var client = algoliasearch(this.ALGOLIA_APP_ID,this.ALGOLIA_ADMIN_KEY);
     //     var index = client.initIndex(this.ALGOLIA_INDEX_NAME_POST_JOB);
@@ -258,14 +268,14 @@ export class PostjobService {
     //       res.status(200).send(content);
     //     })
     //         return null;
-    
+
     //   }).catch(error => {
     //         console.error(error);
     //         //res.error(500);
     //     });
-    
+
     // })
-    
+
     //let params: URLSearchParams = new URLSearchParams();
     //let headers = new Headers({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST, GET, PUT, OPTIONS, DELETE' });
     //let headers = new Headers({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*');
@@ -302,7 +312,7 @@ export class PostjobService {
 
   let headers = new Headers({
     'Access-Control-Allow-Credentials':true,
-    'Access-Control-Allow-Origin': '*',  
+    'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
     'Access-Control-Allow-Headers':'application/json'
    });
@@ -315,10 +325,10 @@ export class PostjobService {
               // .catch(err => {
               //   console.log("Error:::: "+err);
               // });
-  
+
               return this.http.get(SEARCH_CONFIG.ALGOLIA_FUNCTION_URL, {
                 headers: headers
-              }).subscribe(res => res.json()); 
+              }).subscribe(res => res.json());
 
   }
 
@@ -358,10 +368,10 @@ export class PostjobService {
 
   getPostJobsById(id) {
     console.log("List Service ..... 3 ::::::=> "+id);
-    
+
     //this.pjDoc = this.afs.doc(`${FIREBASE_CONFIG.PostJob}/${id}`).valueChanges()
     // this.pjobDoc = this.afs.doc(`${FIREBASE_CONFIG.PostJob}/${id}`);
-   
+
 
     return this.afs.doc(`${FIREBASE_CONFIG.PostJob}/${id}`).valueChanges();
 
@@ -418,7 +428,7 @@ export class PostjobService {
       this.index.deleteObject(id, function(err, content) {
         if (err) throw err;
         console.log("Delete Content :::::: "+content);
-      });    
+      });
 
       //this.index.deleteObject(id);
 
