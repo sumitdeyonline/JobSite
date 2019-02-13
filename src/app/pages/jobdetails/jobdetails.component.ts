@@ -18,7 +18,7 @@ export class JobdetailsComponent implements OnInit {
   location: string;
 
 
-  constructor(private router: Router,private _activeRoute:ActivatedRoute, private postservice: PostjobService) { 
+  constructor(private router: Router,private _activeRoute:ActivatedRoute, private postservice: PostjobService) {
 
     this._activeRoute.queryParams.subscribe(params => {
       console.log(params);
@@ -38,19 +38,18 @@ export class JobdetailsComponent implements OnInit {
     this._activeRoute.paramMap.subscribe(params => {
       this.id = params.get('id');
       console.log("Key Value :::::::: "+this.id);
-    }); 
+    });
     this.postservice.getPostJobsById(this.id).subscribe(pjob=> {
       this.pjob = pjob;
       console.log("List Service ..... 33333 ::::: "+this.pjob.JobTitle);
-    })    
+    })
 
   }
 
   jobList() {
-
-    // console.log("Search Componenet ******* "+jobsearchComponent.keyword+" Location "+jobsearchComponent.location);
+     //console.log("Search Componenet ******* "+jobsearchComponent.keyword+" Location "+jobsearchComponent.location);
     // this.router.navigate(['/jobdetails',jobid], { queryParams: {  keyword: this.keyword, 'location': this.location}, 'queryParamsHandling': 'merge' });
-     this.router.navigate(['/listjob'], { queryParams: {  keyword: this.keyword, 'location': this.location}, 'queryParamsHandling': 'merge' });     
+     this.router.navigate(['/listjob'], { queryParams: {  keyword: this.keyword, 'location': this.location}, 'queryParamsHandling': 'merge' });
   }
 
 }

@@ -43,10 +43,10 @@ export class JobpoststatusComponent implements OnInit {
   // paged items
   pagedItems: any[];
 
-  constructor(private auth: AuthService, 
-      private postservice: PostjobService, 
-      private router: Router, 
-      private dformat: DateformatService, 
+  constructor(private auth: AuthService,
+      private postservice: PostjobService,
+      private router: Router,
+      private dformat: DateformatService,
       private dialog: MatDialog,
       private pagerService: PagerService) { }
 
@@ -56,7 +56,7 @@ export class JobpoststatusComponent implements OnInit {
       this.pjob = pjob;
       //console.log("Last Updated ::: "+ Math.round(Math.abs(new Date().getTime() - this.pjob[3].LastModifiedDate.toDate().getTime())/(24*60*60*1000));
       // console.log("Last Updated ::: "+ this.getDateDiff(this.pjob[3].LastModifiedDate));
-      
+
       // Math.round(Math.abs(new Date().getTime() - this.pjob[0].LastModifiedDate.toDate().getTime())/(24*60*60*1000)
       this.setPage(1);
       //console.log("List Service ..... 33333 ::::: "+this.pjob[1].id);
@@ -98,8 +98,8 @@ export class JobpoststatusComponent implements OnInit {
     //  dialogConfig.disableClose = false;
     //  dialogConfig.autoFocus = true;
 
-    //this.fileNameDialogRef = this.dialog.open(DialogComponent); 
-    //this.fileNameDialogRef = this.dialog.open(DialogComponent, dialogConfig);  
+    //this.fileNameDialogRef = this.dialog.open(DialogComponent);
+    //this.fileNameDialogRef = this.dialog.open(DialogComponent, dialogConfig);
     //this.postservice.deletePostJob(pjob);
   }
 

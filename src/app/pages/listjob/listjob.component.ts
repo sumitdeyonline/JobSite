@@ -144,6 +144,7 @@ export class ListjobComponent implements OnInit {
       this.index = this.client.initIndex(SEARCH_CONFIG.INDEX_NAME);
 
       console.log(" keyword :::: "+keyword+"location :::: "+location);
+
       if ((keyword.trim() != "") || (location.trim() != "")) {
         if (location.trim() != "") {
 
@@ -205,7 +206,7 @@ export class ListjobComponent implements OnInit {
         });
 
       }
-    }
+      }
 
 
 
@@ -273,13 +274,19 @@ export class ListjobComponent implements OnInit {
     console.log("Job ID::::: +",jobid);
     // console.log("Search Componenet ******* "+jobsearchComponent.keyword+" Location "+jobsearchComponent.location);
     // this.router.navigate(['/jobdetails',jobid], { queryParams: {  keyword: this.keyword, 'location': this.location}, 'queryParamsHandling': 'merge' });
-     this.router.navigate(['/jobdetails',jobid], { queryParams: {  keyword: this.keyword, 'location': this.location}, 'queryParamsHandling': 'merge' });     
+     this.router.navigate(['/jobdetails',jobid], { queryParams: {  keyword: this.keyword, 'location': this.location}, 'queryParamsHandling': 'merge' });
   }
 
 
   isNull(value) {
     if (value == null) { return "" }
     else { return value }
+  }
+
+  getDateDiff(dateIput) {
+    let lastModifyDate = new Date(dateIput);
+    return Math.round(Math.abs(new Date().getTime() - lastModifyDate.getTime())/(24*60*60*1000));
+    //return Math.round(Math.abs(new Date().getTime() - this.pjob[3].LastModifiedDate.toDate().getTime())/(24*60*60*1000);
   }
 
 

@@ -92,9 +92,6 @@ export class PostjobService {
       });
     }));
 
-
-
-
     return this.PostJobc;
   }
 
@@ -165,13 +162,13 @@ export class PostjobService {
       // console.log("NEW FORM ....Service");
 
       // Generate New ID
-      var idBefore =  this.afs.createId();
-      console.log("ID Created :::: "+idBefore);
+      // var idBefore =  this.afs.createId();
+      // console.log("ID Created :::: "+idBefore);
 
       this.pjCollection.add(pjobc).then((entry) => {
 
         console.log("Entry ISSSSS "+entry.id);
-        this.AlgoliaObjectUpdate('new',pjobc,entry.id);
+        this.AlgoliaObjectUpdate(id,pjobc,entry.id);
 
 
       });
@@ -199,7 +196,7 @@ export class PostjobService {
       this.pjDoc.update(pjobc).then((entry) => {
 
         //console.log("Entry ISSSSS "+entry.id);
-        this.AlgoliaObjectUpdate('edit',pjobc,id);
+        this.AlgoliaObjectUpdate(id,pjobc,id);
 
 
       });
@@ -238,7 +235,7 @@ export class PostjobService {
   AlgoliaObjectUpdate(tranType, pjobc, id) {
     console.log("Algolia Update Object..... :::::: ");
     let objects;
-    if (tranType == 'new') {
+    if ((tranType == null) || (tranType == '')) {
       objects = [{
         id: id,
         objectID: id,
@@ -260,11 +257,11 @@ export class PostjobService {
         TravelRequirements:pjobc.TravelRequirements,
         isTeleComute:pjobc.isTeleComute,
         CreatedDate : pjobc.CreatedDate,
-        CreatedBy : pjobc.CreatedBy,    
+        CreatedBy : pjobc.CreatedBy,
         LastModifiedDate:pjobc.LastModifiedDate,
         LastModifiedBy:pjobc.LastModifiedBy
       }];
-    } else if (tranType == 'edit'){
+    } else {
       objects = [{
         id: id,
         objectID: id,
@@ -286,10 +283,10 @@ export class PostjobService {
         TravelRequirements:pjobc.TravelRequirements,
         isTeleComute:pjobc.isTeleComute,
         // CreatedDate : pjobc.CreatedDate,
-        // CreatedBy : pjobc.CreatedBy,    
+        // CreatedBy : pjobc.CreatedBy,
         LastModifiedDate:pjobc.LastModifiedDate,
         LastModifiedBy:pjobc.LastModifiedBy
-      }];      
+      }];
     }
 
 
@@ -302,96 +299,11 @@ export class PostjobService {
 
       this.index.saveObjects(objects, function (err, content) {
         if (err) throw err;
-        console.log("Add Content :::::: "+content);
+        //console.log("Add Content :::::: "+content);
       });
 
-
   }
 
-  AlgoliaUpdate() {
-
-    // admin.initializeApp(functions.config().firebase);
-
-    // exports.addFirestorePostJobDataToAlgolia = functions.https.onRequest((req, res) => {
-
-    //   var arr = [];
-    //   admin.firestore().collection("PostJob").get().then((docs) => {
-    //     docs.forEach((doc) => {
-    //       let jsite = doc.data();
-    //       jsite.objectID = doc.id;
-
-    //       arr.push(jsite);
-
-    //     })
-    //     var client = algoliasearch(this.ALGOLIA_APP_ID,this.ALGOLIA_ADMIN_KEY);
-    //     var index = client.initIndex(this.ALGOLIA_INDEX_NAME_POST_JOB);
-    //     index.saveObjects(arr, function (err, content) {
-    //       res.status(200).send(content);
-    //     })
-    //         return null;
-
-    //   }).catch(error => {
-    //         console.error(error);
-    //         //res.error(500);
-    //     });
-
-    // })
-
-    //let params: URLSearchParams = new URLSearchParams();
-    //let headers = new Headers({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST, GET, PUT, OPTIONS, DELETE' });
-    //let headers = new Headers({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*');
-
-    // let headers: HttpHeaders = new HttpHeaders({
-    //   'Content-Type': 'application/json',
-    //   'Access-Control-Allow-Origin': '*'
-    // });
-    //let options = new RequestOptions({headers :headers})
-
-    //console.log("Algolia update"+SEARCH_CONFIG.ALGOLIA_FUNCTION_URL);
-    // return this.http.post(SEARCH_CONFIG.ALGOLIA_FUNCTION_URL, {header: headers})
-    //           .toPromise()
-    //           .then( res => {
-    //             console.log("Good : "+res);
-    //           })
-    //           .catch(err => {
-    //             console.log("Error:::: "+err);
-    //           });
-
-  //   this.headers = new Headers();
-  //   // this.headers.append('Content-Type', 'application/json');
-  //   // this.headers.append('Access-Control-Allow-Origin', '*');
-
-  //   //var allowCrossDomain = function(req, res, next) {
-  //     this.headers.append('Access-Control-Allow-Origin', "http://localhost:4200");
-  //     this.headers.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  //     this.headers.append('Access-Control-Allow-Headers', 'Content-Type');
-  // //};
-
-  // const cors = require('cors')({
-  //   origin: true,
-  // });
-
-  let headers = new Headers({
-    'Access-Control-Allow-Credentials':true,
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-    'Access-Control-Allow-Headers':'application/json'
-   });
-
-
-
-              // return this.http.get(SEARCH_CONFIG.ALGOLIA_FUNCTION_URL, { headers: headers })
-              // .toPromise()
-              // .then(response => response.json())
-              // .catch(err => {
-              //   console.log("Error:::: "+err);
-              // });
-
-              return this.http.get(SEARCH_CONFIG.ALGOLIA_FUNCTION_URL, {
-                headers: headers
-              }).subscribe(res => res.json());
-
-  }
 
 
   getPostJobsByUser(user) {
