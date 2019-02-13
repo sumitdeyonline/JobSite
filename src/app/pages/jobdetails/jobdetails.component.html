@@ -2,7 +2,13 @@
 <searchheader [keyword]="keyword" [location]= "location"></searchheader>
 <div class="container">
   <div class="single">
+
       <button (click)="jobList()">Back to search</button>
+
+
+      <h3 class="title" style="color: red;">Job Description</h3>
+      <hr/>
+
       <div class="row">
 
 
@@ -36,10 +42,10 @@
 
 
               <h3 *ngIf="pjob !=null"> {{ pjob.JobTitle }}&nbsp;({{ pjob.JobCity }},{{ pjob.JobState }})</h3>
-              <br>
 
               <div *ngIf="pjob !=null" [innerHTML]="pjob.JobDesc"></div>
 
+              <br>
               <h3 *ngIf="pjob !=null"> Requirements</h3>
               <div *ngIf="pjob !=null" [innerHTML]=" pjob.Skills"></div>
 
