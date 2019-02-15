@@ -5,7 +5,7 @@ import { NotfoundComponent } from './common/notfound/notfound.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { PostjobComponent } from './pages/postjob/postjob.component';
-import { AuthGuardService as AuthGuard } from './services/authentication/auth-guard.service';
+import { AuthGuardService as AuthGuard, AuthGuardService } from './services/authentication/auth-guard.service';
 import { ScopeGuardService as ScopeGuard } from './services/authentication/scope-guard.service';
 import { ListjobComponent } from './pages/listjob/listjob.component';
 import { JobpoststatusComponent } from './pages/postjob/jobpoststatus/jobpoststatus.component';
@@ -62,14 +62,18 @@ export const routing = RouterModule.forRoot([
         component: ResumedetailsComponent,
         canActivate: [ScopeGuard] ,
         data: { expectedScopes: ['write:messages']}
-      },
+    },
+    {
+        path: 'userprofile',
+        component: UserProfileComponent,
+        canActivate: [AuthGuardService]
+    },    
     {
         path: 'jobdetails/:id',
         component: JobdetailsComponent
         // canActivate: [ScopeGuard] ,
         // data: { expectedScopes: ['write:messages']}
       },
-
       {
         path: 'technewsdetails/:id',
         component: TechNewsDetailsComponent
@@ -85,10 +89,6 @@ export const routing = RouterModule.forRoot([
       {
           path: 'signup',
           component: SignupComponent
-      },
-      {
-          path: 'userprofile',
-          component: UserProfileComponent
       },
       {
         path: 'about',

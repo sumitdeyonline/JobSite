@@ -12,11 +12,16 @@
 
               <div id="myTabContent" class="tab-content">
 
-                      <h2>About the Company</h2>
+                      
+                      <div *ngFor="let about of aboutUS">
+                        <h2>{{about.fields.mainHeader}}</h2>
+                        <br>
+                        <div [innerHTML]="about.fields.pageText | mdToHtml"></div>
+                      </div>                      
                       <!--div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab"-->
               </div>
 
-
+  
 
             </div>
 
