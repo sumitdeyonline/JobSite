@@ -144,9 +144,10 @@ export class PostjobService {
 
 
 
-  addUpdatePostJobs(pjobc :  PostJobc,id: string) {
+  addUpdatePostJobs(pjobc :  PostJobc,id: string, createDate: Date, createdBy: string) {
 
     //pjobc.LastModifiedDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
+
     pjobc.LastModifiedDate = new Date();
     pjobc.LastModifiedBy = this.auth.userProfile.name;
     if ((id == null) || (id == '')) {
@@ -168,24 +169,11 @@ export class PostjobService {
       this.pjCollection.add(pjobc).then((entry) => {
 
         console.log("Entry ISSSSS "+entry.id);
-        this.AlgoliaObjectUpdate(id,pjobc,entry.id);
+
+        this.AlgoliaObjectUpdate(id,pjobc,entry.id, createDate, createdBy);
 
 
       });
-      //console.log("Return Value :::: "+retVal);
-
-
-      // this.client = algoliasearch(SEARCH_CONFIG.ALGOLIA_APP_ID, SEARCH_CONFIG.ALGOLIA_API_KEY,
-      //   { protocol: SEARCH_CONFIG.PROTOCOLS });
-
-
-
-      //   this.index = this.client.initIndex(SEARCH_CONFIG.INDEX_NAME);
-
-      //   this.index.saveObjects(pjobc, function (err, content) {
-      //     console.log("Add Content :::::: "+content);
-      //   })
-
 
 
     } else {
@@ -194,9 +182,8 @@ export class PostjobService {
       //this.faqDoc = this.afs.doc(`faq/${faqc.id}`);
       this.pjDoc = this.afs.doc(`${FIREBASE_CONFIG.PostJob}/${id}`);
       this.pjDoc.update(pjobc).then((entry) => {
-
         //console.log("Entry ISSSSS "+entry.id);
-        this.AlgoliaObjectUpdate(id,pjobc,id);
+        this.AlgoliaObjectUpdate(id,pjobc,id, createDate, createdBy);
 
 
       });
@@ -232,8 +219,8 @@ export class PostjobService {
   }
 
 
-  AlgoliaObjectUpdate(tranType, pjobc, id) {
-    console.log("Algolia Update Object..... :::::: ");
+  AlgoliaObjectUpdate(tranType, pjobc, id, createDate, createdBy) {
+    console.log("Algolia Update Object..... :::::: "+createDate.seconds);
     let objects;
     if ((tranType == null) || (tranType == '')) {
       objects = [{
@@ -256,9 +243,9 @@ export class PostjobService {
         JobLength:pjobc.JobLength,
         TravelRequirements:pjobc.TravelRequirements,
         isTeleComute:pjobc.isTeleComute,
-        CreatedDate : pjobc.CreatedDate,
+        CreatedDate : pjobc.CreatedDate.getTime(),
         CreatedBy : pjobc.CreatedBy,
-        LastModifiedDate:pjobc.LastModifiedDate,
+        LastModifiedDate:pjobc.LastModifiedDate.getTime(),
         LastModifiedBy:pjobc.LastModifiedBy
       }];
     } else {
@@ -282,9 +269,10 @@ export class PostjobService {
         JobLength:pjobc.JobLength,
         TravelRequirements:pjobc.TravelRequirements,
         isTeleComute:pjobc.isTeleComute,
-        // CreatedDate : pjobc.CreatedDate,
-        // CreatedBy : pjobc.CreatedBy,
-        LastModifiedDate:pjobc.LastModifiedDate,
+        //CreatedDate : createDate.getTime(),
+        CreatedDate : createDate.seconds,
+        CreatedBy : createdBy,
+        LastModifiedDate:pjobc.LastModifiedDate.getTime(),
         LastModifiedBy:pjobc.LastModifiedBy
       }];
     }

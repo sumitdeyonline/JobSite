@@ -15,6 +15,7 @@ import { ResumesearchComponent } from './pages/resumesearch/resumesearch.compone
 import { ResumedetailsComponent } from './pages/resumesearch/resumedetails/resumedetails.component';
 import { TechNewsDetailsComponent } from './pages/tech-news/tech-news-details/tech-news-details.component';
 import { ResetpasswordComponent } from './pages/login/resetpassword/resetpassword.component';
+import { AboutComponent } from './pages/about/about.component';
 
 export const routing = RouterModule.forRoot([
 
@@ -43,7 +44,7 @@ export const routing = RouterModule.forRoot([
         canActivate: [ScopeGuard] ,
         data: { expectedScopes: ['write:messages']}
 
-    },    
+    },
     {
         path: 'jobpoststatus',
         component: JobpoststatusComponent,
@@ -88,6 +89,10 @@ export const routing = RouterModule.forRoot([
       {
           path: 'userprofile',
           component: UserProfileComponent
+      },
+      {
+        path: 'about',
+        component: AboutComponent
       },
       {
           path: '',

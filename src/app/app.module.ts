@@ -62,6 +62,7 @@ import { DialogComponent } from './pages/jobdetails/dialog/dialog.component';
 import { NgxEditorModule } from 'ngx-editor';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { HttpClientModule, HttpClient }    from '@angular/common/http';
+import { AboutComponent } from './pages/about/about.component';
 
 
 @NgModule({
@@ -93,7 +94,7 @@ import { HttpClientModule, HttpClient }    from '@angular/common/http';
     TechNewsDetailsComponent, 
     AdvertisementComponent, 
     ResetpasswordComponent, 
-    DialogComponent
+    DialogComponent, AboutComponent
   ],
   entryComponents: [DialogComponent],
 

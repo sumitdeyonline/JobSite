@@ -65,7 +65,7 @@ export class PostjobComponent implements OnInit {
       console.log("NEW FORM ....");
     } else {
       console.log("UPDATE FORM ....");
-      
+
       this.postjobService.getPostJobsById(this.id).subscribe(postJob=> {
         console.log("UPDATE FORM ....111111111122222");
         this.postJob = postJob;
@@ -98,7 +98,13 @@ export class PostjobComponent implements OnInit {
     }
 
 
-    this.postjobService.addUpdatePostJobs(postJobForm.value,this.id);
+    if ((this.id == null) || (this.id == '')) {
+      this.postjobService.addUpdatePostJobs(postJobForm.value,this.id, new Date(), "");
+      console.log("NEW FORM ....");
+    } else {
+      this.postjobService.addUpdatePostJobs(postJobForm.value,this.id,this.postJob.CreatedDate, this.postJob.CreatedBy);
+    }
+
     //console.log("$Key VALUE :::::: "+postJobForm.value.$key);
 
     //this.faqservice.updateFaq(faqForm.value);
@@ -163,7 +169,7 @@ export class PostjobComponent implements OnInit {
 
 
 
-  
+
   getFieldForUpdate() {
     this.postjobService.selectedPostJobc.id = this.id;
     this.postjobService.selectedPostJobc.JobTitle = this.postJob.JobTitle;
@@ -176,22 +182,22 @@ export class PostjobComponent implements OnInit {
     this.postjobService.selectedPostJobc.JobCity = this.postJob.JobCity;
     this.postjobService.selectedPostJobc.JobState = this.postJob.JobState;
     this.postjobService.selectedPostJobc.JobCountry = this.postJob.JobCountry;
-    this.postjobService.selectedPostJobc.JobZip = this.postJob.JobZip;     
-    
-    this.postjobService.selectedPostJobc.EmploymentTypes = this.postJob.EmploymentTypes; 
-    this.postjobService.selectedPostJobc.JobPayRate = this.postJob.JobPayRate; 
-    this.postjobService.selectedPostJobc.Compensation = this.postJob.Compensation; 
-    this.postjobService.selectedPostJobc.JobLength = this.postJob.JobLength; 
-    this.postjobService.selectedPostJobc.TravelRequirements = this.postJob.TravelRequirements; 
-    this.postjobService.selectedPostJobc.isTeleComute = this.postJob.isTeleComute; 
-    this.postjobService.selectedPostJobc.isSearchable = this.postJob.isSearchable; 
+    this.postjobService.selectedPostJobc.JobZip = this.postJob.JobZip;
+
+    this.postjobService.selectedPostJobc.EmploymentTypes = this.postJob.EmploymentTypes;
+    this.postjobService.selectedPostJobc.JobPayRate = this.postJob.JobPayRate;
+    this.postjobService.selectedPostJobc.Compensation = this.postJob.Compensation;
+    this.postjobService.selectedPostJobc.JobLength = this.postJob.JobLength;
+    this.postjobService.selectedPostJobc.TravelRequirements = this.postJob.TravelRequirements;
+    this.postjobService.selectedPostJobc.isTeleComute = this.postJob.isTeleComute;
+    this.postjobService.selectedPostJobc.isSearchable = this.postJob.isSearchable;
 
     if ((this.id == null) || (this.id == '')) {
-      this.postjobService.selectedPostJobc.CreatedBy = this.postJob.CreatedBy; 
-      this.postjobService.selectedPostJobc.CreatedDate = this.postJob.CreatedDate;             
+      this.postjobService.selectedPostJobc.CreatedBy = this.postJob.CreatedBy;
+      this.postjobService.selectedPostJobc.CreatedDate = this.postJob.CreatedDate;
     }
-    this.postjobService.selectedPostJobc.LastModifiedBy = this.postJob.LastModifiedBy; 
-    this.postjobService.selectedPostJobc.LastModifiedDate = this.postJob.LastModifiedDate;     
+    this.postjobService.selectedPostJobc.LastModifiedBy = this.postJob.LastModifiedBy;
+    this.postjobService.selectedPostJobc.LastModifiedDate = this.postJob.LastModifiedDate;
   }
 
 }
