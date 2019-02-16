@@ -63,6 +63,10 @@ import { NgxEditorModule } from 'ngx-editor';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { HttpClientModule, HttpClient }    from '@angular/common/http';
 import { AboutComponent } from './pages/about/about.component';
+import { RecruitersSolutionComponent } from './pages/recruiters-solution/recruiters-solution.component';
+import { RecruitersFollowingComponent } from './pages/recruiters-following/recruiters-following.component';
+import { ResumeServiceComponent } from './pages/resume-service/resume-service.component';
+import { SalaryPredictorComponent } from './pages/salary-predictor/salary-predictor.component';
 
 
 @NgModule({
@@ -94,7 +98,7 @@ import { AboutComponent } from './pages/about/about.component';
     TechNewsDetailsComponent, 
     AdvertisementComponent, 
     ResetpasswordComponent, 
-    DialogComponent, AboutComponent
+    DialogComponent, AboutComponent, RecruitersSolutionComponent, RecruitersFollowingComponent, ResumeServiceComponent, SalaryPredictorComponent
   ],
   entryComponents: [DialogComponent],
 

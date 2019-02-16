@@ -16,7 +16,7 @@ export class AboutComponent implements OnInit {
 
   ngOnInit() {
     this.contentfulService.getAllContent(CONTENT_CONFIG.PageBlockSectionFields,CONTENT_CONFIG.aboutQueryString,CONTENT_CONFIG.contentTypeIds.PageBlockSection)
-    .then(aboutUS => this.aboutUS = aboutUS)      
+    .then(aboutUS => this.aboutUS = aboutUS);     
   }
 
 }

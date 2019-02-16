@@ -16,6 +16,10 @@ import { ResumedetailsComponent } from './pages/resumesearch/resumedetails/resum
 import { TechNewsDetailsComponent } from './pages/tech-news/tech-news-details/tech-news-details.component';
 import { ResetpasswordComponent } from './pages/login/resetpassword/resetpassword.component';
 import { AboutComponent } from './pages/about/about.component';
+import { RecruitersSolutionComponent } from './pages/recruiters-solution/recruiters-solution.component';
+import { RecruitersFollowingComponent } from './pages/recruiters-following/recruiters-following.component';
+import { ResumeServiceComponent } from './pages/resume-service/resume-service.component';
+import { SalaryPredictorComponent } from './pages/salary-predictor/salary-predictor.component';
 
 export const routing = RouterModule.forRoot([
 
@@ -64,6 +68,18 @@ export const routing = RouterModule.forRoot([
         data: { expectedScopes: ['write:messages']}
     },
     {
+        path: 'recruiterssolution',
+        component: RecruitersSolutionComponent,
+        canActivate: [ScopeGuard] ,
+        data: { expectedScopes: ['write:messages']}
+    },   
+    {
+        path: 'recruitersfollowing',
+        component: RecruitersFollowingComponent,
+        canActivate: [ScopeGuard] ,
+        data: { expectedScopes: ['write:messages']}
+    },     
+    {
         path: 'userprofile',
         component: UserProfileComponent,
         canActivate: [AuthGuardService]
@@ -94,6 +110,14 @@ export const routing = RouterModule.forRoot([
         path: 'about',
         component: AboutComponent
       },
+      {
+        path: 'resumeservice',
+        component: ResumeServiceComponent
+      },
+      {
+        path: 'salarypredictor',
+        component: SalaryPredictorComponent
+      },            
       {
           path: '',
           component: HomeComponent

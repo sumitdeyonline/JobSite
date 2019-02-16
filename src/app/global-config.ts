@@ -28,6 +28,10 @@ export const CONTENT_CONFIG = {
     techNewsQueryString: {'fields.pageName':'HOME', 'fields.pageBlockName':'TECHNEWS', 'fields.publishOnThePage':true},
     advertiseQueryString: {'fields.pageName':'HOME', 'fields.pageBlockName':'ADVERTISE', 'fields.publishOnThePage':true},
     aboutQueryString: {'fields.pageName':'ABOUT', 'fields.pageBlockName':'ABOUTUS', 'fields.publishOnThePage':true},
+    recruitersQueryString: {'fields.pageName':'RECRUITERS', 'fields.pageBlockName':'SOLUTION', 'fields.publishOnThePage':true},
+    recruiterFollowingsQueryString: {'fields.pageName':'RECRUITERS', 'fields.pageBlockName':'FOLLOWINGS', 'fields.publishOnThePage':true},
+    resumeserviceQueryString: {'fields.pageName':'SERVICE', 'fields.pageBlockName':'RESUME', 'fields.publishOnThePage':true},
+    salaryPredictorQueryString: {'fields.pageName':'SERVICE', 'fields.pageBlockName':'SALARYPREDICTOR', 'fields.publishOnThePage':true},
 
     contentTypeIds: {
         PageBlockSection:'pageBlockSection'
