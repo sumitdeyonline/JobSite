@@ -131,8 +131,6 @@ export class ListjobComponent implements OnInit {
   }
 
 
-
-
   getPostJobsAlgolia(keyword, location) {
 
 

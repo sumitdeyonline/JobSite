@@ -37,8 +37,8 @@ export interface UserProfile {
 	UserID? : string;
 	Username? : string;
 	isSearchable? : boolean;
-	CreatedDate? : string;
-	ModifiedDate? : string;
+	CreatedDate? : Date;
+	LastModifiedDate? : Date;
 	objectID? : string;
 }
 

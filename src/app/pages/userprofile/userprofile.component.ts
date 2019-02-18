@@ -39,11 +39,11 @@ export class UserProfileComponent implements OnInit {
 
 
     this.uProfile.getUserDetails(this.auth.userProfile.name).subscribe(uprop=> {
-      this.userProfile = uprop;
+      this.userProfile = uprop; 
       this.resetForm();
       //this.countries = ['USA', 'Canada', 'Uk'];
       this.getCountry();
-      console.log("TEEESSSTTTTTTTTTT ");
+      console.log("TEEESSSTTTTTTTTTT ===>>>>>>>>> "+this.userProfile.length);
       if (this.userProfile.length == 0) {
 
         console.log("NEW FORM ....");
@@ -249,7 +249,7 @@ export class UserProfileComponent implements OnInit {
     // this.fileUploadEnabled = true; // Enabled File Download
 
     if (userid == null){
-      uprofileForm.value.CreatedDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
+      //uprofileForm.value.CreatedDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
       // uprofileForm.value.ResumeID = this.uPloadFileKey;
       // uprofileForm.value.ResumeFileName = this.rUploadService.fileName;
       //uprofileForm.value.ResumeURL = this.rUploadService.downloadURL;
@@ -266,9 +266,9 @@ export class UserProfileComponent implements OnInit {
        //console.log ('ResumeExt  ::: '+ uprofileForm.value.ResumeExt);
       console.log ('UserID  ::: '+ uprofileForm.value.UserID);
       console.log ('Username  ::: '+ uprofileForm.value.Username);
-      this.uProfile.addUpdateUserProfile(uprofileForm.value, null);
+      this.uProfile.addUpdateUserProfile(uprofileForm.value, this.id, new Date()); 
     } else {
-      uprofileForm.value.ModifiedDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
+      //uprofileForm.value.ModifiedDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
       // if (this.uPloadFileKey !=null)
       //   uprofileForm.value.ResumeID = this.uPloadFileKey;
       // else {
@@ -301,7 +301,8 @@ export class UserProfileComponent implements OnInit {
       // console.log ('ResumeExt  ::: '+ uprofileForm.value.ResumeExt);
       console.log ('UserID  ::: '+ uprofileForm.value.UserID);
       // console.log ('Resume File Name  ::: '+ this.uProfile.selectedUserProfile.ResumeFileName);
-      this.uProfile.addUpdateUserProfile(uprofileForm.value, userid);
+      this.uProfile.addUpdateUserProfile(uprofileForm.value, userid, this.userProfile[0].CreatedDate);
+     
     }
 
 
@@ -425,8 +426,10 @@ export class UserProfileComponent implements OnInit {
     this.uProfile.selectedUserProfile.SalaryExpectation = this.userProfile[0].SalaryExpectation;
     this.uProfile.selectedUserProfile.UserID = this.userProfile[0].UserID;
     this.uProfile.selectedUserProfile.Username = this.userProfile[0].Username;
-    this.uProfile.selectedUserProfile.CreatedDate = this.userProfile[0].CreatedDate;
-    this.uProfile.selectedUserProfile.ModifiedDate = this.userProfile[0].ModifiedDate;
+    if ((this.id == null) || (this.id == '')) {
+      this.uProfile.selectedUserProfile.CreatedDate = this.userProfile[0].CreatedDate;
+    }
+    this.uProfile.selectedUserProfile.LastModifiedDate = this.userProfile[0].LastModifiedDate;
 
   }
 

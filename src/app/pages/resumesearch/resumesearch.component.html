@@ -32,10 +32,6 @@
             <div id="myTabContent" class="tab-content">
 
 
-
-
-
-
                   <form #searchResume="ngForm" (ngSubmit)="getResumeSearchAlgolia(searchResume)">
 
 
@@ -60,45 +56,52 @@
 
                     <h2>Search Result</h2>
                     <!--div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab"-->
-                    <div class="tab_grid" *ngFor="let rp of UserProfile">
+                    <div class="tab_grid" *ngFor="let rp of pagedItems">
                         <div class="jobs-item with-thumb">
-                          <div class="thumb"><a [routerLink]="['/resumedetails',rp.objectID]"><img src="assets/images/a2.jpg" class="img-responsive" alt=""/></a></div>
+                          <div class="thumb"><a [routerLink]="['/resumedetails',rp.objectID]" target="_blank"><img src="assets/images/a2.jpg" class="img-responsive" alt=""/></a></div>
                           <div class="jobs_right">
                           <div class="date">{{rp.City}} <span>{{rp.State}}</span></div>
-                          <div class="date_desc"><h6 class="title"><a [routerLink]="['/resumedetails',rp.objectID]">{{rp.FirstName}}&nbsp;{{rp.LastName}}</a></h6>
-                            <span class="meta">Email : {{rp.Email}} Cell Phone : {{rp.CellPhone}}</span>
+                          <div class="date_desc"><h6 class="title"><a [routerLink]="['/resumedetails',rp.objectID]" target="_blank">{{rp.FirstName}}&nbsp;{{rp.LastName}}</a></h6>
+                            <span class="meta">
+                                <i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;<a href="mailto:{{rp.Email}}?Subject=Selected your resume" target="_top">{{rp.Email}}</a> &nbsp;&nbsp; 
+                                <i class="fa fa-phone" aria-hidden="true"></i>&nbsp;{{rp.CellPhone}}&nbsp;&nbsp;
+                                <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;{{ getDateDiff(rp.LastModifiedDate) }}&nbsp;days ago
+                            </span>
                           </div>
                           <div class="clearfix"> </div>
-                                      <ul class="top-btns">
+                          <!--ul class="top-btns">
                             <li><a href="#" class="fa fa-plus toggle"></a></li>
                             <li><a href="#" class="fa fa-star"></a></li>
                             <li><a href="#" class="fa fa-link"></a></li>
-                          </ul>
+                          </ul-->
                           <p class="description">{{rp.SkillSet}} <!--a [routerLink]="['/jobdetails',pj.id]" class="read-more">Read More</a--></p>
                                   </div>
                         <div class="clearfix"> </div>
                       </div>
-                    </div>
+                    </div> 
 
-                 
+                    <!-- pager -->
+                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                    <li [ngClass]="{disabled:pager.currentPage === 1}">
+                        <a (click)="setPage(1)">&laquo;</a>
+                    </li>
+                    <li [ngClass]="{disabled:pager.currentPage === 1}">
+                        <a (click)="setPage(pager.currentPage - 1)">&#8249;</a>
+                    </li>
+                    <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                        <a (click)="setPage(page)">{{page}}</a>
+                    </li>
+                    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                        <a (click)="setPage(pager.currentPage + 1)">&#8250;</a>
+                    </li>
+                    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                        <a (click)="setPage(pager.totalPages)">&raquo;</a>
+                    </li>
+                </ul>
+                <!--/div-->                
 
 
                     <!--/div-->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
               <!--h3>Today Job</h3>
@@ -163,140 +166,16 @@
           </div-->
 
            <div class="col_3">
-              <h3>Work Experiance</h3>
-                <table class="table">
-                       <tbody>
-                           <tr class="unread checked">
-                               <td class="hidden-xs">
-                                   <input type="checkbox" class="checkbox">
-                               </td>
-                               <td class="hidden-xs">
-                                   Junior
-                               </td>
-                               <td>
-                                   (56)
-                               </td>
-                           </tr>
-                           <tr class="unread checked">
-                               <td class="hidden-xs">
-                                   <input type="checkbox" class="checkbox">
-                               </td>
-                               <td class="hidden-xs">
-                                   Senior
-                               </td>
-                               <td>
-                                   (56)
-                               </td>
-                           </tr>
-                           <tr class="unread checked">
-                               <td class="hidden-xs">
-                                   <input type="checkbox" class="checkbox">
-                               </td>
-                               <td class="hidden-xs">
-                                   Middle
-                               </td>
-                               <td>
-                                   (56)
-                               </td>
-                           </tr>
-                           <tr class="unread checked">
-                               <td class="hidden-xs">
-                                   <input type="checkbox" class="checkbox">
-                               </td>
-                               <td class="hidden-xs">
-                                   Junior
-                               </td>
-                               <td>
-                                   (56)
-                               </td>
-                           </tr>
-                           <tr class="unread checked">
-                               <td class="hidden-xs">
-                                   <input type="checkbox" class="checkbox">
-                               </td>
-                               <td class="hidden-xs">
-                                   Junior
-                               </td>
-                               <td>
-                                   (56)
-                               </td>
-                           </tr>
-                           <tr class="unread checked">
-                               <td class="hidden-xs">
-                                   <input type="checkbox" class="checkbox">
-                               </td>
-                               <td class="hidden-xs">
-                                   Junior
-                               </td>
-                               <td>
-                                   (56)
-                               </td>
-                           </tr>
-                           <tr class="unread checked">
-                               <td class="hidden-xs">
-                                   <input type="checkbox" class="checkbox">
-                               </td>
-                               <td class="hidden-xs">
-                                   Junior
-                               </td>
-                               <td>
-                                   (56)
-                               </td>
-                           </tr>
-                           <tr class="unread checked">
-                               <td class="hidden-xs">
-                                   <input type="checkbox" class="checkbox">
-                               </td>
-                               <td class="hidden-xs">
-                                   Junior
-                               </td>
-                               <td>
-                                   (56)
-                               </td>
-                           </tr>
-                           <tr class="unread checked">
-                               <td class="hidden-xs">
-                                   <input type="checkbox" class="checkbox">
-                               </td>
-                               <td class="hidden-xs">
-                                   Junior
-                               </td>
-                               <td>
-                                   (56)
-                               </td>
-                           </tr>
-                   </tbody>
-                </table>
+                <technews></technews>
            </div>
 
 
-           <div class="col_3">
-              <h3>Work Permit</h3>
-              <table class="table">
-                       <tbody>
-                           <tr class="unread checked">
-                               <td class="hidden-xs">
-                                   <input type="checkbox" class="checkbox">
-                               </td>
-                               <td class="hidden-xs">
-                                   Full time
-                               </td>
-                           </tr>
-                           <tr class="unread checked">
-                               <td class="hidden-xs">
-                                   <input type="checkbox" class="checkbox">
-                               </td>
-                               <td class="hidden-xs">
-                                   Parttime
-                               </td>
-                           </tr>
-                       </tbody>
-                </table>
-            </div>
 
 
       </div>
-
+      <div class="col-md-4">
+            <advertisement></advertisement>
+      </div>
 
       <div class="clearfix"> </div>
       </div>

@@ -3,17 +3,21 @@ import { map, catchError } from 'rxjs/operators';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../authentication/auth.service';
-import { FIREBASE_CONFIG } from 'src/app/global-config';
+import { FIREBASE_CONFIG, SEARCH_CONFIG } from 'src/app/global-config';
 import { UserProfile } from './userprofile.model';
 import { Country } from './country.model';
 import { State } from './state.model';
 import { Http } from '@angular/http';
 import { formatDate } from '@angular/common';
+import * as algoliasearch from 'algoliasearch';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserprofileService {
+export class UserprofileService { 
+
+  client: any;
+  index: any;
 
   selectedUserProfile: UserProfile;
   upCollection: AngularFirestoreCollection <UserProfile>;
@@ -35,23 +39,43 @@ export class UserprofileService {
     this.stateCollection = this.afs.collection(FIREBASE_CONFIG.State);
   }
 
-  addUpdateUserProfile(uprofile :  UserProfile,id: string) {
+  addUpdateUserProfile(uprofile :  UserProfile,id: string,createDate: Date) {
 
-
+    uprofile.LastModifiedDate = new Date();
     if ((id == null) || (id == '')) {
-      uprofile.CreatedDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
+      //uprofile.CreatedDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
+      uprofile.CreatedDate = new Date();
       uprofile.Username = this.auth.userProfile.name;
       uprofile.isSearchable = true;
       //pjobc.JobTitle =
       // console.log ("Create Date ::: "+pjobc.CreatedDate);
       // console.log ("Created By ::: "+pjobc.CreatedBy);
       // console.log("NEW FORM ....Service");
-      this.upCollection.add(uprofile);
+      //this.upCollection.add(uprofile);
+
+      this.upCollection.add(uprofile).then((entry) => {
+
+        console.log("Entry ISSSSS "+entry.id);
+
+        this.AlgoliaObjectUpdate(id,uprofile,entry.id, createDate);
+
+
+      });      
+
+
     } else {
       console.log("UPDATE FORM ...." + id);
       //this.faqDoc = this.afs.doc(`faq/${faqc.id}`);
       this.upDoc = this.afs.doc(`${FIREBASE_CONFIG.UserProfile}/${id}`);
       this.upDoc.update(uprofile);
+
+      this.upDoc.update(uprofile).then((entry) => {
+        //console.log("Entry ISSSSS "+entry.id);
+        this.AlgoliaObjectUpdate(id,uprofile,id, createDate);
+
+
+      });      
+
     }
     //this.AlgoliaUpdate();
   }
@@ -77,7 +101,7 @@ export class UserprofileService {
         // console.log("List Service ..... 6");
         const data = a.payload.doc.data() as UserProfile;
         data.id = a.payload.doc.id;
-        // console.log("List Service 11111 ..... 2");
+        console.log("List Service 11111 ..... 2--->>>>> Data load :: "+data.id);
         return data;
       });
     }));
@@ -124,6 +148,89 @@ export class UserprofileService {
     }));
 
     return this.stateProfilec;
+  }
+
+  AlgoliaObjectUpdate(tranType, uprofile, id, createDate) {
+    console.log("Algolia Update Object..... :::::: "+createDate.seconds);
+    let objects;
+    if ((tranType == null) || (tranType == '')) {
+      objects = [{
+        id: id,
+        objectID: id,
+        FirstName:uprofile.FirstName,
+        LastName:uprofile.LastName,
+        Sex:uprofile.Sex,
+        City:uprofile.City,
+        State:uprofile.State,
+        ZipCode:uprofile.ZipCode,
+        Country:uprofile.Country,
+        Email:uprofile.Email,
+        HomePhone:uprofile.HomePhone,
+        CellPhone:uprofile.CellPhone,        
+        EmploymentType:uprofile.EmploymentType,
+        DesiredPosition:uprofile.DesiredPosition,
+        DesiredSalary:uprofile.DesiredSalary,
+        IsRelocate:uprofile.IsRelocate,
+        IsTravel:uprofile.IsTravel,
+        YearsofExperince:uprofile.YearsofExperince,
+        WorkAuthorization:uprofile.WorkAuthorization,
+        SecurityClearance:uprofile.SecurityClearance,
+        SkillSet:uprofile.SkillSet,
+        Education:uprofile.Education,
+        SalaryExpectation:uprofile.SalaryExpectation,
+        Username:this.auth.userProfile.name,
+        CreatedDate:uprofile.CreatedDate.getTime(),
+        LastModifiedDate:uprofile.LastModifiedDate.getTime(),
+        isSearchable:true,
+
+      }];
+    } else {
+      objects = [{
+        id: id,
+        objectID: id,
+        FirstName:uprofile.FirstName,
+        LastName:uprofile.LastName,
+        Sex:uprofile.Sex,
+        City:uprofile.City,
+        State:uprofile.State,
+        ZipCode:uprofile.ZipCode,
+        Country:uprofile.Country,
+        Email:uprofile.Email,
+        HomePhone:uprofile.HomePhone,
+        CellPhone:uprofile.CellPhone,         
+        EmploymentType:uprofile.EmploymentType,
+        DesiredPosition:uprofile.DesiredPosition,
+        DesiredSalary:uprofile.DesiredSalary,
+        IsRelocate:uprofile.IsRelocate,
+        IsTravel:uprofile.IsTravel,
+        YearsofExperince:uprofile.YearsofExperince,
+        WorkAuthorization:uprofile.WorkAuthorization,
+        SecurityClearance:uprofile.SecurityClearance,
+        SkillSet:uprofile.SkillSet,
+        Education:uprofile.Education,
+        SalaryExpectation:uprofile.SalaryExpectation,
+        Username:this.auth.userProfile.name,
+
+        CreatedDate : createDate.seconds,
+        LastModifiedDate:uprofile.LastModifiedDate.getTime(),
+        isSearchable:true,
+  
+      }];
+    }
+
+
+    this.client = algoliasearch(SEARCH_CONFIG.ALGOLIA_APP_ID, SEARCH_CONFIG.ALGOLIA_API_KEY,
+      { protocol: SEARCH_CONFIG.PROTOCOLS });
+
+      this.index = this.client.initIndex(SEARCH_CONFIG.INDEX_NAME_PROFILE);
+      // pjobc.objectID = id;
+      // console.log("Content ::::::: "+objects);
+
+      this.index.saveObjects(objects, function (err, content) {
+        if (err) throw err;
+        //console.log("Add Content :::::: "+content);
+      });
+
   }
 
 }
