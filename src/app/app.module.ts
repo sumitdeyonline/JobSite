@@ -67,6 +67,8 @@ import { RecruitersSolutionComponent } from './pages/recruiters-solution/recruit
 import { RecruitersFollowingComponent } from './pages/recruiters-following/recruiters-following.component';
 import { ResumeServiceComponent } from './pages/resume-service/resume-service.component';
 import { SalaryPredictorComponent } from './pages/salary-predictor/salary-predictor.component';
+import { ApplyjobComponent } from './pages/jobdetails/applyjob/applyjob.component';
+
 
 
 @NgModule({
@@ -98,9 +100,10 @@ import { SalaryPredictorComponent } from './pages/salary-predictor/salary-predic
     TechNewsDetailsComponent, 
     AdvertisementComponent, 
     ResetpasswordComponent, 
-    DialogComponent, AboutComponent, RecruitersSolutionComponent, RecruitersFollowingComponent, ResumeServiceComponent, SalaryPredictorComponent
+    DialogComponent, AboutComponent, RecruitersSolutionComponent, RecruitersFollowingComponent, ResumeServiceComponent, SalaryPredictorComponent, ApplyjobComponent
   ],
-  entryComponents: [DialogComponent],
+  entryComponents: [DialogComponent, ApplyjobComponent],
+
 
   imports: [
     BrowserModule,

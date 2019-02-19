@@ -1,0 +1,81 @@
+
+<h2 mat-dialog-title>Apply Now</h2>
+
+<!--mat-dialog-content>
+
+<p> Place content here </p>
+</mat-dialog-content-->
+
+
+<!--mat-dialog-content [formGroup]="form">
+  
+  <mat-form-field>
+      <input matInput
+              placeholder="Course Description"
+             formControlName="description">
+  </mat-form-field>
+
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button class="mat-raised-button"(click)="close()">Close</button>
+  <button class="mat-raised-button mat-primary"(click)="save()">Save</button>
+</mat-dialog-actions-->
+
+
+<form #signupForm="ngForm" (ngSubmit)="applyNow(signupForm.value)" >
+    <!--label for="username">User Email:</label> <input type="text" [value]="signup.username"  ngModel name="username" #username="ngModel" id="username" email class="required input_field" required/-->
+    <label for="email">First Name:</label> <input type="text"  id="FirstName" class="required input_field" required/>
+    <!--div style="color: red;" *ngIf="FirstName.errors?.FirstName && FirstName.dirty">
+        Please Enter a valid Email
+    </div--> 
+    <br><br>
+    <label for="email">Last Name:</label> <input type="text"  id="LastName" class="required input_field" required/>
+    <!--div style="color: red;" *ngIf="LastName.errors?.LastName && LastName.dirty">
+        Please Enter a valid Email
+    </div--> 
+    <br><br>
+    <label for="email">Email:</label> <input type="text"  id="email" class="required input_field" required/>
+    <!--div style="color: red;" *ngIf="email.errors?.email && email.dirty">
+        Please Enter a valid Email
+    </div--> 
+    <br><br>
+    <label for="email">CC Email:</label> <input type="text"  id="CCemail" class="required input_field" required/>
+    <!--div style="color: red;" *ngIf="CCemail.errors?.CCemail && CCemail.dirty">
+        Please Enter a valid Email
+    </div-->     
+    <br>
+
+    <div class="form-group">
+      <table>
+        <tr>
+          <td>
+
+            <button class="btn btn-default" type="submit" id="submit" name="submit">
+              <i class="fa fa-floppy-o"></i>&nbsp;Submit
+            </button>
+            &nbsp;&nbsp;
+            <button class="btn btn-default" type="button" id="reset" name="reset" (click)="resetForm(signupForm)">
+                <i class="fa fa-repeat"></i>&nbsp;Reset
+            </button>  
+          </td>                  
+        </tr>
+      </table>
+    </div>          
+  </form>
+
+
+<!--mat-dialog-actions >
+    <button class="mat-raised-button">Yes</button>
+    <button class="mat-raised-button">No</button>
+</mat-dialog-actions-->
+
+<!--mat-dialog-actions *ngIf="!isDeleted">
+    <button class="mat-raised-button" (click)="deleteRecord()">Yes</button>
+    <button class="mat-raised-button" (click)="close()">No</button>
+</mat-dialog-actions>
+
+<mat-dialog-actions *ngIf="isDeleted">
+    <button class="mat-raised-button" (click)="close()">Ok</button>
+</mat-dialog-actions-->
