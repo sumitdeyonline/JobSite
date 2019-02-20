@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { FormBuilder, FormGroup, Validators ,FormsModule,NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-applyjob',
@@ -8,19 +9,32 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 })
 export class ApplyjobComponent implements OnInit {
 
-  constructor(private dialogRef: MatDialogRef<ApplyjobComponent>, 
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+  applyJobForm: FormGroup;
+
+  constructor(private dialogRef: MatDialogRef<ApplyjobComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any, fb: FormBuilder)
+    {
+
+      this.applyJobForm =  fb.group({
+        'FirstName': '',
+        'LastName': '',
+        'Email': '',
+        'PhoneNumber': '',
+      });
+
+    }
 
   ngOnInit() {
-  } 
+  }
 
 
   close() {
     this.dialogRef.close();
   }
 
-  applyNow(){
-    
+  applyNow(form:NgForm){
+    console.log(form);
+    this.close();
   }
 
 }

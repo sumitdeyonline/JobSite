@@ -57,11 +57,11 @@ import { AdvertisementComponent } from './pages/advertisement/advertisement.comp
 import { ResetpasswordComponent } from './pages/login/resetpassword/resetpassword.component';
 import { PagerService } from './services/common/pager.service';
 
-import { MatDialogModule } from '@angular/material';
+import { MatDialogModule, MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
 import { DialogComponent } from './pages/jobdetails/dialog/dialog.component';
 import { NgxEditorModule } from 'ngx-editor';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-import { HttpClientModule, HttpClient }    from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AboutComponent } from './pages/about/about.component';
 import { RecruitersSolutionComponent } from './pages/recruiters-solution/recruiters-solution.component';
 import { RecruitersFollowingComponent } from './pages/recruiters-following/recruiters-following.component';
@@ -83,23 +83,23 @@ import { ApplyjobComponent } from './pages/jobdetails/applyjob/applyjob.componen
     LoginComponent,
     LogComponent,
     MdToHtmlPipe,
-    CallbackComponent, 
-    SignupComponent, 
-    SignupConfirmComponent, 
-    SearchheaderComponent, 
-    PostjobComponent, 
-    ListjobComponent, 
-    JobpoststatusComponent, 
-    JobdetailsComponent, 
-    UserProfileComponent, 
-    UploadresumeComponent, 
-    ResumesearchComponent, 
-    ResumedetailsComponent, 
-    MiddleimageComponent, 
-    TechNewsComponent, 
-    TechNewsDetailsComponent, 
-    AdvertisementComponent, 
-    ResetpasswordComponent, 
+    CallbackComponent,
+    SignupComponent,
+    SignupConfirmComponent,
+    SearchheaderComponent,
+    PostjobComponent,
+    ListjobComponent,
+    JobpoststatusComponent,
+    JobdetailsComponent,
+    UserProfileComponent,
+    UploadresumeComponent,
+    ResumesearchComponent,
+    ResumedetailsComponent,
+    MiddleimageComponent,
+    TechNewsComponent,
+    TechNewsDetailsComponent,
+    AdvertisementComponent,
+    ResetpasswordComponent,
     DialogComponent, AboutComponent, RecruitersSolutionComponent, RecruitersFollowingComponent, ResumeServiceComponent, SalaryPredictorComponent, ApplyjobComponent
   ],
   entryComponents: [DialogComponent, ApplyjobComponent],
@@ -114,6 +114,10 @@ import { ApplyjobComponent } from './pages/jobdetails/applyjob/applyjob.componen
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     MatDialogModule,
+    MatInputModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
     NgxEditorModule,
     AngularFontAwesomeModule,
     HttpClientModule,
