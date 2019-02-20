@@ -31,13 +31,38 @@
           formControlName="PhoneNumber">
     </mat-form-field>
     <!--button mat-raised-button color="accent">Submit</button-->
+    <mat-form-field>
+      <textarea matInput 
+            placeholder="Cover Letter"
+            rows="4"
+          formControlName="CoverLetter">
+      </textarea>
+    </mat-form-field>
 
   </div>
 </form>
-<mat-dialog-actions>
-    <button class="mat-raised-button mat-primary" (click)="applyNow(applyJobForm.value)">Save</button>
+
+Upload Resume :&nbsp;<label class="btn btn-default">  <input type="file" name="fileUpload" (change)="selectFile($event)">
+  
+</label>&nbsp;&nbsp;
+<!--i class="fa fa-upload fa-2x" aria-hidden="true" (click)="upload()"></i-->
+
+<button class="btn btn-success" (click)="upload()">Upload</button>
+
+
+<div class="row">
+  <div class="form-actions floatRight">
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="Apply Job" class="btn btn-primary btn-sm" (click)="applyNow(applyJobForm.value)">
+  </div>&nbsp;&nbsp;&nbsp;&nbsp;
+  <div class="form-actions floatRight">
+    &nbsp;&nbsp;&nbsp;<input type="button" value="Cancel" (click)="close()" class="btn btn-primary btn-sm">
+</div>
+</div>
+
+<!--mat-dialog-actions>
+    <button class="mat-raised-button mat-primary" (click)="applyNow(applyJobForm.value)">Apply Job</button>
     <button class="mat-raised-button" (click)="close()">Close</button>
-</mat-dialog-actions>
+</mat-dialog-actions-->
 <!--button  mat-raised-button color="accent" (click)="close()">Close</button-->
 
 
@@ -47,7 +72,7 @@
 
 
 <!--mat-dialog-actions >
-    <button class="mat-raised-button">Yes</button>
+    <button class="mat-raised-button" [disabled]="!userProfile.valid || !isUpdateProfile">Yes</button>
     <button class="mat-raised-button">No</button>
 </mat-dialog-actions-->
 
