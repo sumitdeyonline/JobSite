@@ -47,16 +47,31 @@ Upload Resume :&nbsp;<label class="btn btn-default">  <input type="file" name="f
 </label>&nbsp;&nbsp;
 <!--i class="fa fa-upload fa-2x" aria-hidden="true" (click)="upload()"></i-->
 
-<button class="btn btn-success" (click)="upload()">Upload</button>
+<button class="btn btn-success" (click)="upload()" [disabled]="!selectedFiles || !filleUploadEnabled">Upload</button>
 
 
 <div class="row">
+    <div class="col">
+      <div *ngIf="currentFileUpload" class="progress">
+          <div class="progress-bar progress-bar-info progress-bar-striped"
+                      role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
+                      aria-valuemin="0" aria-valuemax="100"
+                      [ngStyle]="{width:progress.percentage+'%'}">
+                      {{progress.percentage}}%</div>
+        </div>
+{{this.rUploadService.downloadURLTempResume}}
+        <div style="color: green;" *ngIf="!filleUploadEnabled">
+            Please Upload Resume(.doc, .docx, .pdf, .ppt, .pptx)
+        </div>
+    </div>
+</div>
+<div class="row">
   <div class="form-actions floatRight">
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="Apply Job" class="btn btn-primary btn-sm" (click)="applyNow(applyJobForm.value)">
-  </div>&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="Apply Job" class="btn btn-primary btn-sm" (click)="applyNow(applyJobForm.value)">
+  </div>&nbsp;&nbsp;&nbsp;&nbsp;    
   <div class="form-actions floatRight">
     &nbsp;&nbsp;&nbsp;<input type="button" value="Cancel" (click)="close()" class="btn btn-primary btn-sm">
-</div>
+  </div>
 </div>
 
 <!--mat-dialog-actions>

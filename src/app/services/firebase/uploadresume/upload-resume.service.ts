@@ -36,15 +36,48 @@ export class UploadResumeService {
   uploadResume: Array<UploadResume> = [];
 
   private basePath = FIREBASE_CONFIG.UploadPath; //'/uploads';
+  private tempResumePath = FIREBASE_CONFIG.TempResume; //'/uploads';
   private task: any;
   downloadURL: any;
+  downloadURLTempResume: any;
   fileName: any;
   fUpload: FileUpload;
+  
+
   constructor(private db: AngularFireDatabase, private afs : AngularFirestore, private auth: AuthService) {
     this.urCollection = this.afs.collection(FIREBASE_CONFIG.UploadResume);
   }
 
 
+  pushTempResumeStorage(fileUpload: FileUpload, progress: { percentage: number }) {
+    const storageRef = firebase.storage().ref();
+    this.task =  storageRef.child(`${this.tempResumePath}/${"Resume_"+fileUpload.file.name.replace(".","_")}`).put(fileUpload.file);
+
+    this.task.on(firebase.storage.TaskEvent.STATE_CHANGED,
+      (snapshot) => {
+
+        // in progress
+        const snap = snapshot as firebase.storage.UploadTaskSnapshot;
+        progress.percentage = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
+
+      },
+      (error) => {
+        // fail
+        console.log(error);
+      },
+      () => {
+        this.task.snapshot.ref.getDownloadURL().then(downloadURL => {
+          console.log('File available at', downloadURL);
+          this.downloadURLTempResume = downloadURL;
+          //console.log('File Key::::::::: => ', fileUpload.key);
+          // fileUpload.url = downloadURL;
+          // fileUpload.name = fileUpload.file.name;
+        });
+      }
+    );
+
+
+  }
 
   pushFileToStorage(fileUpload: FileUpload, progress: { percentage: number }, id: string) {
 
@@ -65,6 +98,7 @@ export class UploadResumeService {
       this.task = storageRef.child(`${this.basePath}/${filename}`).put(fileUpload.file);
       //const uploadTask = storageRef.child(`${this.basePath}/${fileUpload.file.name}`).put(fileUpload.file);
 
+      
 
 
 
