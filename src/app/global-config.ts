@@ -58,7 +58,9 @@ export const FIREBASE_CONFIG = {
     TotalFile: '10000000',
     EmployerPostJob: 'EmployerPostJob',
     EmployerResumeSearch: 'EmployerResumeSearch',
-    EmployerPowerUser: 'EmployerPowerUser'
+    EmployerPowerUser: 'EmployerPowerUser',
+    UserRole: 'User',
+    AdminRole: 'Admin',
 }
 
 export const SEARCH_CONFIG = {

@@ -45,7 +45,7 @@ export class UserdetailsService {
   }
 
 
-  addUpdateUserDetails(id: string, uname: string) {
+  addUpdateUserDetails(id: string, uname: string,uRole: string) {
 
     //this.userDetail = new UserDetails[];
     // let udetails : UserDetails{
@@ -59,7 +59,7 @@ export class UserdetailsService {
     if ((id == null) || (id == '')) {
       // const id = this.afs.createId();
       const  cDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
-      const  uRole = "User";
+      //const  uRole = "User";
       const  udeatils: UserDetails = { userName: uname, userRole: uRole, createdDate: cDate };
       console.log(udeatils);
       this.udCollection.add(udeatils);

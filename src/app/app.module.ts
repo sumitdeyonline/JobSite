@@ -68,6 +68,7 @@ import { RecruitersFollowingComponent } from './pages/recruiters-following/recru
 import { ResumeServiceComponent } from './pages/resume-service/resume-service.component';
 import { SalaryPredictorComponent } from './pages/salary-predictor/salary-predictor.component';
 import { ApplyjobComponent } from './pages/jobdetails/applyjob/applyjob.component';
+import { ValueServicesComponent } from './pages/value-services/value-services.component';
 
 
 
@@ -100,7 +101,7 @@ import { ApplyjobComponent } from './pages/jobdetails/applyjob/applyjob.componen
     TechNewsDetailsComponent,
     AdvertisementComponent,
     ResetpasswordComponent,
-    DialogComponent, AboutComponent, RecruitersSolutionComponent, RecruitersFollowingComponent, ResumeServiceComponent, SalaryPredictorComponent, ApplyjobComponent
+    DialogComponent, AboutComponent, RecruitersSolutionComponent, RecruitersFollowingComponent, ResumeServiceComponent, SalaryPredictorComponent, ApplyjobComponent, ValueServicesComponent
   ],
   entryComponents: [DialogComponent, ApplyjobComponent],
 

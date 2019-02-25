@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, NgForm, EmailValidator, FormGroup, FormControl  } from '@angular/forms';
 import { Signup } from '../../services/authentication/signup';
 import { AuthService } from '../../services/authentication/auth.service';
-import { AUTH_CONFIG } from '../../global-config';
+import { AUTH_CONFIG, FIREBASE_CONFIG } from '../../global-config';
 import { UserdetailsService } from 'src/app/services/firebase/userdetails/userdetails.service';
 
 
@@ -45,7 +45,7 @@ export class SignupComponent implements OnInit {
           //alert("User Addred");
           this.signupSucessMessage = model.email+" has been Sucessfully Registered"
           console.log(this.signupSucessMessage);
-          this.udetails.addUpdateUserDetails(null, model.email);
+          this.udetails.addUpdateUserDetails(null, model.email,FIREBASE_CONFIG.UserRole);
           //this.router.navigate(['/signupconfirm']);
           return true;
       },

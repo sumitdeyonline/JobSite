@@ -5,6 +5,7 @@ import { FileUpload } from 'src/app/services/firebase/uploadresume/FileUpload';
 import { UploadResumeService } from 'src/app/services/firebase/uploadresume/upload-resume.service';
 import { FIREBASE_CONFIG } from 'src/app/global-config';
 
+
 @Component({
   selector: 'app-applyjob',
   templateUrl: './applyjob.component.html',
@@ -17,12 +18,14 @@ export class ApplyjobComponent implements OnInit {
   filleUploadEnabled: boolean = false;
   currentFileUpload: FileUpload;
   progress: { percentage: number } = { percentage: 0 };
- 
+  email: any;
+  //email   = require("emailjs/email");
+  
   
   constructor(private dialogRef: MatDialogRef<ApplyjobComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, fb: FormBuilder, private rUploadService: UploadResumeService)
     {
-
+      //this.email   = require("emailjs");
       this.applyJobForm =  fb.group({
         'FirstName': '',
         'LastName': '',
@@ -53,6 +56,25 @@ export class ApplyjobComponent implements OnInit {
 
   applyNow(form:NgForm){
     console.log(form);
+    console.log("Download URL "+this.rUploadService.downloadURLTempResume);
+
+
+    //var email 	= require("./path/to/emailjs/email");
+  //   var server 	= this.email.server.connect({
+  //     user:	"hr@macgain.com", 
+  //     password:"Amitava1", 
+  //     host:	"smtp.ionos.com", 
+  //     port: "465",
+  //     ssl:		true
+  //  });
+  //  server.send({
+  //   text:    "i hope this works", 
+  //   from:    "hr@macgain.com", 
+  //   to:      "sumitdeyonline@gmail.com",
+  //   cc:      "hr@macgain.com",
+  //   subject: "testing emailjs"
+  // }, function(err, message) { console.log(err || message); });
+
     this.close();
   }
 

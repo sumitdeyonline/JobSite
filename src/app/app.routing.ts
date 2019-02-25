@@ -20,6 +20,7 @@ import { RecruitersSolutionComponent } from './pages/recruiters-solution/recruit
 import { RecruitersFollowingComponent } from './pages/recruiters-following/recruiters-following.component';
 import { ResumeServiceComponent } from './pages/resume-service/resume-service.component';
 import { SalaryPredictorComponent } from './pages/salary-predictor/salary-predictor.component';
+import { ValueServicesComponent } from './pages/value-services/value-services.component';
 
 export const routing = RouterModule.forRoot([
 
@@ -117,7 +118,12 @@ export const routing = RouterModule.forRoot([
       {
         path: 'salarypredictor',
         component: SalaryPredictorComponent
-      },            
+      }, 
+      {
+        path: 'valueservices',
+        component: ValueServicesComponent
+      },       
+                 
       {
           path: '',
           component: HomeComponent
