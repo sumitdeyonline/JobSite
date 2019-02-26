@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, NgForm, EmailValidator, FormGroup, FormControl  } from '@angular/forms';
 import { AuthService } from 'src/app/services/authentication/auth.service';
 import { ValueServices } from 'src/app/services/authentication/valueservices';
 import { AUTH_CONFIG, FIREBASE_CONFIG } from 'src/app/global-config';
 import { UserdetailsService } from 'src/app/services/firebase/userdetails/userdetails.service';
+import { UserDetails } from 'src/app/services/firebase/userdetails/UserDetails.model';
 
 @Component({
   selector: 'valueservices',
@@ -13,32 +14,53 @@ import { UserdetailsService } from 'src/app/services/firebase/userdetails/userde
 })
 export class ValueServicesComponent implements OnInit {
 
+  userDetails: UserDetails[];
   valueservicesForm: any;
   valueservices = new ValueServices();
   valueservicesMessage: string='';
   valueservicesSucessMessage: string='';  
   error: any[];
+  email: any = '';
+  postjob: boolean = false;
+  resumesearch: boolean = false;
   
   constructor(private _auth: AuthService, fb: FormBuilder, private udetails: UserdetailsService) { 
-    this.valueservicesForm = fb.group({
-      email: ['', Validators.required,Validators.email],
-      password: ['', Validators.required,Validators.minLength(5)],
-      repassword: ['',Validators.required,Validators.minLength(5)],
-      postjob: [false],
-      resumesearch: [false],
-    })
+
 
     if (this._auth.isAuthenticated()) { 
-      this.valueservicesForm.email = this._auth.userProfile.name;
-      this.valueservices.email = this._auth.userProfile.name;
-      console.log("User Profile ::::: "+this.valueservices.email);
+
+      this.udetails.getUserDetails(this._auth.userProfile.name).subscribe(udtl=> {
+        this.userDetails = udtl;
+        console.log("Role "+this.userDetails[0].userRole);
+        this.email = this._auth.userProfile.name;
+
+        if (this.userDetails[0].userRole == FIREBASE_CONFIG.EmployerPowerUser) {
+          this.postjob = true;
+          this.resumesearch = true;
+          console.log("Power User ::::: ");
+        } else if (this.userDetails[0].userRole == FIREBASE_CONFIG.EmployerPostJob) {
+          this.postjob = true;
+        } else if (this.userDetails[0].userRole == FIREBASE_CONFIG.EmployerResumeSearch) {
+          this.resumesearch = true;
+        }
+      })
+
     }
     // this.valueservicesForm.postjob = false;
     // this.valueservicesForm.resumesearch = false;
+
+
+    this.valueservicesForm = fb.group({
+      email: [this.email, Validators.required,Validators.email],
+      password: ['', Validators.required,Validators.minLength(5)],
+      repassword: ['',Validators.required,Validators.minLength(5)],
+      postjob: [this.postjob],
+      resumesearch: [this.resumesearch],
+    })    
   }
 
   
-  ngOnInit() {
+  ngOnInit() { 
   }
 
   signUpValueServices(model: ValueServices) {
@@ -57,31 +79,38 @@ export class ValueServicesComponent implements OnInit {
     } else {
       valueServiceRole = FIREBASE_CONFIG.EmployerPostJob;
     }
+
+    console.log("Post Job ::::: "+model.postjob);
+    console.log("Resume Search ::::: "+model.resumesearch);
+    console.log("Email ::::: "+model.email);
+    console.log("Password ::::: "+model.password);  
+    console.log("RE-Password ::::: "+model.repassword);       
+
     if (this._auth.isAuthenticated()) {
       model.email = this._auth.userProfile.name;
       console.log("Post Job ::::: "+model.postjob);
       console.log("Resume Search ::::: "+model.resumesearch);
-      // this.udetails.addUpdateUserDetails(null, model.email, valueServiceRole);
+      this.udetails.addUpdateUserDetails(null, model.email, valueServiceRole);
       return true;
     } else {
-      // this._auth.signUp(model).subscribe(
-      //   model => {
-      //       // refresh the list
-      //       //alert("User Addred");
-      //       this.valueservicesSucessMessage = model.email+" has been Sucessfully Registered"
-      //       console.log(this.valueservicesSucessMessage);
-      //       this.udetails.addUpdateUserDetails(null, model.email, valueServiceRole);
-      //       //this.router.navigate(['/signupconfirm']);
-      //       return true;
-      //   },
-      //   error => {
-      //     this.error = error;
-      //     console.log("Message 2 "+error);
-      //     //console.log("Message 1 "+error[1].name);
-      //     //console.log("Message 2 "+error.description);
-      //     //this.signupMessage = error; //   "This user already exists."
-      //     this.valueservicesSucessMessage = "User already exists or password not satisfy minimum requrements"; //   "This user already exists."
-      //   });
+      this._auth.signUp(model).subscribe(
+        model => {
+            // refresh the list
+            //alert("User Addred");
+            this.valueservicesSucessMessage = model.email+" has been Sucessfully Registered"
+            console.log(this.valueservicesSucessMessage);
+            this.udetails.addUpdateUserDetails(null, model.email, valueServiceRole);
+            //this.router.navigate(['/signupconfirm']);
+            return true;
+        },
+        error => {
+          this.error = error;
+          console.log("Message 2 "+error);
+          //console.log("Message 1 "+error[1].name);
+          //console.log("Message 2 "+error.description);
+          //this.signupMessage = error; //   "This user already exists."
+          this.valueservicesSucessMessage = "User already exists or password not satisfy minimum requrements"; //   "This user already exists."
+        });
     }
 
 
@@ -96,6 +125,20 @@ export class ValueServicesComponent implements OnInit {
       //     //return Observable.throw(error);
       // });
     }
+
+
+    resetForm(valueservicesForm? : NgForm) {
+      //this.signupError='';
+      if (valueservicesForm !=null)
+      valueservicesForm.reset();
+      this.valueservicesMessage ='';
+      this.valueservicesSucessMessage ='';
+      //console.log("User Name "+SignupComponent.username+" Password "+SignupComponent.password+" Re Pass : "+SignupComponent.repassword);
+      // SignupComponent.username='';
+      // SignupComponent.password='';
+      // SignupComponent.repassword='';
+      // this.signup = new SignUp();
+    }    
 
     Fieldlength(fieldValue: string): number {
       //console.log("FIELD LENGTH .."+fieldValue);

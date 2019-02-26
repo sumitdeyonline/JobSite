@@ -88,8 +88,8 @@ export class UserdetailsService {
 
 
     this.udCollection = this.afs.collection(FIREBASE_CONFIG.UserDetails, ref =>
-          ref.where('Username','==',user));
-          // console.log("List Service ..... 4");
+          ref.where('userName','==',user));
+           //console.log("List Service ..... 4");
     this.userDetailc = this.udCollection.snapshotChanges().pipe(map(changes => {
       // console.log("List Service ..... 5");
       return changes.map(a => {
