@@ -74,7 +74,7 @@
                     <!--div class="cleaner_h10"></div-->
                     <!--input type="submit" value=" SignUp" id="submit" name="submit" class="submit_btn float_l" /-->
                   </div>
-                  <label for="postjob">Post Job Service</label> <input type="checkbox" [value]="valueservicesForm.postjob" (focus)="onFocus($event)"  ngModel name="postjob" #postjob="ngModel" id="postjob" postjob>
+                  <label for="postjob">Post Job Service</label> <input type="checkbox" [value]="valueservicesForm.postjob" (focus)="onFocus($event)" [ngModel]="valueservicesForm.postjob" ngModel name="postjob" #postjob="ngModel" id="postjob" postjob>
                   <label for="resumesearch">Resume Search Service</label> <input type="checkbox" ng-checked="valueservicesForm.resumesearch" [value]="valueservicesForm.resumesearch" (focus)="onFocus($event)"  ngModel name="resumesearch" #resumesearch="ngModel" id="resumesearch" resumesearch>
 
                   <div class="form-group">

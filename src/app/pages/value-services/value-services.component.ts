@@ -26,7 +26,13 @@ export class ValueServicesComponent implements OnInit {
   
   constructor(private _auth: AuthService, fb: FormBuilder, private udetails: UserdetailsService) { 
 
-
+    this.valueservicesForm = fb.group({
+      email: ['', Validators.required,Validators.email],
+      password: ['', Validators.required,Validators.minLength(5)],
+      repassword: ['',Validators.required,Validators.minLength(5)],
+      postjob: [false],
+      resumesearch: [false]
+    });
     if (this._auth.isAuthenticated()) { 
 
       this.udetails.getUserDetails(this._auth.userProfile.name).subscribe(udtl=> {
@@ -37,26 +43,34 @@ export class ValueServicesComponent implements OnInit {
         if (this.userDetails[0].userRole == FIREBASE_CONFIG.EmployerPowerUser) {
           this.postjob = true;
           this.resumesearch = true;
-          console.log("Power User ::::: ");
+
+          console.log("Post Job :::::111 -> "+this.postjob);
+          console.log("Resume Search :::::111 -> "+this.resumesearch);          
+
         } else if (this.userDetails[0].userRole == FIREBASE_CONFIG.EmployerPostJob) {
           this.postjob = true;
         } else if (this.userDetails[0].userRole == FIREBASE_CONFIG.EmployerResumeSearch) {
           this.resumesearch = true;
         }
+        // this.valueservicesForm = fb.group({
+        //   email: [this.email, Validators.required,Validators.email],
+        //   password: ['', Validators.required,Validators.minLength(5)],
+        //   repassword: ['',Validators.required,Validators.minLength(5)],
+        //   postjob: [this.postjob],
+        //   resumesearch: [this.resumesearch]
+        // })  
+
       })
+
+    } else {
+
+       
 
     }
     // this.valueservicesForm.postjob = false;
     // this.valueservicesForm.resumesearch = false;
 
 
-    this.valueservicesForm = fb.group({
-      email: [this.email, Validators.required,Validators.email],
-      password: ['', Validators.required,Validators.minLength(5)],
-      repassword: ['',Validators.required,Validators.minLength(5)],
-      postjob: [this.postjob],
-      resumesearch: [this.resumesearch],
-    })    
   }
 
   
