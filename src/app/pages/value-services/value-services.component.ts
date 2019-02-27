@@ -18,13 +18,13 @@ export class ValueServicesComponent implements OnInit {
   valueservicesForm: any;
   valueservices = new ValueServices();
   valueservicesMessage: string='';
-  valueservicesSucessMessage: string='';  
+  valueservicesSucessMessage: string='';
   error: any[];
   email: any = '';
   postjob: boolean = false;
   resumesearch: boolean = false;
-  
-  constructor(private _auth: AuthService, fb: FormBuilder, private udetails: UserdetailsService) { 
+
+  constructor(private _auth: AuthService, fb: FormBuilder, private udetails: UserdetailsService) {
 
     this.valueservicesForm = fb.group({
       email: ['', Validators.required,Validators.email],
@@ -33,38 +33,46 @@ export class ValueServicesComponent implements OnInit {
       postjob: [false],
       resumesearch: [false]
     });
-    if (this._auth.isAuthenticated()) { 
+    if (this._auth.isAuthenticated()) {
 
       this.udetails.getUserDetails(this._auth.userProfile.name).subscribe(udtl=> {
         this.userDetails = udtl;
-        console.log("Role "+this.userDetails[0].userRole);
-        this.email = this._auth.userProfile.name;
+        console.log(" Length :::: "+this.userDetails.length);
+        if (this.userDetails.length > 0) {
+          console.log("Role "+this.userDetails[0].userRole+" Length :::: "+this.userDetails.length);
+          //this.email = this._auth.userProfile.name;
 
-        if (this.userDetails[0].userRole == FIREBASE_CONFIG.EmployerPowerUser) {
-          this.postjob = true;
-          this.resumesearch = true;
+          if (this.userDetails[0].userRole == FIREBASE_CONFIG.EmployerPowerUser) {
+            this.postjob = true;
+            this.resumesearch = true;
 
-          console.log("Post Job :::::111 -> "+this.postjob);
-          console.log("Resume Search :::::111 -> "+this.resumesearch);          
+            console.log("Post Job :::::111 -> "+this.postjob);
+            console.log("Resume Search :::::111 -> "+this.resumesearch);
 
-        } else if (this.userDetails[0].userRole == FIREBASE_CONFIG.EmployerPostJob) {
-          this.postjob = true;
-        } else if (this.userDetails[0].userRole == FIREBASE_CONFIG.EmployerResumeSearch) {
-          this.resumesearch = true;
+          } else if (this.userDetails[0].userRole == FIREBASE_CONFIG.EmployerPostJob) {
+            this.postjob = true;
+          } else if (this.userDetails[0].userRole == FIREBASE_CONFIG.EmployerResumeSearch) {
+            this.resumesearch = true;
+          }
+        } else {
+
         }
+
+
+       // this.udetails.selectedValueServices.email = udtl.
         // this.valueservicesForm = fb.group({
         //   email: [this.email, Validators.required,Validators.email],
         //   password: ['', Validators.required,Validators.minLength(5)],
         //   repassword: ['',Validators.required,Validators.minLength(5)],
         //   postjob: [this.postjob],
         //   resumesearch: [this.resumesearch]
-        // })  
+        // })
 
       })
 
     } else {
 
-       
+      this.resetForm();
 
     }
     // this.valueservicesForm.postjob = false;
@@ -73,8 +81,8 @@ export class ValueServicesComponent implements OnInit {
 
   }
 
-  
-  ngOnInit() { 
+
+  ngOnInit() {
   }
 
   signUpValueServices(model: ValueServices) {
@@ -97,8 +105,8 @@ export class ValueServicesComponent implements OnInit {
     console.log("Post Job ::::: "+model.postjob);
     console.log("Resume Search ::::: "+model.resumesearch);
     console.log("Email ::::: "+model.email);
-    console.log("Password ::::: "+model.password);  
-    console.log("RE-Password ::::: "+model.repassword);       
+    console.log("Password ::::: "+model.password);
+    console.log("RE-Password ::::: "+model.repassword);
 
     if (this._auth.isAuthenticated()) {
       model.email = this._auth.userProfile.name;
@@ -147,12 +155,16 @@ export class ValueServicesComponent implements OnInit {
       valueservicesForm.reset();
       this.valueservicesMessage ='';
       this.valueservicesSucessMessage ='';
+
+      this.udetails.selectedValueServices ={
+
+      }
       //console.log("User Name "+SignupComponent.username+" Password "+SignupComponent.password+" Re Pass : "+SignupComponent.repassword);
       // SignupComponent.username='';
       // SignupComponent.password='';
       // SignupComponent.repassword='';
       // this.signup = new SignUp();
-    }    
+    }
 
     Fieldlength(fieldValue: string): number {
       //console.log("FIELD LENGTH .."+fieldValue);

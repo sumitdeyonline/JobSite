@@ -18,11 +18,13 @@ import { Http } from '@angular/http';
 
 import { FIREBASE_CONFIG } from 'src/app/global-config';
 import { AuthService } from '../../authentication/auth.service';
+import { ValueServices } from '../../authentication/valueservices';
 @Injectable({
   providedIn: 'root'
 })
 export class UserdetailsService {
 
+  selectedValueServices: ValueServices;
   selectedUserDetails: UserDetails;
   udCollection: AngularFirestoreCollection<UserDetails>;
   userDetailc: Observable<UserDetails[]>;
@@ -103,6 +105,6 @@ export class UserdetailsService {
 
     return this.userDetailc;
   }
-  
+
 
 }
