@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { FormBuilder, Validators, NgForm, EmailValidator, FormGroup, FormControl  } from '@angular/forms';
 import { AuthService } from 'src/app/services/authentication/auth.service';
-import { ValueServices } from 'src/app/services/authentication/valueservices';
+import { ValueServices } from 'src/app/services/authentication/valueservices.model';
 import { AUTH_CONFIG, FIREBASE_CONFIG } from 'src/app/global-config';
 import { UserdetailsService } from 'src/app/services/firebase/userdetails/userdetails.service';
 import { UserDetails } from 'src/app/services/firebase/userdetails/UserDetails.model';
@@ -16,7 +16,7 @@ export class ValueServicesComponent implements OnInit {
 
   userDetails: UserDetails[];
   valueservicesForm: any;
-  valueservices = new ValueServices();
+  //valueservices = new ValueServices();
   valueservicesMessage: string='';
   valueservicesSucessMessage: string='';
   error: any[];
@@ -26,18 +26,20 @@ export class ValueServicesComponent implements OnInit {
 
   constructor(private _auth: AuthService, fb: FormBuilder, private udetails: UserdetailsService) {
 
-    this.valueservicesForm = fb.group({
-      email: ['', Validators.required,Validators.email],
-      password: ['', Validators.required,Validators.minLength(5)],
-      repassword: ['',Validators.required,Validators.minLength(5)],
-      postjob: [false],
-      resumesearch: [false]
-    });
+    // this.valueservicesForm = fb.group({
+    //   email: ['', Validators.required,Validators.email],
+    //   password: ['', Validators.required,Validators.minLength(5)],
+    //   repassword: ['',Validators.required,Validators.minLength(5)],
+    //   postjob: [false],
+    //   resumesearch: [false]
+    // });
+
     if (this._auth.isAuthenticated()) {
 
       this.udetails.getUserDetails(this._auth.userProfile.name).subscribe(udtl=> {
         this.userDetails = udtl;
         console.log(" Length :::: "+this.userDetails.length);
+        this.resetForm();
         if (this.userDetails.length > 0) {
           console.log("Role "+this.userDetails[0].userRole+" Length :::: "+this.userDetails.length);
           //this.email = this._auth.userProfile.name;
@@ -53,7 +55,19 @@ export class ValueServicesComponent implements OnInit {
             this.postjob = true;
           } else if (this.userDetails[0].userRole == FIREBASE_CONFIG.EmployerResumeSearch) {
             this.resumesearch = true;
-          }
+          } else if (this.userDetails[0].userRole == FIREBASE_CONFIG.AdminRole) {
+            this.postjob = true;
+            this.resumesearch = true;
+          }   
+           
+          this.udetails.selectedValueServices = {}
+
+          this.udetails.selectedValueServices.email = this.udetails[0].email;
+          this.udetails.selectedValueServices.postjob = this.udetails[0].postjob;
+          this.udetails.selectedValueServices.resumesearch = this.udetails[0].resumesearch;
+          this.udetails.selectedValueServices.password = '';
+          this.udetails.selectedValueServices.repassword = '';
+
         } else {
 
         }
@@ -72,7 +86,7 @@ export class ValueServicesComponent implements OnInit {
 
     } else {
 
-      this.resetForm();
+
 
     }
     // this.valueservicesForm.postjob = false;
@@ -156,9 +170,15 @@ export class ValueServicesComponent implements OnInit {
       this.valueservicesMessage ='';
       this.valueservicesSucessMessage ='';
 
-      this.udetails.selectedValueServices ={
-
+      this.udetails.selectedValueServices = {
+        email: ''
+        //id: '',
+        // question: '',
+        // answer: '',
+        // category: '',
+        // details: ''
       }
+
       //console.log("User Name "+SignupComponent.username+" Password "+SignupComponent.password+" Re Pass : "+SignupComponent.repassword);
       // SignupComponent.username='';
       // SignupComponent.password='';

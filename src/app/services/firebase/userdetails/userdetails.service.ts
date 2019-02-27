@@ -18,7 +18,7 @@ import { Http } from '@angular/http';
 
 import { FIREBASE_CONFIG } from 'src/app/global-config';
 import { AuthService } from '../../authentication/auth.service';
-import { ValueServices } from '../../authentication/valueservices';
+import { ValueServices } from '../../authentication/valueservices.model';
 @Injectable({
   providedIn: 'root'
 })

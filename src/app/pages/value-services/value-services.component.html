@@ -19,10 +19,12 @@
                 <form #valueservicesForm="ngForm" (ngSubmit)="signUpValueServices(valueservicesForm.value)">
                   <div *ngIf ="!_auth.isAuthenticated()">
                     <!--label for="username">User Email:</label> <input type="text" [value]="signup.username"  ngModel name="username" #username="ngModel" id="username" email class="required input_field" required/-->
-                    <label for="email">User Email</label> <input type="text" [value]="valueservicesForm.email" (focus)="onFocus($event)" [disabled]="_auth.isAuthenticated()"  ngModel name="email" #email="ngModel" id="email" email class="required input_field" required/>
-                    <div style="color: red;" *ngIf="email.errors?.email && email.dirty">
-                        Please Enter a valid Email
+                    <label for="email">User Email</label><input type="text" ngModel name="email" #email="ngModel" id="email" [ngModel]="udetails.selectedValueServices?.email" (ngModelChange)="udetails.selectedValueServices.email" class="form-control input-sm" required/>
+
+                    <div style="color: red;"*ngIf="email.invalid && (email.dirty  || email.touched)">
+                      Please enter the valid Email
                     </div>
+
                     <!--div *ngIf="email.invalid && (email.dirty || email.touched)"
                     class="alert alert-danger">
                       <div *ngIf="email.errors.required">
@@ -37,7 +39,7 @@
                     </div-->
 
 
-                    <label for="password">Password:</label> <input type="password" [value]="valueservicesForm.password" [disabled]="_auth.isAuthenticated()" ngModel name="password" #password="ngModel" id="password" class="required input_field" required/>
+                    <label for="password">Password:</label> <input type="password" [disabled]="_auth.isAuthenticated()" ngModel name="password" #password="ngModel" id="password" [ngModel]="udetails.selectedValueServices?.password" (ngModelChange)="udetails.selectedValueServices.password" class="form-control input-sm" required/>
                     <div style="color: red;" *ngIf="Fieldlength(password.value) < 5 && password.touched">
                       Password must be at least 5 characters long.
                     </div>
@@ -53,7 +55,7 @@
                     <div style="color: red;" *ngIf="password.value!=repassword.value">
                       Re-enter the same password
                     </div>
-                    <label for="repassword">Re Enter Password:</label> <input type="password" [value]="valueservicesForm.repassword" [disabled]="_auth.isAuthenticated()" ngModel name="repassword" #repassword="ngModel" id="repassword" class="required input_field" required/>
+                    <label for="repassword">Re Enter Password:</label> <input type="password" [disabled]="_auth.isAuthenticated()" ngModel name="repassword" #repassword="ngModel" id="repassword" [ngModel]="udetails.selectedValueServices?.repassword" (ngModelChange)="udetails.selectedValueServices.repassword" class="form-control input-sm" required/>
 
                     <div style="color: red;" *ngIf="Fieldlength(repassword.value) < 5 && repassword.touched">
                       Password must be at least 5 characters long.
@@ -74,8 +76,8 @@
                     <!--div class="cleaner_h10"></div-->
                     <!--input type="submit" value=" SignUp" id="submit" name="submit" class="submit_btn float_l" /-->
                   </div>
-                  <label for="postjob">Post Job Service</label> <input type="checkbox" [value]="valueservicesForm.postjob" (focus)="onFocus($event)" [ngModel]="valueservicesForm.postjob" ngModel name="postjob" #postjob="ngModel" id="postjob" postjob>
-                  <label for="resumesearch">Resume Search Service</label> <input type="checkbox" ng-checked="valueservicesForm.resumesearch" [value]="valueservicesForm.resumesearch" (focus)="onFocus($event)"  ngModel name="resumesearch" #resumesearch="ngModel" id="resumesearch" resumesearch>
+                  <label for="postjob">Post Job Service</label> <input type="checkbox" ngModel name="postjob" #postjob="ngModel" id="postjob" [ngModel]="udetails.selectedValueServices?.postjob" (ngModelChange)="udetails.selectedValueServices.postjob" checked data-toggle="toggle" data-onstyle="primary">
+                  <label for="resumesearch">Post Job Service</label> <input type="checkbox" ngModel name="resumesearch" #resumesearch="ngModel" id="resumesearch" [ngModel]="udetails.selectedValueServices?.resumesearch" (ngModelChange)="udetails.selectedValueServices.resumesearch" checked data-toggle="toggle" data-onstyle="primary">
 
                   <div class="form-group">
                     <table>
