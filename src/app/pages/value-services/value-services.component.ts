@@ -6,6 +6,8 @@ import { ValueServices } from 'src/app/services/authentication/valueservices.mod
 import { AUTH_CONFIG, FIREBASE_CONFIG } from 'src/app/global-config';
 import { UserdetailsService } from 'src/app/services/firebase/userdetails/userdetails.service';
 import { UserDetails } from 'src/app/services/firebase/userdetails/UserDetails.model';
+import { UserprofileService } from 'src/app/services/firebase/userprofile/userprofile.service';
+import { UserRole } from 'src/app/services/firebase/userprofile/userrole.model';
 
 @Component({
   selector: 'valueservices',
@@ -15,6 +17,7 @@ import { UserDetails } from 'src/app/services/firebase/userdetails/UserDetails.m
 export class ValueServicesComponent implements OnInit {
 
   userDetails: UserDetails[];
+  ValueServices: ValueServices[];
   valueservicesForm: any;
   //valueservices = new ValueServices();
   valueservicesMessage: string='';
@@ -23,8 +26,10 @@ export class ValueServicesComponent implements OnInit {
   email: any = '';
   postjob: boolean = false;
   resumesearch: boolean = false;
+  UserRole: UserRole[];
+  userActualRole: string;
 
-  constructor(private _auth: AuthService, fb: FormBuilder, private udetails: UserdetailsService) {
+  constructor(private _auth: AuthService, fb: FormBuilder, private udetails: UserdetailsService, private uProfile: UserprofileService) {
 
     // this.valueservicesForm = fb.group({
     //   email: ['', Validators.required,Validators.email],
@@ -39,11 +44,29 @@ export class ValueServicesComponent implements OnInit {
       this.udetails.getUserDetails(this._auth.userProfile.name).subscribe(udtl=> {
         this.userDetails = udtl;
         console.log(" Length :::: "+this.userDetails.length);
+        this.userActualRole = this.userDetails[0].userRole;
         this.resetForm();
         if (this.userDetails.length > 0) {
           console.log("Role "+this.userDetails[0].userRole+" Length :::: "+this.userDetails.length);
           //this.email = this._auth.userProfile.name;
 
+
+          this.uProfile.getUserRoleDetails().subscribe(urole => {
+            this.UserRole = urole;
+            console.log("User Role :::::::: => "+this.UserRole.length);
+            for(let i=0;i<this.UserRole.length;i++) {
+              if (this.userDetails[0].userRole == this.UserRole[i].RoleName)
+              {
+                
+              }
+              console.log("RoleName :: "+this.UserRole[i].RoleName);
+              console.log("RoleDetails :: "+this.UserRole[i].RoleDetails);
+              console.log("Role Type :: "+this.UserRole[i].RoleType);
+
+            }
+          })          
+
+          
           if (this.userDetails[0].userRole == FIREBASE_CONFIG.EmployerPowerUser) {
             this.postjob = true;
             this.resumesearch = true;
@@ -62,9 +85,9 @@ export class ValueServicesComponent implements OnInit {
            
           this.udetails.selectedValueServices = {}
 
-          this.udetails.selectedValueServices.email = this.udetails[0].email;
-          this.udetails.selectedValueServices.postjob = this.udetails[0].postjob;
-          this.udetails.selectedValueServices.resumesearch = this.udetails[0].resumesearch;
+          this.udetails.selectedValueServices.email = this.userDetails[0].userName;
+          this.udetails.selectedValueServices.userRole = this.userDetails[0].userRole;
+          this.udetails.selectedValueServices.resumesearch = this.resumesearch;
           this.udetails.selectedValueServices.password = '';
           this.udetails.selectedValueServices.repassword = '';
 
@@ -100,6 +123,7 @@ export class ValueServicesComponent implements OnInit {
   }
 
   signUpValueServices(model: ValueServices) {
+    console.log("Value Radio Burron :::: "+model.userRole);
     this.valueservicesMessage = '';
     model.client_id = AUTH_CONFIG.clientID;
     model.connection = AUTH_CONFIG.connection;
@@ -126,7 +150,7 @@ export class ValueServicesComponent implements OnInit {
       model.email = this._auth.userProfile.name;
       console.log("Post Job ::::: "+model.postjob);
       console.log("Resume Search ::::: "+model.resumesearch);
-      this.udetails.addUpdateUserDetails(null, model.email, valueServiceRole);
+      //this.udetails.addUpdateUserDetails(null, model.email, valueServiceRole);
       return true;
     } else {
       this._auth.signUp(model).subscribe(

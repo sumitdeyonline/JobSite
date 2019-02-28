@@ -7,7 +7,7 @@
         <div class="row">
          <div class="col-md-4">
              <div class="col_3">
-               <h3>Signup</h3>
+               <h3>Get Access</h3>
 
 
                <signup-confirm [signupSucessMessage] = "valueservicesSucessMessage"></signup-confirm>
@@ -19,7 +19,15 @@
                 <form #valueservicesForm="ngForm" (ngSubmit)="signUpValueServices(valueservicesForm.value)">
                   <div *ngIf ="!_auth.isAuthenticated()">
                     <!--label for="username">User Email:</label> <input type="text" [value]="signup.username"  ngModel name="username" #username="ngModel" id="username" email class="required input_field" required/-->
-                    <label for="email">User Email</label><input type="text" ngModel name="email" #email="ngModel" id="email" [ngModel]="udetails.selectedValueServices?.email" (ngModelChange)="udetails.selectedValueServices.email" class="form-control input-sm" required/>
+                    <label for="email">User Email</label>
+                    <input type="text" 
+                    ngModel name="email" 
+                    #email="ngModel" 
+                    id="email" 
+                    [ngModel]="udetails.selectedValueServices?.email"
+                    (ngModelChange)="udetails.selectedValueServices.email" 
+                    class="form-control input-sm" required/>
+
 
                     <div style="color: red;"*ngIf="email.invalid && (email.dirty  || email.touched)">
                       Please enter the valid Email
@@ -76,8 +84,15 @@
                     <!--div class="cleaner_h10"></div-->
                     <!--input type="submit" value=" SignUp" id="submit" name="submit" class="submit_btn float_l" /-->
                   </div>
-                  <label for="postjob">Post Job Service</label> <input type="checkbox" ngModel name="postjob" #postjob="ngModel" id="postjob" [ngModel]="udetails.selectedValueServices?.postjob" (ngModelChange)="udetails.selectedValueServices.postjob" checked data-toggle="toggle" data-onstyle="primary">
-                  <label for="resumesearch">Post Job Service</label> <input type="checkbox" ngModel name="resumesearch" #resumesearch="ngModel" id="resumesearch" [ngModel]="udetails.selectedValueServices?.resumesearch" (ngModelChange)="udetails.selectedValueServices.resumesearch" checked data-toggle="toggle" data-onstyle="primary">
+                  <!--label for="postjob">Post Job Service</label> <input type="checkbox" ngModel name="postjob" #postjob="ngModel" id="postjob" [ngModel]="udetails.selectedValueServices?.postjob" (ngModelChange)="udetails.selectedValueServices.postjob" checked data-toggle="toggle" data-onstyle="primary">
+                  <label for="resumesearch">Post Job Service</label> <input type="checkbox" ngModel name="resumesearch" #resumesearch="ngModel" id="resumesearch" [ngModel]="udetails.selectedValueServices?.resumesearch" (ngModelChange)="udetails.selectedValueServices.resumesearch" checked data-toggle="toggle" data-onstyle="primary"-->
+
+                  <label *ngFor="let ur of UserRole">
+                      
+                      <p *ngIf="ur.RoleName===userActualRole"><input type="radio" [checked]='ur.RoleName===userActualRole' [disabled]="true" name="userRole" value="{{ur.RoleName}}">&nbsp;&nbsp;{{ur.RoleDetails}}</p>
+                      <p *ngIf="ur.RoleName!==userActualRole"><input type="radio" ngModel name="userRole" value="{{ur.RoleName}}">&nbsp;&nbsp;{{ur.RoleDetails}}</p>
+
+                  </label>
 
                   <div class="form-group">
                     <table>

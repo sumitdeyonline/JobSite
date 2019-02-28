@@ -10,6 +10,7 @@ import { State } from './state.model';
 import { Http } from '@angular/http';
 import { formatDate } from '@angular/common';
 import * as algoliasearch from 'algoliasearch';
+import { UserRole } from './userrole.model';
 
 @Injectable({
   providedIn: 'root'
@@ -31,12 +32,16 @@ export class UserprofileService {
   stateCollection: AngularFirestoreCollection <State>;
   stateProfilec: Observable<State[]>;
 
+  userRoleCollection: AngularFirestoreCollection <UserRole>;
+  userRoleProfilec: Observable<UserRole[]>;
+
   userProfile = [];
 
   constructor(private afs : AngularFirestore, private auth: AuthService, private http: Http) {
     this.upCollection = this.afs.collection(FIREBASE_CONFIG.UserProfile);
     this.countryCollection = this.afs.collection(FIREBASE_CONFIG.Country);
     this.stateCollection = this.afs.collection(FIREBASE_CONFIG.State);
+    this.userRoleCollection = this.afs.collection(FIREBASE_CONFIG.UserRoles);
   }
 
   addUpdateUserProfile(uprofile :  UserProfile,id: string,createDate: Date) {
@@ -131,8 +136,6 @@ export class UserprofileService {
 
   getStateDetails(country) {
     console.log("Country Name "+country);
-
-
     this.stateCollection = this.afs.collection(FIREBASE_CONFIG.State, ref =>
           ref.where('CountryName','==',country));
           // console.log("List Service ..... 4");
@@ -149,6 +152,26 @@ export class UserprofileService {
 
     return this.stateProfilec;
   }
+
+
+  getUserRoleDetails() {
+    this.userRoleCollection = this.afs.collection(FIREBASE_CONFIG.UserRoles, ref =>
+          ref.where('RoleType','==','P').orderBy('OrderBy', 'asc'));
+          // console.log("List Service ..... 4");
+    this.userRoleProfilec = this.userRoleCollection.snapshotChanges().pipe(map(changes => {
+      // console.log("List Service ..... 5");
+      return changes.map(a => {
+        // console.log("List Service ..... 6");
+        const data = a.payload.doc.data() as UserRole;
+        data.id = a.payload.doc.id;
+        // console.log("List Service 11111 ..... 2");
+        return data;
+      });
+    }));
+
+    return this.userRoleProfilec;
+  }  
+
 
   AlgoliaObjectUpdate(tranType, uprofile, id, createDate) {
     console.log("Algolia Update Object..... :::::: "+createDate.seconds);

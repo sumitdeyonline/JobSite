@@ -7,5 +7,6 @@ export interface ValueServices {
     connection?: string;
     response_type?: string;
     postjob?: boolean;
+    userRole?: string;
     resumesearch?: boolean;  
 }
