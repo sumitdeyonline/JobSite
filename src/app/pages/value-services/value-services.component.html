@@ -89,7 +89,7 @@
 
                   <label *ngFor="let ur of UserRole">
                       
-                      <p *ngIf="ur.RoleName===userActualRole"><input type="radio" [checked]='ur.RoleName===userActualRole' [disabled]="true" name="userRole" value="{{ur.RoleName}}">&nbsp;&nbsp;{{ur.RoleDetails}}</p>
+                      <p *ngIf="ur.RoleName===userActualRole" style="color: green;"><input type="radio" [checked]='ur.RoleName===userActualRole' [disabled]="true" name="userRole" value="{{ur.RoleName}}">&nbsp;&nbsp;{{ur.RoleDetails}}</p>
                       <p *ngIf="ur.RoleName!==userActualRole"><input type="radio" ngModel name="userRole" value="{{ur.RoleName}}">&nbsp;&nbsp;{{ur.RoleDetails}}</p>
 
                   </label>

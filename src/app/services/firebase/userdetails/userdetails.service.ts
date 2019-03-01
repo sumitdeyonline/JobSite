@@ -57,12 +57,13 @@ export class UserdetailsService {
     // };
     console.log("User Name ::::: "+uname);
 
-
+    const  cDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
+    const  udeatils: UserDetails = { userName: uname, userRole: uRole, createdDate: cDate };
     if ((id == null) || (id == '')) {
       // const id = this.afs.createId();
-      const  cDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
+      
       //const  uRole = "User";
-      const  udeatils: UserDetails = { userName: uname, userRole: uRole, createdDate: cDate };
+      
       console.log(udeatils);
       this.udCollection.add(udeatils);
       // this.adUserDetails( uname);
@@ -79,8 +80,8 @@ export class UserdetailsService {
     } else {
       console.log("UPDATE FORM ...." + id);
       // //this.faqDoc = this.afs.doc(`faq/${faqc.id}`);
-      // this.udDoc = this.afs.doc(`${FIREBASE_CONFIG.PostJob}/${id}`);
-      // this.udDoc.update(uDetails);
+      this.udDoc = this.afs.doc(`${FIREBASE_CONFIG.UserDetails}/${id}`);
+      this.udDoc.update(udeatils);
     }
 
   }
