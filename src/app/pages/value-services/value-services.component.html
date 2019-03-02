@@ -29,7 +29,7 @@
                     class="form-control input-sm" required/>
 
 
-                    <div style="color: red;"*ngIf="email.invalid && (email.dirty  || email.touched)">
+                    <div style="color: red;"*ngIf="email.invalid && email.errors?.email && (email.dirty  || email.touched)">
                       Please enter the valid Email
                     </div>
 
@@ -60,15 +60,15 @@
                         Password must be at least 5 characters long.
                       </div>
                     </div-->
-                    <div style="color: red;" *ngIf="password.value!=repassword.value">
-                      Re-enter the same password
-                    </div>
+
                     <label for="repassword">Re Enter Password:</label> <input type="password" [disabled]="_auth.isAuthenticated()" ngModel name="repassword" #repassword="ngModel" id="repassword" [ngModel]="udetails.selectedValueServices?.repassword" (ngModelChange)="udetails.selectedValueServices.repassword" class="form-control input-sm" required/>
 
                     <div style="color: red;" *ngIf="Fieldlength(repassword.value) < 5 && repassword.touched">
                       Password must be at least 5 characters long.
                     </div>
-
+                    <div style="color: red;" *ngIf="password.value!=repassword.value">
+                      Re-enter the same password
+                    </div>
                     <!--div *ngIf="repassword.invalid && (repassword.dirty || repassword.touched)"
                     class="alert alert-danger">
                       <div *ngIf="repassword.errors.required">
@@ -90,7 +90,7 @@
                   <label *ngFor="let ur of UserRole">
                       
                       <p *ngIf="ur.RoleName===userActualRole" style="color: green;"><input type="radio" [checked]='ur.RoleName===userActualRole' [disabled]="true" name="userRole" value="{{ur.RoleName}}">&nbsp;&nbsp;{{ur.RoleDetails}}</p>
-                      <p *ngIf="ur.RoleName!==userActualRole"><input type="radio" ngModel name="userRole" value="{{ur.RoleName}}">&nbsp;&nbsp;{{ur.RoleDetails}}</p>
+                      <p *ngIf="ur.RoleName!==userActualRole"><input type="radio" ngModel name="userRole" value="{{ur.RoleName}}" required>&nbsp;&nbsp;{{ur.RoleDetails}}</p>
 
                   </label>
 
@@ -103,7 +103,7 @@
                             <i class="fa fa-floppy-o"></i>&nbsp;Submit
                           </button>
                           &nbsp;&nbsp;
-                          <button class="btn btn-default" type="button" value=" reset" id="reset" name="reset" (click)="resetForm(valueservicesForm)">
+                          <button class="btn btn-default" type="button" value=" reset" id="reset" name="reset" *ngIf="!_auth.isAuthenticated()" (click)="resetForm(valueservicesForm)">
                               <i class="fa fa-repeat"></i>&nbsp;Reset
                           </button>
                         </td>

@@ -56,9 +56,11 @@ export class UserdetailsService {
 
     // };
     console.log("User Name ::::: "+uname);
+    console.log("User Role ::::: "+uRole);
 
     const  cDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
     const  udeatils: UserDetails = { userName: uname, userRole: uRole, createdDate: cDate };
+    console.log("UDetails  ::::: "+udeatils);
     if ((id == null) || (id == '')) {
       // const id = this.afs.createId();
       

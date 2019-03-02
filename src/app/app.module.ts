@@ -18,7 +18,7 @@ import { FooterComponent } from './template/footer/footer.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NotfoundComponent } from './common/notfound/notfound.component';
 import { routing } from './app.routing';
-import { MidsearchComponent } from './pages/home/midsearch/midsearch.component';
+//import { MidsearchComponent } from './pages/home/midsearch/midsearch.component';
 import { LoginComponent } from './pages/login/login.component';
 import { HttpModule } from '@angular/http';
 import { LogComponent } from './common/logger/log.component';
@@ -69,6 +69,7 @@ import { ResumeServiceComponent } from './pages/resume-service/resume-service.co
 import { SalaryPredictorComponent } from './pages/salary-predictor/salary-predictor.component';
 import { ApplyjobComponent } from './pages/jobdetails/applyjob/applyjob.component';
 import { ValueServicesComponent } from './pages/value-services/value-services.component';
+import { MidsearchComponent } from './pages/home/midsearch/midsearch.component';
 
 
 

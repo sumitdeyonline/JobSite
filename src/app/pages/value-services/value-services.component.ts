@@ -85,7 +85,7 @@ export class ValueServicesComponent implements OnInit {
     model.client_id = AUTH_CONFIG.clientID;
     model.connection = AUTH_CONFIG.connection;
     model.response_type = AUTH_CONFIG.responseType;
-
+    this.userActualRole = model.userRole;
     if ((model.userRole == null) || (model.userRole == undefined) || (model.userRole == '')) {
       console.log("Value NULL");
     } else {
@@ -102,7 +102,8 @@ export class ValueServicesComponent implements OnInit {
               //alert("User Addred");
               this.valueservicesSucessMessage = model.email+" has been Sucessfully Registered"
               console.log(this.valueservicesSucessMessage);
-              this.udetails.addUpdateUserDetails(this.userDetailsID, model.email, model.userRole);
+              console.log("Value Radio Burron ::::===>>>>>>> "+this.userActualRole);
+              this.udetails.addUpdateUserDetails(this.userDetailsID, model.email, this.userActualRole);
               //this.router.navigate(['/signupconfirm']);
               return true;
           },
