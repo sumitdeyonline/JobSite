@@ -13,6 +13,8 @@ import { UserprofileService } from 'src/app/services/firebase/userprofile/userpr
 import { Country } from 'src/app/services/firebase/userprofile/country.model';
 import { State } from 'src/app/services/firebase/userprofile/state.model';
 import { PostJobc } from 'src/app/services/firebase/postjob/postjob.model';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
+import { CommondialogComponent } from 'src/app/common/commondialog/commondialog.component';
 
 
 
@@ -45,6 +47,7 @@ export class PostjobComponent implements OnInit {
               private toastrservice: ToastrService,
               private uProfile: UserprofileService,
               private router: Router,
+              private dialog: MatDialog,
               private datePipe: DatePipe) {
 
         this.getCountry();
@@ -85,7 +88,7 @@ export class PostjobComponent implements OnInit {
   }
 
   JobPostSubmit(postJobForm : NgForm) {
-
+    let type;
     console.log ("Datatat ::: "+postJobForm.value.JobTitle);
     // postJobForm.value.CreatedDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
     // console.log ("Datatat ::: "+postJobForm.value.CreatedDate);
@@ -99,9 +102,12 @@ export class PostjobComponent implements OnInit {
 
 
     if ((this.id == null) || (this.id == '')) {
+
       this.postjobService.addUpdatePostJobs(postJobForm.value,this.id, new Date(), "");
       console.log("NEW FORM ....");
+      type = "Created";
     } else {
+      type = "Updated";
       this.postjobService.addUpdatePostJobs(postJobForm.value,this.id,this.postJob.CreatedDate, this.postJob.CreatedBy);
     }
 
@@ -113,18 +119,39 @@ export class PostjobComponent implements OnInit {
     console.log("Submit Data "+faqForm.value);*/
 
 
-    if ((this.id == null) || (this.id == '')) {
-      this.toastrservice.success('Added Sucessfully', '');
-      //this.toastrservice.success(FIREBASE_CONFIG.AddedSucessfully, '');
-      //console.log("Added Sucessfully");
-    } else {
-      this.toastrservice.success('UpdatedSucessfully', '');
-      //this.toastrservice.success(FIREBASE_CONFIG.UpdatedSucessfully, '');
-      //console.log("Updated Sucessfully");
-    }
-    this.resetForm(postJobForm);
+    //console.log("Pst Job ID :::: "+pjob.id);
 
-    this.router.navigate(["jobpoststatus"]);
+
+    // if ((this.id == null) || (this.id == '')) {
+
+    //   //this.toastrservice.success('Added Sucessfully', '');
+    //   //this.toastrservice.success(FIREBASE_CONFIG.AddedSucessfully, '');
+    //   //console.log("Added Sucessfully");
+    // } else {
+    //   //this.toastrservice.success('UpdatedSucessfully', '');
+    //   //this.toastrservice.success(FIREBASE_CONFIG.UpdatedSucessfully, '');
+    //   //console.log("Updated Sucessfully");
+    // }
+
+    // dialogConfig.height = "4";
+    // dialogConfig.width ="3";
+
+
+
+    this.resetForm(postJobForm);
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = type+"||jobpoststatus";
+    this.dialog.open(CommondialogComponent, dialogConfig);
+    /*setTimeout(() => {
+
+      this.dialog.closeAll();
+      window.scroll(0,0);
+      this.router.navigate(["jobpoststatus"]);
+      window.scroll(0,0);
+    }, 1000);*/
+
+    //this.router.navigate(["jobpoststatus"]);
+
     //this.router.navigate([FIREBASE_CONFIG.FaqURL]);
   }
 
@@ -152,6 +179,8 @@ export class PostjobComponent implements OnInit {
 
 
   }
+
+
 
   resetForm(postJobForm?: NgForm) {
     if (postJobForm !=null)

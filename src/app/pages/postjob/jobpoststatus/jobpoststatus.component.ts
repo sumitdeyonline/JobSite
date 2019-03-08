@@ -36,7 +36,7 @@ export class JobpoststatusComponent implements OnInit {
 
   pjob: PostJobc[];
 
-  length: any = SEARCH_CONFIG.LIST_JOB_DESC_WIDTH;
+  length: any = SEARCH_CONFIG.LIST_JOB_DESC_STATUS;
   // pager object
   pager: any = {};
 
@@ -48,10 +48,12 @@ export class JobpoststatusComponent implements OnInit {
       private router: Router,
       private dformat: DateformatService,
       private dialog: MatDialog,
-      private pagerService: PagerService) { }
+      private pagerService: PagerService) {
+        window.scroll(0,0);
+      }
 
   ngOnInit() {
-
+    window.scroll(0,0);
     this.postservice.getPostJobsByUser(this.auth.userProfile.name).subscribe(pjob=> {
       this.pjob = pjob;
       //console.log("Last Updated ::: "+ Math.round(Math.abs(new Date().getTime() - this.pjob[3].LastModifiedDate.toDate().getTime())/(24*60*60*1000));
@@ -80,6 +82,7 @@ export class JobpoststatusComponent implements OnInit {
 
   setPage(page: number) {
     console.log("Page Count");
+    window.scroll(0,0);
     // get pager object from service
     this.pager = this.pagerService.getPager(this.pjob.length, page);
     //console.log("Page Count...1  ::: "+this.pager.length);

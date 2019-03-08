@@ -39,7 +39,7 @@ export class UserProfileComponent implements OnInit {
 
 
     this.uProfile.getUserDetails(this.auth.userProfile.name).subscribe(uprop=> {
-      this.userProfile = uprop; 
+      this.userProfile = uprop;
       this.resetForm();
       //this.countries = ['USA', 'Canada', 'Uk'];
       this.getCountry();
@@ -60,7 +60,7 @@ export class UserProfileComponent implements OnInit {
 
     })
 
-
+    window.scroll(0,0);
 
   }
 
@@ -266,7 +266,7 @@ export class UserProfileComponent implements OnInit {
        //console.log ('ResumeExt  ::: '+ uprofileForm.value.ResumeExt);
       console.log ('UserID  ::: '+ uprofileForm.value.UserID);
       console.log ('Username  ::: '+ uprofileForm.value.Username);
-      this.uProfile.addUpdateUserProfile(uprofileForm.value, this.id, new Date()); 
+      this.uProfile.addUpdateUserProfile(uprofileForm.value, this.id, new Date());
     } else {
       //uprofileForm.value.ModifiedDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
       // if (this.uPloadFileKey !=null)
@@ -294,7 +294,7 @@ export class UserProfileComponent implements OnInit {
       // if (uprofileForm.value.ResumeID == null) {
       //   uprofileForm.value.ResumeID
       // }
-      //console.log ('ResumeID  ::: '+ uprofileForm.value.ResumeID); 
+      //console.log ('ResumeID  ::: '+ uprofileForm.value.ResumeID);
       //console.log ('ResumeFileName  ::: '+ uprofileForm.value.ResumeFileName+' Extertion '+uprofileForm.value.ResumeFileName.substring(uprofileForm.value.ResumeFileName.length - 3,uprofileForm.value.ResumeFileName.length));
 
       // console.log ('ResumeURL  ::: '+ uprofileForm.value.ResumeURL);
@@ -302,7 +302,7 @@ export class UserProfileComponent implements OnInit {
       console.log ('UserID  ::: '+ uprofileForm.value.UserID);
       // console.log ('Resume File Name  ::: '+ this.uProfile.selectedUserProfile.ResumeFileName);
       this.uProfile.addUpdateUserProfile(uprofileForm.value, userid, this.userProfile[0].CreatedDate);
-     
+
     }
 
 

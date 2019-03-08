@@ -17,7 +17,7 @@ import { PagerService } from 'src/app/services/common/pager.service';
 export class ResumesearchComponent implements OnInit {
 
 
-  UserProfile: UserProfile[]; 
+  UserProfile: UserProfile[];
   //UserProfileFinal: UserProfile[] = [];
 
   client: any;
@@ -50,13 +50,13 @@ export class ResumesearchComponent implements OnInit {
         query: searchResume.value.ResumeSearch,
         filters: filter
 
-        
+
       }).then((data) => {
         console.log(data);
         //let j=0;
         //this.UserProfileFinal = [];
-        this.UserProfile = data.hits; 
-        this.setPage(1);       
+        this.UserProfile = data.hits;
+        this.setPage(1);
 
 
       })
@@ -84,11 +84,12 @@ export class ResumesearchComponent implements OnInit {
 
   isNull(value) {
     if (value == null) { return "" }
-    else { return value } 
+    else { return value }
   }
 
   setPage(page: number) {
     console.log("Page Count");
+    window.scroll(0,0);
     // get pager object from service
     this.pager = this.pagerService.getPager(this.UserProfile.length, page);
     //console.log("Page Count...1  ::: "+this.pager.length);

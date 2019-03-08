@@ -39,12 +39,12 @@ export class ValueServicesComponent implements OnInit {
     //   postjob: [false],
     //   resumesearch: [false]
     // });
-
+    window.scroll(0,0);
     this.resetForm();
     this.uProfile.getUserRoleDetails().subscribe(urole => {
       this.UserRole = urole;
       console.log("User Role :::::::: => "+this.UserRole.length);
-    }) 
+    })
 
     if (this._auth.isAuthenticated()) {
 
@@ -52,7 +52,7 @@ export class ValueServicesComponent implements OnInit {
         this.userDetails = udtl;
         console.log(" Length :::: "+this.userDetails.length);
 
-        
+
         if (this.userDetails.length > 0) {
           this.userActualRole = this.userDetails[0].userRole;
           this.userDetailsID = this.userDetails[0].id;

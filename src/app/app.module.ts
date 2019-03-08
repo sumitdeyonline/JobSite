@@ -70,6 +70,7 @@ import { SalaryPredictorComponent } from './pages/salary-predictor/salary-predic
 import { ApplyjobComponent } from './pages/jobdetails/applyjob/applyjob.component';
 import { ValueServicesComponent } from './pages/value-services/value-services.component';
 import { MidsearchComponent } from './pages/home/midsearch/midsearch.component';
+import { CommondialogComponent } from './common/commondialog/commondialog.component';
 
 
 
@@ -102,9 +103,17 @@ import { MidsearchComponent } from './pages/home/midsearch/midsearch.component';
     TechNewsDetailsComponent,
     AdvertisementComponent,
     ResetpasswordComponent,
-    DialogComponent, AboutComponent, RecruitersSolutionComponent, RecruitersFollowingComponent, ResumeServiceComponent, SalaryPredictorComponent, ApplyjobComponent, ValueServicesComponent
+    DialogComponent,
+    AboutComponent,
+    RecruitersSolutionComponent,
+    RecruitersFollowingComponent,
+    ResumeServiceComponent,
+    SalaryPredictorComponent,
+    ApplyjobComponent,
+    ValueServicesComponent,
+    CommondialogComponent
   ],
-  entryComponents: [DialogComponent, ApplyjobComponent],
+  entryComponents: [DialogComponent, ApplyjobComponent, CommondialogComponent],
 
 
   imports: [

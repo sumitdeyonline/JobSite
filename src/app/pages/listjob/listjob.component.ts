@@ -46,7 +46,7 @@ export class ListjobComponent implements OnInit {
 
   constructor(private router: Router, private route: ActivatedRoute, private postjob: PostjobService, private dformat: DateformatService, private pagerService: PagerService) {
 
-
+    window.scroll(0,0);
     //this.PostJobc = null;
 
 
@@ -260,6 +260,7 @@ export class ListjobComponent implements OnInit {
 
   setPage(page: number) {
     console.log("Page Count");
+    window.scroll(0,0);
     // get pager object from service
     this.pager = this.pagerService.getPager(this.PostJobc.length, page);
     //console.log("Page Count...1  ::: "+this.pager.length);

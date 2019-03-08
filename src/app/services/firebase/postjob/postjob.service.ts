@@ -166,6 +166,7 @@ export class PostjobService {
       // var idBefore =  this.afs.createId();
       // console.log("ID Created :::: "+idBefore);
 
+
       this.pjCollection.add(pjobc).then((entry) => {
 
         console.log("Entry ISSSSS "+entry.id);
@@ -218,9 +219,22 @@ export class PostjobService {
 
   }
 
+  htmlToPlaintext(text) {
+    return text ? String(text).replace(/<[^>]+>/gm, ' ') : '';
+  }
 
   AlgoliaObjectUpdate(tranType, pjobc, id, createDate, createdBy) {
     console.log("Algolia Update Object..... :::::: "+createDate.seconds);
+
+    // console.log("Job Desc Prev ::: "+pjobc.JobDesc);
+    // console.log("Job Skill Prev ::: "+pjobc.Skills);
+
+    let jobDesc = this.htmlToPlaintext(pjobc.JobDesc);
+    let skill = this.htmlToPlaintext(pjobc.Skills);
+
+    // console.log("Job Desc ::: "+jobDesc);
+    // console.log("Job Skill ::: "+skill);
+
     let objects;
     if ((tranType == null) || (tranType == '')) {
       objects = [{
@@ -228,8 +242,10 @@ export class PostjobService {
         objectID: id,
         JobTitle:pjobc.JobTitle,
         Company:pjobc.Company,
-        JobDesc:pjobc.JobDesc,
-        Skills:pjobc.Skills,
+        // JobDesc:pjobc.JobDesc,
+        // Skills:pjobc.Skills,
+        JobDesc:jobDesc,
+        Skills:skill,
         // ApplyToEmail:pjobc.ApplyToEmail,
         // CCToEmail:pjobc.CCToEmail,
         // ApplyToURL:pjobc.ApplyToURL,
@@ -254,8 +270,10 @@ export class PostjobService {
         objectID: id,
         JobTitle:pjobc.JobTitle,
         Company:pjobc.Company,
-        JobDesc:pjobc.JobDesc,
-        Skills:pjobc.Skills,
+        // JobDesc:pjobc.JobDesc,
+        // Skills:pjobc.Skills,
+        JobDesc:jobDesc,
+        Skills:skill,
         // ApplyToEmail:pjobc.ApplyToEmail,
         // CCToEmail:pjobc.CCToEmail,
         // ApplyToURL:pjobc.ApplyToURL,
