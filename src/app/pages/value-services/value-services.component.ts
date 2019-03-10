@@ -29,6 +29,8 @@ export class ValueServicesComponent implements OnInit {
   UserRole: UserRole[];
   userActualRole: string;
   userDetailsID: string;
+  companyName: string;
+  companyAddress: string;
 
   constructor(private _auth: AuthService, fb: FormBuilder, private udetails: UserdetailsService, private uProfile: UserprofileService) {
 
@@ -56,7 +58,10 @@ export class ValueServicesComponent implements OnInit {
         if (this.userDetails.length > 0) {
           this.userActualRole = this.userDetails[0].userRole;
           this.userDetailsID = this.userDetails[0].id;
-
+          this.udetails.selectedValueServices.userRole = this.userDetails[0].userRole;
+           this.udetails.selectedValueServices.company = this.userDetails[0].company;
+           this.udetails.selectedValueServices.companyAddress = this.userDetails[0].companyAddress;
+           this.udetails.selectedValueServices.phone = this.userDetails[0].phone;
 
         } else {
           this.userDetailsID = null;
@@ -81,6 +86,8 @@ export class ValueServicesComponent implements OnInit {
 
   signUpValueServices(model: ValueServices) {
     console.log("Value Radio Burron :::: "+model.userRole);
+    console.log("Company :::: "+model.company);
+    console.log("Company Address:::: "+model.companyAddress);
     this.valueservicesMessage = '';
     model.client_id = AUTH_CONFIG.clientID;
     model.connection = AUTH_CONFIG.connection;
@@ -91,19 +98,20 @@ export class ValueServicesComponent implements OnInit {
     } else {
       if (this._auth.isAuthenticated()) {
         model.email = this._auth.userProfile.name;
-        console.log("Post Job ::::: "+model.postjob);
-        console.log("Resume Search ::::: "+model.resumesearch);
-        this.udetails.addUpdateUserDetails(this.userDetailsID, model.email, model.userRole);
+        // console.log("Post Job ::::: "+model.postjob);
+        // console.log("Resume Search ::::: "+model.resumesearch);
+        this.udetails.addUpdateUserDetails(this.userDetailsID, model.email, model.userRole, model.company, model.companyAddress, model.phone);
+        this.valueservicesSucessMessage = model.email+" has been Sucessfully Updated."
         return true;
       } else {
         this._auth.signUp(model).subscribe(
-          model => {
+          modelsignup => {
               // refresh the list
               //alert("User Addred");
-              this.valueservicesSucessMessage = model.email+" has been Sucessfully Registered"
+              this.valueservicesSucessMessage = modelsignup.email+" has been Sucessfully Registered"
               console.log(this.valueservicesSucessMessage);
-              console.log("Value Radio Burron ::::===>>>>>>> "+this.userActualRole);
-              this.udetails.addUpdateUserDetails(this.userDetailsID, model.email, this.userActualRole);
+              //console.log("Value Radio Burron ::::===>>>>>>> "+this.userActualRole);
+              this.udetails.addUpdateUserDetails(this.userDetailsID, modelsignup.email, this.userActualRole, model.company, model.companyAddress,  model.phone);
               //this.router.navigate(['/signupconfirm']);
               return true;
           },
@@ -120,7 +128,10 @@ export class ValueServicesComponent implements OnInit {
     }
   }
 
-
+  changeRoleValue(role) {
+    console.log("Role Value ::: "+role.value);
+    this.udetails.selectedValueServices.userRole = role.value;
+  }
     resetForm(valueservicesForm? : NgForm) {
       //this.signupError='';
       if (valueservicesForm !=null)

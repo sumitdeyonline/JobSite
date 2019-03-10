@@ -8,5 +8,8 @@ export interface ValueServices {
     response_type?: string;
     postjob?: boolean;
     userRole?: string;
+    company? : string;
+    companyAddress? : string;
+    phone? : string;
     resumesearch?: boolean;  
 }

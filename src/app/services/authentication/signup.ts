@@ -6,4 +6,6 @@ export class Signup {
     client_id: string;
     connection: string;
     response_type: string;
+    company? : string;
+    companyAddress? : string;
 }

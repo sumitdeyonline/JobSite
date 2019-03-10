@@ -13,6 +13,7 @@ import { BadInput } from '../../common/exception/bad-input';
 import { AppError } from '../../common/exception/app-error';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserDetails } from '../firebase/userdetails/userdetails.model';
+
 //import { UserDetails } from '../firebase/userdetails.model';
 
 @Injectable({
@@ -153,7 +154,7 @@ export class AuthService {
     localStorage.removeItem(SESSION_CONFIG.expireAt);
     localStorage.removeItem(SESSION_CONFIG.profile);
     // Go back to the home route
-    this.router.navigate(['']);
+    this.router.navigate(['/login']);
   }
 
 
@@ -194,7 +195,11 @@ export class AuthService {
                   console.log("Employer Resume Search :::::: ");
                   this.isEmployerPostJobRole = true;
                   this.isEmployerResumeSearchRole = true;
-                }else {
+                } else if (this.uDetail[0].userRole == FIREBASE_CONFIG.AdminRole) {
+                  console.log("Admin Power User:::::: ");
+                  this.isEmployerPostJobRole = true;
+                  this.isEmployerResumeSearchRole = true;
+                } else {
                   console.log("User Role :::::: ");
                   this.isEmployerPostJobRole = false;
                   this.isEmployerResumeSearchRole = false;
@@ -224,6 +229,7 @@ export class AuthService {
     {
       //if (JSON.parse(localStorage.getItem(SESSION_CONFIG.profile)).roles == SESSION_CONFIG.admin)
       if (localStorage.getItem(SESSION_CONFIG.profile).indexOf('admin') !=null) {
+        //console.log(localStorage.getItem(SESSION_CONFIG.profile).indexOf('admin'));
         if (localStorage.getItem(SESSION_CONFIG.profile).indexOf('admin') > -1)
           return true;
         else
@@ -257,7 +263,7 @@ export class AuthService {
   }
 
   UserRole() {
-    //console.log("UserName ::::: "+this.userProfile.name);
+    console.log("USER ROLE ::::: -> UserName ::::: "+this.userProfile.name);
     if (this.userProfile !=null) {
       this.udCollection = this.afs.collection(FIREBASE_CONFIG.UserDetails, ref =>
         ref.where('userName','==',this.userProfile.name)); //.orderBy('CreatedDate','desc'));

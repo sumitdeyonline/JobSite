@@ -15,6 +15,8 @@ import { State } from 'src/app/services/firebase/userprofile/state.model';
 import { PostJobc } from 'src/app/services/firebase/postjob/postjob.model';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
 import { CommondialogComponent } from 'src/app/common/commondialog/commondialog.component';
+import { UserdetailsService } from 'src/app/services/firebase/userdetails/userdetails.service';
+import { UserDetails } from 'src/app/services/firebase/userdetails/userdetails.model';
 
 
 
@@ -41,6 +43,7 @@ export class PostjobComponent implements OnInit {
   postJobList: [any];
   countries: Country[];
   state: State[];
+  userDetails: UserDetails[];
   isJobLength: boolean = false;
 
   constructor(private _activeRoute: ActivatedRoute, private _auth: AuthService, fb: FormBuilder, private postjobService: PostjobService,
@@ -48,7 +51,8 @@ export class PostjobComponent implements OnInit {
               private uProfile: UserprofileService,
               private router: Router,
               private dialog: MatDialog,
-              private datePipe: DatePipe) {
+              private datePipe: DatePipe,
+              private udetails: UserdetailsService) {
 
         this.getCountry();
     // this.PostJobForm = fb.group({
@@ -64,19 +68,32 @@ export class PostjobComponent implements OnInit {
       console.log("Key Value :::::::: "+this.id);
     });
     this.resetForm();
-    if ((this.id == null) || (this.id == '')) {
-      console.log("NEW FORM ....");
-    } else {
-      console.log("UPDATE FORM ....");
 
-      this.postjobService.getPostJobsById(this.id).subscribe(postJob=> {
-        console.log("UPDATE FORM ....111111111122222");
-        this.postJob = postJob;
-        this.getFieldForUpdate();
-        this.getState(this.postJob.JobCountry);
-        this.isPayrate(this.postJob.JobPayRate);
-      })
-    }
+    this.udetails.getUserDetails(this._auth.userProfile.name).subscribe(udtl=> {
+     
+
+      if ((this.id == null) || (this.id == '')) {
+        console.log("NEW FORM ....");
+        this.userDetails = udtl;
+        if (this.userDetails.length > 0) {
+          this.postjobService.selectedPostJobc.Company = this.userDetails[0].company;
+        }         
+      } else {
+        console.log("UPDATE FORM ....");
+  
+        this.postjobService.getPostJobsById(this.id).subscribe(postJob=> {
+          console.log("UPDATE FORM ....111111111122222");
+          this.postJob = postJob;
+          this.getFieldForUpdate();
+          this.getState(this.postJob.JobCountry);
+          this.isPayrate(this.postJob.JobPayRate);
+        })
+      }
+
+
+    })
+
+
 
 
   }
@@ -142,6 +159,7 @@ export class PostjobComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = type+"||jobpoststatus";
     this.dialog.open(CommondialogComponent, dialogConfig);
+  
     /*setTimeout(() => {
 
       this.dialog.closeAll();

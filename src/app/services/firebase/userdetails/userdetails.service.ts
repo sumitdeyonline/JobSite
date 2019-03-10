@@ -47,7 +47,7 @@ export class UserdetailsService {
   }
 
 
-  addUpdateUserDetails(id: string, uname: string,uRole: string) {
+  addUpdateUserDetails(id: string, uname: string,uRole: string, company: string, companyAddress: string, phone: string) {
 
     //this.userDetail = new UserDetails[];
     // let udetails : UserDetails{
@@ -57,10 +57,17 @@ export class UserdetailsService {
     // };
     console.log("User Name ::::: "+uname);
     console.log("User Role ::::: "+uRole);
+    console.log("company ::::: "+company);
+    console.log("companyAddress ::::: "+companyAddress);
+    console.log("phone ::::: "+phone);
+    if ((company == undefined) || (company == undefined)) company = '';
+    if ((companyAddress == undefined) || (companyAddress == undefined)) companyAddress = '';
+    if ((phone == undefined) || (phone == undefined)) phone = '';
+
 
     const  cDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
-    const  udeatils: UserDetails = { userName: uname, userRole: uRole, createdDate: cDate };
-    console.log("UDetails  ::::: "+udeatils);
+    const  udeatils: UserDetails = { userName: uname, userRole: uRole,company: company,companyAddress:companyAddress,phone:phone,createdDate: cDate };
+    //console.log("UDetails  ::::: "+udeatils);
     if ((id == null) || (id == '')) {
       // const id = this.afs.createId();
       

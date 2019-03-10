@@ -42,10 +42,11 @@
                       <label style="font-weight: bold;" for="Company">Company</label>
                   </div>
                   <div class="col">
-                      <input type="text" ngModel name="Company" #Company="ngModel" id="Company" [ngModel]="postjobService.selectedPostJobc?.Company" (ngModelChange)="postjobService.selectedPostJobc.Company" class="form-control input-sm" required/>
-                      <div style="color: red;" *ngIf="Company.invalid && (Company.dirty || Company.touched)">
+                      <input type="text" [readonly]="true" ngModel name="Company" #Company="ngModel" id="Company" [ngModel]="postjobService.selectedPostJobc?.Company" (ngModelChange)="postjobService.selectedPostJobc.Company" class="form-control input-sm"/>
+
+                      <!--div style="color: red;" *ngIf="Company.invalid && (Company.dirty || Company.touched)">
                           Please Enter Company Name
-                      </div>
+                      </div-->
                   </div>
               </div>
               <div class="row">

@@ -3,6 +3,9 @@ export interface UserDetails {
   userName? : string;
   userRole? : string;
   createdDate? : string;
+  company? : string;
+  companyAddress? : string;
+  phone? : string;
   LastModifiedBy? : string;
   LastModifiedDate? : string;
 }

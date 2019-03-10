@@ -45,7 +45,7 @@ export class SignupComponent implements OnInit {
           //alert("User Addred");
           this.signupSucessMessage = model.email+" has been Sucessfully Registered"
           console.log(this.signupSucessMessage);
-          this.udetails.addUpdateUserDetails(null, model.email,FIREBASE_CONFIG.UserRole);
+          this.udetails.addUpdateUserDetails(null, model.email,FIREBASE_CONFIG.UserRole, model.company, model.companyAddress,model.phone);
           //this.router.navigate(['/signupconfirm']);
           return true;
       },
