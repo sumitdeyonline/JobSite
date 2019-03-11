@@ -42,7 +42,7 @@ export class UploadResumeService {
   downloadURLTempResume: any;
   fileName: any;
   fUpload: FileUpload;
-  
+
 
   constructor(private db: AngularFireDatabase, private afs : AngularFirestore, private auth: AuthService) {
     this.urCollection = this.afs.collection(FIREBASE_CONFIG.UploadResume);
@@ -51,7 +51,7 @@ export class UploadResumeService {
 
   pushTempResumeStorage(fileUpload: FileUpload, progress: { percentage: number }) {
     const storageRef = firebase.storage().ref();
-    this.task =  storageRef.child(`${this.tempResumePath}/${"Resume_"+fileUpload.file.name.replace(".","_")}`).put(fileUpload.file);
+    this.task =  storageRef.child(`${this.tempResumePath}/${"Resume_"+Math.random()+fileUpload.file.name}`).put(fileUpload.file);
 
     this.task.on(firebase.storage.TaskEvent.STATE_CHANGED,
       (snapshot) => {
@@ -98,7 +98,7 @@ export class UploadResumeService {
       this.task = storageRef.child(`${this.basePath}/${filename}`).put(fileUpload.file);
       //const uploadTask = storageRef.child(`${this.basePath}/${fileUpload.file.name}`).put(fileUpload.file);
 
-      
+
 
 
 

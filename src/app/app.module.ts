@@ -71,6 +71,7 @@ import { ApplyjobComponent } from './pages/jobdetails/applyjob/applyjob.componen
 import { ValueServicesComponent } from './pages/value-services/value-services.component';
 import { MidsearchComponent } from './pages/home/midsearch/midsearch.component';
 import { CommondialogComponent } from './common/commondialog/commondialog.component';
+import { ApplyjobService } from './services/firebase/applyjob/applyjob.service';
 
 
 
@@ -144,6 +145,7 @@ import { CommondialogComponent } from './common/commondialog/commondialog.compon
     AngularFirestore,
     UserdetailsService,
     UserprofileService,
+    ApplyjobService,
     ToastrService,
     DatePipe,
     DateformatService,

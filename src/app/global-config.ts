@@ -45,6 +45,7 @@ export const FIREBASE_CONFIG = {
     UserDetails: 'UserDetails',
     UserProfile: 'UserProfile',
     UploadResume: 'UploadResume',
+    ApplyJob: 'ApplyJob',
     Country: 'Country',
     State: 'State',
     UserRoles: 'UserRole',

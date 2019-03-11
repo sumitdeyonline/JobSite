@@ -57,7 +57,9 @@ export class JobdetailsComponent implements OnInit {
   onApply() {
     console.log("Pst Job ID :::: "+this.pjob.ApplyToEmail);
       const dialogConfig = new MatDialogConfig();
-      dialogConfig.data = this.pjob.ApplyToEmail;
+      // dialogConfig.data = this.pjob.ApplyToEmail;
+      this.pjob.id = this.id;
+      dialogConfig.data = this.pjob;
        dialogConfig.height = "4";
        dialogConfig.width ="3";
       this.dialog.open(ApplyjobComponent, dialogConfig);
@@ -67,6 +69,6 @@ export class JobdetailsComponent implements OnInit {
     //this.fileNameDialogRef = this.dialog.open(DialogComponent);
     //this.fileNameDialogRef = this.dialog.open(DialogComponent, dialogConfig);
     //this.postservice.deletePostJob(pjob);
-  } 
+  }
 
 }
