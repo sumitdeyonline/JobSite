@@ -53,7 +53,7 @@ export class PostjobComponent implements OnInit {
               private dialog: MatDialog,
               private datePipe: DatePipe,
               private udetails: UserdetailsService) {
-
+        window.scroll(0,0);
         this.getCountry();
     // this.PostJobForm = fb.group({
     //   // email: ['', Validators.required,Validators.email],
@@ -70,17 +70,17 @@ export class PostjobComponent implements OnInit {
     this.resetForm();
 
     this.udetails.getUserDetails(this._auth.userProfile.name).subscribe(udtl=> {
-     
+
 
       if ((this.id == null) || (this.id == '')) {
         console.log("NEW FORM ....");
         this.userDetails = udtl;
         if (this.userDetails.length > 0) {
           this.postjobService.selectedPostJobc.Company = this.userDetails[0].company;
-        }         
+        }
       } else {
         console.log("UPDATE FORM ....");
-  
+
         this.postjobService.getPostJobsById(this.id).subscribe(postJob=> {
           console.log("UPDATE FORM ....111111111122222");
           this.postJob = postJob;
@@ -159,7 +159,7 @@ export class PostjobComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = type+"||jobpoststatus";
     this.dialog.open(CommondialogComponent, dialogConfig);
-  
+
     /*setTimeout(() => {
 
       this.dialog.closeAll();

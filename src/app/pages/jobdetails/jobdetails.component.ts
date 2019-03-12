@@ -21,7 +21,7 @@ export class JobdetailsComponent implements OnInit {
   //fileNameDialogRef: MatDialogRef<ApplyjobComponent>;
 
   constructor(private router: Router,private _activeRoute:ActivatedRoute, private postservice: PostjobService, private dialog: MatDialog) {
-
+    window.scroll(0,0);
     this._activeRoute.queryParams.subscribe(params => {
       console.log(params);
       this.keyword = params['keyword'];

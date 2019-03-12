@@ -11,5 +11,7 @@ export interface ApplyJob {
   JobID? : string;
   JobTitle? : string;
   username? : string;
+  joblocation?: string;
+  company?: string;
   CreatedDate? : Date;
 }

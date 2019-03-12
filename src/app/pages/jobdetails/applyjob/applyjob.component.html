@@ -7,13 +7,13 @@
 </mat-dialog-content-->
 
 <div style="color: red;" *ngIf="checkApplied">
-  Job has been sucessfully Applied.&nbsp;&nbsp;<button class="mat-raised-button" (click)="close()">Close</button>
+  {{ applySucessMessage }}&nbsp;&nbsp;<button class="mat-raised-button" (click)="close()">Close</button>
 </div>
 
 <div *ngIf="!checkApplied">
 
 
-    <form [formGroup]="applyJobForm" (ngSubmit)="applyNow(applyJobForm.value)">
+    <form [formGroup]="applyJobForm">
       <div class="applyjob-container">
 
         <mat-form-field>
@@ -73,7 +73,7 @@
     </div>
     <div class="row">
       <div class="form-actions floatRight">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="Apply Job" class="btn btn-primary btn-sm" (click)="applyNow(applyJobForm.value)">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="Apply Job" class="btn btn-primary btn-sm" [disabled]="!applyJobForm.valid || !currentFileUpload || progress.percentage != 100" (click)="applyNow()">
       </div>&nbsp;&nbsp;&nbsp;&nbsp;
       <div class="form-actions floatRight">
         &nbsp;&nbsp;&nbsp;<input type="button" value="Cancel" (click)="close()" class="btn btn-primary btn-sm">

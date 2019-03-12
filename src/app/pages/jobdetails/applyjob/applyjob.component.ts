@@ -27,6 +27,7 @@ export class ApplyjobComponent implements OnInit {
   pjob: PostJobc;
   applyJob : ApplyJob;
   checkApplied: boolean = false;
+  applySucessMessage: string = FIREBASE_CONFIG.ApplyJobSucess;
 
   //email   = require("emailjs/email");
 
@@ -36,12 +37,12 @@ export class ApplyjobComponent implements OnInit {
     {
       //this.email   = require("emailjs");
       this.applyJobForm =  fb.group({
-        'FirstName': '',
-        'LastName': '',
-        'Email': '',
-        'PhoneNumber': '',
-        'CoverLetter':'',
-        'fileUpload':'',
+        FirstName: [null, Validators.required],
+        LastName: [null, Validators.required],
+        Email: [null, [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]],
+        PhoneNumber: [null, [Validators.required, Validators.pattern('[0-9]{10}')]],
+        CoverLetter:[null],
+        fileUpload: [Validators.required]
       });
       this.checkApplied = false;
       this.rUploadService.downloadURLTempResume = '';
@@ -67,33 +68,39 @@ export class ApplyjobComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  applyNow(applynowform:NgForm){
-    console.log(applynowform);
-    console.log("Download URL :::::::: "+this.rUploadService.downloadURLTempResume);
+  applyNow(){
+    //console.log(this.applyJobForm);
+    //console.log("Download URL :::::::: "+this.rUploadService.downloadURLTempResume);
+    //console.log("First Name ::: "+this.applyJobForm.get('FirstName').value);
     let username ='anonymous';
+
     if (this.auth.isAuthenticated()) {
       username = this.auth.userProfile.name;
     }
     //this.applyJob = new ApplyNow[];
      //this.applyJob.FirstName = applynowform.FirstName;
-     this.applyJob = { FirstName: applynowform.FirstName,
-                       LastName: applynowform.LastName,
-                       FromEmail: applynowform.Email,
+     this.applyJob = { FirstName: this.applyJobForm.get('FirstName').value,
+                       LastName: this.applyJobForm.get('LastName').value,
+                       FromEmail: this.applyJobForm.get('Email').value,
                        ApplyToEmail: this.pjob.ApplyToEmail,
                        CCToEmail:  this.pjob.CCToEmail,
                        ApplyToURL: this.pjob.ApplyToURL,
-                       PhoneNumber: applynowform.PhoneNumber,
-                       CoverLetter: applynowform.CoverLetter,
+                       PhoneNumber: this.applyJobForm.get('PhoneNumber').value,
+                       CoverLetter: this.applyJobForm.get('CoverLetter').value,
                        fileUploadURL: this.rUploadService.downloadURLTempResume,
                        JobID: this.pjob.id,
                        JobTitle: this.pjob.JobTitle,
                        username : username,
+                       joblocation: this.pjob.JobCity+', '+this.pjob.JobState+', '+this.pjob.JobCountry,
+                       company: this.pjob.Company,
                        CreatedDate: new Date()
-
                      };
 
-      console.log("User name ::: "+this.applyJob.username);
-      console.log("Created Date ::: "+this.applyJob.CreatedDate);
+
+      //console.log("First Name "+this.applyJobForm)
+
+      // console.log("User name ::: "+this.applyJob.username);
+      // console.log("Created Date ::: "+this.applyJob.CreatedDate);
       console.log("Download URL ::: "+this.applyJob.fileUploadURL);
 
       this.ajob.addUpdateApplyJobs(this.applyJob);
@@ -127,7 +134,7 @@ export class ApplyjobComponent implements OnInit {
       //let filePath =`${FIREBASE_CONFIG.TempResume}/${"Resume_"+this.currentFileUpload.file.name.replace(".","_")}`;
       //console.log("https://firebasestorage.googleapis.com/v0/b/jobsite-c8333.appspot.com/o"+filePath+"?alt=media");
       this.rUploadService.pushTempResumeStorage(this.currentFileUpload, this.progress);
-      console.log("Download URL "+this.rUploadService.downloadURLTempResume);
+      //console.log("Download URL "+this.rUploadService.downloadURLTempResume);
 
     } else {
       //this.isNewUpload = false;
