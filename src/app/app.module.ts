@@ -18,7 +18,7 @@ import { FooterComponent } from './template/footer/footer.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NotfoundComponent } from './common/notfound/notfound.component';
 import { routing } from './app.routing';
-//import { MidsearchComponent } from './pages/home/midsearch/midsearch.component';
+
 import { LoginComponent } from './pages/login/login.component';
 import { HttpModule } from '@angular/http';
 import { LogComponent } from './common/logger/log.component';
@@ -72,6 +72,8 @@ import { ValueServicesComponent } from './pages/value-services/value-services.co
 import { MidsearchComponent } from './pages/home/midsearch/midsearch.component';
 import { CommondialogComponent } from './common/commondialog/commondialog.component';
 import { ApplyjobService } from './services/firebase/applyjob/applyjob.service';
+import { AdminModule } from './admin/admin.module';
+import { adminRouting } from './admin/admin.routing';
 
 
 
@@ -118,6 +120,8 @@ import { ApplyjobService } from './services/firebase/applyjob/applyjob.service';
 
 
   imports: [
+    AdminModule,
+    adminRouting,
     BrowserModule,
     routing,
     FormsModule,

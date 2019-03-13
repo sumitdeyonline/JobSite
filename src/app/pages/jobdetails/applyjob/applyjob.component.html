@@ -46,35 +46,58 @@
           </textarea>
         </mat-form-field>
 
+
+        <mat-form-field *ngIf="numberOfResume > 0">
+          <select matNativeControl placeholder="Select Resume"
+          formControlName="fileUploadExist" (change)="onChange($event.target.value)">
+            <option value=''>Select Resume</option>
+            <option [value]="rname.ResumeURL" *ngFor="let rname of uResume">{{rname.ResumeFileName}}</option>
+          </select>
+        </mat-form-field>
+
+
+
+
       </div>
     </form>
 
-    Upload Resume :&nbsp;<label class="btn btn-default">  <input type="file" name="fileUpload" (change)="selectFile($event)">
 
-    </label>&nbsp;&nbsp;
-    <!--i class="fa fa-upload fa-2x" aria-hidden="true" (click)="upload()"></i-->
+    <div [hidden]="!showUpload">
+      Upload Resume :&nbsp;<label class="btn btn-default">  <input type="file" name="fileUpload" (change)="selectFile($event)">
 
-    <button class="btn btn-success" (click)="upload()" [disabled]="!selectedFiles || !filleUploadEnabled">Upload</button>
+      </label>&nbsp;&nbsp;
+      <!--i class="fa fa-upload fa-2x" aria-hidden="true" (click)="upload()"></i-->
+
+      <button class="btn btn-success" (click)="upload()" [disabled]="!selectedFiles || !filleUploadEnabled">Upload</button>
 
 
-    <div class="row">
-        <div class="col">
-          <div *ngIf="currentFileUpload" class="progress">
-              <div class="progress-bar progress-bar-info progress-bar-striped"
-                          role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
-                          aria-valuemin="0" aria-valuemax="100"
-                          [ngStyle]="{width:progress.percentage+'%'}">
-                          {{progress.percentage}}%</div>
-            </div>
-            <div style="color: green;" *ngIf="!filleUploadEnabled">
-                Please Upload Resume(.doc, .docx, .pdf, .ppt, .pptx)
-            </div>
-        </div>
+      <div class="row">
+          <div class="col">
+            <div *ngIf="currentFileUpload" class="progress">
+                <div class="progress-bar progress-bar-info progress-bar-striped"
+                            role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
+                            aria-valuemin="0" aria-valuemax="100"
+                            [ngStyle]="{width:progress.percentage+'%'}">
+                            {{progress.percentage}}%</div>
+              </div>
+              <div style="color: green;" *ngIf="!filleUploadEnabled">
+                  Please Upload Resume(.doc, .docx, .pdf, .ppt, .pptx)
+              </div>
+          </div>
+      </div>
+
     </div>
+
+
+
     <div class="row">
-      <div class="form-actions floatRight">
+      <div class="form-actions floatRight" [hidden]="!showUpload">
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="Apply Job" class="btn btn-primary btn-sm" [disabled]="!applyJobForm.valid || !currentFileUpload || progress.percentage != 100" (click)="applyNow()">
-      </div>&nbsp;&nbsp;&nbsp;&nbsp;
+      </div>
+      <div class="form-actions floatRight" [hidden]="showUpload">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="Apply Job" class="btn btn-primary btn-sm" [disabled]="!applyJobForm.valid" (click)="applyNow()">
+    </div>
+      &nbsp;&nbsp;&nbsp;&nbsp;
       <div class="form-actions floatRight">
         &nbsp;&nbsp;&nbsp;<input type="button" value="Cancel" (click)="close()" class="btn btn-primary btn-sm">
       </div>

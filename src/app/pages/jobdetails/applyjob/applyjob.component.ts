@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { FormBuilder, FormGroup, Validators ,FormsModule, NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators  } from '@angular/forms';
 import { FileUpload } from 'src/app/services/firebase/uploadresume/FileUpload';
 import { UploadResumeService } from 'src/app/services/firebase/uploadresume/upload-resume.service';
 import { FIREBASE_CONFIG } from 'src/app/global-config';
@@ -8,6 +8,7 @@ import { PostJobc } from 'src/app/services/firebase/postjob/postjob.model';
 import { ApplyJob } from 'src/app/services/firebase/applyjob/applyjob.model';
 import { AuthService } from 'src/app/services/authentication/auth.service';
 import { ApplyjobService } from 'src/app/services/firebase/applyjob/applyjob.service';
+import { UploadResume } from 'src/app/services/firebase/uploadresume/uploadresume.model';
 
 
 
@@ -28,6 +29,9 @@ export class ApplyjobComponent implements OnInit {
   applyJob : ApplyJob;
   checkApplied: boolean = false;
   applySucessMessage: string = FIREBASE_CONFIG.ApplyJobSucess;
+  uResume: UploadResume[];
+  numberOfResume: Number = 0;
+  showUpload: boolean = true;
 
   //email   = require("emailjs/email");
 
@@ -42,12 +46,26 @@ export class ApplyjobComponent implements OnInit {
         Email: [null, [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]],
         PhoneNumber: [null, [Validators.required, Validators.pattern('[0-9]{10}')]],
         CoverLetter:[null],
-        fileUpload: [Validators.required]
+        fileUpload: [Validators.required],
+        fileUploadExist: [null]
       });
       this.checkApplied = false;
       this.rUploadService.downloadURLTempResume = '';
       this.pjob = data;
       console.log("Apply To Email :::: " + this.pjob.ApplyToEmail);
+
+      if (this.auth.isAuthenticated()) {
+        this.rUploadService.getResumeDetails(this.auth.userProfile.name).subscribe(uRes=> {
+          this.uResume = uRes;
+          this.numberOfResume = this.uResume.length;
+          if (this.numberOfResume > 0) {
+            console.log("Resume Name :::: "+this.uResume[0].ResumeFileName);
+            console.log("Resume URL :::: "+this.uResume[0].ResumeURL);
+          }
+
+        });
+
+      }
 
     }
 
@@ -150,6 +168,18 @@ export class ApplyjobComponent implements OnInit {
       return true;
     } else {
       return false;
+    }
+
+  }
+
+  onChange(event) {
+    console.log("Select Value ::: "+event);
+    if (event=='') {
+      this.showUpload = true;
+      this.rUploadService.downloadURLTempResume = '';
+    } else {
+      this.rUploadService.downloadURLTempResume = event;
+      this.showUpload = false;
     }
 
   }
