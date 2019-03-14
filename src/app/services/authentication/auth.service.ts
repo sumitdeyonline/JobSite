@@ -13,6 +13,8 @@ import { BadInput } from '../../common/exception/bad-input';
 import { AppError } from '../../common/exception/app-error';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserDetails } from '../firebase/userdetails/userdetails.model';
+import { UserprofileService } from '../firebase/userprofile/userprofile.service';
+import { UserRole } from '../firebase/userprofile/userrole.model';
 
 //import { UserDetails } from '../firebase/userdetails.model';
 
@@ -29,9 +31,13 @@ export class AuthService {
   private signUperror: string;
   udCollection: AngularFirestoreCollection<UserDetails>;
   userDetail: Observable<UserDetails[]>;
+  userRoleCollection: AngularFirestoreCollection <UserRole>;
+  userRoleProfilec: Observable<UserRole[]>;
   uDetail: UserDetails[];
   isEmployerPostJobRole: boolean = false;
   isEmployerResumeSearchRole: boolean = false;
+  isAdminUserRole: boolean = false;
+  UserRoled: UserRole[];
 
   auth0 = new auth0.WebAuth({
     clientID: AUTH_CONFIG.clientID,
@@ -48,6 +54,13 @@ export class AuthService {
   constructor(private router: Router, private _http: Http, private afs : AngularFirestore) {
     this.userProfile = JSON.parse(localStorage.getItem(SESSION_CONFIG.profile));
     this.udCollection = this.afs.collection(FIREBASE_CONFIG.UserDetails);
+    this.userRoleCollection = this.afs.collection(FIREBASE_CONFIG.UserRoles);
+
+    if (this.isAuthenticated()) {
+      this.userRoleAssignment();
+    }
+
+
   }
 
   public login(username, password) {
@@ -182,31 +195,33 @@ export class AuthService {
           // Check for the employer Role
 
           if (this.userProfile !=null) {
-            this.UserRole().subscribe(udetail=> {
-              this.uDetail = udetail;
-              if (this.uDetail[0] !=null) {
-                if (this.uDetail[0].userRole == FIREBASE_CONFIG.EmployerPostJob) {
-                  console.log("Employer Post Job :::::: ");
-                  this.isEmployerPostJobRole = true;
-                } else if (this.uDetail[0].userRole == FIREBASE_CONFIG.EmployerResumeSearch) {
-                  console.log("Employer Resume Search :::::: ");
-                  this.isEmployerResumeSearchRole = true;
-                } else if (this.uDetail[0].userRole == FIREBASE_CONFIG.EmployerPowerUser) {
-                  console.log("Employer Resume Search :::::: ");
-                  this.isEmployerPostJobRole = true;
-                  this.isEmployerResumeSearchRole = true;
-                } else if (this.uDetail[0].userRole == FIREBASE_CONFIG.AdminRole) {
-                  console.log("Admin Power User:::::: ");
-                  this.isEmployerPostJobRole = true;
-                  this.isEmployerResumeSearchRole = true;
-                } else {
-                  console.log("User Role :::::: ");
-                  this.isEmployerPostJobRole = false;
-                  this.isEmployerResumeSearchRole = false;
-                }
-              }
-              //console.log("List Service ..... 33333 ::::: "+this.pjob[1].id);
-            })
+            this.userRoleAssignment();
+            // this.UserRole().subscribe(udetail=> {
+            //   this.uDetail = udetail;
+            //   if (this.uDetail[0] !=null) {
+            //     if (this.uDetail[0].userRole == FIREBASE_CONFIG.EmployerPostJob) {
+            //       console.log("Employer Post Job :::::: ");
+            //       this.isEmployerPostJobRole = true;
+            //     } else if (this.uDetail[0].userRole == FIREBASE_CONFIG.EmployerResumeSearch) {
+            //       console.log("Employer Resume Search :::::: ");
+            //       this.isEmployerResumeSearchRole = true;
+            //     } else if (this.uDetail[0].userRole == FIREBASE_CONFIG.EmployerPowerUser) {
+            //       console.log("Employer Resume Search :::::: ");
+            //       this.isEmployerPostJobRole = true;
+            //       this.isEmployerResumeSearchRole = true;
+            //     } else if (this.uDetail[0].userRole == FIREBASE_CONFIG.AdminRole) {
+            //       console.log("Admin Power User:::::: ");
+            //       this.isEmployerPostJobRole = true;
+            //       this.isEmployerResumeSearchRole = true;
+            //       this.isAdminUserRole = true;
+            //     } else {
+            //       console.log("User Role :::::: ");
+            //       this.isEmployerPostJobRole = false;
+            //       this.isEmployerResumeSearchRole = false;
+            //     }
+            //   }
+            //   //console.log("List Service ..... 33333 ::::: "+this.pjob[1].id);
+            // })
           }
 
 
@@ -216,6 +231,49 @@ export class AuthService {
     });
   }
 
+  private userRoleAssignment() {
+    this.UserRole().subscribe(udetail=> {
+      this.uDetail = udetail;
+
+      if (this.uDetail[0] !=null) {
+
+
+        this.getUserRoleByRoles(this.uDetail[0].userRole).subscribe(urole => {
+          this.UserRoled = urole;
+          console.log("User Role :::::::: => "+this.UserRoled[0].RoleName);
+          this.isEmployerPostJobRole =  this.UserRoled[0].isEmployerPostJobRole;
+          this.isEmployerResumeSearchRole =  this.UserRoled[0].isEmployerResumeSearchRole;
+          this.isAdminUserRole =  this.UserRoled[0].isAdminUserRole;
+
+
+        })
+
+
+
+        // if (this.uDetail[0].userRole == FIREBASE_CONFIG.EmployerPostJob) {
+        //   console.log("Employer Post Job :::::: ");
+        //   this.isEmployerPostJobRole = true;
+        // } else if (this.uDetail[0].userRole == FIREBASE_CONFIG.EmployerResumeSearch) {
+        //   console.log("Employer Resume Search :::::: ");
+        //   this.isEmployerResumeSearchRole = true;
+        // } else if (this.uDetail[0].userRole == FIREBASE_CONFIG.EmployerPowerUser) {
+        //   console.log("Employer Power User :::::: ");
+        //   this.isEmployerPostJobRole = true;
+        //   this.isEmployerResumeSearchRole = true;
+        // } else if (this.uDetail[0].userRole == FIREBASE_CONFIG.AdminRole) {
+        //   console.log("Admin Power User:::::: ");
+        //   this.isEmployerPostJobRole = true;
+        //   this.isEmployerResumeSearchRole = true;
+        //   this.isAdminUserRole = true;
+        // } else {
+        //   console.log("User Role :::::: ");
+        //   this.isEmployerPostJobRole = false;
+        //   this.isEmployerResumeSearchRole = false;
+        // }
+      }
+      //console.log("List Service ..... 33333 ::::: "+this.pjob[1].id);
+    })
+  }
 
   public profileName() {
     this.pName = JSON.parse(localStorage.getItem(SESSION_CONFIG.profile)).name;
@@ -223,19 +281,19 @@ export class AuthService {
   }
 
   public isAdminRole() {
-
-    if (JSON.parse(localStorage.getItem(SESSION_CONFIG.profile)) !==null)
-    //console.log("******* IsAdmin  ******* 1 "+localStorage.getItem(SESSION_CONFIG.profile));
-    {
-      //if (JSON.parse(localStorage.getItem(SESSION_CONFIG.profile)).roles == SESSION_CONFIG.admin)
-      if (localStorage.getItem(SESSION_CONFIG.profile).indexOf('admin') !=null) {
-        //console.log(localStorage.getItem(SESSION_CONFIG.profile).indexOf('admin'));
-        if (localStorage.getItem(SESSION_CONFIG.profile).indexOf('admin') > -1)
-          return true;
-        else
-          return false;
-      }
-    }
+    return this.isAdminUserRole;
+    // if (JSON.parse(localStorage.getItem(SESSION_CONFIG.profile)) !==null)
+    // //console.log("******* IsAdmin  ******* 1 "+localStorage.getItem(SESSION_CONFIG.profile));
+    // {
+    //   //if (JSON.parse(localStorage.getItem(SESSION_CONFIG.profile)).roles == SESSION_CONFIG.admin)
+    //   if (localStorage.getItem(SESSION_CONFIG.profile).indexOf('admin') !=null) {
+    //     //console.log(localStorage.getItem(SESSION_CONFIG.profile).indexOf('admin'));
+    //     if (localStorage.getItem(SESSION_CONFIG.profile).indexOf('admin') > -1)
+    //       return true;
+    //     else
+    //       return false;
+    //   }
+    // }
   }
 
   public isPostJobRole() {
@@ -263,7 +321,7 @@ export class AuthService {
   }
 
   UserRole() {
-    console.log("USER ROLE ::::: -> UserName ::::: "+this.userProfile.name);
+    //console.log("USER ROLE ::::: -> UserName ::::: "+this.userProfile.name);
     if (this.userProfile !=null) {
       this.udCollection = this.afs.collection(FIREBASE_CONFIG.UserDetails, ref =>
         ref.where('userName','==',this.userProfile.name)); //.orderBy('CreatedDate','desc'));
@@ -280,6 +338,25 @@ export class AuthService {
         }));
     }
     return this.userDetail;
+  }
+
+
+  getUserRoleByRoles(rolename) {
+    this.userRoleCollection = this.afs.collection(FIREBASE_CONFIG.UserRoles, ref =>
+          ref.where('RoleName','==',rolename));
+          // console.log("List Service ..... 4");
+    this.userRoleProfilec = this.userRoleCollection.snapshotChanges().pipe(map(changes => {
+      // console.log("List Service ..... 5");
+      return changes.map(a => {
+        // console.log("List Service ..... 6");
+        const data = a.payload.doc.data() as UserRole;
+        data.id = a.payload.doc.id;
+        // console.log("List Service 11111 ..... 2");
+        return data;
+      });
+    }));
+
+    return this.userRoleProfilec;
   }
 
   signUp(signUpItems){

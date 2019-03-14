@@ -1,3 +1,45 @@
-<p>
-  adminhome works!
-</p>
+
+
+<div class="container">
+
+    <div class="single">
+        <div class="row">
+
+        <div class="col-md-8">
+            <div class="col_3">
+
+
+
+              <div id="myTabContent" class="tab-content">
+
+                <h2>Site Administration</h2>
+                <h4>User</h4>
+                <li *ngIf="auth.isAdminRole()"><a routerLink="/userroles" *ngIf="auth.isAdminRole()">User Roles</a></li>
+
+
+                <li>User Role Assignment</li>
+                <li>User Profile</li>
+                <li>User Resume</li>
+                &nbsp;&nbsp;
+                <h4>Post Job</h4>
+                <li>Post Job By Vendor</li>
+                <li>Country</li>
+                <li>State</li>
+                <li>Apply Job</li>
+
+              </div>
+
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <div class="clearfix"> </div>
+        </div>
+
+    </div>
+</div>

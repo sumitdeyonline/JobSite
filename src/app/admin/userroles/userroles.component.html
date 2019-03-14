@@ -1,0 +1,51 @@
+<div class="container">
+
+  <div class="single">
+      <div class="row">
+
+      <div class="col-md-8">
+          <div class="col_3">
+
+
+
+            <div id="myTabContent" class="tab-content">
+                <h2>Role Administration</h2>
+              <table>
+                  <tr>
+                    <th>Role Name</th>
+                    <th>Role Details</th>
+                    <th>Role Type</th>
+                    <th>Post Job</th>
+                    <th>Resume Search</th>
+                    <th>Combo(PostJob and Resume Search)</th>
+                    <th>Order By</th>
+                    <th>&nbsp;</th>
+                  </tr>
+                  <tr *ngFor="let urole of UserRole">
+                    <td>{{urole.RoleName}}</td>
+                    <td>{{urole.RoleDetails}}</td>
+                    <td>{{urole.RoleType}}</td>
+                    <td>{{urole.isEmployerPostJobRole}}</td>
+                    <td>{{urole.isEmployerResumeSearchRole}}</td>
+                    <td>{{urole.isAdminUserRole}}</td>
+                    <td>{{urole.OrderBy}}</td>
+                    <td><a [routerLink]="['/postjob']" class="fa fa-edit"></a><a (click)="onDelete(pj)" class="fa fa-trash"></a></td>
+                  </tr>
+              </table>
+
+            </div>
+
+
+
+          </div>
+
+
+      </div>
+
+
+
+      <div class="clearfix"> </div>
+      </div>
+
+  </div>
+</div>

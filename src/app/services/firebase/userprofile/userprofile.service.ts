@@ -15,7 +15,7 @@ import { UserRole } from './userrole.model';
 @Injectable({
   providedIn: 'root'
 })
-export class UserprofileService { 
+export class UserprofileService {
 
   client: any;
   index: any;
@@ -65,7 +65,7 @@ export class UserprofileService {
         this.AlgoliaObjectUpdate(id,uprofile,entry.id, createDate);
 
 
-      });      
+      });
 
 
     } else {
@@ -79,7 +79,7 @@ export class UserprofileService {
         this.AlgoliaObjectUpdate(id,uprofile,id, createDate);
 
 
-      });      
+      });
 
     }
     //this.AlgoliaUpdate();
@@ -170,8 +170,43 @@ export class UserprofileService {
     }));
 
     return this.userRoleProfilec;
-  }  
+  }
 
+  getUserAllRoles() {
+    this.userRoleCollection = this.afs.collection(FIREBASE_CONFIG.UserRoles, ref =>
+          ref.orderBy('OrderBy', 'asc'));
+          // console.log("List Service ..... 4");
+    this.userRoleProfilec = this.userRoleCollection.snapshotChanges().pipe(map(changes => {
+      // console.log("List Service ..... 5");
+      return changes.map(a => {
+        // console.log("List Service ..... 6");
+        const data = a.payload.doc.data() as UserRole;
+        data.id = a.payload.doc.id;
+        // console.log("List Service 11111 ..... 2");
+        return data;
+      });
+    }));
+
+    return this.userRoleProfilec;
+  }
+
+  getUserRoleByRoles(rolename) {
+    this.userRoleCollection = this.afs.collection(FIREBASE_CONFIG.UserRoles, ref =>
+          ref.where('RoleName','==',rolename));
+          // console.log("List Service ..... 4");
+    this.userRoleProfilec = this.userRoleCollection.snapshotChanges().pipe(map(changes => {
+      // console.log("List Service ..... 5");
+      return changes.map(a => {
+        // console.log("List Service ..... 6");
+        const data = a.payload.doc.data() as UserRole;
+        data.id = a.payload.doc.id;
+        // console.log("List Service 11111 ..... 2");
+        return data;
+      });
+    }));
+
+    return this.userRoleProfilec;
+  }
 
   AlgoliaObjectUpdate(tranType, uprofile, id, createDate) {
     console.log("Algolia Update Object..... :::::: "+createDate.seconds);
@@ -189,7 +224,7 @@ export class UserprofileService {
         Country:uprofile.Country,
         Email:uprofile.Email,
         HomePhone:uprofile.HomePhone,
-        CellPhone:uprofile.CellPhone,        
+        CellPhone:uprofile.CellPhone,
         EmploymentType:uprofile.EmploymentType,
         DesiredPosition:uprofile.DesiredPosition,
         DesiredSalary:uprofile.DesiredSalary,
@@ -220,7 +255,7 @@ export class UserprofileService {
         Country:uprofile.Country,
         Email:uprofile.Email,
         HomePhone:uprofile.HomePhone,
-        CellPhone:uprofile.CellPhone,         
+        CellPhone:uprofile.CellPhone,
         EmploymentType:uprofile.EmploymentType,
         DesiredPosition:uprofile.DesiredPosition,
         DesiredSalary:uprofile.DesiredSalary,
@@ -237,7 +272,7 @@ export class UserprofileService {
         CreatedDate : createDate.seconds,
         LastModifiedDate:uprofile.LastModifiedDate.getTime(),
         isSearchable:true,
-  
+
       }];
     }
 

@@ -3,4 +3,9 @@ export interface UserRole {
     RoleName? : string;
     RoleDetails? : string
     RoleType: string;
+    OrderBy: string;
+    isEmployerPostJobRole: boolean;
+    isEmployerResumeSearchRole: boolean;
+    isAdminUserRole: boolean;
+
 }
