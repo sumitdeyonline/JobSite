@@ -1,0 +1,72 @@
+<div class="container">
+  <div class="single">
+      <div class="form-container">
+          <h2>User Role Assignment Administration</h2>
+          <a routerLink="/postsadminhome" *ngIf="auth.isAdminRole()"><i class="fa fa-arrow-left" style="font-size:24px;color:rgb(14, 2, 43)"></i></a>
+            <table>
+              <tr>
+                <td>
+                    <form #rform="ngForm" (ngSubmit)="roleSearch(rform.value)">
+                      <table>
+                          <tr>
+                            <td>User Name :</td>
+                            <td>
+                                <input type="text" class="text" ngModel name="username" #username="ngModel" id="username" placeholder="" value={{username}}>
+                            </td>
+                            <td>&nbsp;OR&nbsp;</td>
+                            <td>User Role :</td>
+                            <td>
+                              <select ngModel name="role" #role="ngModel" id="role">
+                                <option value="">Select Role</option>
+                                <option [value]="uRole.RoleName" *ngFor="let uRole of UserRole">{{uRole.RoleName}}</option>
+                                <!--option>USA</option-->
+                              </select>
+                            </td>
+                            <td><button type="submit"><i class="fa fa-search"></i></button></td>
+                          </tr>
+                         </table>
+                  </form>
+
+
+                </td>
+              </tr>
+              <tr>
+                <td>
+
+
+                    <table border="1">
+                        <tr>
+                          <th windh="20%">User Name</th>
+                          <th windh="20%">Company Name</th>
+                          <th windh="10%">Company Address</th>
+                          <th windh="10%">Date</th>
+                          <th windh="10%">Phone</th>
+                          <th windh="10%">User Role</th>
+                          <th windh="10%">PostJob Count</th>
+                          <th windh="5%">Resume Email Count</th>
+
+                          <th windh="5%">&nbsp;</th>
+                        </tr>
+                        <tr *ngFor="let uDet of userDetails">
+                          <td>{{uDet.userName}}</td>
+                          <td>{{uDet.company}}</td>
+                          <td>{{uDet.companyAddress}}</td>
+                          <td>{{uDet.createdDate}}</td>
+                          <td>{{uDet.phone}}</td>
+                          <td>{{uDet.userRole}}</td>
+                          <td>{{uDet.postjobCount}}</td>
+                          <td>{{uDet.resumeEmailCount}}</td>
+                          <td><a [routerLink]="['/postjob']" class="fa fa-edit"></a>&nbsp;<a (click)="onDelete(id)" class="fa fa-trash"></a></td>
+                        </tr>
+                    </table>
+
+
+                </td>
+              </tr>
+            </table>
+
+
+
+        </div>
+      </div>
+  </div>

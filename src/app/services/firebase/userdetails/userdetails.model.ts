@@ -6,6 +6,8 @@ export interface UserDetails {
   company? : string;
   companyAddress? : string;
   phone? : string;
+  postjobCount? : number;
+  resumeEmailCount? : number;
   LastModifiedBy? : string;
   LastModifiedDate? : string;
 }

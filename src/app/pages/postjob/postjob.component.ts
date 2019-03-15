@@ -45,6 +45,7 @@ export class PostjobComponent implements OnInit {
   state: State[];
   userDetails: UserDetails[];
   isJobLength: boolean = false;
+  postJobCount: number = 0;
 
   constructor(private _activeRoute: ActivatedRoute, private _auth: AuthService, fb: FormBuilder, private postjobService: PostjobService,
               private toastrservice: ToastrService,
@@ -77,6 +78,11 @@ export class PostjobComponent implements OnInit {
         this.userDetails = udtl;
         if (this.userDetails.length > 0) {
           this.postjobService.selectedPostJobc.Company = this.userDetails[0].company;
+          if (this.userDetails[0].postjobCount !== undefined) {
+            this.postJobCount = this.userDetails[0].postjobCount;
+          }
+          console.log("Number of Job Count "+this.postJobCount);
+          console.log("ID :::::: "+this.userDetails[0].id);
         }
       } else {
         console.log("UPDATE FORM ....");
@@ -89,6 +95,13 @@ export class PostjobComponent implements OnInit {
           this.isPayrate(this.postJob.JobPayRate);
         })
       }
+      // if (this.userDetails.length > 0) {
+      //     if (this.userDetails[0].postjobCount !== undefined) {
+      //       this.postJobCount = this.userDetails[0].postjobCount;
+      //     }
+      //   console.log("Number of Job Count "+this.postJobCount);
+      //   console.log("ID :::::: "+this.userDetails[0].id);
+      // }
 
 
     })
@@ -118,14 +131,18 @@ export class PostjobComponent implements OnInit {
     }
 
 
+
     if ((this.id == null) || (this.id == '')) {
 
-      this.postjobService.addUpdatePostJobs(postJobForm.value,this.id, new Date(), "");
+      this.postJobCount = this.postJobCount + 1;
+      this.userDetails[0].postjobCount = this.postJobCount;
+      this.postjobService.addUpdatePostJobs(postJobForm.value,this.id, new Date(), "", this.userDetails[0]);
       console.log("NEW FORM ....");
       type = "Created";
     } else {
       type = "Updated";
-      this.postjobService.addUpdatePostJobs(postJobForm.value,this.id,this.postJob.CreatedDate, this.postJob.CreatedBy);
+      //this.userDetails[0]={};
+      this.postjobService.addUpdatePostJobs(postJobForm.value,this.id,this.postJob.CreatedDate, this.postJob.CreatedBy, null);
     }
 
     //console.log("$Key VALUE :::::: "+postJobForm.value.$key);
@@ -159,6 +176,7 @@ export class PostjobComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = type+"||jobpoststatus";
     this.dialog.open(CommondialogComponent, dialogConfig);
+
 
     /*setTimeout(() => {
 

@@ -100,7 +100,7 @@ export class ValueServicesComponent implements OnInit {
         model.email = this._auth.userProfile.name;
         // console.log("Post Job ::::: "+model.postjob);
         // console.log("Resume Search ::::: "+model.resumesearch);
-        this.udetails.addUpdateUserDetails(this.userDetailsID, model.email, model.userRole, model.company, model.companyAddress, model.phone);
+        this.udetails.addUpdateUserDetails(this.userDetailsID, model.email, model.userRole, model.company, model.companyAddress, model.phone,0);
         this.valueservicesSucessMessage = model.email+" has been Sucessfully Updated."
         return true;
       } else {
@@ -111,7 +111,7 @@ export class ValueServicesComponent implements OnInit {
               this.valueservicesSucessMessage = modelsignup.email+" has been Sucessfully Registered"
               console.log(this.valueservicesSucessMessage);
               //console.log("Value Radio Burron ::::===>>>>>>> "+this.userActualRole);
-              this.udetails.addUpdateUserDetails(this.userDetailsID, modelsignup.email, this.userActualRole, model.company, model.companyAddress,  model.phone);
+              this.udetails.addUpdateUserDetails(this.userDetailsID, modelsignup.email, this.userActualRole, model.company, model.companyAddress,  model.phone,0);
               //this.router.navigate(['/signupconfirm']);
               return true;
           },

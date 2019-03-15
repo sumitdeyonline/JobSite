@@ -21,6 +21,8 @@ import { FIREBASE_CONFIG, SEARCH_CONFIG } from 'src/app/global-config';
 
 import { Http, Headers, Response, URLSearchParams } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
+import { UserdetailsService } from '../userdetails/userdetails.service';
+import { UserDetails } from '../userdetails/userdetails.model';
 
 
 
@@ -50,7 +52,7 @@ export class PostjobService {
   //searchQuery: string ="sumitdey@yahoo.com" ;
   jobs = [];
 
-  constructor(private afs : AngularFirestore, private auth: AuthService, private http: Http) {
+  constructor(private afs : AngularFirestore, private auth: AuthService, private http: Http, private uDetails: UserdetailsService) {
     this.pjCollection = this.afs.collection(FIREBASE_CONFIG.PostJob);
     //this.faqList = this.firebase.list('faq');
     //this.faqs = this.afs.collection('faq').valueChanges();
@@ -144,12 +146,13 @@ export class PostjobService {
 
 
 
-  addUpdatePostJobs(pjobc :  PostJobc,id: string, createDate: Date, createdBy: string) {
+  addUpdatePostJobs(pjobc :  PostJobc,id: string, createDate: Date, createdBy: string, uDetails: UserDetails) {
 
     //pjobc.LastModifiedDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
 
     pjobc.LastModifiedDate = new Date();
     pjobc.LastModifiedBy = this.auth.userProfile.name;
+
     if ((id == null) || (id == '')) {
       //pjobc.CreatedDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
       pjobc.CreatedDate = new Date();
@@ -157,6 +160,9 @@ export class PostjobService {
 
       pjobc.CreatedBy = this.auth.userProfile.name;
       pjobc.isSearchable = true;
+
+      this.uDetails.addUpdateUserDetails(uDetails.id,uDetails.userName,uDetails.userRole,uDetails.company,uDetails.companyAddress,uDetails.phone,uDetails.postjobCount)
+
       //pjobc.JobTitle =
       // console.log ("Create Date ::: "+pjobc.CreatedDate);
       // console.log ("Created By ::: "+pjobc.CreatedBy);
@@ -172,6 +178,7 @@ export class PostjobService {
         console.log("Entry ISSSSS "+entry.id);
 
         this.AlgoliaObjectUpdate(id,pjobc,entry.id, createDate, createdBy);
+
 
 
       });

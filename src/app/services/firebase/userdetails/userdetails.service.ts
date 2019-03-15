@@ -26,6 +26,7 @@ export class UserdetailsService {
 
   selectedValueServices: ValueServices;
   selectedUserDetails: UserDetails;
+
   udCollection: AngularFirestoreCollection<UserDetails>;
   userDetailc: Observable<UserDetails[]>;
   udDoc: AngularFirestoreDocument<UserDetails>;
@@ -47,7 +48,7 @@ export class UserdetailsService {
   }
 
 
-  addUpdateUserDetails(id: string, uname: string,uRole: string, company: string, companyAddress: string, phone: string) {
+  addUpdateUserDetails(id: string, uname: string,uRole: string, company: string, companyAddress: string, phone: string, postjobCount: number) {
 
     //this.userDetail = new UserDetails[];
     // let udetails : UserDetails{
@@ -66,13 +67,13 @@ export class UserdetailsService {
 
 
     const  cDate = formatDate(new Date(), 'MM/dd/yyyy', 'en');
-    const  udeatils: UserDetails = { userName: uname, userRole: uRole,company: company,companyAddress:companyAddress,phone:phone,createdDate: cDate };
+    const  udeatils: UserDetails = { userName: uname, userRole: uRole,company: company,companyAddress:companyAddress,phone:phone,createdDate: cDate, postjobCount: postjobCount };
     //console.log("UDetails  ::::: "+udeatils);
     if ((id == null) || (id == '')) {
       // const id = this.afs.createId();
-      
+
       //const  uRole = "User";
-      
+
       console.log(udeatils);
       this.udCollection.add(udeatils);
       // this.adUserDetails( uname);

@@ -7,17 +7,21 @@ import { UserrolesComponent } from './userroles/userroles.component';
 import { AdminGuardService } from '../services/authentication/admin-guard.service';
 import { AuthService } from '../services/authentication/auth.service';
 import { RouterModule } from '@angular/router';
+import { UserroleassignmentComponent } from './userroleassignment/userroleassignment.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
     imports: [
         CommonModule,
         HttpModule,
-        RouterModule
+        RouterModule,
+        FormsModule
     ],
     declarations: [
     AdminhomeComponent,
-    UserrolesComponent
+    UserrolesComponent,
+    UserroleassignmentComponent
   ],
     exports: [
 
