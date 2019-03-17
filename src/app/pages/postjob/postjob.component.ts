@@ -70,7 +70,7 @@ export class PostjobComponent implements OnInit {
     });
     this.resetForm();
 
-    this.udetails.getUserDetails(this._auth.userProfile.name).subscribe(udtl=> {
+    this.udetails.getUserDetails(this._auth.userProfile.name,'U').subscribe(udtl=> {
 
 
       if ((this.id == null) || (this.id == '')) {

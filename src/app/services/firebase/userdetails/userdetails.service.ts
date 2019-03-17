@@ -96,12 +96,17 @@ export class UserdetailsService {
 
   }
 
-  getUserDetails(user) {
-    console.log("List Service ..... 3 "+user);
+  getUserDetails(userOrRole, fieldType ) {
+    console.log("List Service ..... 3 "+userOrRole);
+    console.log("Field Type .....  "+fieldType);
 
-
-    this.udCollection = this.afs.collection(FIREBASE_CONFIG.UserDetails, ref =>
-          ref.where('userName','==',user));
+    if (fieldType == 'U') {
+      this.udCollection = this.afs.collection(FIREBASE_CONFIG.UserDetails, ref =>
+        ref.where('userName','==',userOrRole));
+    } else if (fieldType == 'R') {
+      this.udCollection = this.afs.collection(FIREBASE_CONFIG.UserDetails, ref =>
+        ref.where('userRole','==',userOrRole));      
+    }
            //console.log("List Service ..... 4");
     this.userDetailc = this.udCollection.snapshotChanges().pipe(map(changes => {
       // console.log("List Service ..... 5");

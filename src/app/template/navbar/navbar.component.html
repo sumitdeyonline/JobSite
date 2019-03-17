@@ -86,7 +86,7 @@
       </li>
       <li><a routerLink="" (click) = "auth.logout()" *ngIf="auth.isAuthenticated()">Logout</a></li>
 
-      <li *ngIf="auth.isAdminRole()"><a routerLink="/postsadminhome" *ngIf="auth.isAdminRole()"><i class="fa fa-gear" style="font-size:24px;color:white"></i></a></li>
+      <li *ngIf="auth.isAdminRole()"><a routerLink="/postsadminhome" *ngIf="auth.isAdminRole()"><i *ngIf="auth.isAdminRole()" class="fa fa-gear" style="font-size:24px;color:white"></i></a></li>
 
     </ul>
 

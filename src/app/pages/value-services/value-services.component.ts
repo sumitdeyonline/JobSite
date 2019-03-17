@@ -50,7 +50,7 @@ export class ValueServicesComponent implements OnInit {
 
     if (this._auth.isAuthenticated()) {
 
-      this.udetails.getUserDetails(this._auth.userProfile.name).subscribe(udtl=> {
+      this.udetails.getUserDetails(this._auth.userProfile.name, 'U').subscribe(udtl=> {
         this.userDetails = udtl;
         console.log(" Length :::: "+this.userDetails.length);
 
