@@ -38,7 +38,7 @@ export class UserProfileComponent implements OnInit {
   constructor(private rUploadService: UploadResumeService, private uProfile: UserprofileService, private auth: AuthService) {
 
 
-    this.uProfile.getUserDetails(this.auth.userProfile.name).subscribe(uprop=> {
+    this.uProfile.getUserDetails(this.auth.userProfile.name,'U').subscribe(uprop=> {
       this.userProfile = uprop;
       this.resetForm();
       //this.countries = ['USA', 'Canada', 'Uk'];
@@ -104,7 +104,7 @@ export class UserProfileComponent implements OnInit {
       console.log("Befire UserProfile .......*******>>>>>>");
       this.resetForm();
       //this.getFieldForUpdate();
-      this.uProfile.getUserDetails(this.auth.userProfile.name).subscribe(uprop=> {
+      this.uProfile.getUserDetails(this.auth.userProfile.name,'U').subscribe(uprop=> {
         this.userProfile = uprop;
         this.getFieldForUpdate();
       })

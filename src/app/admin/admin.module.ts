@@ -9,6 +9,7 @@ import { AuthService } from '../services/authentication/auth.service';
 import { RouterModule } from '@angular/router';
 import { UserroleassignmentComponent } from './userroleassignment/userroleassignment.component';
 import { FormsModule } from '@angular/forms';
+import { UserprofilesComponent } from './userprofiles/userprofiles.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { FormsModule } from '@angular/forms';
     declarations: [
     AdminhomeComponent,
     UserrolesComponent,
-    UserroleassignmentComponent
+    UserroleassignmentComponent,
+    UserprofilesComponent
   ],
     exports: [
 

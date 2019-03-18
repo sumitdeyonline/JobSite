@@ -16,8 +16,8 @@
                 <h4>User</h4>
                 <li *ngIf="auth.isAdminRole()"><a routerLink="/userroles" *ngIf="auth.isAdminRole()">User Roles</a></li>
                 <li *ngIf="auth.isAdminRole()"><a routerLink="/userroleassignment" *ngIf="auth.isAdminRole()">User Role Assignment</a></li>
-                <li>User Profile</li>
-                <li>User Resume</li>
+                <li *ngIf="auth.isAdminRole()"><a routerLink="/userprofiles" *ngIf="auth.isAdminRole()">User Profiles</a></li>
+                <!--li>User Resume</li-->
                 &nbsp;&nbsp;
                 <h4>Post Job</h4>
                 <li>Post Job By Vendor</li>

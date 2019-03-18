@@ -93,12 +93,20 @@ export class UserprofileService {
 
   }
 
-  getUserDetails(user) {
-    console.log("List Service ..... 3 "+user);
+  getUserDetails(usersearchparam, stype)  {
+    console.log("List Service ..... 3 "+usersearchparam);
 
+    if (stype == 'U'){
+      this.upCollection = this.afs.collection(FIREBASE_CONFIG.UserProfile, ref =>
+        ref.where('Username','==',usersearchparam));
+    } else if (stype == 'HP') {
+      this.upCollection = this.afs.collection(FIREBASE_CONFIG.UserProfile, ref =>
+        ref.where('HomePhone','==',usersearchparam));
+    } else if (stype == 'CP') {
+      this.upCollection = this.afs.collection(FIREBASE_CONFIG.UserProfile, ref =>
+        ref.where('CellPhone','==',usersearchparam));
+    }
 
-    this.upCollection = this.afs.collection(FIREBASE_CONFIG.UserProfile, ref =>
-          ref.where('Username','==',user));
           // console.log("List Service ..... 4");
     this.UserProfilec = this.upCollection.snapshotChanges().pipe(map(changes => {
       // console.log("List Service ..... 5");
