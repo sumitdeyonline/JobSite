@@ -130,7 +130,44 @@ export class PostjobComponent implements OnInit {
       postJobForm.value.JobLength = null;
     }
 
+    if (postJobForm.value.CCToEmail === undefined) {
+      postJobForm.value.CCToEmail = '';
+    }
 
+    if (postJobForm.value.ApplyToURL === undefined) {
+      postJobForm.value.ApplyToURL = '';
+    }
+
+    if (postJobForm.value.country === undefined) {
+      postJobForm.value.country = '';
+    }
+    if (postJobForm.value.state === undefined) {
+      postJobForm.value.state = '';
+    }
+
+    if (postJobForm.value.JobZip === undefined) {
+      postJobForm.value.JobZip = '';
+    }    
+
+    if (postJobForm.value.EmploymentTypes === undefined) {
+      postJobForm.value.EmploymentTypes = '';
+    } 
+
+    if (postJobForm.value.JobPayRate === undefined) {
+      postJobForm.value.JobPayRate = '';
+    } 
+
+    if (postJobForm.value.Compensation === undefined) {
+      postJobForm.value.Compensation = '';
+    } 
+
+    if (postJobForm.value.TravelRequirements === undefined) {
+      postJobForm.value.TravelRequirements = '';
+    } 
+
+    if (postJobForm.value.isTeleComute === undefined) {
+      postJobForm.value.isTeleComute = '';
+    }     
 
     if ((this.id == null) || (this.id == '')) {
 
