@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { UserroleassignmentComponent } from './userroleassignment/userroleassignment.component';
 import { FormsModule } from '@angular/forms';
 import { UserprofilesComponent } from './userprofiles/userprofiles.component';
+import { PostjobvendorComponent } from './postjobvendor/postjobvendor.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { UserprofilesComponent } from './userprofiles/userprofiles.component';
     AdminhomeComponent,
     UserrolesComponent,
     UserroleassignmentComponent,
-    UserprofilesComponent
+    UserprofilesComponent,
+    PostjobvendorComponent
   ],
     exports: [
 

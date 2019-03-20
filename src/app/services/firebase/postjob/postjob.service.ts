@@ -319,12 +319,16 @@ export class PostjobService {
 
 
 
-  getPostJobsByUser(user) {
+  getPostJobsByUser(searchParam, type) {
     console.log("List Service ..... 3"+this.PostJobc);
 
-
-    this.pjCollection = this.afs.collection(FIREBASE_CONFIG.PostJob, ref =>
-          ref.where('CreatedBy','==',user).orderBy('LastModifiedDate','desc'));
+    if (type=='U') {
+      this.pjCollection = this.afs.collection(FIREBASE_CONFIG.PostJob, ref =>
+        ref.where('CreatedBy','==',searchParam).orderBy('LastModifiedDate','desc'));
+    } else if (type=='C') {
+      this.pjCollection = this.afs.collection(FIREBASE_CONFIG.PostJob, ref =>
+        ref.where('Company','==',searchParam).orderBy('LastModifiedDate','desc'));      
+    } 
           //console.log("List Service ..... 4");
     this.PostJobc = this.pjCollection.snapshotChanges().pipe(map(changes => {
       //console.log("List Service ..... 5");

@@ -72,6 +72,9 @@ export class UserroleassignmentComponent implements OnInit {
     
           } else {
             console.log("User not found");
+            this.userDetails = null;
+            this.pagedItems = null;
+            this.setPage(1);
           }
     
         })  
@@ -87,6 +90,9 @@ export class UserroleassignmentComponent implements OnInit {
     
           } else {
             console.log("User not found");
+            this.userDetails = null;
+            this.pagedItems = null;
+            this.setPage(1);           
           }
     
         })  

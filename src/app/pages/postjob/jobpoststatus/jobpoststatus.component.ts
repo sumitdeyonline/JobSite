@@ -54,7 +54,7 @@ export class JobpoststatusComponent implements OnInit {
 
   ngOnInit() {
     window.scroll(0,0);
-    this.postservice.getPostJobsByUser(this.auth.userProfile.name).subscribe(pjob=> {
+    this.postservice.getPostJobsByUser(this.auth.userProfile.name, 'U').subscribe(pjob=> {
       this.pjob = pjob;
       //console.log("Last Updated ::: "+ Math.round(Math.abs(new Date().getTime() - this.pjob[3].LastModifiedDate.toDate().getTime())/(24*60*60*1000));
       // console.log("Last Updated ::: "+ this.getDateDiff(this.pjob[3].LastModifiedDate));

@@ -20,7 +20,9 @@
                 <!--li>User Resume</li-->
                 &nbsp;&nbsp;
                 <h4>Post Job</h4>
-                <li>Post Job By Vendor</li>
+                
+                <li *ngIf="auth.isAdminRole()"><a routerLink="/postjobvendor" *ngIf="auth.isAdminRole()">Post Job</a></li>
+
                 <li>Country</li>
                 <li>State</li>
                 <li>Apply Job</li>
