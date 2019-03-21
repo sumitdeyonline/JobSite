@@ -101,11 +101,14 @@ export class PostjobvendorComponent implements OnInit {
     console.log("Page Count");
     window.scroll(0,0);
     // get pager object from service
-    this.pager = this.pagerService.getPager(this.postJobc.length, page);
-    //console.log("Page Count...1  ::: "+this.pager.length);
-    // get current page of items
-    this.pagedItems = this.postJobc.slice(this.pager.startIndex, this.pager.endIndex + 1);
-    //console.log("Page Count...1  ::: "+this.pagedItems.length);
+    if (this.postJobc !=null) {
+      this.pager = this.pagerService.getPager(this.postJobc.length, page);
+      //console.log("Page Count...1  ::: "+this.pager.length);
+      // get current page of items
+      this.pagedItems = this.postJobc.slice(this.pager.startIndex, this.pager.endIndex + 1);
+      //console.log("Page Count...1  ::: "+this.pagedItems.length);
+    }
+
   }    
 
 }

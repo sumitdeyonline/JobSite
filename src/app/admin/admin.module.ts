@@ -11,6 +11,7 @@ import { UserroleassignmentComponent } from './userroleassignment/userroleassign
 import { FormsModule } from '@angular/forms';
 import { UserprofilesComponent } from './userprofiles/userprofiles.component';
 import { PostjobvendorComponent } from './postjobvendor/postjobvendor.component';
+import { CountryComponent } from './country/country.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { PostjobvendorComponent } from './postjobvendor/postjobvendor.component'
     UserrolesComponent,
     UserroleassignmentComponent,
     UserprofilesComponent,
-    PostjobvendorComponent
+    PostjobvendorComponent,
+    CountryComponent
   ],
     exports: [
 

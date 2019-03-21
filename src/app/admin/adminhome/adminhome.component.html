@@ -22,8 +22,8 @@
                 <h4>Post Job</h4>
                 
                 <li *ngIf="auth.isAdminRole()"><a routerLink="/postjobvendor" *ngIf="auth.isAdminRole()">Post Job</a></li>
-
-                <li>Country</li>
+                <li *ngIf="auth.isAdminRole()"><a routerLink="/country" *ngIf="auth.isAdminRole()">Country</a></li>
+                
                 <li>State</li>
                 <li>Apply Job</li>
 

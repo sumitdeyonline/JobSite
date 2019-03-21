@@ -1,5 +1,5 @@
 export interface State {
-	id? : string;
+    id? : string;
     CountryName? : string;
     StateName? : string
     StateDisplayName: string;
