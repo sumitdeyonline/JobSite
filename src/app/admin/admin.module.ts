@@ -8,10 +8,12 @@ import { AdminGuardService } from '../services/authentication/admin-guard.servic
 import { AuthService } from '../services/authentication/auth.service';
 import { RouterModule } from '@angular/router';
 import { UserroleassignmentComponent } from './userroleassignment/userroleassignment.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserprofilesComponent } from './userprofiles/userprofiles.component';
 import { PostjobvendorComponent } from './postjobvendor/postjobvendor.component';
 import { CountryComponent } from './country/country.component';
+import { CountryaddupdateComponent } from './country/countryaddupdate/countryaddupdate.component';
+import { MatDialogModule, MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
 
 
 @NgModule({
@@ -19,16 +21,24 @@ import { CountryComponent } from './country/country.component';
         CommonModule,
         HttpModule,
         RouterModule,
-        FormsModule
+        FormsModule,
+        ReactiveFormsModule,
+        MatDialogModule,
+        MatInputModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,        
     ],
-    declarations: [
-    AdminhomeComponent,
-    UserrolesComponent,
-    UserroleassignmentComponent,
-    UserprofilesComponent,
-    PostjobvendorComponent,
-    CountryComponent
-  ],
+      declarations: [
+      AdminhomeComponent,
+      UserrolesComponent,
+      UserroleassignmentComponent,
+      UserprofilesComponent,
+      PostjobvendorComponent,
+      CountryComponent,
+      CountryaddupdateComponent
+    ],
+    entryComponents: [CountryaddupdateComponent],
     exports: [
 
     ],

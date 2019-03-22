@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>Apply Job</h2>
+
+<form [formGroup]="countryForm">
+  <div class="applyjob-container">
+
+    <mat-form-field>
+      <input matInput
+                placeholder="Country ID"
+              formControlName="countryID">
+    </mat-form-field>
+
+    <mat-form-field>
+    <input matInput
+              placeholder="Country Name"
+            formControlName="CountryName">
+    </mat-form-field>
+
+
+    <input type="button" value="Cancel" (click)="close()" class="btn btn-primary btn-sm">
+
+    </div>
+  </form>
+
+
+
+
+
+

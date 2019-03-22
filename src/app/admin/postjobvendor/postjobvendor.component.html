@@ -4,6 +4,7 @@
           <h2>Post Job Administration</h2>
           <a routerLink="/postsadminhome" *ngIf="auth.isAdminRole()"><i class="fa fa-arrow-left" style="font-size:24px;color:rgb(14, 2, 43)"></i></a>
 
+
           <div class="row">
             <form #pjform="ngForm" (ngSubmit)="postjobSearch(pjform.value)">
               <table>
