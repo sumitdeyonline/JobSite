@@ -63,7 +63,8 @@ export const FIREBASE_CONFIG = {
     EmployerPowerUser: 'EmployerPowerUser',
     UserRole: 'User',
     AdminRole: 'Admin',
-    ApplyJobSucess: 'Job has been sucessfully Applied.'
+    ApplyJobSucess: 'Job has been sucessfully Applied.',
+    CountryCreate: 'Country has been sucessfully created'
 }
 
 export const SEARCH_CONFIG = {

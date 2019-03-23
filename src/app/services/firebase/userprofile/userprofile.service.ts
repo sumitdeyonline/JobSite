@@ -27,7 +27,7 @@ export class UserprofileService {
 
   countryCollection: AngularFirestoreCollection <Country>;
   countryProfilec: Observable<Country[]>;
-  //cDoc: AngularFirestoreDocument<Country>;
+  cDoc: AngularFirestoreDocument<Country>;
 
   stateCollection: AngularFirestoreCollection <State>;
   stateProfilec: Observable<State[]>;
@@ -141,6 +141,20 @@ export class UserprofileService {
 
     return this.countryProfilec;
   }
+
+  addUpdateCountry(cnry :  Country, id) {
+    if ((id == null) || (id == '')) {
+      this.countryCollection.add(cnry).then((entry) => {
+        console.log("Country is "+entry.id);
+      })      
+    } else {
+      console.log("Update");
+      this.cDoc = this.afs.doc(`${FIREBASE_CONFIG.Country}/${id}`);
+      this.cDoc.update(cnry);
+    }
+
+  }
+
 
   getStateDetails(country) {
     console.log("Country Name "+country);

@@ -165,7 +165,7 @@
                     <div class="col">
                         <select ngModel name="JobCountry" #JobCountry="ngModel" id="JobCountry" [ngModel]="postjobService.selectedPostJobc?.JobCountry" class="form-control input-sm" (ngModelChange)="postjobService.selectedPostJobc.JobCountry" (change)="getState($event.target.value)" required>
                           <option>Select Country</option>
-                          <option [value]="country.CountryName" *ngFor="let country of countries">{{country.CountryName}}</option>
+                          <option [value]="country.countryID" *ngFor="let country of countries">{{country.CountryName}}</option>
 
                         </select>
                         <div style="color: red;" *ngIf="JobCountry.invalid && (JobCountry.dirty || JobCountry.touched)">

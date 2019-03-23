@@ -141,7 +141,7 @@
                     <div class="col">
                         <select ngModel name="Country" [disabled]="!isUpdateProfile" #Country="ngModel" id="Country" [ngModel]="uProfile.selectedUserProfile?.Country" (ngModelChange)="uProfile.selectedUserProfile.Country" class="form-control input-sm" (change)="getState($event.target.value)" required>
                             <option >Select Country</option>
-                            <option [value]="country.CountryName" *ngFor="let country of countries">{{country.CountryName}}</option>
+                            <option [value]="country.countryID" *ngFor="let country of countries">{{country.CountryName}}</option>
                             <!--option>USA</option-->
                         </select>
                         <div style="color: red;" *ngIf="Country.invalid && (Country.dirty || Country.touched)">

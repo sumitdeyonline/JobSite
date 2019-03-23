@@ -61,8 +61,8 @@ export class CountryComponent implements OnInit {
       // dialogConfig.data = this.pjob.ApplyToEmail;
       //this.pjob.id = this.id;
       dialogConfig.data = "test";
-       dialogConfig.height = "4";
-       dialogConfig.width ="3";
+       //dialogConfig.height = "4";
+       //dialogConfig.width ="3";
       this.dialog.open(CountryaddupdateComponent, dialogConfig);
     //  dialogConfig.disableClose = false;
     //  dialogConfig.autoFocus = true;
@@ -71,6 +71,17 @@ export class CountryComponent implements OnInit {
     //this.fileNameDialogRef = this.dialog.open(DialogComponent, dialogConfig);
     //this.postservice.deletePostJob(pjob);
   }  
+
+  onUpdate(country) {
+    console.log("Country ID :"+country.id);
+    const dialogConfig = new MatDialogConfig();
+    // dialogConfig.data = this.pjob.ApplyToEmail;
+    //this.pjob.id = this.id;
+    dialogConfig.data = country;
+     //dialogConfig.height = "4";
+     //dialogConfig.width ="3";
+    this.dialog.open(CountryaddupdateComponent, dialogConfig);    
+  }
 
 
 }
