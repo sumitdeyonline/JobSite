@@ -124,6 +124,7 @@ export class UserProfileComponent implements OnInit {
       // New Entry
        this.userProfileAddUpdate(uprofileForm, null);
        this.EnableEdit();
+       window.scroll(0,0);
 
       // this.rUploadService.getFileUploads(Number(FIREBASE_CONFIG.TotalFile)).snapshotChanges().pipe(
       //   map(changes =>
