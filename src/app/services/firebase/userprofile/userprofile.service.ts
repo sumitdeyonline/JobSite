@@ -177,6 +177,10 @@ export class UserprofileService {
 
   }
 
+  deleteCountry(id) {
+    this.cDoc = this.afs.doc(`${FIREBASE_CONFIG.Country}/${id}`);
+    this.cDoc.delete();
+  }
 
   getStateDetails(country) {
     console.log("Country Name "+country);

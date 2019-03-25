@@ -83,5 +83,15 @@ export class CountryComponent implements OnInit {
     this.dialog.open(CountryaddupdateComponent, dialogConfig);    
   }
 
+  onDelete(country) {
+    console.log("Country ID :"+country.id);
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = country.id;
+    // dialogConfig.height = "4";
+    // dialogConfig.width ="3";
+    //this.dialog.open(DialogComponent, dialogConfig);
+
+  }  
 
 }

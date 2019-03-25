@@ -20,7 +20,7 @@
                 <tr *ngFor="let country of pagedItems">
                   <td>{{country.countryID}}</td>
                   <td>{{country.CountryName}}</td>
-                  <td><a (click)="onUpdate(country)" class="fa fa-edit"></a>&nbsp;<a (click)="onDelete(country.id)" class="fa fa-trash"></a></td>
+                  <td><a (click)="onUpdate(country)" class="fa fa-edit"></a>&nbsp;<a (click)="onDelete(country)" class="fa fa-trash"></a></td>
                 </tr>
             </table>
           
