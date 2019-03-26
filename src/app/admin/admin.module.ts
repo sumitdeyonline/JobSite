@@ -14,6 +14,8 @@ import { PostjobvendorComponent } from './postjobvendor/postjobvendor.component'
 import { CountryComponent } from './country/country.component';
 import { CountryaddupdateComponent } from './country/countryaddupdate/countryaddupdate.component';
 import { MatDialogModule, MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
+import { CountrydialogComponent } from './country/countrydialog/countrydialog.component';
+import { StateComponent } from './state/state.component';
 
 
 @NgModule({
@@ -36,9 +38,11 @@ import { MatDialogModule, MatInputModule, MatTableModule, MatPaginatorModule, Ma
       UserprofilesComponent,
       PostjobvendorComponent,
       CountryComponent,
-      CountryaddupdateComponent
+      CountryaddupdateComponent,
+      CountrydialogComponent,
+      StateComponent
     ],
-    entryComponents: [CountryaddupdateComponent],
+    entryComponents: [CountryaddupdateComponent, CountrydialogComponent],
     exports: [
 
     ],

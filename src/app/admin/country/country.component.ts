@@ -6,6 +6,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { PagerService } from 'src/app/services/common/pager.service';
 import { MatDialogConfig, MatDialog } from '@angular/material';
 import { CountryaddupdateComponent } from './countryaddupdate/countryaddupdate.component';
+import { CountrydialogComponent } from './countrydialog/countrydialog.component';
 
 @Component({
   selector: 'country',
@@ -90,7 +91,7 @@ export class CountryComponent implements OnInit {
     dialogConfig.data = country.id;
     // dialogConfig.height = "4";
     // dialogConfig.width ="3";
-    //this.dialog.open(DialogComponent, dialogConfig);
+    this.dialog.open(CountrydialogComponent, dialogConfig);
 
   }  
 

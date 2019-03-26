@@ -6,6 +6,7 @@ import { UserroleassignmentComponent } from './userroleassignment/userroleassign
 import { UserprofilesComponent } from './userprofiles/userprofiles.component';
 import { PostjobvendorComponent } from './postjobvendor/postjobvendor.component';
 import { CountryComponent } from './country/country.component';
+import { StateComponent } from './state/state.component';
 
 
 export const adminRouting = RouterModule.forChild([
@@ -38,7 +39,13 @@ export const adminRouting = RouterModule.forChild([
       path: 'country',
       component: CountryComponent,
       canActivate: [AdminGuardService]
+    },
+    {
+      path: 'state',
+      component: StateComponent,
+      canActivate: [AdminGuardService]
     }    
+           
     
     
 ]);
