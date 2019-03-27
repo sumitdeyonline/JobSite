@@ -16,6 +16,8 @@ import { CountryaddupdateComponent } from './country/countryaddupdate/countryadd
 import { MatDialogModule, MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
 import { CountrydialogComponent } from './country/countrydialog/countrydialog.component';
 import { StateComponent } from './state/state.component';
+import { StateaddupdateComponent } from './state/stateaddupdate/stateaddupdate.component';
+import { StatedialogComponent } from './state/statedialog/statedialog.component';
 
 
 @NgModule({
@@ -40,9 +42,11 @@ import { StateComponent } from './state/state.component';
       CountryComponent,
       CountryaddupdateComponent,
       CountrydialogComponent,
-      StateComponent
+      StateComponent,
+      StateaddupdateComponent,
+      StatedialogComponent
     ],
-    entryComponents: [CountryaddupdateComponent, CountrydialogComponent],
+    entryComponents: [CountryaddupdateComponent, CountrydialogComponent, StatedialogComponent],
     exports: [
 
     ],

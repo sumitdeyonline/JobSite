@@ -186,14 +186,14 @@ export class UserprofileService {
     console.log("Country Name "+country);
     this.stateCollection = this.afs.collection(FIREBASE_CONFIG.State, ref =>
           ref.where('CountryName','==',country));
-          // console.log("List Service ..... 4");
+           //console.log("List Service ..... 4");
     this.stateProfilec = this.stateCollection.snapshotChanges().pipe(map(changes => {
-      // console.log("List Service ..... 5");
+       //console.log("List Service ..... 5");
       return changes.map(a => {
         // console.log("List Service ..... 6");
         const data = a.payload.doc.data() as State;
         data.id = a.payload.doc.id;
-        // console.log("List Service 11111 ..... 2");
+         //console.log("List Service 11111 ..... 2");
         return data;
       });
     }));
