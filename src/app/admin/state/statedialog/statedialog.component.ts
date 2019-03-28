@@ -8,7 +8,7 @@ import { UserprofileService } from 'src/app/services/firebase/userprofile/userpr
   styleUrls: ['./statedialog.component.css']
 })
 export class StatedialogComponent implements OnInit {
-
+  isDeleted = false;
   constructor(private dialogRef: MatDialogRef<StatedialogComponent>, 
     @Inject(MAT_DIALOG_DATA) public data: any, private uPRofile: UserprofileService) { }
 
@@ -17,12 +17,12 @@ export class StatedialogComponent implements OnInit {
   }
 
   close() {
-    this.dialogRef.close();
+    this.dialogRef.close(); 
   }
 
   deleteRecord() {
     // this.uPRofile.deleteCountry(this.data);
-    // this.isDeleted = true;
+    this.isDeleted = true;
   }
 
 }

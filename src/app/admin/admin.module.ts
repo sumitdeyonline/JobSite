@@ -46,7 +46,7 @@ import { StatedialogComponent } from './state/statedialog/statedialog.component'
       StateaddupdateComponent,
       StatedialogComponent
     ],
-    entryComponents: [CountryaddupdateComponent, CountrydialogComponent, StatedialogComponent],
+    entryComponents: [CountryaddupdateComponent, CountrydialogComponent, StatedialogComponent, StateaddupdateComponent],
     exports: [
 
     ],

@@ -31,7 +31,7 @@ export class StateComponent implements OnInit {
   // paged items
   pagedItems: any[];  
 
-  constructor(private uProfile: UserprofileService, private auth: AuthService, fb: FormBuilder, private pagerService: PagerService, , private dialog: MatDialog) { 
+  constructor(private uProfile: UserprofileService, private auth: AuthService, fb: FormBuilder, private pagerService: PagerService, private dialog: MatDialog) { 
     this.stform = fb.group({
       country: ['', Validators.required]
     })
@@ -78,10 +78,15 @@ export class StateComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     // dialogConfig.data = this.pjob.ApplyToEmail;
     //this.pjob.id = this.id;
-    dialogConfig.data = this.countryToPass;
+    this.state[0] = {id:'',CountryName:this.countryToPass,StateName:'',StateDisplayName:''};\
+    //console.log("DATAAAAAAA ::: "+this.state[0].CountryName);
+    //this.state[0].id = "";
+    //this.state[0].CountryName = this.countryToPass;
+    dialogConfig.data = this.state[0];
+    //dialogConfig.data = this.countryToPass;
      //dialogConfig.height = "4";
      //dialogConfig.width ="3";
-    this.dialog.open(StateaddupdateComponent, dialogConfig);
+    this.dialog.open(StateaddupdateComponent, dialogConfig); 
   } 
 
   onUpdate(state) {
