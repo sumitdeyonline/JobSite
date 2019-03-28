@@ -29,9 +29,9 @@ export class StateComponent implements OnInit {
   pager: any = {};
 
   // paged items
-  pagedItems: any[];  
+  pagedItems: any[];
 
-  constructor(private uProfile: UserprofileService, private auth: AuthService, fb: FormBuilder, private pagerService: PagerService, private dialog: MatDialog) { 
+  constructor(private uProfile: UserprofileService, private auth: AuthService, fb: FormBuilder, private pagerService: PagerService, private dialog: MatDialog) {
     this.stform = fb.group({
       country: ['', Validators.required]
     })
@@ -40,7 +40,7 @@ export class StateComponent implements OnInit {
 
   }
 
-  ngOnInit() { 
+  ngOnInit() {
   }
 
   getCountry() {
@@ -68,8 +68,8 @@ export class StateComponent implements OnInit {
           this.isDisplay = false;
           this.state = null;
         }
-        this.isAdd = true;      
-      }) 
+        this.isAdd = true;
+      })
     }
 
   }
@@ -78,7 +78,7 @@ export class StateComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     // dialogConfig.data = this.pjob.ApplyToEmail;
     //this.pjob.id = this.id;
-    this.state[0] = {id:'',CountryName:this.countryToPass,StateName:'',StateDisplayName:''};\
+    this.state[0] = {id:'',CountryName:this.countryToPass,StateName:'',StateDisplayName:''};
     //console.log("DATAAAAAAA ::: "+this.state[0].CountryName);
     //this.state[0].id = "";
     //this.state[0].CountryName = this.countryToPass;
@@ -86,8 +86,8 @@ export class StateComponent implements OnInit {
     //dialogConfig.data = this.countryToPass;
      //dialogConfig.height = "4";
      //dialogConfig.width ="3";
-    this.dialog.open(StateaddupdateComponent, dialogConfig); 
-  } 
+    this.dialog.open(StateaddupdateComponent, dialogConfig);
+  }
 
   onUpdate(state) {
     console.log("Country ID :"+state.id);
@@ -97,8 +97,8 @@ export class StateComponent implements OnInit {
     dialogConfig.data = state;
      //dialogConfig.height = "4";
      //dialogConfig.width ="3";
-    this.dialog.open(StateaddupdateComponent, dialogConfig);    
-  }  
+    this.dialog.open(StateaddupdateComponent, dialogConfig);
+  }
 
   setPage(page: number) {
     console.log("Page Count");
@@ -109,7 +109,7 @@ export class StateComponent implements OnInit {
     // get current page of items
     this.pagedItems = this.state.slice(this.pager.startIndex, this.pager.endIndex + 1);
     //console.log("Page Count...1  ::: "+this.pagedItems.length);
-  } 
+  }
 
 
 

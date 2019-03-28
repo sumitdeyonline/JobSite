@@ -92,12 +92,14 @@ export const AUTH_CONFIG: AuthConfiguration = {
 
     // You may need to change this!
     //callbackURL: 'http://macgain.com/dist/callback',  // production
+    //callbackURL: 'http://career.macgain.com/callback',  // production
     callbackURL: 'http://localhost:4200/callback',
 
     audience: 'https://macgain.auth0.com/userinfo',
 
 
     //redirectUri: 'http://macgain.com/dist/',       // production
+    //redirectUri: 'http://career.macgain.com/',       // production
     redirectUri: 'http://localhost:4200/',
 
 
