@@ -16,6 +16,7 @@ export class CountryaddupdateComponent implements OnInit {
   countryForm: FormGroup;
   Country: Country;
   checkCountry: boolean = false;
+  isUpdate: boolean = false;
   countrySucessMessage: string = FIREBASE_CONFIG.CountryCreate;
   constructor(private dialogRef: MatDialogRef<CountryaddupdateComponent>, 
               @Inject(MAT_DIALOG_DATA) public data: any, fb: FormBuilder, private auth: AuthService, private uPRofile: UserprofileService) { 
@@ -27,6 +28,7 @@ export class CountryaddupdateComponent implements OnInit {
     this.checkCountry = false;
 
     if (data.id !=undefined) {
+      this.isUpdate = true;
       this.Country  = data;
       console.log("FB ID :"+data.id);
       console.log("Country ID :"+data.countryID);
@@ -36,6 +38,8 @@ export class CountryaddupdateComponent implements OnInit {
         countryID: data.countryID,
         CountryName: data.CountryName
       });
+    } else {
+      this.isUpdate = false;
     }
 
 

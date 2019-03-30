@@ -1,7 +1,7 @@
 <div class="container">
   <div class="single">
       <div class="form-container">
-          <h2>User Role Assignment Administration</h2>
+          <h2>State</h2>
           <a routerLink="/postsadminhome" *ngIf="auth.isAdminRole()"><i class="fa fa-arrow-left" style="font-size:24px;color:rgb(14, 2, 43)"></i></a>
 
 
@@ -39,7 +39,7 @@
                 <tr *ngFor="let state of pagedItems">
                   <td>{{state.StateName}}</td>
                   <td>{{state.StateDisplayName}}</td>
-                  <td><a [routerLink]="['/']" class="fa fa-edit"></a>&nbsp;<a (click)="onDelete(id)" class="fa fa-trash"></a></td>
+                  <td><a (click)="onUpdate(state)" class="fa fa-edit"></a>&nbsp;<a (click)="onDelete(state)" class="fa fa-trash"></a></td>
                 </tr>
             </table>
           

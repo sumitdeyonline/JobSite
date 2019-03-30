@@ -8,6 +8,7 @@ import { Country } from 'src/app/services/firebase/userprofile/country.model';
 import { State } from 'src/app/services/firebase/userprofile/state.model';
 import { MatDialogConfig, MatDialog } from '@angular/material';
 import { StateaddupdateComponent } from './stateaddupdate/stateaddupdate.component';
+import { StatedialogComponent } from './statedialog/statedialog.component';
 
 @Component({
   selector: 'state',
@@ -56,7 +57,7 @@ export class StateComponent implements OnInit {
     if (country =="") {
       this.isAdd = false;
       this.isDisplay = false;
-      this.state = null;
+      this.state = [];
     } else {
       this.uProfile.getStateDetails(country).subscribe(sprop => {
         this.state = sprop;
@@ -66,7 +67,7 @@ export class StateComponent implements OnInit {
           this.setPage(1);
         } else {
           this.isDisplay = false;
-          this.state = null;
+          this.state = [];
         }
         this.isAdd = true;
       })
@@ -99,6 +100,17 @@ export class StateComponent implements OnInit {
      //dialogConfig.width ="3";
     this.dialog.open(StateaddupdateComponent, dialogConfig);
   }
+
+  onDelete(state) {
+    console.log("Country ID :"+state.id);
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = state;
+    // dialogConfig.height = "4";
+    // dialogConfig.width ="3";
+    this.dialog.open(StatedialogComponent, dialogConfig);
+
+  }  
 
   setPage(page: number) {
     console.log("Page Count");

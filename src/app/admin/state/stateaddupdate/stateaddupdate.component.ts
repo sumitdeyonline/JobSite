@@ -15,6 +15,7 @@ export class StateaddupdateComponent implements OnInit {
   state: State;
   stateForm: FormGroup;
   checkState: boolean = false;
+  isUpdate: boolean = false;
   stateSucessMessage: string = FIREBASE_CONFIG.StateCreate;
   constructor(private dialogRef: MatDialogRef<StateaddupdateComponent>, 
     @Inject(MAT_DIALOG_DATA) public data: any, fb: FormBuilder, private auth: AuthService, private uPRofile: UserprofileService) { 
@@ -26,18 +27,21 @@ export class StateaddupdateComponent implements OnInit {
         stateName: [null, Validators.required]
       });        
 
-       if (data.id !='') {
-         this.state  = data;
-         //console.log("FB ID :"+data.id);
-         //console.log("Country ID :"+data.countryID);
-        
-         console.log("Country Name :::::"+data.CountryName);
-      //   this.stateForm.setValue({
-      //     countryID: data.countryID,
-      //     CountryName: data.CountryName
-      //   });
-       } else {
+      this.checkState = false;
+       if (data.id == '') {
+        this.isUpdate = false;
         console.log("Country Name :::::-->>>>"+data.CountryName);
+        console.log("State ID :::::-->>>>"+data.stateID);
+        console.log("State Name :::::-->>>>"+data.CountryName);
+
+       } else {
+        this.state  = data;
+        console.log("Country Name :"+data.CountryName);
+        this.isUpdate = true;
+        this.stateForm.setValue({
+          stateID: data.StateName,
+          stateName: data.StateDisplayName
+        });      
        }
 
     }
@@ -46,8 +50,31 @@ export class StateaddupdateComponent implements OnInit {
   }
 
   addUpdateState() {
-    console.log("State ID :"+this.stateForm.get('stateID').value);
-    console.log("State Name :"+this.stateForm.get('stateName').value);    
+ 
+    let stateID = this.stateForm.get('stateID').value;
+    console.log("State ID :"+stateID.toUpperCase());
+    console.log("State Name :"+this.stateForm.get('stateName').value);   
+    console.log("Country ID :"+this.data.CountryName); 
+
+    this.state = { StateName: stateID,
+                   StateDisplayName: this.stateForm.get('stateName').value,
+                     CountryName: this.data.CountryName,
+                     CreatedBy: this.auth.userProfile.name,
+                     CreateDate: new Date()
+
+                    };
+
+    if (this.data.id == '') {
+      console.log("Add ......");
+      this.uPRofile.addUpdateState(this.state,this.data.id)
+
+    } else {
+      this.state.CreatedBy = this.auth.userProfile.name;
+      this.state.CreateDate = new Date();
+      this.uPRofile.addUpdateState(this.state , this.data.id);
+    }
+      this.checkState = true;
+
   }
 
   close() {

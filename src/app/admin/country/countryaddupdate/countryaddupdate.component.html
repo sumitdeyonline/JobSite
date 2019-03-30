@@ -7,12 +7,23 @@
 <div *ngIf="!checkCountry">
   <form [formGroup]="countryForm">
     <div class="applyjob-container">
-  
-      <mat-form-field>
-        <input matInput
-                  placeholder="Country ID"
-                formControlName="countryID">
-      </mat-form-field>
+
+      <div *ngIf="isUpdate">
+          <mat-form-field>
+            <input matInput
+                    readonly
+                    placeholder="Country ID"
+                    formControlName="countryID">
+          </mat-form-field> 
+      </div>
+      <div *ngIf="!isUpdate">
+        <mat-form-field>
+          <input matInput
+                    placeholder="Country ID"
+                  formControlName="countryID">
+        </mat-form-field> 
+      </div>  
+
   
       <mat-form-field>
       <input matInput
@@ -20,7 +31,7 @@
               formControlName="CountryName">
       </mat-form-field>
   
-      </div>
+    </div>
     </form>
 
 

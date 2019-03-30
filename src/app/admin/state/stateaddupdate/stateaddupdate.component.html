@@ -8,11 +8,23 @@
   <form [formGroup]="stateForm">
     <div class="applyjob-container">
   
-      <mat-form-field>
-        <input matInput
+      <div *ngIf="isUpdate">
+        <mat-form-field >
+          <input matInput 
+                  readonly
                   placeholder="State ID"
-                formControlName="stateID">
-      </mat-form-field>
+                  formControlName="stateID">
+        </mat-form-field>
+      </div>
+      <div *ngIf="!isUpdate">
+        <mat-form-field>
+          <input matInput 
+                    placeholder="State ID"
+                  formControlName="stateID">
+        </mat-form-field>
+      </div>        
+
+
   
       <mat-form-field>
       <input matInput

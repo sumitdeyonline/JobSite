@@ -31,6 +31,7 @@ export class UserprofileService {
 
   stateCollection: AngularFirestoreCollection <State>;
   stateProfilec: Observable<State[]>;
+  sDoc: AngularFirestoreDocument<State>;
 
   userRoleCollection: AngularFirestoreCollection <UserRole>;
   userRoleProfilec: Observable<UserRole[]>;
@@ -201,6 +202,23 @@ export class UserprofileService {
     return this.stateProfilec;
   }
 
+  addUpdateState(state :  State, id) {
+    if ((id == null) || (id == '')) {
+      this.stateCollection.add(state).then((entry) => {
+        console.log("Country is "+entry.id);
+      })      
+    } else {
+      console.log("Update");
+      this.sDoc = this.afs.doc(`${FIREBASE_CONFIG.State}/${id}`);
+      this.sDoc.update(state);
+    }
+
+  }
+
+  deleteState(id) {
+    this.sDoc = this.afs.doc(`${FIREBASE_CONFIG.State}/${id}`);
+    this.sDoc.delete();
+  }
 
   getUserRoleDetails() {
     this.userRoleCollection = this.afs.collection(FIREBASE_CONFIG.UserRoles, ref =>
