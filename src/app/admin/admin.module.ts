@@ -18,6 +18,7 @@ import { CountrydialogComponent } from './country/countrydialog/countrydialog.co
 import { StateComponent } from './state/state.component';
 import { StateaddupdateComponent } from './state/stateaddupdate/stateaddupdate.component';
 import { StatedialogComponent } from './state/statedialog/statedialog.component';
+import { ApplyjobAdminComponent } from './applyjob-admin/applyjob-admin.component';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { StatedialogComponent } from './state/statedialog/statedialog.component'
       CountrydialogComponent,
       StateComponent,
       StateaddupdateComponent,
-      StatedialogComponent
+      StatedialogComponent,
+      ApplyjobAdminComponent
     ],
     entryComponents: [CountryaddupdateComponent, CountrydialogComponent, StatedialogComponent, StateaddupdateComponent],
     exports: [

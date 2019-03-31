@@ -1,4 +1,5 @@
 export interface ApplyJob {
+  id?: string;
   FirstName? : string;
   LastName? : string;
   FromEmail? : string;
