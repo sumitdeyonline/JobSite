@@ -3,6 +3,9 @@ import { AuthService } from 'src/app/services/authentication/auth.service';
 import { ApplyjobService } from 'src/app/services/firebase/applyjob/applyjob.service';
 import { ApplyJob } from 'src/app/services/firebase/applyjob/applyjob.model';
 import { PagerService } from 'src/app/services/common/pager.service';
+import { FormBuilder, Validators } from '@angular/forms';
+import { UserdetailsService } from 'src/app/services/firebase/userdetails/userdetails.service';
+import { UserDetails } from 'src/app/services/firebase/userdetails/userdetails.model';
 
 @Component({
   selector: 'applyjobadmin',
@@ -11,6 +14,9 @@ import { PagerService } from 'src/app/services/common/pager.service';
 })
 export class ApplyjobAdminComponent implements OnInit {
 
+  userDetails: UserDetails[];
+  applyform;
+
   aJob: ApplyJob[];
 
     // pager object
@@ -18,7 +24,12 @@ export class ApplyjobAdminComponent implements OnInit {
 
     // paged items
     pagedItems: any[];
-  constructor(private auth: AuthService, private ajob: ApplyjobService,  private pagerService: PagerService) { 
+  constructor(private auth: AuthService, private ajob: ApplyjobService,private udetails: UserdetailsService, fb: FormBuilder, private pagerService: PagerService) { 
+
+    this.applyform = fb.group({
+      company: ['', Validators.required]
+    })
+    this. getCompany();
 
     this.ajob.getApplyJob().subscribe(applyJob => {
       this.aJob = applyJob;
@@ -29,6 +40,14 @@ export class ApplyjobAdminComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  getCompany() {
+
+    this.udetails.getUserDetails('', 'A').subscribe(udtl=> {
+      this.userDetails = udtl;
+      console.log(" Length ::::===>>>>>>>>>>>> "+this.userDetails.length); 
+    });
   }
 
   setPage(page: number) {

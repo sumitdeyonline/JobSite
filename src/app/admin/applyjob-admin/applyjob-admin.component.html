@@ -4,7 +4,24 @@
           <h2>Apply Job Administration</h2>
           <a routerLink="/postsadminhome" *ngIf="auth.isAdminRole()"><i class="fa fa-arrow-left" style="font-size:24px;color:rgb(14, 2, 43)"></i></a>
 
+          <div class="row">
+            <form #applyform="ngForm" (ngSubmit)="roleSearch(applyform.value)">
+              <table>
+                <tr>
 
+                  <td>Company :</td>
+                  <td>
+                    <select ngModel name="role" #role="ngModel" id="role">
+                      <option value="">Select Company</option>
+                      <option [value]="company.company" *ngFor="let company of userDetails">{{company.company}}</option>
+                      <!--option>USA</option-->
+                    </select>
+                  </td>
+                  <td><button type="submit"><i class="fa fa-search"></i></button></td>
+                </tr>
+                </table>
+              </form>
+          </div>
 
           <div class="row">
 

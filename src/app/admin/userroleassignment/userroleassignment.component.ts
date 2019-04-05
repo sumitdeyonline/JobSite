@@ -62,7 +62,7 @@ export class UserroleassignmentComponent implements OnInit {
       if (roleSearch.role == '') {
         this.udetails.getUserDetails(roleSearch.username, 'U').subscribe(udtl=> {
           this.userDetails = udtl;
-          console.log(" Length :::: "+this.userDetails.length);
+          console.log(" Length :::: "+this.userDetails.length); 
     
     
           if (this.userDetails.length > 0) {
