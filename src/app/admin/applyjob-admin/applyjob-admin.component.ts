@@ -24,14 +24,14 @@ export class ApplyjobAdminComponent implements OnInit {
 
     // paged items
     pagedItems: any[];
-  constructor(private auth: AuthService, private ajob: ApplyjobService,private udetails: UserdetailsService, fb: FormBuilder, private pagerService: PagerService) { 
+  constructor(private auth: AuthService, private appjob: ApplyjobService,private udetails: UserdetailsService, fb: FormBuilder, private pagerService: PagerService) { 
 
     this.applyform = fb.group({
       company: ['', Validators.required]
     })
     this. getCompany();
 
-    this.ajob.getApplyJob().subscribe(applyJob => {
+    this.appjob.getApplyJob().subscribe(applyJob => {
       this.aJob = applyJob;
       console.log("User Job :::::::: => "+this.aJob.length);
       this.setPage(1);
@@ -49,6 +49,20 @@ export class ApplyjobAdminComponent implements OnInit {
       console.log(" Length ::::===>>>>>>>>>>>> "+this.userDetails.length); 
     });
   }
+
+  applyRole(apjob) {
+    console.log("Company :::::: "+apjob.company);
+    if ((apjob.company == null) || (apjob.company == undefined) || (apjob.company.trim() == ''))  {
+      console.log("Blank...");
+      this.aJob = null;
+    } else {
+      this.appjob.getApplyJobByCompany(apjob.company).subscribe(udtl=> {
+        this.aJob = udtl;
+        console.log(" Length :::: "+this.aJob.length);
+        this.setPage(1);
+      });
+    }
+}
 
   setPage(page: number) {
     console.log("Page Count");
