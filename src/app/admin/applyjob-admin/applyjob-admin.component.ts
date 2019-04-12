@@ -31,11 +31,11 @@ export class ApplyjobAdminComponent implements OnInit {
     })
     this. getCompany();
 
-    this.appjob.getApplyJob().subscribe(applyJob => {
-      this.aJob = applyJob;
-      console.log("User Job :::::::: => "+this.aJob.length);
-      this.setPage(1);
-    });    
+    // this.appjob.getApplyJob().subscribe(applyJob => {
+    //   this.aJob = applyJob;
+    //   console.log("User Job :::::::: => "+this.aJob.length);
+    //   this.setPage(1);
+    // });    
 
   }
 
