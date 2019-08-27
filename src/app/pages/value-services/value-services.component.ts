@@ -108,10 +108,10 @@ export class ValueServicesComponent implements OnInit {
           modelsignup => {
               // refresh the list
               //alert("User Addred");
-              this.valueservicesSucessMessage = modelsignup.email+" has been Sucessfully Registered"
+              this.valueservicesSucessMessage = model.email+" has been Sucessfully Registered"
               console.log(this.valueservicesSucessMessage);
               //console.log("Value Radio Burron ::::===>>>>>>> "+this.userActualRole);
-              this.udetails.addUpdateUserDetails(this.userDetailsID, modelsignup.email, this.userActualRole, model.company, model.companyAddress,  model.phone,0);
+              this.udetails.addUpdateUserDetails(this.userDetailsID, model.email, this.userActualRole, model.company, model.companyAddress, model.phone,0);
               //this.router.navigate(['/signupconfirm']);
               return true;
           },

@@ -33,19 +33,20 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
   }
 
-  signUp(model: Signup) {
+  signUp(modelUsr: Signup) {
     this.signupMessage = '';
-    model.client_id = AUTH_CONFIG.clientID;
-    model.connection = AUTH_CONFIG.connection;
-    model.response_type = AUTH_CONFIG.responseType;
+    modelUsr.client_id = AUTH_CONFIG.clientID;
+    modelUsr.connection = AUTH_CONFIG.connection;
+    modelUsr.response_type = AUTH_CONFIG.responseType;
     //model.username = "Sumit Dey";
-    this._auth.signUp(model).subscribe(
+    this._auth.signUp(modelUsr).subscribe(
       model => {
           // refresh the list
           //alert("User Addred");
-          this.signupSucessMessage = model.email+" has been Sucessfully Registered"
+          this.signupSucessMessage = modelUsr.email+" has been Sucessfully Registered"
           console.log(this.signupSucessMessage);
-          this.udetails.addUpdateUserDetails(null, model.email,FIREBASE_CONFIG.UserRole, model.company, model.companyAddress,model.phone,0);
+          //this.udetails.addUpdateUserDetails(null, modelUsr.email,FIREBASE_CONFIG.UserRole, modelUsr.company, modelUsr.companyAddress,modelUsr.phone,0);
+          this.udetails.addUpdateUserDetails(null, modelUsr.email,FIREBASE_CONFIG.UserRole, modelUsr.company, modelUsr.companyAddress,modelUsr.phone,0);
           //this.router.navigate(['/signupconfirm']);
           return true;
       },

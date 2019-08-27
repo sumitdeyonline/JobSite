@@ -7,5 +7,6 @@ export class Signup {
     connection: string;
     response_type: string;
     company? : string;
+    phone? : string;
     companyAddress? : string;
 }

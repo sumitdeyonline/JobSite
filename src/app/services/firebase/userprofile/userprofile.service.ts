@@ -7,10 +7,11 @@ import { FIREBASE_CONFIG, SEARCH_CONFIG } from 'src/app/global-config';
 import { UserProfile } from './userprofile.model';
 import { Country } from './country.model';
 import { State } from './state.model';
-import { Http } from '@angular/http';
+//import { Http } from '@angular/http';
 import { formatDate } from '@angular/common';
 import * as algoliasearch from 'algoliasearch';
 import { UserRole } from './userrole.model';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +39,7 @@ export class UserprofileService {
 
   userProfile = [];
 
-  constructor(private afs : AngularFirestore, private auth: AuthService, private http: Http) {
+  constructor(private afs : AngularFirestore, private auth: AuthService, private http: HttpClient) {
     this.upCollection = this.afs.collection(FIREBASE_CONFIG.UserProfile);
     this.countryCollection = this.afs.collection(FIREBASE_CONFIG.Country);
     this.stateCollection = this.afs.collection(FIREBASE_CONFIG.State);

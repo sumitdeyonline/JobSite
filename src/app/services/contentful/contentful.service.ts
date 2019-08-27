@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 //import { createClient, Entry } from 'contentful';
 import { CONTENT_CONFIG } from '../../global-config';
-import { Http, Headers } from "@angular/http";
+//import { Http, Headers } from "@angular/http";
 import { AppError } from './../../common/exception/app-error';
 import { NotFoundError } from './../../common/exception/not-found-error';
 import { BadInput } from './../../common/exception/bad-input';
