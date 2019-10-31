@@ -14,7 +14,7 @@ import { formatDate } from '@angular/common';
 
 import * as algoliasearch from 'algoliasearch';
 
-import { Http } from '@angular/http';
+//import { Http } from '@angular/http';
 
 import { FIREBASE_CONFIG } from 'src/app/global-config';
 import { AuthService } from '../../authentication/auth.service';
@@ -40,7 +40,7 @@ export class UserdetailsService {
   //searchQuery: string ="sumitdey@yahoo.com" ;
   user = [];
 
-  constructor(private afs : AngularFirestore, private auth: AuthService, private http: Http) {
+  constructor(private afs : AngularFirestore, private auth: AuthService, private http: HttpClient) {
     this.udCollection = this.afs.collection(FIREBASE_CONFIG.UserDetails);
      // this.udCollection = this.afs.collection<UserDetails>('userDetail');
     this.userDetailc = this.udCollection.valueChanges();

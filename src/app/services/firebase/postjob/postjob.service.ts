@@ -19,7 +19,7 @@ import { formatDate } from '@angular/common';
 import { AuthService } from '../../authentication/auth.service';
 import { FIREBASE_CONFIG, SEARCH_CONFIG } from 'src/app/global-config';
 
-import { Http, Headers, Response, URLSearchParams } from '@angular/http';
+//import { Http, Headers, Response, URLSearchParams } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { UserdetailsService } from '../userdetails/userdetails.service';
 import { UserDetails } from '../userdetails/userdetails.model';
@@ -52,7 +52,7 @@ export class PostjobService {
   //searchQuery: string ="sumitdey@yahoo.com" ;
   jobs = [];
 
-  constructor(private afs : AngularFirestore, private auth: AuthService, private http: Http, private uDetails: UserdetailsService) {
+  constructor(private afs : AngularFirestore, private auth: AuthService, private http: HttpClient, private uDetails: UserdetailsService) {
     this.pjCollection = this.afs.collection(FIREBASE_CONFIG.PostJob);
     //this.faqList = this.firebase.list('faq');
     //this.faqs = this.afs.collection('faq').valueChanges();

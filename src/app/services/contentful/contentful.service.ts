@@ -1,12 +1,15 @@
 import { Injectable, OnInit } from '@angular/core';
 //import { createClient, Entry } from 'contentful';
 import { CONTENT_CONFIG } from '../../global-config';
-import { Http, Headers } from "@angular/http";
+//import { Http, Headers } from "@angular/http";
+//import { HttpErrorResponse, HttpClient, HttpResponse, HttpRequest, HttpHeaders } from '@angular/common/http';
 import { AppError } from './../../common/exception/app-error';
 import { NotFoundError } from './../../common/exception/not-found-error';
 import { BadInput } from './../../common/exception/bad-input';
 import { Observable } from 'rxjs';
-import { createClient, Entry  } from '../../../../node_modules/contentful';
+import { createClient, Entry } from 'contentful';
+import * as contentful from 'contentful';
+//import { createClient, Entry  } from '../../../../node_modules/contentful';
 
 @Injectable({
   providedIn: 'root'
@@ -27,13 +30,14 @@ export class ContentfulService {
   private headers;
   //constructor(private http: Http,private url: string, private space: string, private accessToken: string, private contenttypeId: string, private contentId: string) {
   constructor() {
-  // console.log("Space ...... "+ this.sp);
+   console.log("Content Server !!!!!!!!!!! ...... ");
   // console.log("Access Token ...... "+ this.at);
   }
-  private cdaClient = createClient({
+  private cdaClient = contentful.createClient({
     // space: this.space,
     // accessToken: this.accessToken
     space: 'c9x3vp5xw3hj',
+    environment:'master',
     accessToken: 'cac67210ab3dcd35af8516e76d25f4288f057b4c12de71d1e40dc3d63704ed7e'
 
 

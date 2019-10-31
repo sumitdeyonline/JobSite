@@ -8,4 +8,5 @@ export class Signup {
     response_type: string;
     company? : string;
     companyAddress? : string;
+    phone? : string; 
 }

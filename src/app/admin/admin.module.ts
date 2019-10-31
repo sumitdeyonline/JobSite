@@ -1,7 +1,7 @@
 import { HomeComponent } from './../pages/home/home.component';
 import { NgModule }  from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpModule }  from '@angular/http';
+//import { HttpClientModule }  from '@angular/http';
 import { AdminhomeComponent } from './adminhome/adminhome.component';
 import { UserrolesComponent } from './userroles/userroles.component';
 import { AdminGuardService } from '../services/authentication/admin-guard.service';
@@ -19,12 +19,13 @@ import { StateComponent } from './state/state.component';
 import { StateaddupdateComponent } from './state/stateaddupdate/stateaddupdate.component';
 import { StatedialogComponent } from './state/statedialog/statedialog.component';
 import { ApplyjobAdminComponent } from './applyjob-admin/applyjob-admin.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
     imports: [
         CommonModule,
-        HttpModule,
+        HttpClientModule,
         RouterModule,
         FormsModule,
         ReactiveFormsModule,

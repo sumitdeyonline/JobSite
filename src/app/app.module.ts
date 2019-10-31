@@ -20,7 +20,7 @@ import { NotfoundComponent } from './common/notfound/notfound.component';
 import { routing } from './app.routing';
 
 import { LoginComponent } from './pages/login/login.component';
-import { HttpModule } from '@angular/http';
+//import { HttpModule } from '@angular/http';
 import { LogComponent } from './common/logger/log.component';
 import { CallbackComponent } from './common/callback/callback.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -126,7 +126,7 @@ import { adminRouting } from './admin/admin.routing';
     routing,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule,
+    HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     MatDialogModule,
@@ -137,7 +137,6 @@ import { adminRouting } from './admin/admin.routing';
     NgxEditorModule,
     AngularFontAwesomeModule,
     HttpClientModule,
-    HttpModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule
   ],

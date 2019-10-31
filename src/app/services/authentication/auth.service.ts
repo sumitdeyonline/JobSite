@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AUTH_CONFIG, FIREBASE_CONFIG } from '../../global-config';
 import * as auth0 from 'auth0-js';
 import { Router } from '@angular/router';
-import { Http, Headers, Response, RequestOptions } from '@angular/http';
+//import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { SESSION_CONFIG } from './auth.config';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 
@@ -11,7 +11,7 @@ import { map } from 'rxjs/operators';
 import { NotFoundError } from '../../common/exception/not-found-error';
 import { BadInput } from '../../common/exception/bad-input';
 import { AppError } from '../../common/exception/app-error';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpClient, HttpResponse, HttpRequest, HttpHeaders } from '@angular/common/http';
 import { UserDetails } from '../firebase/userdetails/userdetails.model';
 import { UserprofileService } from '../firebase/userprofile/userprofile.service';
 import { UserRole } from '../firebase/userprofile/userrole.model';
@@ -51,7 +51,7 @@ export class AuthService {
     //redirectUri: 'http://localhost:4200/callback',
   });
 
-  constructor(private router: Router, private _http: Http, private afs : AngularFirestore) {
+  constructor(private router: Router, private _http: HttpClient, private afs : AngularFirestore) {
     this.userProfile = JSON.parse(localStorage.getItem(SESSION_CONFIG.profile));
     this.udCollection = this.afs.collection(FIREBASE_CONFIG.UserDetails);
     this.userRoleCollection = this.afs.collection(FIREBASE_CONFIG.UserRoles);
@@ -360,17 +360,29 @@ export class AuthService {
   }
 
   signUp(signUpItems){
-		let header = new Headers({ 'Content-Type': 'application/json' });
-		let optionsHeader = new RequestOptions({ headers: header });
+    //let header = new Headers({ 'Content-Type': 'application/json' });
+    let header = new HttpHeaders({ 'Content-Type': 'application/json' });
+    //let optionsHeader = new RequestOptions({ headers: header });
+    //let optionsHeader = new HttpRequest({ headers: header });
+    let optionsHeader = {  headers: header  }
+    
 		let body = JSON.stringify(signUpItems);
 		//console.log("JSON :::: "+body);
         //let headers = new Headers();
         //headers.append('Content-Type','application/json');
 		// return this._http.post(AUTH_CONFIG.sighupURL, body, optionsHeader )
     //   .map((res: Response) => res.json());
-    return this._http.post(AUTH_CONFIG.sighupURL, body, optionsHeader ).pipe(
-      map((res: Response) => res.json(), error => this.signUperror = error));
+    // return this._http.post(AUTH_CONFIG.sighupURL, body, optionsHeader ).pipe(
+    //   map((res: Response) => res.json(), error => this.signUperror = error));
 
+    return this._http.post(AUTH_CONFIG.sighupURL, body, optionsHeader ).pipe(
+    map(res => res, error => this.signUperror = error));
+    //map((response) => response.json()))
+      //   return Response.map((chamado) => new Chamado(chamado));
+      // })
+      // catchError(this.handleError);
+
+    
 
       //.catch(response => response.json());
       //.catch(this.errorHandle);
@@ -378,7 +390,7 @@ export class AuthService {
 
   forgotPassword(semail) {
 		let header = new Headers({ 'Content-Type': 'application/json' });
-		let optionsHeader = new RequestOptions({ headers: header });
+		//let optionsHeader = new RequestOptions({ headers: header });
 
     let body:
     { client_id: 'YOUR_CLIENT_ID',

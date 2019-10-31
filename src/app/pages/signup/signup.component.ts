@@ -38,9 +38,10 @@ export class SignupComponent implements OnInit {
     model.client_id = AUTH_CONFIG.clientID;
     model.connection = AUTH_CONFIG.connection;
     model.response_type = AUTH_CONFIG.responseType;
+
     //model.username = "Sumit Dey";
     this._auth.signUp(model).subscribe(
-      model => {
+      modelSignup => {
           // refresh the list
           //alert("User Addred");
           this.signupSucessMessage = model.email+" has been Sucessfully Registered"

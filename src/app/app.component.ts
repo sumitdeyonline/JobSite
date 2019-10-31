@@ -8,10 +8,14 @@ import { AuthService } from './services/authentication/auth.service';
 })
 export class AppComponent implements OnInit {
   profile: any;
+
   constructor(private _auth: AuthService) {
+    console.log("App Component .... ");
     _auth.handleAuthentication();
+    //console.log("App Component .... !!!!!");
   }
 
   ngOnInit() {
+   // console.log("App Component");
   }
 }
