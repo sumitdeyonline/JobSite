@@ -13,10 +13,10 @@ interface AuthConfiguration {
 
 export const CONTENT_CONFIG = {
     url: 'https://cdn.contentful.com/spaces/',
-    //Authorization: 'Bearer 05300429693296150805e8fe5f4f93d6214159d7ee5c448a57e0e0b8029479a1',
+
     CntentType: 'application/json',
-    space: 'c9x3vp5xw3hj',
-    accessToken: 'cac67210ab3dcd35af8516e76d25f4288f057b4c12de71d1e40dc3d63704ed7e',
+    space: '',
+    accessToken: '',
 
     PageBlockSectionFields: 'fields.mainHeader,fields.subHeader,fields.pageText,fields.pageImageUrl,fields.imageUrlCaption,fields.detailPageUrl',
     //PageBlockSectionFields: 'fields.mainHeader,fields.bodyTextHomePage,fields.homePageImageUrl,fields.homePageImageUrlCaption,fields.moreUrl',
@@ -72,11 +72,11 @@ export const SEARCH_CONFIG = {
     Keyword: 'keyword',
     Location: 'location',
     ALGOLIA_APP_ID: '8I5VGLVBT1',
-    ALGOLIA_API_KEY: '378eba06830cc91d1dad1550dd4a5244',
+    ALGOLIA_API_KEY: '',
     INDEX_NAME: 'PostJob',
     INDEX_NAME_PROFILE: 'UserProfile',
     PROTOCOLS:'https:',
-    ALGOLIA_FUNCTION_URL: 'https://us-central1-jobsite-c8333.cloudfunctions.net/addFirestorePostJobDataToAlgolia',
+    ALGOLIA_FUNCTION_URL: '',
     LIST_JOB_DESC_WIDTH: 120,
     LIST_JOB_DESC_STATUS: 400,
     PAGE_SIZE: 5,
@@ -84,8 +84,8 @@ export const SEARCH_CONFIG = {
 }
 
 export const AUTH_CONFIG: AuthConfiguration = {
-    clientID: '3IAu4y82T3H0pG2B1vVgHcQsLqTJgsix',
-    domain: 'macgain.auth0.com',
+    clientID: '',
+    domain: '',
 
     //clientID: '6I0zQ4RDSfcIx1u6jQSpviVcuxkfr5DP',
     //domain: 'sumitdey.auth0.com',
@@ -93,9 +93,9 @@ export const AUTH_CONFIG: AuthConfiguration = {
     // You may need to change this!
     //callbackURL: 'http://macgain.com/dist/callback',  // production
     //callbackURL: 'https://career.macgain.com/callback',  // production
-    callbackURL: 'http://localhost:4200/callback',
+    callbackURL: '',
 
-    audience: 'https://macgain.auth0.com/userinfo',
+    audience: '',
 
 
     //redirectUri: 'http://macgain.com/dist/',       // production
@@ -108,5 +108,5 @@ export const AUTH_CONFIG: AuthConfiguration = {
     scope: 'openid profile read:messages write:messages',
     connection: 'Username-Password-Authentication' ,
     sighupURL: 'https://macgain.auth0.com/dbconnections/signup',
-    forgetPasswordURL: 'https://macgain.auth0.com/dbconnections/change_password'
+    forgetPasswordURL: ''
 };
